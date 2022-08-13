@@ -1,6 +1,7 @@
 package com.teamecho.bookie.qna.web;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,6 @@ public class QnaBoardController {
 	        paging.setTotalCount(100); // 총 게시글 수 이다.
 	        paging.calcPagingNo(); // 마지막페이지 계산
 	        paging.makePaging(1);
-	        //Map<String, String> map = new HashMap<String, String>();
 	        mav.addObject("paging", paging);
 	        mav.setViewName("/qna/qna_board");
 	        
@@ -50,6 +50,15 @@ public class QnaBoardController {
 	    } catch (Exception e) {
 	        throw e;
 	    }
+	    return mav;
+	}
+	
+	@GetMapping("/qna_board/readData")
+	public ModelAndView readData() {
+		System.out.println("진입");
+		ModelAndView mav = new ModelAndView();
+
+	     mav.setViewName("/qna/qna_board_json");
 	    return mav;
 	}
 }

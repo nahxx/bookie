@@ -88,7 +88,7 @@ public class QnaController {
 	        multi.transferTo(destination);
 			mv.addObject("url", "http://localhost:8080/bookie/tempimg/");
 			mv.addObject("filename", originFilename);
-			mv.setViewName("image_json");
+			mv.setViewName("/qna/qna_image_json");
 		} catch (Exception e) {
 			System.out.println("[Error] " + e.getMessage());
 		}
