@@ -1,0 +1,17 @@
+cmd에서 root로 mysql 접속한 다음 아래 과정 진행해주세요!
+
+1. bookie 유저 생성
+create user 'bookie'@localhost identified by 'bookie';
+
+2. bookie 테이블 생성
+create database bookie default character set utf8;
+
+3. 권한 설정
+grant all privileges on bookie.* to 'bookie'@localhost with grant option;
+
+4. 1-3번까지 적용
+flush privileges;
+
+5. 이클립스, dbeaver에 DB연결
+
+(데이터베이스명, 아이디, 비밀번호 전부 bookie)

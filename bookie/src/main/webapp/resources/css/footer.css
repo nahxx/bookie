@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+#footer {
+  height: 160px;
+  background: #F9F5EB;
+}
+.copyright {
+  width: 700px;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 40px;
+}
+.copyright-logo {
+	position: absolute;
+	right: 0;
+	top: 40px;
+	width: 80px;
+	height: 80px;
+}
+
+.copyright-txt p {
+	margin-top: 5px;
+}
+.copyright-txt p a {
+	line-height: 0;
+}
+
+.copyright .copyright-logo a {
+	color: transparent;
+}
+
+.copyright a, .copyright p {
+	font-size: 15px;
+	color: #000;
+}
