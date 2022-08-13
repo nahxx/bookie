@@ -81,6 +81,11 @@
 	<!-- 푸터 부분 -->
 	
 	<script>
+		// 문제유형 selected 표시
+		$(function() {
+			
+		});
+		
     	let questionImgArr = []; // 질문 이미지 배열
     	let commentImgArr = []; // 해설 이미지 배열
     	
