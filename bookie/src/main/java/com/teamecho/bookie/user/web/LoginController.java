@@ -32,7 +32,6 @@ public class LoginController {
 	public String login(User user, @RequestParam String userId, @RequestParam String passwd, HttpServletRequest request) {
 		
 		user = userService.isValidUser(userId, passwd);
-		System.out.println(user);
 	
 		if(user == null) {
 			return "user/add_user";
@@ -40,7 +39,6 @@ public class LoginController {
 		
 		session = request.getSession(true);
 		session.setAttribute("uId", user.getUId());
-		System.out.println(user.getUId());
 		
 		return "user/mypage";	
 	}
