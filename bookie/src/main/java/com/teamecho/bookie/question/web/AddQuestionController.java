@@ -70,6 +70,7 @@ public class AddQuestionController {
 		qType = Integer.valueOf(request.getParameter("question-type"));
 		
 		// 유효성 검사
+		/*
 		if(cLevel == null || cLevel.length() == 0) {
 			String cateErrMsg1 = "<span class=\"error\">학생유형을 선택해주세요.</span>";
 			request.setAttribute("cateErrMsg1", cateErrMsg1);
@@ -85,6 +86,7 @@ public class AddQuestionController {
 			request.setAttribute("cateErrMsg3", cateErrMsg3);
 			return "/question/add_question";
 		}
+		*/
 		
 		redirectAttributes.addFlashAttribute("cLevel", cLevel);
 		redirectAttributes.addFlashAttribute("grade", grade);
@@ -99,7 +101,7 @@ public class AddQuestionController {
 	 * @throws IOException 
 	 */
 	@PostMapping("/question/add_common_question")
-	public String addCommonQuestion(HttpServletRequest request,
+	public String addCommonQuestion(HttpServletRequest request, RedirectAttributes redirectAttributes,
 			@RequestParam(value="questionImgArr", required=false) List<String> questionImgArr,
 			@RequestParam(value="commentImgArr", required=false) List<String> commentImgArr) throws IOException {
 		
@@ -112,11 +114,14 @@ public class AddQuestionController {
 		
 		session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
+		//String noHidden = "no Hidden";
 		
 		// 유효성 검사
+		/*
 		if(qTitle == null || qTitle.length() == 0) {
 			String errMsg1 = "<span class=\"error\">제목을 입력해주세요.</span>";
 			request.setAttribute("errMsg1", errMsg1);
+			request.setAttribute("noHidden", noHidden);
 			return "/question/select_type";
 		}
 		if(qText == null || qText.length() == 0) {
@@ -139,6 +144,7 @@ public class AddQuestionController {
 			String errMsg5 = "<span class=\"error\">해설을 입력해주세요.</span>";
 			request.setAttribute("errMsg5", errMsg5);
 		}
+		*/
 		
 		
 		Question q = new Question(qTitle, qText, answer, qComment, category);

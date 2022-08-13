@@ -50,7 +50,7 @@
 			</div> ${cateErrMsg3}
 			<label class="type">문제 유형</label>
 			<div class="type-box">
-				<select name="question-type">
+				<select id="question-type" name="question-type">
 					<option value="1">일반문제</option>
 					<option value="2">통합문제</option>
 				</select>
@@ -67,7 +67,13 @@
 			<h5>문제</h5> ${errMsg2}
 			<div class="editor" id="qTextEditor"></div>
 			<h5>답</h5> ${errMsg3}${errMsg4}
-			<input type="text" name="answer" id="answer"/>
+			<div class="answer-box">
+				<label class="grade"><input type="radio" name="answer" value="1" />1</label>
+				<label class="grade"><input type="radio" name="answer" value="2" />2</label>
+				<label class="grade"><input type="radio" name="answer" value="3" />3</label>
+				<label class="grade"><input type="radio" name="answer" value="4" />4</label>
+				<label class="grade"><input type="radio" name="answer" value="5" />5</label>
+			</div>
 			<h5>해설</h5> ${errMsg5}
 			<div class="editor" id="qCommentEditor"></div>
 			<button class="submit-btn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_common_question"/>', ${qType});" >등록</button>
@@ -81,14 +87,21 @@
 	<!-- 푸터 부분 -->
 	
 	<script>
-		// 문제유형 selected 표시
+		// -----------------문제유형 selected 표시-----------------
 		$(function() {
-			
+			if(${not empty qType}) {
+				$('input[type=radio]').removeAttr("checked");
+				$('input:radio[name=cLevel]:input[value=${cLevel}]').attr("checked", true);
+				$('input:radio[name=grade]:input[value=${grade}]').attr("checked", true);
+				$('input:radio[name=subject]:input[value=${subject}]').attr("checked", true);
+				$('#question-type').val(${qType});
+			}
 		});
 		
     	let questionImgArr = []; // 질문 이미지 배열
     	let commentImgArr = []; // 해설 이미지 배열
     	
+    	// -------------------------------일반 문제-------------------------------
     	// qText 에디터
 		const qTextEditor = new toastui.Editor({
 		    el: document.querySelector('#qTextEditor'),
@@ -120,13 +133,9 @@
 		           		cache: false,
 		           		timeout: 600000,
 		           		success: function(data) {
-		           			console.log('ajax 이미지 업로드 성공');
-		           			console.log(data)
-		           			console.log(Object.values(data)[0])
 		           			//url += "image.png"//data.filename;
 		           			url = Object.values(data)[0] + Object.values(data)[1];
 		           			questionImgArr.push(Object.values(data)[1]); // 등록된 이미지 배열에 넣기
-		           			console.log(questionImgArr[0]);
 		           			// callback : 에디터(마크다운 편집기)에 표시할 텍스트, 뷰어에는 imageUrl 주소에 저장된 사진으로 나옴
 		        			// 형식 : ![대체 텍스트](주소)
 		           			callback(url, '문제이미지');
@@ -172,15 +181,9 @@
 		           		cache: false,
 		           		timeout: 600000,
 		           		success: function(data) {
-		           			console.log('ajax 이미지 업로드 성공');
-		           			console.log(data)
-		           			console.log(Object.values(data)[0])
 		           			//url += "image.png"//data.filename;
 		           			url = Object.values(data)[0] + Object.values(data)[1];
 		           			commentImgArr.push(Object.values(data)[1]); // 등록된 이미지 배열에 넣기
-		           			console.log(commentImgArr[0]);
-		           			// callback : 에디터(마크다운 편집기)에 표시할 텍스트, 뷰어에는 imageUrl 주소에 저장된 사진으로 나옴
-		        			// 형식 : ![대체 텍스트](주소)
 		           			callback(url, '해설이미지');
 		           		},
 		           		error: function(e) {
@@ -207,6 +210,8 @@
 			form.setAttribute('action', url);
 			document.charset = "UTF-8";
 			
+			let noHidden = "${noHidden}";
+			
 			// input1 추가 - qType
 			let input1 = document.createElement('input');
 			input1.setAttribute('type', 'hidden');
@@ -216,6 +221,9 @@
 			
 			// input2 추가 - qTitle
 			let input2 = document.getElementById('qTitle');
+			if(noHidden == "") {
+				input2.setAttribute('type', 'hidden');
+			}
 			input2.setAttribute('type', 'hidden');
 			form.appendChild(input2);
 			
@@ -229,8 +237,10 @@
 			form.appendChild(input3);
 			
 			// input4 추가 - answer
-			let input4 = document.getElementById('answer');
-			input4.setAttribute('type', 'hidden');
+			let input4 = document.querySelector('input[name="answer"]:checked');
+			if(noHidden == "") {
+				input4.setAttribute('type', 'hidden');
+			}
 			form.appendChild(input4);
 			
 			// input5 추가 - qCommentEditor
@@ -258,8 +268,12 @@
 			
 			document.body.appendChild(form);
 			form.submit();
+			
+			noHidden = "";
 		}
 
+        // -------------------------------통합 문제-------------------------------
+        
     </script> 
 </body>
 </html>
