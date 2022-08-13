@@ -23,7 +23,7 @@ public class QnaBoardController {
 	        paging.setTotalCount(100); // 총 게시글 수 이다.
 	        paging.calcPagingNo(); // 마지막페이지 계산
 	        paging.makePaging(1);
-	        Map<String, String> map = new HashMap<String, String>();
+	        //Map<String, String> map = new HashMap<String, String>();
 	        mav.addObject("paging", paging);
 	        mav.setViewName("/qna/qna_board");
 	        
