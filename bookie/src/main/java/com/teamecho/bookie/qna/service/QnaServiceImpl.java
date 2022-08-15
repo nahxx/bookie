@@ -32,13 +32,30 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public Qna getCQnaByQnaId(long qnaId) {
+	public Qna getQnaByQnaId(long qnaId) {
 		Qna qna = qnaDao.findCQnaByQnaId(qnaId);
 		long cateId = qna.getCategory().getCateId();
 		long userId = qna.getUser().getUId();
 		qna.setCategory(categoryService.getCategoryByCateId(cateId));
 		qna.setUser(userService.getUserByUid(userId));
 		return qna;
+	}
+	
+	@Override
+	public List<Qna> getQnaBoardList(int pagingNo, int listCount){
+		int BoardStartItemNo;
+		pagingNo = pagingNo - 1;
+		if (pagingNo == 0) {
+			BoardStartItemNo = 0;
+		}else {
+			BoardStartItemNo = listCount * pagingNo;
+		}
+		List<Qna> qnaList = qnaDao.findQnaBoardList(BoardStartItemNo);
+		for(Qna qna : qnaList) {
+			qna.setCategory(categoryService.getCategoryByCateId(qna.getCategory().getCateId()));
+			qna.setUser(userService.getUserByUid(qna.getUser().getUId()));
+		}
+		return qnaList;
 	}
 
 }

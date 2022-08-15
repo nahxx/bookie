@@ -31,4 +31,9 @@ public class QnaDao {
 		String sql = "SELECT * FROM Qna WHERE qnaId = ?";
 		return jdbcTemplate.queryForObject(sql, new QnaRowMapper(), qnaId);
 	}
+	
+	public List<Qna> findQnaBoardList(int BoardStartItemNo){
+		String sql = "SELECT * FROM qna  ORDER BY regDate desc LIMIT ?, 10;";
+		return jdbcTemplate.query(sql, new QnaRowMapper(), BoardStartItemNo);
+	}
 }

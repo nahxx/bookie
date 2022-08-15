@@ -7,5 +7,6 @@ import com.teamecho.bookie.qna.domain.Qna;
 public interface QnaService {
 	void addQna(Qna qna);
 	List<Qna> getAllQna();
-	Qna getCQnaByQnaId(long qnaId);
+	Qna getQnaByQnaId(long qnaId);
+	List<Qna> getQnaBoardList(int pagingNo, int listCount);
 }

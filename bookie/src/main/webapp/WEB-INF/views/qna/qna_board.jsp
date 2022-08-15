@@ -7,14 +7,56 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
+<!-- jQuery CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 	<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+	<script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
+	<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <body>
-<div id="grid"></div>
+	<header>
+		<%@ include file="../incl/no_login_header.jsp"%>
+	</header>
+<div class="table-wrap">
+<table class="table">
+<c:set var="boardNo" value="${paging.totalCount - (paging.currentPageNo - 1) * paging.pageSize }" />
+
+<thead>
+  <tr>
+    <th>번호</th>
+    <th>카테고리</th>
+    <th>제목</th>
+    <th>작성자</th>
+    <th>작성일</th>
+  </tr>
+</thead>
+<tbody>
+	<c:forEach var="qna" items="${qnaList}">
+		<tr>
+    		<td>${boardNo}</td>
+    		<td>
+    		 카테고리부분
+    		</td>
+    		<td>${qna.subject}</td>
+    		<td>${qna.user.userId}</td>
+    		<td>${qna.regDate}</td>
+    		<c:set var="boardNo" value="${boardNo - 1}" />
+  		</tr>
+	</c:forEach>
+  
+</tbody>
+</table>
+</div>
 <div class="paging">
+ <ul>
+ <li><a href="<c:url value='/qna_board/${paging.currentPageNo - 1}'/>">◀</a></li>
 <c:forEach var="i" begin="${ paging.startPageNo }" end="${ paging.endPageNo }">
 	<li><a href="<c:url value="/qna_board/${i}"/>">${i}</a></li>
 </c:forEach>
+<li><a href="<c:url value='/qna_board/${paging.currentPageNo + 1}'/>">▶</a></li>
+        </ul>
 </div>
 <!-- 
 <div class="pager">
@@ -54,36 +96,6 @@
     </ul>
 </div>
  --> 
- <script>
-  const grid = new tui.Grid({
-      el: document.getElementById('grid'),
-      data: {
-        api: {
-          readData: { url: '/qna_board/readData', method: 'GET' }
-        }
-      },
-      scrollX: false,
-      scrollY: false,
-      minBodyHeight: 30,
-      rowHeaders: ['rowNum'],
-      pageOptions: {
-        perPage: 5
-      },
-      columns: [
-        {
-          header: 'Name',
-          name: 'name'
-        },
-        {
-          header: 'Type',
-          name: 'type'
-        },
-        {
-          header: 'Genre',
-          name: 'genre'
-        }
-      ]
-    });
-  </script>
+
 </body>
 </html>

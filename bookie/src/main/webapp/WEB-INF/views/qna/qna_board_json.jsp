@@ -3,16 +3,14 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	StringBuilder sbHtml = new StringBuilder();
-
+String name = "박동근";
+String type = "ㅁ";
+String genre = "ㅁ";
 	sbHtml.append("{");
-	sbHtml.append("\"result\": true,");
-	sbHtml.append("\"data\": {");
-	sbHtml.append("\"contents\": [{\"name\":\"박동근\", \"type\": \"B\", \"genre\": \"d\"}, {\"name\":\"박동근\", \"type\": \"B\", \"genre\": \"d\"}, {\"name\":\"박동근\", \"type\": \"B\", \"genre\": \"d\"}],");
-	sbHtml.append("\"pagination\": {");
-	sbHtml.append("\"page\": 1,");
-	sbHtml.append("\"totalCount\": 100");
-	sbHtml.append("}");
-	sbHtml.append("}");
+
+	sbHtml.append("\"name\" : \""+name+"\",");
+	sbHtml.append("\"type\" : \""+type+"\"");
+	sbHtml.append("\"genre\" : \""+genre+"\"");
 	sbHtml.append("}");
 	
 	out.println(sbHtml);
