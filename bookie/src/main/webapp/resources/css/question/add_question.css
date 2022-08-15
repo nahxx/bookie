@@ -22,6 +22,9 @@ html, body {
 .wrap {
 	width: 70%;
 	margin: 0 auto;
+	padding-top: 80px;
+	box-sizing: border-box;
+	text-align: center;
 }
 
 .editor {
