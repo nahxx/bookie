@@ -37,28 +37,44 @@
 		<h3 class="title">문제 등록</h3>
 		<!-- 카테고리/문제유형 선택 폼 -->
 		<form class="select-type" action="select_type" method="post">
-			<label class="cate">카테고리</label>
-			<div class="cate-box">
-				<label class="c-level"><input type="radio" name="cLevel" value="m" />중학교</label>
-				<label class="c-level"><input type="radio" name="cLevel" value="h" />고등학교</label>
-			</div>
-			<div class="cate-box">
-				<label class="grade"><input type="radio" name="grade" value="1" />1학년</label>
-				<label class="grade"><input type="radio" name="grade" value="2" />2학년</label>
-				<label class="grade"><input type="radio" name="grade" value="3" />3학년</label>
-			</div>
-			<div class="cate-box">
-				<label class="c-level"><input type="radio" name="subject" value="국어" />국어</label>
-				<label class="c-level"><input type="radio" name="subject" value="영어" />영어</label>
-				<label class="c-level"><input type="radio" name="subject" value="수학" />수학</label>
-			</div>
-			<label class="type">문제 유형</label>
-			<div class="type-box">
-				<select id="question-type" name="question-type">
-					<option value="1">일반문제</option>
-					<option value="2">통합문제</option>
-				</select>
-			</div>
+			<table>
+				<tr>
+					<th class="cate" colspan="2"><label class="cate">카테고리</label></th>
+				</tr>
+				<tr>
+					<th>학력 구분</th>
+					<td>
+						<label class="c-level"><input type="radio" name="cLevel" value="m" />중학교</label>
+						<label class="c-level"><input type="radio" name="cLevel" value="h" />고등학교</label>
+					</td>
+				</tr>
+				<tr>
+					<th>학년</th>
+					<td>
+						<label class="grade"><input type="radio" name="grade" value="1" />1학년</label>
+						<label class="grade"><input type="radio" name="grade" value="2" />2학년</label>
+						<label class="grade"><input type="radio" name="grade" value="3" />3학년</label>
+					</td>
+				</tr>
+				<tr>
+					<th>과목</th>
+					<td>
+						<label class="c-level"><input type="radio" name="subject" value="국어" />국어</label>
+						<label class="c-level"><input type="radio" name="subject" value="영어" />영어</label>
+						<label class="c-level"><input type="radio" name="subject" value="수학" />수학</label>
+					</td>
+				</tr>
+				<tr>
+					<th>문제 유형</th>
+					<td>
+						<select id="question-type" name="question-type">
+							<option value="1">일반문제</option>
+							<option value="2">통합문제</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+
 			<input type="submit" value="적용하기">
 		</form>
 		

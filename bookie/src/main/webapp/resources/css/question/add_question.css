@@ -22,9 +22,28 @@ html, body {
 .wrap {
 	width: 70%;
 	margin: 0 auto;
-	padding-top: 80px;
+	padding-top: 100px;
 	box-sizing: border-box;
 	text-align: center;
+}
+
+table {
+	width: 50%;
+	margin: 0 auto;
+	border: 1px solid #f1f1f1;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+table th, table td {
+	border: 1px solid #f1f1f1;
+	height: 30px;
+	padding-left: 10px;
+}
+
+table th.cate {
+	text-align: center;
+	border-bottom: 0px;
 }
 
 .editor {
