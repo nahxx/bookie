@@ -28,7 +28,7 @@ thead {
     color: rgba(0,0,0,0.6);
 }
 
-table.striped tr {
+table.highlight tr {
     border-bottom: none;
 }
 

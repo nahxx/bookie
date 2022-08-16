@@ -22,22 +22,22 @@ public class UserDao {
 	}
 	
 	public void addUser(User user) {
-		String sql = "INSERT INTO User (userId, passwd, name, uType, phone, addr) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO User (userId, passwd, name, uType, phone, manager, addr) VALUES (?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, user.getUserId(), user.getPasswd(), user.getName(), String.valueOf(user.getUType()), user.getPhone(), user.getAddr());
 	}
 
 	public List<User> findAllUsers() {
-		String sql = "SELECT uId, userId, passwd, name, uType, phone, addr, regDate FROM User";
+		String sql = "SELECT uId, userId, passwd, name, uType, phone, manager, addr, regDate FROM User";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<User>(User.class));
 	}
 	
 	public User findUserByuType(String uType) {
-		String sql = "SELECT uId, userId, passwd, name, uType, phone, addr, regDate FROM User WHERE uType=?";
+		String sql = "SELECT uId, userId, passwd, name, uType, phone, manager, addr, regDate FROM User WHERE uType=?";
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), uType);
 	}
 	
 	public User findUserByUid(long uId) {
-		String sql = "SELECT uId, userId, passwd, name, uType, phone, addr, regDate FROM User WHERE uId=?";
+		String sql = "SELECT uId, userId, passwd, name, uType, phone, manager, addr, regDate FROM User WHERE uId=?";
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), uId);
 	}
 	
