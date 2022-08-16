@@ -121,20 +121,22 @@
 					<div id="question-box" class="question-box">
 						<h5>문제</h5>
 						<h6>제목</h6>
-						<input type="text" name="qTitle" id="qTitle"/>
+						<input type="text" name="qTitle1" id="qTitle1"/>
 						<h6>문제</h6>
-						<div class="editor qTextEditor" id="qTextEditor"></div>
+						<div class="editor qTextEditor" id="qTextEditor1"></div>
 						<h6>답</h6>
 						<div class="answer-box">
-							<label class="grade"><input type="radio" name="answer" value="1" />1</label>
-							<label class="grade"><input type="radio" name="answer" value="2" />2</label>
-							<label class="grade"><input type="radio" name="answer" value="3" />3</label>
-							<label class="grade"><input type="radio" name="answer" value="4" />4</label>
-							<label class="grade"><input type="radio" name="answer" value="5" />5</label>
+							<label class="grade"><input type="radio" name="answer1" value="1" />1</label>
+							<label class="grade"><input type="radio" name="answer1" value="2" />2</label>
+							<label class="grade"><input type="radio" name="answer1" value="3" />3</label>
+							<label class="grade"><input type="radio" name="answer1" value="4" />4</label>
+							<label class="grade"><input type="radio" name="answer1" value="5" />5</label>
 						</div>
 						<h6>해설</h6>
-						<div class="editor qCommentEditor" id="qCommentEditor"></div>
+						<div class="editor qCommentEditor" id="qCommentEditor1"></div>
 					</div>
+					<button class="submit-btn" onclick="javascript:sendTotalQuestion();" >등록</button>
+					<button class="submit-btn" onclick="javascript:test();" >확인</button>
 				</div>
 			</div>
 		</c:if>
@@ -146,6 +148,7 @@
 	</footer>
 	
 	<script>
+	/*
 		// -----------------문제유형 selected 표시-----------------
 		$(function() {
 			if(${not empty qType}) {
@@ -163,10 +166,16 @@
     	let commentImgArr = []; // 해설 이미지 배열
     	let mainTextImgArr = []; // 지문 이미지 배열
     	
+    	// question 배열
+    	let qTitle = []; // 질문 제목 배열
+		let qTextArr = []; // 질문 배열
+		let qAnswer = []; // 질문 답 배열
+		let qCommentArr = []; // 질문 해설 배열
+    	
     	if(${qType eq 1}) {
     		// -------------------------------1. 일반 문제-------------------------------
         	// qText 에디터
-    		const qTextEditor = new toastui.Editor({
+    		let qTextEditor = new toastui.Editor({
     		    el: document.querySelector('#qTextEditor'),
     		    previewStyle: 'tab',
     		    previewHighlight: false,
@@ -214,7 +223,7 @@
     		});
     		
     		// qComment 에디터
-    		const qCommentEditor = new toastui.Editor({
+    		let qCommentEditor = new toastui.Editor({
     		    el: document.querySelector('#qCommentEditor'),
     		    previewStyle: 'tab',
     		    previewHighlight: false,
@@ -336,7 +345,14 @@
     		}
     	} else if (${qType eq 2}) {
     		// -------------------------------통합 문제-------------------------------
-            // qText 에디터
+    		// .q 인덱스 변수
+    		let index = document.getElementsByClassName('qTextEditor').length + 1;
+    		
+    		// 에디터 배열
+    		let qTextEditorArr = [];
+    		let qCommentEditorArr = [];
+
+            // mText 에디터
     		const mTextEditor = new toastui.Editor({
     		    el: document.querySelector('#mTextEditor'),
     		    previewStyle: 'tab',
@@ -385,8 +401,8 @@
     		});
     		
     		// qText 에디터
-    		const qTextEditor = new toastui.Editor({
-    		    el: document.querySelector('.qTextEditor'),
+    		let qTextEditor = new toastui.Editor({
+    		    el: document.querySelector('#qTextEditor1'),
     		    previewStyle: 'tab',
     		    previewHighlight: false,
     		    height: '500px',
@@ -431,10 +447,11 @@
     		    	}
     		    }
     		});
+    		qTextEditorArr.push(qTextEditor); // 배열에 추가
     		
     		// qComment 에디터
-    		const qCommentEditor = new toastui.Editor({
-    		    el: document.querySelector('.qCommentEditor'),
+    		let qCommentEditor = new toastui.Editor({
+    		    el: document.querySelector('#qCommentEditor1'),
     		    previewStyle: 'tab',
     		    previewHighlight: false,
     		    height: '300px',
@@ -477,14 +494,111 @@
     		    	}
     		    }
     		});
+    		qCommentEditorArr.push(qCommentEditor); // 배열에 추가
     		
     		// 질문 폼 추가하기
     		function addQuestion() {
-    			let questionBox = document.getElementById('question-box').innerHTML;
+    			let questionBox = '<div id="question-box" class="question-box"><h5>문제</h5><h6>제목</h6><input type="text" name="qTitle'+ index +'" id="qTitle'+ index +'"/>'
+    			+ '<h6>문제</h6><div class="editor qTextEditor" id="qTextEditor'+ index +'"></div><h6>답</h6><div class="answer-box"><label class="grade">'
+    			+ '<input type="radio" name="answer'+ index +'" value="1" />1</label><label class="grade"><input type="radio" name="answer'+ index +'" value="2" />2</label>'
+    			+ '<label class="grade"><input type="radio" name="answer'+ index +'" value="3" />3</label><label class="grade">'
+    			+ '<input type="radio" name="answer'+ index +'" value="4" />4</label><label class="grade"><input type="radio" name="answer'+ index +'" value="5" />5</label></div>'
+    			+ '<h6>해설</h6><div class="editor qCommentEditor" id="qCommentEditor'+ index +'"></div></div>';
     			let questionWrap = document.getElementById('question-wrap');
-    			questionWrap.innerHTML += "<div class=/"question-box/">" + questionBox + "</div>";
+    			questionWrap.innerHTML += questionBox;
+    			var tt = '#qTextEditor' + index;
+    			// qText 에디터
+    			var qTextEditor = null;
+        		qTextEditor = new toastui.Editor({
+        			
+	    		    el: document.querySelector('#qTextEditor' + index),
+	    		    previewStyle: 'tab',
+	    		    previewHighlight: false,
+	    		    height: '500px',
+	    		});
+        		qTextEditorArr.push(qTextEditor); // 배열에 추가
+        		console.log("aa"+ qTextEditorArr[index-1].getHTML());
+        		
+        		// qComment 에디터
+        		var qCommentEditor = null;
+        		qCommentEditor = new toastui.Editor({
+	    		    el: document.querySelector('#qCommentEditor' + index),
+	    		    previewStyle: 'tab',
+	    		    previewHighlight: false,
+	    		    height: '300px',
+	    		});
+        		qCommentEditorArr.push(qCommentEditor); // 배열에 추가
+    			
+				index++;
+    		}
+    		function test() {
+    			let aaa = qCommentEditorArr[0];
+    			console.log("bb"+aaa.getHTML());
+    			
+    		}
+    		// 폼 생성 후 컨트롤러로 넘어가기
+    		function sendTotalQuestion() { // url, qType
+    			// 배열에 추가
+    			console.log(qCommentEditorArr.length)
+    			for(let i = 0; i < qCommentEditorArr.length; i++) {
+    				console.log(qTextEditorArr[i].getHTML());
+    				//qTitle.push(document.querySelector('input[name="qTitle'+ i+1 +'"]')); // 질문 제목 배열
+    				qTextArr.push(qTextEditorArr[i].getHTML()); // 질문 배열
+    				//qAnswer.push(document.querySelector('input[name="answer'+ i+1 +'"]:checked')); // 질문 답 배열
+    				qCommentArr.push(qCommentEditorArr[i].getHTML()); // 질문 해설 배열
+    				console.log("==================================");
+    				console.log("qTextArr" + i + ": " + qTextArr[i]);
+    				console.log("qCommentArr" + i + ": " + qCommentArr[i]);
+    				console.log("==================================");
+    				
+    			}
+    			
+    			
+    			// 폼 생성
+    			console.log(url);
+    			let form = document.createElement('form');
+    			form.setAttribute('method', 'post');
+    			form.setAttribute('action', url);
+    			document.charset = "UTF-8";
+    			
+    			let noHidden = "${noHidden}";
+    			
+    			// input1 추가 - qType
+    			let input1 = document.createElement('input');
+    			input1.setAttribute('type', 'hidden');
+    			input1.setAttribute('name', 'qType');
+    			input1.setAttribute('value', qType);
+    			form.appendChild(input1);
+    			
+    			// input2 추가 - mTitle
+    			let input2 = document.createElement('input');
+    			input2.setAttribute('type', 'hidden');
+    			input2.setAttribute('name', 'mTitle');
+    			input2.setAttribute('value', mTitle);
+    			form.appendChild(input2);
+
+    			// input3 추가 - mText
+    			let input3 = document.createElement('input');
+    			input3.setAttribute('type', 'hidden');
+    			input3.setAttribute('name', 'mText');
+    			input3.setAttribute('value', mText);
+    			form.appendChild(input3);
+				
+    			// input4 추가 - qTitle 배열
+    			let input3 = document.createElement('input');
+    			input3.setAttribute('type', 'hidden');
+    			input3.setAttribute('name', '배열');
+    			input3.setAttribute('value', 배열);
+    			form.appendChild(input3);
+    			
+    			
+    			document.body.appendChild(form);
+    			form.submit();
+    			
+    			noHidden = "";
     		}
     	}
+		*/
    
     </script> 
 </body>
