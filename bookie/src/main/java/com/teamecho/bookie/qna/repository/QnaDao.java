@@ -27,6 +27,11 @@ public class QnaDao {
 		return jdbcTemplate.query(sql, new QnaRowMapper());
 	}
 	
+	public List<Qna> findCQnaByUid(long uId) {
+		String sql = "SELECT * FROM Qna WHERE uid = ?";
+		return jdbcTemplate.query(sql, new QnaRowMapper(), uId);
+	}
+	
 	public Qna findCQnaByQnaId(long qnaId) {
 		String sql = "SELECT * FROM Qna WHERE qnaId = ?";
 		return jdbcTemplate.queryForObject(sql, new QnaRowMapper(), qnaId);

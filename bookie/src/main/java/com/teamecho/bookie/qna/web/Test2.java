@@ -28,6 +28,7 @@ public class Test2 {
 	 * -. docBase : "C:/NCS/teamecho/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/bookie/resources/temp"
 	 * -. path : "/bookie/tempimg" 
 	 * -. mac은 아래 소스에서 uploadPath 경로를 System.out.println(); 찍어서 변경해준다. 
+	 * -. <Context docBase="C:\NCS\teamecho\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\bookie\resources\temp" path="/bookie/tempimg" reloadable="true"/> //학원꺼
 	 */
 	@RequestMapping(value = "/testdg", method = RequestMethod.POST)
 	public ModelAndView imageTempSave(@RequestParam("image") MultipartFile multi, HttpServletRequest request, HttpServletResponse response) {

@@ -30,6 +30,11 @@ public class QnaServiceImpl implements QnaService{
 	public List<Qna> getAllQna() {
 		return qnaDao.findAllQna();
 	}
+	
+	@Override
+	public List<Qna> getAllQnaByUid(long uId) {
+		return qnaDao.findCQnaByUid(uId);
+	}
 
 	@Override
 	public Qna getQnaByQnaId(long qnaId) {
