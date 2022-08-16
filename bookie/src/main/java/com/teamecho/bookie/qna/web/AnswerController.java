@@ -51,7 +51,7 @@ public class AnswerController {
 		System.out.println(uId);
 		System.out.println(qnaId);
 		
-		qna = qnaService.getCQnaByQnaId(qnaId);
+		qna = qnaService.getQnaByQnaId(qnaId);
 		System.out.println("진입11"+qna.getUser());
 
 		user = userService.getUserByUid(qna.getUser().getUId());
