@@ -1,4 +1,5 @@
 -- 테이블 삭제
+DROP TABLE QnaCount;
 DROP TABLE Answer;
 DROP TABLE QNA;
 DROP TABLE QuestionHistory;
@@ -8,6 +9,7 @@ DROP TABLE MainText;
 DROP TABLE SubjectPattern;
 DROP TABLE Category;
 DROP TABLE User;
+
 
 -- 테이블 비우기
 DELETE FROM QuestionHistory;
@@ -120,9 +122,6 @@ CREATE TABLE Qna(
    CONSTRAINT Qna_uId_FK FOREIGN KEY (uId) REFERENCES User(uId)
 )AUTO_INCREMENT = 1;
 
-INSERT INTO Qna (subject, document, cateId, uId) VALUES ('국어', '안녕하세요', 1, 1);
-INSERT INTO Qna (subject, document, cateId, uId) VALUES ('국어', '다음에 만나요', 1, 1);
-
 -- Answer 테이블 생성
 CREATE TABLE Answer(
    	anId      		BIGINT      	PRIMARY KEY      AUTO_INCREMENT,
@@ -134,3 +133,13 @@ CREATE TABLE Answer(
    CONSTRAINT Answer_qnaId_FK FOREIGN KEY (qnaId) REFERENCES Qna(qnaId),
    CONSTRAINT Answer_uId_FK FOREIGN KEY (uId) REFERENCES User(uId)
 )AUTO_INCREMENT = 1;
+
+-- QnaCount 테이블 생성
+CREATE TABLE QnaCount(
+	qcId			BIGINT			PRIMARY KEY      AUTO_INCREMENT,
+	qcCount			INT				NOT NULL,
+	qnaId			BIGINT			NOT NULL DEFAULT 0,
+	regDate			TIMESTAMP		NOT NULL   DEFAULT CURRENT_TIMESTAMP,
+   
+	CONSTRAINT QnaCount_qnaId_FK FOREIGN KEY (qnaId) REFERENCES Qna(qnaId)
+);

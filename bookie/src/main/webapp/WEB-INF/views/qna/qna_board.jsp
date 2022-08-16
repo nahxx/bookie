@@ -34,25 +34,26 @@
 					<th>제목</th>
 					<th>작성자</th>
 					<th>작성일</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="qna" items="${qnaList}">
+				<c:forEach var="board" items="${boardList}">
 					<tr>
 						<td>${boardNo}</td>
 						<td>
-						${qna.category.getCLevel()} / ${qna.category.getGrade()}학년 / ${qna.category.getSubject()}
+						${board.category.getCLevel()} / ${board.category.getGrade()}학년 / ${board.category.getSubject()}
 						</td>
-						<td><a href="<c:url value='/answer/${qna.qnaId}'/>" >${qna.subject}</a></td>
+						<td><a href="<c:url value='/answer/${board.qnaId}'/>" >${board.subject}</a></td>
 						<td>
-							<c:forEach var="i" begin="1" end="${fn:length(qna.user.name)}">
+							<c:forEach var="i" begin="1" end="${fn:length(board.user.name)}">
 							<c:choose>
 							  <c:when test="${ i == '1' }">
-				            		${fn:substring(qna.user.name,0,1)}
+				            		${fn:substring(board.user.name,0,1)}
 				        		</c:when>
 
-				        		<c:when test="${ i == fn:length(qna.user.name)}">
-				            		${fn:substring(qna.user.name,fn:length(qna.user.name) - 1,fn:length(qna.user.name))}
+				        		<c:when test="${ i == fn:length(board.user.name)}">
+				            		${fn:substring(board.user.name,fn:length(board.user.name) - 1,fn:length(board.user.name))}
 				        		</c:when>
 				        		 <c:otherwise>
                     				*
@@ -60,7 +61,8 @@
 				        	</c:choose>
 							</c:forEach>
 						</td>
-						<td><fmt:formatDate value="${qna.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+						<td><fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+						<td>${board.qcCount}</td>
 						<c:set var="boardNo" value="${boardNo - 1}" />
 					</tr>
 				</c:forEach>

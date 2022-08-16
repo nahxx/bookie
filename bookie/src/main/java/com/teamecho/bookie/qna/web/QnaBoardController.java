@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teamecho.bookie.common.domain.Paging;
+import com.teamecho.bookie.qna.domain.Board;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.service.QnaService;
 
@@ -23,6 +24,7 @@ public class QnaBoardController {
 	 * @return
 	 * @throws Exception
 	 */
+	/*
 	@GetMapping("/qna_board")
 	public ModelAndView qnaBoard() throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -45,6 +47,7 @@ public class QnaBoardController {
 	    }
 	    return mav;
 	}
+	*/
 	@GetMapping("/qna_board/{pagingNo}")
 	public ModelAndView qnaBoardPaging(@PathVariable int pagingNo) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -57,9 +60,9 @@ public class QnaBoardController {
 	        paging.calcPagingNo();	//초기값5 : 페이지 갯수 계산 함.
 	        
 	        paging.makePaging(pagingNo); //페이지에 맞게
-	        List<Qna> qnaList = qnaService.getQnaBoardList(pagingNo, paging.getPageSize());
+	        List<Board> boardList = qnaService.getQnaBoardList(pagingNo, paging.getPageSize());
 	        
-	        mav.addObject("qnaList", qnaList);
+	        mav.addObject("boardList", boardList);
 	        mav.addObject("paging", paging);
 	        mav.setViewName("/qna/qna_board");
 	        

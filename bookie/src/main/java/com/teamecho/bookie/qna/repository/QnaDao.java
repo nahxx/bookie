@@ -1,11 +1,16 @@
 package com.teamecho.bookie.qna.repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.teamecho.bookie.qna.domain.Board;
 import com.teamecho.bookie.qna.domain.Qna;
 
 @Repository
@@ -19,7 +24,23 @@ public class QnaDao {
 	
 	public void addQna(Qna qna) {
 		String sql = "INSERT INTO Qna (subject, document, cateId, uId) VALUES (?,?,?,?)";
-		jdbcTemplate.update(sql, qna.getSubject() , qna.getDocument(), qna.getCategory().getCateId(), qna.getUser().getUId());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		PreparedStatementCreator creator = (connection) -> {
+			PreparedStatement pstmt = connection.prepareStatement(sql, new String[] {"qnaid"});
+			pstmt.setString(1, qna.getSubject());
+			pstmt.setString(2, qna.getDocument());
+			pstmt.setLong(3, qna.getCategory().getCateId());
+			pstmt.setLong(4, qna.getUser().getUId());
+			return pstmt;
+		};
+		jdbcTemplate.update(creator, keyHolder);
+		
+		addQnaCount(keyHolder.getKey().longValue());
+	}
+	
+	public void addQnaCount(long qnaId) {
+		String sql = "INSERT INTO QnaCount (qnaId, qcCount) VALUES (?, ?)";
+		jdbcTemplate.update(sql, qnaId, 0);
 	}
 	
 	public List<Qna> findAllQna(){
@@ -37,9 +58,11 @@ public class QnaDao {
 		return jdbcTemplate.queryForObject(sql, new QnaRowMapper(), qnaId);
 	}
 	
-	public List<Qna> findQnaBoardList(int BoardStartItemNo){
-		String sql = "SELECT * FROM qna  ORDER BY regDate desc LIMIT ?, 10;";
-		return jdbcTemplate.query(sql, new QnaRowMapper(), BoardStartItemNo);
+	public List<Board> findQnaBoardList(int BoardStartItemNo){
+		String sql = "SELECT q.qnaId, q.subject, q.cateid, q.uid, q.regDate, qc.qcCount "
+				    + "FROM qna q INNER JOIN qnacount qc ON q.qnaId = qc.qnaId"
+		     		+" ORDER BY q.regDate desc LIMIT ?, 10";
+		return jdbcTemplate.query(sql, new QnaBoardRowMapper(), BoardStartItemNo);
 	}
 	
 	public void deleteQnaByQnaId(long qnaId, long uId) {
@@ -47,8 +70,14 @@ public class QnaDao {
 		jdbcTemplate.update(sql, qnaId, uId);
 	}
 	
-	public void updateQnaByQnaId(String subject, String document, long qnaId, long uId) {
-		String sql = "UPDATE Qna SET subject = ? , document = ? WHERE qnaid = ? AND uid = ?";
-		jdbcTemplate.update(sql, subject, document, qnaId, uId);
+	public void updateQnaByQnaId(Qna qna) {
+		String sql = "UPDATE Qna SET subject = ? , document = ?, cateId = ? WHERE qnaid = ? AND uid = ?";
+		jdbcTemplate.update(sql, qna.getSubject(), qna.getDocument(), qna.getCategory().getCateId(), 
+				qna.getQnaId(), qna.getUser().getUId());
+	}
+	
+	public void boardCountingByQnaId(long qnaId) {
+		String sql = "UPDATE QnaCount SET qcCount = qcCount + 1 WHERE qnaid = ?";
+		jdbcTemplate.update(sql, qnaId);
 	}
 }

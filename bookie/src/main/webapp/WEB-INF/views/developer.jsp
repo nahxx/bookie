@@ -5,7 +5,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>개발자 페이지</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     
     <!-- 디자인 수정용 CSS 추가 -->
@@ -45,9 +45,11 @@
 	
 </head>
 <body>
-    <h1> TOAST UI Editor 만들기 </h1>
+    <h1> 개발자페이지 </h1>
     
-
+	<div class="btn">
+		<a href="<c:url value='/devel/addQna'/>" class="in-btn">QNA데이터 입력하기</a>
+	</div>
     <!-- TOAST UI Editor가 들어갈 div태그 -->
     <div id="editor"></div>
 	<input type="button" value="등록" onclick="javascript:sendPost()"> 
