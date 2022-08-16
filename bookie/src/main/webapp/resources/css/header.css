@@ -8,6 +8,7 @@
 	font-size: 20px;
 	background: #1C3879;
 	top: 0;
+	z-index: 100;
 }
 
 .header-wrap {

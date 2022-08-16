@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-#header {
-	z-index: 100;
-}
-
 button {
 	border: 0;
 	background-color: transparent;
