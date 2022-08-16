@@ -67,6 +67,7 @@ public class UserController {
 		user.setName(name);
 		user.setUType(uType.charAt(0));
 		user.setPhone(phone);
+		user.setManager('N');
 		user.setAddr(addr);
 	
 		model.addAttribute("user", user);

@@ -12,6 +12,7 @@ public class User {
 	private String name;
 	private char uType;
 	private String phone;
+	private char manager;
 	private String addr;
 	
 	public User() {

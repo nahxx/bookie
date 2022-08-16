@@ -17,5 +17,6 @@ public class UserCommand {
 	private String phone2;
 	private String phone3;
 	private String addr;
+	private String manager;
 
 }

@@ -22,8 +22,8 @@ public class UserDao {
 	}
 	
 	public void addUser(User user) {
-		String sql = "INSERT INTO User (userId, passwd, name, uType, phone, manager, addr) VALUES (?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql, user.getUserId(), user.getPasswd(), user.getName(), String.valueOf(user.getUType()), user.getPhone(), user.getAddr());
+		String sql = "INSERT INTO User (userId, passwd, name, uType, phone, manager, addr) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, user.getUserId(), user.getPasswd(), user.getName(), String.valueOf(user.getUType()), user.getPhone(), String.valueOf(user.getManager()),user.getAddr());
 	}
 
 	public List<User> findAllUsers() {
