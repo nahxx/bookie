@@ -5,6 +5,12 @@
     font-weight: normal;
     font-style: normal;
 }
+.wrap.sub {
+    height: calc(100% - 160px);
+}
+.container.counts.solve {
+    padding-top: 140px;
+}
 .subpage-question-sec {
   height: 100vh;
   width: 100%;
@@ -110,4 +116,19 @@
 	width: 70px;
 	margin: 0;
 	font-weight: 600;
+}
+.submit-btn.search.solve {
+    width: 120px;
+}
+.container.counts.select-wrap {
+    height: 200px;
+    align-items: center;
+    display: none;
+}
+
+#viewer {
+    padding: 0 30px;
+}
+.toastui-editor-contents p {
+    font-size: 16px;
 }

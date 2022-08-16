@@ -1,3 +1,4 @@
+<%@ page import="org.springframework.ui.Model" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -13,11 +14,11 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/question/question_solve.css"/>" />
 </head>
 <body>
-<div class="wrap">
+<div class="wrap sub">
 	<header>
-		<%@ include file="../incl/no_login_header.jsp"%>
+		<%@ include file="../incl/header.jsp"%>
 	</header>
-	<div class="container counts">
+	<div class="container counts solve">
 		<div class="category-wrap">
 			<form:form method="get" modelAttribute="category" action="/bookie/question/solveProblemList/list">
 				<form:select path="cLevel" class="selec">
@@ -33,9 +34,44 @@
 			</form:form>
 		</div>
 	</div>
+	<div class="container counts select-wrap">
+		<div class="select-questionNum">
+			<form method="get" action="/bookie/question/solveProblem" class="listForm">
+				<input type="text" placeholder="문항 수 입력" class="selec"/>
+				<input type="submit" value="문제풀기" class="submit-btn search solve"/>
+			</form>
+		</div>
+	</div>
 </div>
 <footer id="footer">
 	<%@ include file="../incl/footer.jsp"%>
 </footer>
+<script>
+	let wrap = document.getElementsByClassName("select-wrap")[0];
+
+
+	let nowLocation = decodeURI(document.location.href);
+	nowLocation = nowLocation.split("/");
+
+	if(nowLocation.length >= 7) {
+		wrap.style.display = 'block';
+	}
+
+	let input1 = document.createElement('input');
+	input1.setAttribute('type', 'hidden');
+	input1.setAttribute('name', 'cLevel');
+	input1.setAttribute('value', '${realCategory.getCLevel()}');
+	document.getElementsByClassName("listForm")[0].appendChild(input1);
+	let input2 = document.createElement('input');
+	input2.setAttribute('type', 'hidden');
+	input2.setAttribute('name', 'grade');
+	input2.setAttribute('value', '${realCategory.getGrade()}');
+	document.getElementsByClassName("listForm")[0].appendChild(input2);
+	let input3 = document.createElement('input');
+	input3.setAttribute('type', 'hidden');
+	input3.setAttribute('name', 'subject');
+	input3.setAttribute('value', '${realCategory.getSubject()}');
+	document.getElementsByClassName("listForm")[0].appendChild(input3);
+</script>
 </body>
 </html>

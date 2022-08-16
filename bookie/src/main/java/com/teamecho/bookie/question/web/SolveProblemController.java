@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.teamecho.bookie.common.domain.Category;
+import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.service.SolveProblemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +25,9 @@ import com.teamecho.bookie.common.domain.CategoryProvider;
 
 @Controller("question.web.solveProblemController")
 public class SolveProblemController {
+	
+	@Autowired
+	private SolveProblemService solveProblemService;
 	
 	@GetMapping("/question/solveProblemList")
 	public String solveProblemListPage(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
@@ -66,22 +73,40 @@ public class SolveProblemController {
 	}
 	
 	@GetMapping("/question/solveProblemList/list")
-	public String solveProblemListPage(@ModelAttribute("category") CategoryCommand category) {
-		System.out.println("진입");
-		System.out.println(category.getCLevel());
-		System.out.println(category.getGrade());
-		System.out.println(category.getSubject());
+	public String solveProblemListPage(@ModelAttribute("category") CategoryCommand category, Model model) {
+
+		Category realCategory = solveProblemService.findCategory(category.getCLevel(), category.getGrade(), category.getSubject());
+		
+//		System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
+//		System.out.println("realCategory.getGrade() = " + realCategory.getGrade());
+//		System.out.println("realCategory.getCLevel() = " + realCategory.getCLevel());
+
+		model.addAttribute("realCategory",realCategory);
 		return "question/solveProblemListPage";
 	}
 	
 	@GetMapping("/question/solveProblem")
-	public String solveProblemPage() {
+	public String solveProblemPage(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		int grade = Integer.parseInt(request.getParameter("grade"));
+		char cLevel = request.getParameter("cLevel").charAt(0);
+		String subject = request.getParameter("subject");
+		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
+		List<Question> questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId());
+
+
+		model.addAttribute("question", questionList.get(0));
 		return "question/solveProblemPage";
 	}
 	
 	@PostMapping("/question/solveProblem")
-	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer) {
-		System.out.println(answer);
+	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String question, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+//		System.out.println(answer);
+//		System.out.println("question = " + question);
+//		System.out.println("session.getAttribute(\"uId\") = " + session.getAttribute("uId"));
+//		solveProblemService.findQuestionByQuestionId(Long.parseLong(question));
+		solveProblemService.answerChecking(Long.parseLong(question), (long)session.getAttribute("uId"), Integer.parseInt(answer));
 		return "question/solveProblemPage";
 	}
 }

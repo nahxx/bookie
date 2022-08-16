@@ -18,11 +18,12 @@
       </div>
       <div class="question-title-wrap">
         <div class="question-title">
-          <h3 class="question-title-txt">다음 표의 내용과 일치하지 않는 것은?</h3>
+          <h3 class="question-title-txt">${question.getQTitle()}</h3>
         </div>
       </div>
       <div class="question-box-wrap">
         <div class="qeustion-box">
+<%--            <div>${question.getQText()}</div>--%>
         	<div id="viewer"></div>
         </div>
       </div>
@@ -60,12 +61,19 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>
 const Editor = toastui.Editor;
+let content = '${question.getQText()}';
 const viewer = Editor.factory({
     el: document.querySelector('#viewer'),
     viewer: true,
     height: '500px',
-    initialValue: '<img alt="" src="<c:url value="/resources/temp/27562658-a113-4916-b416-ed59715f5123_image.png"/>" class="qeustion_img" />'
+    <%--initialValue: '<img alt="" src="<c:url value="/resources/temp/27562658-a113-4916-b416-ed59715f5123_image.png"/>" class="qeustion_img" />'--%>
+    initialValue: content
 });
+let qeustion = document.createElement('input');
+qeustion.setAttribute('type', 'hidden');
+qeustion.setAttribute('name', 'question');
+qeustion.setAttribute('value', '${question.QId}');
+document.getElementsByClassName("question-answer-form")[0].appendChild(qeustion);
 </script>
 </body>
 </html>
