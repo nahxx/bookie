@@ -7,5 +7,6 @@ import com.teamecho.bookie.qna.domain.Qna;
 
 public interface AnswerService {
 	void addAnswer(Answer answer);
-	List<Answer> getAnswerByQnaId(long qnaId);
+	Answer getAnswerByQnaId(long qnaId);
+	List<Answer> getAnswersByQnaId(long qnaId);
 }

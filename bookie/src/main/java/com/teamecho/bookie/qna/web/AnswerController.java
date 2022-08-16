@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,42 +40,59 @@ public class AnswerController {
 	long uId;
 	long qnaId;
 	User user;
-	List<Answer> answer;
+	List<Answer> answers;
 	Qna qna;
 	
-	@RequestMapping(value = "/answer", method = RequestMethod.GET)
-	public ModelAndView qnaform(HttpServletRequest request, ModelAndView mv) {
+	@RequestMapping(value = "/answer/{qnaId}", method = RequestMethod.GET)
+	public ModelAndView qnaform(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
-
-		qnaId = 1;
-		System.out.println(uId);
+		//qnaId = request.getParameter("");
+		//qnaId = 1;
 		System.out.println(qnaId);
 		
 		qna = qnaService.getQnaByQnaId(qnaId);
-		System.out.println("진입11"+qna.getUser());
-
-		user = userService.getUserByUid(qna.getUser().getUId());
+		// 질문 제목
+		mv.addObject("subject", qna.getSubject());	
+		// 질문		
 		mv.addObject("document_q", qna.getDocument());
-
-		answer = answerService.getAnswerByQnaId(qnaId);
+		// 질문 작성자 아이디
 		mv.addObject("userId", qna.getUser().getUserId());
-		mv.addObject("answer", answer);
+		// 댓글 목록
+		answers = answerService.getAnswersByQnaId(qnaId);
+		mv.addObject("answers", answers);
 		mv.setViewName("qna/qna_answer");
 		return mv;
 	}
 	
 	@RequestMapping(value = "/answer", method = RequestMethod.POST)
 	public ModelAndView qna(HttpServletRequest request, ModelAndView mv) {
-		String documnet = request.getParameter("documnet");
-		System.out.println(documnet);
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		qnaId = 1;
 		
+		qna = qnaService.getQnaByQnaId(qnaId);
+		// 질문 제목
+		mv.addObject("subject", qna.getSubject());	
+		// 질문 내용
+		mv.addObject("document_q", qna.getDocument());
+		// 질문 작성자 아이디
+		mv.addObject("userId", qna.getUser().getUserId());
+		// 댓글 목록
+		answers = answerService.getAnswersByQnaId(qnaId);
+		mv.addObject("answers", answers);
+		
+		// 해당 질문에 대한 답변 쓰기
+		// 에디터에서 쓴 글(폼으로)
+		String documnet = request.getParameter("documnet");
+
 		Answer answer = new Answer();
 		answer.setDocument(documnet);
-		answer.setQna(null);
-		answer.setUser(null);
-		
-		mv.addObject("documnet", documnet);
+		// 해당 qnaId를 가진 qna객체
+		answer.setQna(qnaService.getQnaByQnaId(qnaId));
+		// 현재 로그인한 유저
+		answer.setUser(userService.getUserByUid(uId));
+		answerService.addAnswer(answer);
 		mv.setViewName("qna/qna_answer");
 		return mv;
 	}

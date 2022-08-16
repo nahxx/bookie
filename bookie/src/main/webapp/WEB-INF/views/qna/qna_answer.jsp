@@ -39,11 +39,17 @@
 	width: 100%;
 	margin: 0 auto;
 }
-.title{
- 	width: 70%;
- 	margin: 0 auto;
- 	text-align: center;
- 	padding : 30px 0;
+.viewer_q_wrap{
+	margin-top: 100px;
+}
+.qna-title{	
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	color: white;
+    background-color: #1C3879;
+    border-color: #ddd;
+    padding: 5px 15px;
 }
 .answer-title{
 	width: 70%;
@@ -67,7 +73,6 @@
 #viewer_q {
 	border : 1px solid;
 	width: 70%;
-	height: 500px;
 	margin: 0 auto;
 	margin-bottom: 30px;
 	border-color: #ddd;
@@ -91,7 +96,7 @@
     vertical-align: top;
 }
 p{
-	text-align: center;
+	/*text-align: center;*/
 }
 .view_q_user, .view_a_user{
 	border : 1px solid;
@@ -106,21 +111,25 @@ p{
 </head>
 <body>
 	<header>
-		<%@ include file="../incl/no_login_header.jsp"%>
+		<%@ include file="../incl/header.jsp"%>
 	</header>
 	<div id="container">
-		<h1 class="title">질문</h1>
 		<div class="viewer_q_wrap">
+			<div class="qna-title">${subject}</div>
 			<div class="view_q_user">${userId}</div>
 			<div id="viewer_q"></div>
 		</div>
 		<h3 class="answer-title">댓글</h3>
-		<c:forEach var="answer" items="${answer}">
+		<c:forEach var="answer" items="${answers}" varStatus="status">
 			<div class="view_a_wrap">
-				<div class="view_a_user">유저아이디</div>
-				<div id="viewer_a"></div>
+				<div class="view_a_user">${answer.getUser().getUserId()}</div>
+				<div id="viewer_a">${answer.getDocument()}</div>
 			</div>
 		</c:forEach>
+			<div class="view_a_wrap">
+				<div class="view_a_user">${answer.getUser().getUserId()}</div>
+				<div id="viewer_a">${answer.getDocument()}</div>
+			</div>
 		<div id="editor"></div>
 		<div class="btn">
 			<button onclick="javascript:submit('<c:url value='/answer'/>');"
@@ -152,7 +161,7 @@ p{
 
 	const editor = new Editor({
 	    el: document.querySelector('#editor'),
-	    previewStyle: 'vertical',
+		previewStyle: 'tab',
 	    previewHighlight: false,
 	    height: '200px',
 	    // 사전입력 항목
@@ -209,8 +218,7 @@ p{
 	const viewer2 = Editor.factory({
 		  el: document.querySelector('#viewer_a'),
 		  viewer: true,
-		  height: '100px',
-		  initialValue: '${documnet}'
+		  height: '100px'
 	});
 </script>
 </body>

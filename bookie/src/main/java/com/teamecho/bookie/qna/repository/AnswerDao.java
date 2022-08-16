@@ -26,9 +26,13 @@ public class AnswerDao {
 		jdbcTemplate.update(sql, answer.getDocument(), answer.getQna().getQnaId(), answer.getUser().getUId());
 	}
 	
-	public List<Answer> getAnswerByQnaId(long qnaId) {
+	public Answer getAnswerByQnaId(long qnaId) {
 		String sql = "SELECT * FROM Answer WHERE qnaId = ?";
-		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Answer>(Answer.class){
-		}, qnaId);
+		return jdbcTemplate.queryForObject(sql, new AnswerRowMapper(), qnaId);
+	}
+	
+	public List<Answer> getAnswersByQnaId(long qnaId) {
+		String sql = "SELECT * FROM Answer WHERE qnaId = ?";
+		return jdbcTemplate.query(sql, new AnswerRowMapper(), qnaId);
 	}
 }

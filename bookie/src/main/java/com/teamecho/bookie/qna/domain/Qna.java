@@ -17,4 +17,12 @@ public class Qna {
 	private Category category;
 	private User user;
 	private Date regDate;
+	
+	public Qna() {
+		
+	}
+	
+	public Qna(long qnaId) {
+		this.qnaId = qnaId;
+	}
 }
