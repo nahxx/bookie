@@ -6,23 +6,25 @@
     font-style: normal;
 }
 :root {
-	--sig-color : rgb(255, 241, 66, .6);
-	--border-color : rgb(255, 178, 15);
+	--sig-color : rgb(28, 56, 121, .6);
+	--border-color : rgb(28, 56, 121);
 }
+
 .table-wrap {
   width: 100%;
-	height: 600px;
+	height: calc( 100% - 100px );
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  margin-top: 90px;
 }
 
 .inner-table {
   width: 80%;
-  height: 100%;
+  height: 80%;
 	border: 1px solid var(--border-color );
 	border-collapse: collapse;
-	width: calc( 100% - 15px );
 	margin: 0 auto;
 	text-align: center;
 }
@@ -31,6 +33,25 @@
 	background-color: var(--sig-color);
 }
 
-.inner-tablee th, .inner-table td {
+.inner-table th, .inner-table td {
 	border: 1px solid var(--border-color );
+}
+
+.inner-table th:nth-child(1), .inner-table tbody tr td:nth-child(1) {
+	width: 5%;
+}
+
+.inner-table th:nth-child(2), .inner-table tbody tr td:nth-child(2) {
+	width: 10%;
+}
+
+.inner-table th:nth-child(3), .inner-table tbody tr td:nth-child(3) {
+	width: 50%;
+}
+
+.inner-table th:nth-child(4), .inner-table tbody tr td:nth-child(4) {
+	width: 20%;
+}
+.inner-table th:nth-child(5), .inner-table tbody tr td:nth-child(5) {
+	width: 15%;
 }

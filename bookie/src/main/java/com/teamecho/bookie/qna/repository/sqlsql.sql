@@ -29,8 +29,8 @@ and qid = 1
 insert into Questionhistory(uid, qid, identify)
 values(1,1,'Y')
 
-SELECT q.subject, q.uid, q.cateid, q.regDate 
-FROM qna q, ( SELECT @ROWNUM := 0) R ORDER BY q.regDate desc LIMIT 0, 10;
+SELECT subject, uid, cateid, regDate 
+FROM qna  ORDER BY q.regDate desc LIMIT 0, 10;
 
 INSERT INTO QNA (subject, document, cateId, uid)
 VALUES ('제목1', '<P>본문1</P>',12,1);
