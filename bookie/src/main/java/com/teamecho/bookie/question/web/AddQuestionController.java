@@ -1,8 +1,6 @@
 package com.teamecho.bookie.question.web;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.common.domain.Category;
@@ -57,42 +52,17 @@ public class AddQuestionController {
 		return "question/add_question";
 	}
 	
-	/**
-	 * 추가할 문제의 카테고리 및 타입 지정 후 폼페이지 이동
-	 * @param request
-	 * @return
-	 */
-	@PostMapping("/question/select_type")
-	public String selectQuestionType(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		cLevel = request.getParameter("cLevel");
-		grade = Integer.valueOf(request.getParameter("grade"));
-		subject = request.getParameter("subject");
-		qType = Integer.valueOf(request.getParameter("question-type"));
-		
-		// 유효성 검사
-		/*
-		if(cLevel == null || cLevel.length() == 0) {
-			String cateErrMsg1 = "<span class=\"error\">학생유형을 선택해주세요.</span>";
-			request.setAttribute("cateErrMsg1", cateErrMsg1);
-			return "/question/add_question";
-		}
-		if(grade == 0) {
-			String cateErrMsg2 = "<span class=\"error\">학년을 선택해주세요.</span>";
-			request.setAttribute("cateErrMsg2", cateErrMsg2);
-			return "/question/add_question";
-		}
-		if(subject == null || subject.length() == 0) {
-			String cateErrMsg3 = "<span class=\"error\">과목을 선택해주세요.</span>";
-			request.setAttribute("cateErrMsg3", cateErrMsg3);
-			return "/question/add_question";
-		}
-		*/
-		
-		redirectAttributes.addFlashAttribute("cLevel", cLevel);
-		redirectAttributes.addFlashAttribute("grade", grade);
-		redirectAttributes.addFlashAttribute("subject", subject);
-		redirectAttributes.addFlashAttribute("qType", qType);
-		return "redirect:/question/add_question";
+	@PostMapping("/question/add_questions")
+	public String addQuestions(AddQuestionsCommand command) {
+		System.out.println(command.getCLevel());
+		System.out.println(command.getGrade());
+		System.out.println(command.getSubject());
+		System.out.println(command.getQText());
+		System.out.println(command.getAnswerList());
+		System.out.println(command.getQCommentList());
+		System.out.println(command.getQuestionImgArr());
+		System.out.println(command.getQuestionCount());
+		return "";
 	}
 
 	/**
