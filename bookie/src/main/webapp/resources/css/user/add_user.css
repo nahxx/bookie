@@ -43,7 +43,6 @@ label {
 	margin-top: 10px;
 	display: flex;
 	position: absolute;
-	width: 100%;
 }
 
 input[name=email1] {

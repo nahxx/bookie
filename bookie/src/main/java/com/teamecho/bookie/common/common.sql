@@ -40,6 +40,7 @@ CREATE TABLE User (
    	uType      		CHAR(1)         NOT NULL,
    	phone      		VARCHAR(13)     NOT NULL,
    	addr         	VARCHAR(60)     NOT NULL,
+   	manager			CHAR(1)			NOT NULL 	DEFAULT 'N',
    	regDate      	TIMESTAMP       NOT NULL 	DEFAULT CURRENT_TIMESTAMP
 )AUTO_INCREMENT = 1;
 

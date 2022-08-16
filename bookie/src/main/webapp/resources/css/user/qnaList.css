@@ -6,22 +6,46 @@
 	text-align: center;
 }
 
-.wrap {
-	width: 60%;
-	height: auto;
-	margin: 0 auto;
-	margin-top: 40px;
-	padding: 100px;
-	box-sizing: border-box;
-	text-align: center;
+.rezInfo {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
 }
 
-.rezInfo table {
+table, th, td {
+    border: none;
+}
+
+table {
 	margin: 0 auto;
 	width: 100%;
 	border: 1px solid #EDE6DB;
 	border-collapse: collapse;
 }
-.rezInfo table {
-	margin-bottom: 40px;
+
+thead {
+    color: rgba(0,0,0,0.6);
+}
+
+table.striped tr {
+    border-bottom: none;
+}
+
+td, th {
+    padding: 15px 10px;
+}
+
+td, th {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+.rezInfo:after {
+    content: "";
+    display: table;
+    clear: both;
 }
