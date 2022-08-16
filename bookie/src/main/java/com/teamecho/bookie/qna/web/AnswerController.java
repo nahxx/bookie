@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.qna.domain.Answer;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.service.AnswerService;
@@ -37,9 +38,13 @@ public class AnswerController {
 	@Autowired
 	private QnaService qnaService;
 	
+	@Autowired
+	CategoryService categoryService;
+	
 	long uId;
 	User user;
 	List<Answer> answers;
+	Answer answer;
 	Qna qna;
 	
 	// 댓글 폼
@@ -48,6 +53,7 @@ public class AnswerController {
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
 		
+		qnaService.boardCounting(qnaId);
 		qna = qnaService.getQnaByQnaId(qnaId);
 		// 질문 제목
 		mv.addObject("subject", qna.getSubject());	
@@ -97,12 +103,15 @@ public class AnswerController {
 	}
 	
 	// 댓글 삭제
-	@RequestMapping(value = "/answer/delete/{qnaId}", method = RequestMethod.POST)
-	public ModelAndView answerDelete(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
-		
+	@RequestMapping(value = "/answer/delete/{qnaId}/{anId}", method = RequestMethod.POST)
+	public ModelAndView answerDelete(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId){
+		answerService.deleteAnswerByAnId(anId);
 		mv.setViewName("redirect:/answer/{qnaId}");
 		return mv;
 	}
+	
+	// 댓글 수정
+	
 	
 	// 질문 삭제
 	@RequestMapping(value = "/qna/delete/{qnaId}", method = RequestMethod.POST)
@@ -110,21 +119,40 @@ public class AnswerController {
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
 		
+		answerService.deleteAnswersByQnaId(qnaId, uId);
 		qnaService.deleteQna(qnaId, uId);
 		
 		mv.setViewName("redirect:/qna_board");
 		return mv;
 	}
 	
-	// 질문 수정
-	@RequestMapping(value = "/qna/update/{qnaId}", method = RequestMethod.POST)
-	public ModelAndView qnaUpdate(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
+	// 질문 수정 폼
+	@RequestMapping(value = "/qna/update/{qnaId}", method = RequestMethod.GET)
+	public ModelAndView qnaUpdateForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
 		
-		qnaService.deleteQna(qnaId, uId);
+		qna = qnaService.getQnaByQnaId(qnaId);
 		
-		mv.setViewName("redirect:/qna_board");
+		mv.addObject("qna", qna);		
+		mv.setViewName("qna/qna_update");
+		return mv;
+	}
+	
+	// 질문 수정 폼
+	@RequestMapping(value = "/qna/update/{qnaId}", method = RequestMethod.POST)
+	public ModelAndView qnaUpdate(QnaCommand qnaCommand, HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		
+		Qna qna = new Qna();
+		qna.setSubject(qnaCommand.getQnaTitle());
+		qna.setDocument(qnaCommand.getContent());
+		qna.setCategory(categoryService.getCategory(qnaCommand.getLevel(), Integer.valueOf(qnaCommand.getGrade()), qnaCommand.getSubject()));
+		qna.setUser(userService.getUserByUid(uId));
+		//qnaService.updateQna(qna);			
+		
+		mv.setViewName("redirect:/answer/{qnaId}");
 		return mv;
 	}
 }

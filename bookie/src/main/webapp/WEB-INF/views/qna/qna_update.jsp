@@ -54,10 +54,10 @@
     </div>
   </div>
 	<p>제목</p>
-	<input type="text" id="qnaTitle" name="qnaTitle" placeholder="제목을 입력하세요." style="width: 70%;">
+	<input type="text" id="qnaTitle" name="qnaTitle" placeholder="${qna.subject}" style="width: 70%;">
 	<p>내용</p>
-	<div id="editor"></div>
-	<input type="button" value="등록" onclick="javascript:sendPost('<c:url value='/add_qna'/>');">
+	<div id="editor">${qna.document}</div>
+	<input type="button" value="수정" onclick="javascript:sendPost('<c:url value='/qna/update/${qnaId}'/>');">
 	<!-- TOAST UI Editor 생성 JavaScript 코드 -->
 	<script> 
     	const editor = new toastui.Editor({
@@ -75,7 +75,7 @@
 		   			$.ajax({
 		           		type: 'POST',
 		           		enctype: 'multipart/form-data',
-		           		url: '/bookie/qna_update',
+		           		url: '/bookie/qna_write',
 		           		data: formData,
 		           		dataType: "json",
 		           		processData: false,

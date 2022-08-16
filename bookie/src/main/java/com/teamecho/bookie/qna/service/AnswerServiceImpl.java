@@ -37,12 +37,21 @@ public class AnswerServiceImpl implements AnswerService {
 
 	@Override
 	public Answer getAnswerByQnaId(long qnaId) {
-		// TODO Auto-generated method stub
-		return null;
+		return answerDao.getAnswerByQnaId(qnaId);
 	}
 
 	@Override
 	public List<Answer> getAnswersByUId(long uId) {
 		return answerDao.getAnswersByUId(uId);
+	}
+
+	@Override
+	public void deleteAnswersByQnaId(long qnaId, long uId) {
+		answerDao.deleteAnswersByQnaId(qnaId, uId);	
+	}
+
+	@Override
+	public void deleteAnswerByAnId(long anId) {
+		answerDao.deleteAnswerByAnId(anId);
 	}
 }

@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,11 +40,29 @@
 	<div id="container">
 		<div class="viewer_q_wrap">
 			<div class="qna-title">${subject}</div>
+			<!-- 
 			<div class="view_q_user">${name}</div>
+			-->	
+			<div class="view_q_user">
+				<c:forEach var="i" begin="1" end="${fn:length(name)}">
+					<c:choose>
+					  <c:when test="${ i == '1' }">
+		            		${fn:substring(name,0,1)}
+		        		</c:when>
+
+		        		<c:when test="${ i == fn:length(name)}">
+		            		${fn:substring(name,fn:length(name) - 1,fn:length(name))}
+		        		</c:when>
+		        		 <c:otherwise>
+                  			*
+              			</c:otherwise>
+		        	</c:choose>
+				</c:forEach>
+			</div>	
 			<div id="viewer_q"></div>
 		</div>
 		<div class="btn">
-			<button onclick="javascript:submit('<c:url value='/qna/update/${qnaId}'/>');"
+			<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
 				class="qna-btn">수정</button>
 			<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
 			class="qna-btn">삭제</button>
@@ -51,26 +70,62 @@
 		<h3 class="answer-title">댓글</h3>
 		<c:forEach var="answer" items="${answers}" varStatus="status">
 			<div class="view_a_wrap">
+				<!--
 				<div class="view_a_user">${answer.getUser().getName()}</div>
+				-->
+				<div class="view_a_user">
+					<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
+						<c:choose>
+						  <c:when test="${ i == '1' }">
+			            		${fn:substring(answer.getUser().getName(),0,1)}
+			        		</c:when>
+
+			        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
+			            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
+			        		</c:when>
+			        		 <c:otherwise>
+                   				*
+               				</c:otherwise>
+			        	</c:choose>
+					</c:forEach>
+				</div>
 				<div id="viewer_a">${answer.getDocument()}</div>
 			</div>
 			<div class="btn">
-				<button onclick="javascript:submit('<c:url value='/answer/update/${answer.getAnId()}'/>');"
+				<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
 					class="qna-btn">수정</button>
-				<button onclick="javascript:submit('<c:url value='/answer/delete/${answer.getAnId()}'/>');"
+				<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
 				class="qna-btn">삭제</button>
 			</div>
 		</c:forEach>
 		<c:choose>
 		    <c:when test="${not empty answer}">
 				<div class="view_a_wrap">
+					<!--
 					<div class="view_a_user">${answer.getUser().getName()}</div>
+					-->
+					<div class="view_a_user">
+					<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
+						<c:choose>
+						  <c:when test="${ i == '1' }">
+			            		${fn:substring(answer.getUser().getName(),0,1)}
+			        		</c:when>
+
+			        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
+			            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
+			        		</c:when>
+			        		 <c:otherwise>
+                   				*
+               				</c:otherwise>
+			        	</c:choose>
+					</c:forEach>
+				</div>
 					<div id="viewer_a">${answer.getDocument()}</div>
 				</div>
 				<div class="btn">
-					<button onclick="javascript:submit('<c:url value='/answer/update/${answer.getAnId()}'/>');"
+					<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
 						class="qna-btn">수정</button>
-					<button onclick="javascript:submit('<c:url value='/answer/delete/${answer.getAnId()}'/>');"
+					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
 					class="qna-btn">삭제</button>
 				</div>
 		    </c:when>
@@ -98,6 +153,18 @@
 	    form.appendChild(hiddenField);
 	    
 	    document.body.appendChild(form);   
+	    form.submit();
+	}
+	
+	function get(url){
+		let documnet = editor.getHTML();
+		
+		var form = document.createElement('form');
+	    form.setAttribute('method', 'get');
+	    form.setAttribute('action', url);
+	    document.charset = "UTF-8";
+	     
+	    document.body.appendChild(form);
 	    form.submit();
 	}
 	
