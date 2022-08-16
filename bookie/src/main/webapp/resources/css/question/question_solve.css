@@ -112,6 +112,11 @@
 	outline: none;
 }
 
+.selec.length {
+	width: 200px;
+	font-size: 16px;
+}
+
 .submit-btn.search {
 	width: 70px;
 	margin: 0;
@@ -119,6 +124,21 @@
 }
 .submit-btn.search.solve {
     width: 120px;
+}
+.red-txt {
+	display: block;
+	color: red;
+	font-size: 15px;
+	font-weight: bold;
+	width: 100%;
+	text-align: center;
+	margin-top: 15px;
+}
+.submit-btn.search.pop-btn {
+    width: 120px;
+    text-align: center;
+    position: absolute;
+    top: 320px;
 }
 .container.counts.select-wrap {
     height: 200px;
@@ -136,4 +156,35 @@
 	font-size: 20px;
 	font-weight: bold;
 	color: red;
+}
+.pop {
+  background-color: rgba(33, 95, 49, 0.04);
+  backdrop-filter: blur(5px);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+.popbox {
+  background: white;
+  width: 600px;
+  height: 600px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+}
+.pop-txt {
+  font-size: 28px;
+  font-weight: bold;
+  height: 276px;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items: flex-end;
 }

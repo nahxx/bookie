@@ -34,22 +34,16 @@ public class SolveProblemController {
 
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/bookie/user/login';</script>"); // 경고창
-																													// 띄우기
-			writer.close();
+			model.addAttribute("session", "no");
+			return "error/no_session";
 		}
 		
 		if(session.getAttribute("uId") == null) {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter writer = response.getWriter();
-			writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/bookie/user/login';</script>"); // 경고창
-																													// 띄우기
-			writer.close();
+			model.addAttribute("session", "no");
+			return "error/no_session";
 		}
-		long uId = (long)session.getAttribute("uId");
 		
+		long uId = (long)session.getAttribute("uId");
 		
 		model.addAttribute("category", new CategoryCommand());
 		return "question/solveProblemListPage";
@@ -88,20 +82,33 @@ public class SolveProblemController {
 //		System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
 //		System.out.println("realCategory.getGrade() = " + realCategory.getGrade());
 //		System.out.println("realCategory.getCLevel() = " + realCategory.getCLevel());
-
+		
 		model.addAttribute("realCategory",realCategory);
 		return "question/solveProblemListPage";
 	}
 	
 	@GetMapping("/question/solveProblem")
-	public String solveProblemPage(Model model, HttpServletRequest request) {
+	public String solveProblemPage(Model model, HttpServletRequest request, @RequestParam(value="numOfquestions")int numOfquestions) {
 		HttpSession session = request.getSession(false);
 		int grade = Integer.parseInt(request.getParameter("grade"));
 		char cLevel = request.getParameter("cLevel").charAt(0);
 		String subject = request.getParameter("subject");
+		
+		if (session == null) {
+			model.addAttribute("session", "no");
+			return "error/no_session";
+		}
+		
+		if(session.getAttribute("uId") == null) {
+			model.addAttribute("session", "no");
+			return "error/no_session";
+		}
+		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
+		// 카테고리에 맞는 사용자가 풀지않은 문제 리스트 받아오기
 		List<Question> unsolveQuestionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId());
 		
+		// 더이상 풀 문제가 없는 경우 보내는 메세지
 		if(unsolveQuestionList.size() == 0) {
 			String str = "해당 학년의 문제를 다 푸셨습니다!";
 			model.addAttribute("str", str);
