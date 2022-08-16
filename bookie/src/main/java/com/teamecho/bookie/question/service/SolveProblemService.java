@@ -33,9 +33,9 @@ public class SolveProblemService {
 
 	public List<Question> findQuestionByCategoryId(long cateId) {
 
-		List<Question> questionList = solveProblemRepository.getQuestionByCateogyId(cateId);
+		List<Question> unsolveQuestionList = solveProblemRepository.getUnsolveQuestionByCateogyId(cateId);
 
-		return questionList;
+		return unsolveQuestionList;
 	}
 
 	public void addQuestionHistory(long uId, long qId, char identify) {

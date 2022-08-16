@@ -132,3 +132,8 @@
 .toastui-editor-contents p {
     font-size: 16px;
 }
+.errorMsg {
+	font-size: 20px;
+	font-weight: bold;
+	color: red;
+}

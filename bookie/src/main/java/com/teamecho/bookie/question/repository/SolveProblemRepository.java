@@ -21,6 +21,11 @@ public class SolveProblemRepository {
 		String sql = "SELECT * FROM Question WHERE cateId=?";
 		return jdbcTemplate.query(sql, new QuestionRowMapper(), cateId);
 	}
+	
+	public List<Question> getUnsolveQuestionByCateogyId(long cateId) {
+		String sql = "SELECT q.* FROM Question q WHERE q.cateid = ? AND NOT EXISTS (SELECT * FROM Questionhistory qh WHERE qh.uid = 1 AND qh.identify = 'Y' AND q.qid = qh.qid )";
+		return jdbcTemplate.query(sql, new QuestionRowMapper(), cateId);
+	}
 
 	public void addQuestionHistory(long uId, long qId, char identify) {
 		String sql = "INSERT INTO QuestionHistory (uId, qId, identify) VALUES(?,?,?)";

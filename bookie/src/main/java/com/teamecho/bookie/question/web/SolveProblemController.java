@@ -40,6 +40,14 @@ public class SolveProblemController {
 																													// 띄우기
 			writer.close();
 		}
+		
+		if(session.getAttribute("uId") == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/bookie/user/login';</script>"); // 경고창
+																													// 띄우기
+			writer.close();
+		}
 		long uId = (long)session.getAttribute("uId");
 		
 		
@@ -92,10 +100,15 @@ public class SolveProblemController {
 		char cLevel = request.getParameter("cLevel").charAt(0);
 		String subject = request.getParameter("subject");
 		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
-		List<Question> questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId());
+		List<Question> unsolveQuestionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId());
+		
+		if(unsolveQuestionList.size() == 0) {
+			String str = "해당 학년의 문제를 다 푸셨습니다!";
+			model.addAttribute("str", str);
+			return "error/solveProblemError";
+		}
 
-
-		model.addAttribute("question", questionList.get(0));
+		model.addAttribute("question", unsolveQuestionList.get(0));
 		return "question/solveProblemPage";
 	}
 	
