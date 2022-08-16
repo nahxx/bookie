@@ -53,3 +53,22 @@ table th.cate {
 input[type="text"] {
 	width: 100%;
 }
+
+/* 지문, 문제 배치 */
+.con-box, .question-con {
+	display: flex;
+	justify-content: space-around;
+    align-items: flex-start
+}
+
+.con-box .mainText-box, .question-con .q-box {
+	width: 45%;
+}
+
+.con-box .question-wrap, .question-con .a-box {
+	width: 45%;
+}
+
+.question-box + .question-box {
+	margin-top: 30px;
+}

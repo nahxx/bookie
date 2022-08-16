@@ -33,7 +33,7 @@
 		<%@ include file="../incl/no_login_header.jsp"%>
 	</header>
 	<!-- wrap 부분 -->
-	<div class="wrap mh">
+	<div id="wrap" class="wrap mh">
 		<h3 class="title">문제 등록</h3>
 		<!-- 카테고리/문제유형 선택 폼 -->
 		<form class="select-type" action="select_type" method="post">
@@ -82,21 +82,25 @@
 		<!-- 일반문제 폼 -->
 		<c:if test="${qType eq 1}">
 			<h4>일반 문제</h4>
-			<div class="question-box">
-				<h6>제목</h6>
-				<input type="text" name="qTitle" id="qTitle"/>
-				<h6>문제</h6>
-				<div class="editor" id="qTextEditor"></div>
-				<h6>답</h6>
-				<div class="answer-box">
-					<label class="grade"><input type="radio" name="answer" value="1" />1</label>
-					<label class="grade"><input type="radio" name="answer" value="2" />2</label>
-					<label class="grade"><input type="radio" name="answer" value="3" />3</label>
-					<label class="grade"><input type="radio" name="answer" value="4" />4</label>
-					<label class="grade"><input type="radio" name="answer" value="5" />5</label>
+			<div class="question-con">
+				<div class="q-box">
+					<h6>제목</h6>
+					<input type="text" name="qTitle" id="qTitle"/>
+					<h6>문제</h6>
+					<div class="editor" id="qTextEditor"></div>
 				</div>
-				<h6>해설</h6>
-				<div class="editor" id="qCommentEditor"></div>
+				<div class="a-box">
+					<h6>답</h6>
+					<div class="answer-box">
+						<label class="grade"><input type="radio" name="answer" value="1" />1</label>
+						<label class="grade"><input type="radio" name="answer" value="2" />2</label>
+						<label class="grade"><input type="radio" name="answer" value="3" />3</label>
+						<label class="grade"><input type="radio" name="answer" value="4" />4</label>
+						<label class="grade"><input type="radio" name="answer" value="5" />5</label>
+					</div>
+					<h6>해설</h6>
+					<div class="editor" id="qCommentEditor"></div>
+				</div>
 			</div>
 			<button class="submit-btn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_common_question"/>', ${qType});" >등록</button>
 			
@@ -104,31 +108,35 @@
 		<!-- 통합문제 폼 -->
 		<c:if test="${qType eq 2}">
 			<h4>통합 문제</h4>
-			<div class="mainText-box">
-				<h5>지문</h5>
-				<h6>제목</h6>
-				<input type="text" name="mTitle" id="mTitle"/>
-				<h6>지문내용</h6>
-				<div class="editor" id="mTextEditor"></div>
-			</div>
-			<div class="question-box">
-				<h5>문제</h5>
-				<h6>제목</h6>
-				<input type="text" name="qTitle" id="qTitle"/>
-				<h6>문제</h6>
-				<div class="editor" id="qTextEditor"></div>
-				<h6>답</h6>
-				<div class="answer-box">
-					<label class="grade"><input type="radio" name="answer" value="1" />1</label>
-					<label class="grade"><input type="radio" name="answer" value="2" />2</label>
-					<label class="grade"><input type="radio" name="answer" value="3" />3</label>
-					<label class="grade"><input type="radio" name="answer" value="4" />4</label>
-					<label class="grade"><input type="radio" name="answer" value="5" />5</label>
+			<div class="con-box">
+				<div class="mainText-box">
+					<h5>지문</h5>
+					<h6>제목</h6>
+					<input type="text" name="mTitle" id="mTitle"/>
+					<h6>지문내용</h6>
+					<div class="editor" id="mTextEditor"></div>
 				</div>
-				<h6>해설</h6>
-				<div class="editor" id="qCommentEditor"></div>
+				<div id="question-wrap" class="question-wrap">
+					<button class="add-btn" onclick="javascript:addQuestion();" >질문추가</button>
+					<div id="question-box" class="question-box">
+						<h5>문제</h5>
+						<h6>제목</h6>
+						<input type="text" name="qTitle" id="qTitle"/>
+						<h6>문제</h6>
+						<div class="editor qTextEditor" id="qTextEditor"></div>
+						<h6>답</h6>
+						<div class="answer-box">
+							<label class="grade"><input type="radio" name="answer" value="1" />1</label>
+							<label class="grade"><input type="radio" name="answer" value="2" />2</label>
+							<label class="grade"><input type="radio" name="answer" value="3" />3</label>
+							<label class="grade"><input type="radio" name="answer" value="4" />4</label>
+							<label class="grade"><input type="radio" name="answer" value="5" />5</label>
+						</div>
+						<h6>해설</h6>
+						<div class="editor qCommentEditor" id="qCommentEditor"></div>
+					</div>
+				</div>
 			</div>
-			
 		</c:if>
 	</div>
 	
@@ -378,7 +386,7 @@
     		
     		// qText 에디터
     		const qTextEditor = new toastui.Editor({
-    		    el: document.querySelector('#qTextEditor'),
+    		    el: document.querySelector('.qTextEditor'),
     		    previewStyle: 'tab',
     		    previewHighlight: false,
     		    height: '500px',
@@ -426,7 +434,7 @@
     		
     		// qComment 에디터
     		const qCommentEditor = new toastui.Editor({
-    		    el: document.querySelector('#qCommentEditor'),
+    		    el: document.querySelector('.qCommentEditor'),
     		    previewStyle: 'tab',
     		    previewHighlight: false,
     		    height: '300px',
@@ -469,6 +477,13 @@
     		    	}
     		    }
     		});
+    		
+    		// 질문 폼 추가하기
+    		function addQuestion() {
+    			let questionBox = document.getElementById('question-box').innerHTML;
+    			let questionWrap = document.getElementById('question-wrap');
+    			questionWrap.innerHTML += "<div class=/"question-box/">" + questionBox + "</div>";
+    		}
     	}
    
     </script> 

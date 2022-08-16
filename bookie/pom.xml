@@ -51,6 +51,13 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
+		<!-- spring-data-commons -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-commons</artifactId>
+		    <version>2.7.2</version>
+		</dependency>
+		
 		<!-- [for Connection Pool]  -->
 		<dependency>
 		    <groupId>org.apache.tomcat</groupId>
