@@ -21,8 +21,13 @@
 <script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <body>
-	<header>
-		<%@ include file="../incl/no_login_header.jsp"%>
+		<header>
+		<c:if test="${session eq 'no'}">
+			<%@ include file="../incl/no_login_header.jsp"%>
+		</c:if>
+		<c:if test="${session eq 'yes'}">
+			<%@ include file="../incl/header.jsp"%>
+		</c:if>
 	</header>
 	<div class="table-wrap">
 		<table class="inner-table">
@@ -42,7 +47,13 @@
 					<tr>
 						<td>${boardNo}</td>
 						<td>
-						${board.category.getCLevel()} / ${board.category.getGrade()}학년 / ${board.category.getSubject()}
+						<c:if test="${fn:contains(board.category.getCLevel(), 'm')}">
+							중등 / 
+						</c:if>
+						<c:if test="${fn:contains(board.category.getCLevel(), 'h')}">
+							고등 / 
+						</c:if>
+						${board.category.getGrade()}학년 / ${board.category.getSubject()}
 						</td>
 						<td><a href="<c:url value='/answer/${board.qnaId}'/>" >${board.subject}</a></td>
 						<td>

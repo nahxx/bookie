@@ -7,20 +7,10 @@
 <meta charset='utf-8'>
 <title>QNA - 쓰기</title>
 <!-- 디자인 수정용 CSS 추가 -->
-<style>
-#editor {
-	/* border : 1px solid; */
-	width: 70%;
-	margin: 0 auto;
-}
-/* editor content 받을 div태그 스타일 추가. */
-#contents {
-	width: 50%;
-	height: 100px;
-	margin: 30px auto;
-	border: 1px solid;
-}
-</style>
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/qna/write.css"/>" />
+
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- jQuery UI CDN -->
@@ -36,30 +26,46 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 </head>
 <body>
-	<h1>QNA작성</h1>
-	<div class="cate-wrap">
-    <div class="cate-inner">
-      <input type="radio" id="middle" name="level" value="m"><label for="middle">중등</label>
-      <input type="radio" id="high" name="level" value="h"><label for="high">고등</label>
-    </div>
-    <div class="cate-inner">
-      <input type="radio" id="one" name="grade" value="1"><label for="one">1학년</label>
-      <input type="radio" id="two" name="grade" value="2"><label for="two">2학년</label>
-      <input type="radio" id="three" name="grade" value="3"><label for="three">3학년</label>
-    </div>
-    <div class="cate-inner">
-      <input type="radio" id="korean" name="subject" value="국어"><label for="korean">국어</label>
-      <input type="radio" id="english" name="subject" value="영어"><label for="english">영어</label>
-      <input type="radio" id="math" name="subject" value="수학"><label for="math">수학</label>
-    </div>
-  </div>
-	<p>제목</p>
-	<input type="text" id="qnaTitle" name="qnaTitle" placeholder="제목을 입력하세요." style="width: 70%;">
-	<p>내용</p>
-	<div id="editor"></div>
-	<input type="button" value="등록" onclick="javascript:sendPost('<c:url value='/add_qna'/>');">
+	<header>
+		<%@ include file="../incl/header.jsp"%>
+	</header>
+	<div class="table-wrap">
+		<div class="title-wrap">
+			<h3 class="title">QNA작성</h3>
+		</div>
+		<div class="cate-wrap">
+		    <div class="cate-inner">
+		    <span class="stitle">레벨 : </span>
+		      <input type="radio" id="middle" name="level" value="m"><label for="middle">중등</label>
+		      <input type="radio" id="high" name="level" value="h"><label for="high">고등</label>
+		    </div>
+		    <div class="cate-inner">
+		     <span class="stitle">학년 : </span>
+		      <input type="radio" id="one" name="grade" value="1"><label for="one">1학년</label>
+		      <input type="radio" id="two" name="grade" value="2"><label for="two">2학년</label>
+		      <input type="radio" id="three" name="grade" value="3"><label for="three">3학년</label>
+		    </div>
+		    <div class="cate-inner">
+		     <span class="stitle">과목 : </span>
+		      <input type="radio" id="korean" name="subject" value="국어"><label for="korean">국어</label>
+		      <input type="radio" id="english" name="subject" value="영어"><label for="english">영어</label>
+		      <input type="radio" id="math" name="subject" value="수학"><label for="math">수학</label>
+		    </div>
+	  </div>
+  	</div>
+  	<div class="content">
+			<div class="content-inner">
+				<p class="mini-header">제목</p>
+				<input type="text" class="qnaTitle" id="qnaTitle" name="qnaTitle" placeholder="제목을 입력하세요.">
+					<p class="mini-header">내용</p>
+					<div id="editor"></div>
+					<div class="write-btn">
+						<input type="button" class="in-btn"value="작성" onclick="javascript:sendPost('<c:url value='/add_qna'/>');">
+					</div>
+			</div>
+	</div>
 	<!-- TOAST UI Editor 생성 JavaScript 코드 -->
-	<script> 
+	<script>
     	const editor = new toastui.Editor({
     		el: document.querySelector('#editor'),
 		    previewStyle: 'tab',
@@ -70,7 +76,7 @@
 		    	addImageBlobHook: (blob, callback) => {
 		    		const formData = new FormData();
 		        	formData.append('image', blob);
-		        	
+
 		        	let url;
 		   			$.ajax({
 		           		type: 'POST',
@@ -93,29 +99,29 @@
 		    	}
 		    }
 		});
-    	
+
 		function sendPost(url) {
 			//1. 폼생성
 			var form = document.createElement('form');
 			form.setAttribute('method', 'post');
 			form.setAttribute('action', url);
 			document.charset = "UTF-8";
-			
+
 			//2. 제목 input Tag 가져오기
 			let qnaTitle = document.getElementById('qnaTitle');
 			qnaTitle.setAttribute('type', 'hidden');
 			form.appendChild(qnaTitle);
-			
+
 			//3. 에디터 안에 있는 html 전체 가져오기
 			var getHtml = editor.getHTML();
-			
-			//4. 변수 넘겨주는 hidden input tag 만들어서 에디터 안에 있는 콘 
+
+			//4. 변수 넘겨주는 hidden input tag 만들어서 에디터 안에 있는 콘
 			var hf_1 = document.createElement('input');
 			hf_1.setAttribute('type', 'hidden');
 			hf_1.setAttribute('name', "content");
 			hf_1.setAttribute('value', getHtml);
 			form.appendChild(hf_1);
-			
+
 			//5. 라디오버튼으로 카테고리 선택한 값을 hiddenfrom으로 값 던져주기.
 			let level = document.querySelector('input[name="level"]:checked').value;
 			let grade = document.querySelector('input[name="grade"]:checked').value;
@@ -126,19 +132,19 @@
 			hf_2.setAttribute('name', "level");
 			hf_2.setAttribute('value', level);
 			form.appendChild(hf_2);
-			
+
 			var hf_3 = document.createElement('input');
 			hf_3.setAttribute('type', 'hidden');
 			hf_3.setAttribute('name', "grade");
 			hf_3.setAttribute('value', grade);
 			form.appendChild(hf_3);
-			
+
 			var hf_4 = document.createElement('input');
 			hf_4.setAttribute('type', 'hidden');
 			hf_4.setAttribute('name', "subject");
 			hf_4.setAttribute('value', subject);
 			form.appendChild(hf_4);
-			
+
 			document.body.appendChild(form);
 			form.submit();
   };

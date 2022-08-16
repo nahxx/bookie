@@ -2,8 +2,12 @@ package com.teamecho.bookie.qna.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,8 +53,21 @@ public class QnaBoardController {
 	}
 	*/
 	@GetMapping("/qna_board/{pagingNo}")
-	public ModelAndView qnaBoardPaging(@PathVariable int pagingNo) throws Exception {
+	public ModelAndView qnaBoardPaging(@PathVariable int pagingNo, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession(false);
+
+		if (session == null) {
+			  mav.addObject("session", "no");
+	      } 
+		else {
+	         if(session.getAttribute("uId") == null) {
+	        	 mav.addObject("session", "no");
+	         }
+	         mav.addObject("session", "yes");
+	      }
+		
+
 	    try {
 	        Paging paging = new Paging();
 	        paging.setViewPageNo(5); 	// 초기값1 : 화면에 5개의 번호를 보여주고 싶다.
