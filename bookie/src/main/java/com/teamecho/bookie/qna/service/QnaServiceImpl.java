@@ -56,11 +56,22 @@ public class QnaServiceImpl implements QnaService{
 			BoardStartItemNo = listCount * pagingNo;
 		}
 		List<Qna> qnaList = qnaDao.findQnaBoardList(BoardStartItemNo);
+		
 		for(Qna qna : qnaList) {
 			qna.setCategory(categoryService.getCategoryByCateId(qna.getCategory().getCateId()));
 			qna.setUser(userService.getUserByUid(qna.getUser().getUId()));
 		}
 		return qnaList;
+	}
+	
+	@Override
+	public void deleteQna(long qnaId, long uId) {
+		qnaDao.deleteQnaByQnaId(qnaId, uId);
+	}
+	
+	@Override
+	public void updateQna(String subject, String document, long qnaId, long uId) {
+		qnaDao.updateQnaByQnaId(subject, document, qnaId, uId);
 	}
 
 }

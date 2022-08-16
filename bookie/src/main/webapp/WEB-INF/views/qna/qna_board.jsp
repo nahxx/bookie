@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -39,10 +40,27 @@
 				<c:forEach var="qna" items="${qnaList}">
 					<tr>
 						<td>${boardNo}</td>
-						<td>카테고리</td>
+						<td>
+						${qna.category.getCLevel()} / ${qna.category.getGrade()}학년 / ${qna.category.getSubject()}
+						</td>
 						<td><a href="<c:url value='/answer/${qna.qnaId}'/>" >${qna.subject}</a></td>
-						<td>${qna.user.name}</td>
-						<td><fmt:formatDate value="${qna.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+						<td>
+							<c:forEach var="i" begin="1" end="${fn:length(qna.user.name)}">
+							<c:choose>
+							  <c:when test="${ i == '1' }">
+				            		${fn:substring(qna.user.name,0,1)}
+				        		</c:when>
+
+				        		<c:when test="${ i == fn:length(qna.user.name)}">
+				            		${fn:substring(qna.user.name,fn:length(qna.user.name) - 1,fn:length(qna.user.name))}
+				        		</c:when>
+				        		 <c:otherwise>
+                    				*
+                				</c:otherwise>
+				        	</c:choose>
+							</c:forEach>
+						</td>
+						<td><fmt:formatDate value="${qna.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<c:set var="boardNo" value="${boardNo - 1}" />
 					</tr>
 				</c:forEach>
@@ -59,8 +77,7 @@
                     <li><a href="<c:url value='/qna_board/${paging.currentPageNo - 1}'/>" >◀</a></li>
                 </c:otherwise>
         	</c:choose>
-				<c:forEach var="i" begin="${ paging.startPageNo }"
-					end="${ paging.endPageNo }">
+				<c:forEach var="i" begin="${ paging.startPageNo }" end="${ paging.endPageNo }">
 					<li><a class="pageNo ${i}" href="<c:url value="/qna_board/${i}"/>">${i}</a></li>
 				</c:forEach>
 				<c:choose>
@@ -73,6 +90,9 @@
         	</c:choose>
 			</ul>
 		</div>
+		<div class="write-btn">
+			<a href="<c:url value='/qna_write'/>" class="in-btn">글쓰기</a>
+		</div>
 	</div>
 ▶<script>
    $(".pageNo").each(function(){
@@ -82,7 +102,7 @@
 		  $(this).removeClass("on");
 	  }
    });
-   
+
 </script>
 </body>
 </html>

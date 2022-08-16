@@ -72,3 +72,7 @@ INSERT INTO QNA (subject, document, cateId, uid)
 VALUES ('제목19', '<P>본문19</P>',12,1);
 INSERT INTO QNA (subject, document, cateId, uid)
 VALUES ('제목20', '<P>본문20</P>',13,1);
+
+DELETE FROM Qna WHERE qnaid = 66 AND uid = 2; 
+
+UPDATE Qna SET subject = "하하하하" , document = "<p>dddddddd</p>" WHERE qnaid = 65 AND uid = 1;

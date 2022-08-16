@@ -41,4 +41,14 @@ public class QnaDao {
 		String sql = "SELECT * FROM qna  ORDER BY regDate desc LIMIT ?, 10;";
 		return jdbcTemplate.query(sql, new QnaRowMapper(), BoardStartItemNo);
 	}
+	
+	public void deleteQnaByQnaId(long qnaId, long uId) {
+		String sql = "DELETE FROM Qna WHERE qnaid = ? AND uid = ?";
+		jdbcTemplate.update(sql, qnaId, uId);
+	}
+	
+	public void updateQnaByQnaId(String subject, String document, long qnaId, long uId) {
+		String sql = "UPDATE Qna SET subject = ? , document = ? WHERE qnaid = ? AND uid = ?";
+		jdbcTemplate.update(sql, subject, document, qnaId, uId);
+	}
 }

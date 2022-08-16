@@ -55,3 +55,16 @@
 .inner-table th:nth-child(5), .inner-table tbody tr td:nth-child(5) {
 	width: 15%;
 }
+
+.write-btn {
+  width: 80%;
+  height: auto;
+}
+.in-btn{
+  float: right;
+  width: 80px;
+  height: auto;
+  font-weight: bold;
+  text-align : center;
+
+}

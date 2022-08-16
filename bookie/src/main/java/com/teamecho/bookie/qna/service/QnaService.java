@@ -10,4 +10,6 @@ public interface QnaService {
 	List<Qna> getAllQnaByUid(long uId);
 	Qna getQnaByQnaId(long qnaId);
 	List<Qna> getQnaBoardList(int pagingNo, int listCount);
+	void deleteQna(long qnaId, long uId);
+	public void updateQna(String subject, String document, long qnaId, long uId);
 }
