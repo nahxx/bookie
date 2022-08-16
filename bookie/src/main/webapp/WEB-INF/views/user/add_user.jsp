@@ -31,6 +31,7 @@
 							<form:options itemValue="emailHost" itemLabel="emailCode"
 								items="${emailProviderList }" />
 						</form:select>
+						<form:errors path="email" stype='color: red'>아이디가 이미 존재합니다.</form:errors>
 						<br>
 						<label>비밀번호</label>
 						<form:password path="passwd" />

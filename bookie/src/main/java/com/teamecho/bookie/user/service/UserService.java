@@ -33,5 +33,9 @@ public class UserService {
 	public User isValidUser(String userId, String passwd) {
 		return userDao.isValidUser(userId, passwd);
 	}
+	
+	public User getUserByUserId(String userId) {
+		return userDao.findUserByUserId(userId);
+	}
 
 }

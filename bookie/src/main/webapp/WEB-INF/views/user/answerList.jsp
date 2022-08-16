@@ -1,58 +1,92 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>bookie</title>
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css//user/qnaList.css"/>" />
 </head>
 <body>
 	<header>
-		<c:if test="${session eq 'no'}">
-			<%@ include file="../incl/no_login_header.jsp"%>
-		</c:if>
-		<c:if test="${session eq 'yes'}">
-			<%@ include file="../incl/header.jsp"%>
-		</c:if>
+		<%@ include file="../incl/header.jsp"%>
 	</header>
-	<div class="wrap">
+	<div class="wrap mh">
 		<div class="title-wrap">
-			<h3 class="title">나의 질문 리스트
-			</h3>
+			<h3 class="title">나의 답변 리스트</h3>
 		</div>
-		<div class="rezInfo">
-			<c:forEach var="voucher" items="${voucherList}">
-				<table>
-					<tbody>
+		<div class="table-wrap">
+			<table class="inner-table">
+				<c:set var="boardNo"
+					value="${paging.totalCount - (paging.currentPageNo - 1) * paging.pageSize }" />
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="answerList" items="${answerList}">
 						<tr>
-							<th>구매한 주차권</th>
-							<td><c:if test="${voucher.vType eq 'A'}">
-								${voucher.buyTime}시간 주차권
-							</c:if> <c:if test="${voucher.vType eq 'B'}">
-								종일권
-							</c:if> <c:if test="${voucher.vType eq 'C'}">
-								정기권
-							</c:if></td>
+							<td>${boardNo}</td>
+							<td>${answerList.qna.subject}</td>
+							<td>${answerList.document}</td>
+							<td><fmt:formatDate value="${answerList.regDate}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<c:set var="boardNo" value="${boardNo + 1}" />
 						</tr>
-						<tr>
-							<th>구매한 시간</th>
-							<td>${voucher.regDate}</td>
-						</tr>
-						<tr>
-							<th>사용유무</th>
-							<td><c:if test="${voucher.vuse eq 'N'}">
-									사용가능
-								</c:if> <c:if test="${voucher.vuse eq 'Y'}">
-									사용완료
-								</c:if></td>
-						</tr>
-					</tbody>
-				</table>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+			<div class="paging">
+		<ul class="inner-paging-wrap">
+			<c:choose>
+				<c:when test="${ paging.currentPageNo == '1' }">
+					<li><a style="color: #808080;">◀</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a
+						href="<c:url value='/qna_board/${paging.currentPageNo - 1}'/>">◀</a></li>
+				</c:otherwise>
+			</c:choose>
+			<c:forEach var="i" begin="${ paging.startPageNo }"
+				end="${ paging.endPageNo }">
+				<li><a class="pageNo ${i}"
+					href="<c:url value="/qna_board/${i}"/>">${i}</a></li>
 			</c:forEach>
-		</div>
+			<c:choose>
+				<c:when test="${ paging.currentPageNo == paging.finalPageNo }">
+					<li><a style="color: #808080;">▶</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a
+						href="<c:url value='/qna_board/${paging.currentPageNo + 1}'/>">▶</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 	</div>
-	<footer>
+	</div>
+	<script>
+		$(".pageNo").each(function() {
+			if ($(this).hasClass("${paging.currentPageNo}")) {
+				$(this).addClass("on");
+			} else {
+				$(this).removeClass("on");
+			}
+		});
+	</script>
+	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
 </body>

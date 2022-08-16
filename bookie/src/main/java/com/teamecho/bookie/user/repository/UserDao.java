@@ -45,5 +45,10 @@ public class UserDao {
 		String sql = "SELECT uId, userId, passwd FROM User WHERE userId=? and passwd=?";
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), userId, passwd);
 	}
+	
+	public User findUserByUserId(String userId) {
+		String sql = "SELECT userId FROM User WHERE userId=?";
+		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), userId);
+	}
 
 }

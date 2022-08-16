@@ -18,7 +18,7 @@
 	<%@ include file="../incl/header.jsp"%>
 </header>
 <body>
-	<section>
+	<div class="wrap mh">
 		<div class="container">
 			<div class="title-wrap">
 				<h3 class="title">MY PAGE</h3>
@@ -35,16 +35,16 @@
 						<li><img src="<c:url value="/resources/img/history.png"/>"><a
 							href="/" class="mypage_list">푼 문제 확인</a></li>
 						<li><img src="<c:url value="/resources/img/que.png"/>"><a
-							href="/" class="mypage_list">질문 목록</a></li>
+							href="/bookie/user/answerList" class="mypage_list">질문 목록</a></li>
 						<li><img src="<c:url value="/resources/img/answer.png"/>"><a
 							href="/bookie/user/qnaList" class="mypage_list">답변 목록</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<footer id="footer">
-			<%@ include file="../incl/footer.jsp"%>
-		</footer>
-	</section>
+	</div>
+	<footer id="footer">
+		<%@ include file="../incl/footer.jsp"%>
+	</footer>
 </body>
 </html>

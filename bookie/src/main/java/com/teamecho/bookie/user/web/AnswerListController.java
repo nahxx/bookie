@@ -9,12 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teamecho.bookie.qna.domain.Answer;
 import com.teamecho.bookie.qna.service.AnswerService;
-import com.teamecho.bookie.user.domain.User;
 
 @Controller
 @RequestMapping("/user/answerList")
@@ -30,8 +28,8 @@ public class AnswerListController {
 		HttpSession session = request.getSession(false);
 		long uid = (long) session.getAttribute("uId");
 
-//		AnswerList = answerService.;
-//		session.setAttribute("AnswerList", AnswerList);
+		answerList = answerService.getAnswersByUId(uid);
+		session.setAttribute("answerList", answerList);
 		
 		return "/user/answerList";
 		

@@ -42,6 +42,6 @@ public class LoginController {
 		session.setAttribute("name", user.getName());
 		session.setAttribute("userId", user.getUserId());
 		
-		return "user/mypage";	
+		return "home";	
 	}
 }

@@ -17,46 +17,77 @@
 	text-align: center;
 }
 
-.rezInfo {
-	width: 100%;
-	margin-top: 40px;
-	margin-left: auto;
-	left: auto;
-	right: auto;
+@font-face {
+    font-family: 'IM_Hyemin-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Regular.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+	--sig-color : rgb(28, 56, 121, .6);
+	--border-color : rgb(28, 56, 121);
 }
 
-table, th, td {
-	border: 1px solid #607EAA;
+.table-wrap {
+  width: 100%;
+	height: calc( 100% - 100px );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 90px;
 }
 
-table {
-	margin: 0 auto;
-	width: 70%;
-	border: 1px solid #607EAA;
+.inner-table {
+  width: 80%;
+  height: 80%;
+	border: 1px solid var(--border-color );
 	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: center;
 }
 
-thead {
-	color: #607EAA;
+.inner-table thead {
+	background-color: var(--sig-color);
 }
 
-thead>tr>th {
-	font-size: 20px;
+.inner-table th, .inner-table td {
+	border: 1px solid var(--border-color );
 }
 
-table.highlight tr {
-	border-bottom: none;
+.inner-table th:nth-child(1), .inner-table tbody tr td:nth-child(1) {
+	width: 5%;
 }
 
-td, th {
-	padding: 15px 5px;
-	display: table-cell;
-	text-align: left;
-	justify-content: center;
+.inner-table th:nth-child(2), .inner-table tbody tr td:nth-child(2) {
+	width: 10%;
 }
 
-.rezInfo:after {
-	content: "";
-	display: table;
-	clear: both;
+.inner-table th:nth-child(3), .inner-table tbody tr td:nth-child(3) {
+	width: 50%;
+}
+
+.inner-table th:nth-child(4), .inner-table tbody tr td:nth-child(4) {
+	width: 20%;
+}
+.inner-table th:nth-child(5), .inner-table tbody tr td:nth-child(5) {
+	width: 15%;
+}
+
+.paging {
+  margin: 0 auto;
+  width: 100px;
+  height: 40px;
+}
+.inner-paging-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.pageNo.on{
+	color : var(--sig-color);
+	font-weight : 700;
+	font-size : 18px;
 }
