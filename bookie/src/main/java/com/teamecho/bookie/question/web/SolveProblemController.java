@@ -96,12 +96,10 @@ public class SolveProblemController {
 		
 		if (session == null) {
 			model.addAttribute("session", "no");
-			return "error/no_session";
 		}
 		
 		if(session.getAttribute("uId") == null) {
 			model.addAttribute("session", "no");
-			return "error/no_session";
 		}
 		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
@@ -122,6 +120,7 @@ public class SolveProblemController {
 	@PostMapping("/question/solveProblem")
 	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String question, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		
 //		System.out.println(answer);
 //		System.out.println("question = " + question);
 //		System.out.println("session.getAttribute(\"uId\") = " + session.getAttribute("uId"));

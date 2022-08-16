@@ -56,12 +56,14 @@
         </div>
       </div>
     </div>
-    <div class="pop">
-      <div class="popbox">
-        <p class="pop-txt">로그인 해주세요 !</p>
-        <a href="/bookie/question/solveProblemList" class="submit-btn search solve">되돌아가기</a>
-      </div>
-    </div>
+    <c:if test="${session eq 'no'}">
+	    <div class="pop">
+	      <div class="popbox">
+	        <p class="pop-txt">로그인 해주세요 !</p>
+	        <a href="/bookie/question/solveProblemList" class="submit-btn search pop-btn">되돌아가기</a>
+	      </div>
+	    </div>
+    </c:if>
   </section>
 
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
