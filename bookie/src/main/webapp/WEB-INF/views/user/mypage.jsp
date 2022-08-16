@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.teamecho.bookie.user.domain.User"%>
+<%-- <%@ page import="com.teamecho.bookie.user.domain.User"%> --%>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
 	href="<c:url value="/resources/css/user/mypage.css"/>" />
 </head>
 <header>
-<%@ include file="../incl/header.jsp"%>
+	<%@ include file="../incl/header.jsp"%>
 </header>
 <body>
 	<section>
@@ -25,14 +25,19 @@
 			</div>
 			<div class="content-wrapper">
 				<div class="content">
-					<label><h5>${userId }</h5></label>
+					<label><h4>${userId }</h4></label>
 				</div>
+
 				<div class="content list">
 					<ul class="info-list">
-						<li><img src="<c:url value="/resources/img/update.png"/>"><a href="/" class="mypage_list">정보 수정하기</a></li>
-						<li><img src="<c:url value="/resources/img/history.png"/>"><a href="/" class="mypage_list">푼 문제 확인</a></li>
-						<li><img src="<c:url value="/resources/img/que.png"/>"><a href="/" class="mypage_list">질문 목록</a></li>
-						<li><img src="<c:url value="/resources/img/answer.png"/>"><a href="/" class="mypage_list">답변 목록</a></li>
+						<li><img src="<c:url value="/resources/img/update.png"/>"><a
+							href="/" class="mypage_list">정보 수정하기</a></li>
+						<li><img src="<c:url value="/resources/img/history.png"/>"><a
+							href="/" class="mypage_list">푼 문제 확인</a></li>
+						<li><img src="<c:url value="/resources/img/que.png"/>"><a
+							href="/" class="mypage_list">질문 목록</a></li>
+						<li><img src="<c:url value="/resources/img/answer.png"/>"><a
+							href="/" class="mypage_list">답변 목록</a></li>
 					</ul>
 				</div>
 			</div>

@@ -1,16 +1,19 @@
 @charset "UTF-8";
 
 #footer {
-  height: 160px;
-  background: #F9F5EB;
+	height: 160px;
+	background: #F9F5EB;
+	bottom: 0px;
 }
+
 .copyright {
-  width: 700px;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-  padding-top: 40px;
+	width: 700px;
+	height: 100%;
+	margin: 0 auto;
+	position: relative;
+	padding-top: 40px;
 }
+
 .copyright-logo {
 	position: absolute;
 	right: 0;
@@ -22,6 +25,7 @@
 .copyright-txt p {
 	margin-top: 5px;
 }
+
 .copyright-txt p a {
 	line-height: 0;
 }

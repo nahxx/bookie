@@ -58,7 +58,7 @@ select[name=email2] {
 }
 
 input[name=phone2], input[name=phone3], select[name=phone1] {
-	width: 29.2%;
+	width: 31.2%;
 }
 
 input, select {

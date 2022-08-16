@@ -7,12 +7,12 @@ img {
 section {
 	overflow: hidden;
 	min-height: 100%;
+		height: 100%;
 }
 
 .container {
 	display: flex;
 	flex-wrap: wrap;
-	height: 100%;
 	width: 700px;
 	margin: 0 auto;
 	align-items: center;
@@ -48,12 +48,7 @@ section {
 }
 
 .container>.content-wrapper {
-	display: flex;
-	height: 100%;
-	align-items: flex-start;
-	width: 100%;
-    padding: 15px 80px 45px;
-	flex-wrap: wrap;
+	padding: 15px 80px 45px;
 }
 
 .content {
@@ -90,7 +85,7 @@ section {
 .info-list li:nth-child(odd) {
 	margin-left: 7px;
 	margin-right: 20px;
-
+	margin-bottom: 20px;
 }
 
 .info-list li>a {

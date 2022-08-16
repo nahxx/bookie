@@ -39,6 +39,8 @@ public class LoginController {
 		
 		session = request.getSession(true);
 		session.setAttribute("uId", user.getUId());
+		session.setAttribute("name", user.getName());
+		session.setAttribute("userId", user.getUserId());
 		
 		return "user/mypage";	
 	}
