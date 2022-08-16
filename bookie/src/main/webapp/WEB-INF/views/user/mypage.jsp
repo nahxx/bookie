@@ -37,7 +37,7 @@
 						<li><img src="<c:url value="/resources/img/que.png"/>"><a
 							href="/" class="mypage_list">질문 목록</a></li>
 						<li><img src="<c:url value="/resources/img/answer.png"/>"><a
-							href="/" class="mypage_list">답변 목록</a></li>
+							href="/bookie/user/qnaList" class="mypage_list">답변 목록</a></li>
 					</ul>
 				</div>
 			</div>

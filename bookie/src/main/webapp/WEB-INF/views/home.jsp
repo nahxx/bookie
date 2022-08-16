@@ -1,5 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	session="false"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
@@ -9,10 +8,11 @@
 	href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css/home/home.css"/>" />
-<link rel="stylesheet" href="<c:url value="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/home/home.css"/>" />
+<link rel="stylesheet"
+	href="<c:url value="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>" />
 </head>
-
 <body>
 	<header>
 		<c:if test="${session eq 'no'}">
@@ -141,11 +141,11 @@
 				</div>
 			</div>
 		</div>
-		<!--푸터 영역 -->
-		<footer id="footer">
-			<%@ include file="./incl/footer.jsp"%>
-		</footer>
 	</section>
+	<!--푸터 영역 -->
+	<footer id="footer">
+		<%@ include file="./incl/footer.jsp"%>
+	</footer>
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 	<script>
 		var swiper = new Swiper(".mySwiper", {

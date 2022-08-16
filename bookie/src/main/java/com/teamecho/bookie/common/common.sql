@@ -17,7 +17,7 @@ DELETE FROM MainText;
 DELETE FROM SubjectPattern;
 DELETE FROM Category;
 DELETE FROM User;
-DELETE FROM QNA;
+DELETE FROM Qna;
 DELETE FROM Answer;
 
 -- 테이블 보기
@@ -28,7 +28,7 @@ SELECT * FROM MainText;
 SELECT * FROM Question;
 SELECT * FROM QuestionPattern;
 SELECT * FROM QuestionHistory;
-SELECT * FROM QNA;
+SELECT * FROM Qna;
 SELECT * FROM Answer;
 
 -- User 테이블 생성
@@ -118,6 +118,9 @@ CREATE TABLE Qna(
    CONSTRAINT Qna_cateId_FK FOREIGN KEY (cateId) REFERENCES Category(cateId),
    CONSTRAINT Qna_uId_FK FOREIGN KEY (uId) REFERENCES User(uId)
 )AUTO_INCREMENT = 1;
+
+INSERT INTO Qna (subject, document, cateId, uId) VALUES ('국어', '안녕하세요', 1, 1);
+INSERT INTO Qna (subject, document, cateId, uId) VALUES ('국어', '다음에 만나요', 1, 1);
 
 -- Answer 테이블 생성
 CREATE TABLE Answer(

@@ -17,13 +17,17 @@ public class HomeController {
 		HttpSession session = request.getSession(false);
 
 		if (session == null) {
-			model.addAttribute("session", "no");
-			return "home";
-		} else {
-			long uId = (long) session.getAttribute("uId");
-			model.addAttribute("session", "yes");
-			return "home";
-		}
+	         model.addAttribute("session", "no");
+	         return "home";
+	      } else {
+	         if(session.getAttribute("uId") == null) {
+	            model.addAttribute("session", "no");
+	            return "home";
+	         }
+	         long uId = (long) session.getAttribute("uId");
+	         
+	         model.addAttribute("session", "yes");
+	         return "home";
+	      }
 	}
-
 }
