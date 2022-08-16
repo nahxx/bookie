@@ -38,18 +38,15 @@ public class AnswerController {
 	private QnaService qnaService;
 	
 	long uId;
-	long qnaId;
 	User user;
 	List<Answer> answers;
 	Qna qna;
 	
+	// 댓글 폼
 	@RequestMapping(value = "/answer/{qnaId}", method = RequestMethod.GET)
-	public ModelAndView qnaform(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId) throws Exception{
+	public ModelAndView qnaForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
-		//qnaId = request.getParameter("");
-		//qnaId = 1;
-		System.out.println(qnaId);
 		
 		qna = qnaService.getQnaByQnaId(qnaId);
 		// 질문 제목
@@ -57,19 +54,20 @@ public class AnswerController {
 		// 질문		
 		mv.addObject("document_q", qna.getDocument());
 		// 질문 작성자 아이디
-		mv.addObject("userId", qna.getUser().getUserId());
+		mv.addObject("name", qna.getUser().getName());
 		// 댓글 목록
 		answers = answerService.getAnswersByQnaId(qnaId);
+		mv.addObject("qnaId", qnaId);
 		mv.addObject("answers", answers);
 		mv.setViewName("qna/qna_answer");
 		return mv;
 	}
 	
-	@RequestMapping(value = "/answer", method = RequestMethod.POST)
-	public ModelAndView qna(HttpServletRequest request, ModelAndView mv) {
+	// 댓글 작성
+	@RequestMapping(value = "/answer/insert/{qnaId}", method = RequestMethod.POST)
+	public ModelAndView answerInsert(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
-		qnaId = 1;
 		
 		qna = qnaService.getQnaByQnaId(qnaId);
 		// 질문 제목
@@ -77,7 +75,7 @@ public class AnswerController {
 		// 질문 내용
 		mv.addObject("document_q", qna.getDocument());
 		// 질문 작성자 아이디
-		mv.addObject("userId", qna.getUser().getUserId());
+		mv.addObject("name", qna.getUser().getName());
 		// 댓글 목록
 		answers = answerService.getAnswersByQnaId(qnaId);
 		mv.addObject("answers", answers);
@@ -93,7 +91,40 @@ public class AnswerController {
 		// 현재 로그인한 유저
 		answer.setUser(userService.getUserByUid(uId));
 		answerService.addAnswer(answer);
+		mv.addObject("answer", answer);
 		mv.setViewName("qna/qna_answer");
+		return mv;
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value = "/answer/delete/{qnaId}", method = RequestMethod.POST)
+	public ModelAndView answerDelete(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
+		
+		mv.setViewName("redirect:/answer/{qnaId}");
+		return mv;
+	}
+	
+	// 질문 삭제
+	@RequestMapping(value = "/qna/delete/{qnaId}", method = RequestMethod.POST)
+	public ModelAndView qnaDelete(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		
+		qnaService.deleteQna(qnaId, uId);
+		
+		mv.setViewName("redirect:/qna_board");
+		return mv;
+	}
+	
+	// 질문 수정
+	@RequestMapping(value = "/qna/update/{qnaId}", method = RequestMethod.POST)
+	public ModelAndView qnaUpdate(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		
+		qnaService.deleteQna(qnaId, uId);
+		
+		mv.setViewName("redirect:/qna_board");
 		return mv;
 	}
 }

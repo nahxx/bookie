@@ -1,0 +1,116 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'IM_Hyemin-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Regular.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+#container{
+	width: 100%;
+	margin: 0 auto;
+}
+.viewer_q_wrap{
+	margin-top: 100px;
+}
+.qna-title{	
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	color: white;
+    background-color: #1C3879;
+    border-color: #ddd;
+    padding: 5px 15px;
+}
+.answer-title{
+	width: 70%;
+	margin: 0 auto;
+	text-align: left;
+	margin-bottom: 10px;
+	margin-top: 30px;
+}
+#editor {
+	/* border : 1px solid; */
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+/* editor content 받을 div태그 스타일 추가. */
+#contents {
+	width: 50%;
+	height: 100px;
+	margin: 30px auto;
+	border: 1px solid;
+}
+#viewer_q {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+}
+#viewer_a {
+	border : 1px solid;
+	width: 70%;
+	height: 50%;
+	margin: 0 auto;
+	border-color: #ddd;
+}
+.btn{
+	width: 70%;
+	margin: 0 auto;
+	text-align: right;
+}
+.toastui-editor-contents img {
+    box-sizing: border-box;
+    margin: 4px 0 10px;
+    max-width: 100%;
+    vertical-align: top;
+}
+p{
+	text-align: center;
+}
+.view_q_user, .view_a_user{
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 5px 15px;
+}
+.submit-btn {
+  width: 10%;
+  margin: 10px 0;
+  outline: none;
+  border: none;
+  background: #607EAA;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-family: 'IM_Hyemin-Regular';
+  cursor: pointer;
+}
+.qna-btn{
+  width: 10%;
+  margin: 10px 0;
+  outline: none;
+  border: none;
+  background: #607EAA;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-family: 'IM_Hyemin-Regular';
+  cursor: pointer;
+}
+.toastui-editor-contents {
+    font-family: 'IM_Hyemin-Regular';
+    font-size: 15px;
+    margin: 0;
+}
+.toastui-editor-contents p {	
+    color: #222;
+    margin: 0;
+}

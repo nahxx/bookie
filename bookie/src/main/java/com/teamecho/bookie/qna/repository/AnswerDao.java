@@ -35,4 +35,9 @@ public class AnswerDao {
 		String sql = "SELECT * FROM Answer WHERE qnaId = ?";
 		return jdbcTemplate.query(sql, new AnswerRowMapper(), qnaId);
 	}
+	
+	public List<Answer> getAnswersByUId(long uId) {
+		String sql = "SELECT * FROM Answer WHERE uId = ?";
+		return jdbcTemplate.query(sql, new AnswerRowMapper(), uId);
+	}
 }

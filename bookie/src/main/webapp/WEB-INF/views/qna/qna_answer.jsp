@@ -30,84 +30,7 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
-<script>	
-    	
-</script>
-<!-- 디자인 수정용 CSS 추가 -->
-<style>
-#container{
-	width: 100%;
-	margin: 0 auto;
-}
-.viewer_q_wrap{
-	margin-top: 100px;
-}
-.qna-title{	
-	border : 1px solid;
-	width: 70%;
-	margin: 0 auto;
-	color: white;
-    background-color: #1C3879;
-    border-color: #ddd;
-    padding: 5px 15px;
-}
-.answer-title{
-	width: 70%;
-	margin: 0 auto;
-	text-align: left;
-	margin-bottom: 10px;
-}
-#editor {
-	/* border : 1px solid; */
-	width: 70%;
-	margin: 0 auto;
-	margin-top: 20px;
-}
-/* editor content 받을 div태그 스타일 추가. */
-#contents {
-	width: 50%;
-	height: 100px;
-	margin: 30px auto;
-	border: 1px solid;
-}
-#viewer_q {
-	border : 1px solid;
-	width: 70%;
-	margin: 0 auto;
-	margin-bottom: 30px;
-	border-color: #ddd;
-}
-#viewer_a {
-	border : 1px solid;
-	width: 70%;
-	height: 50%;
-	margin: 0 auto;
-	border-color: #ddd;
-}
-.btn{
-	width: 70%;
-	margin: 0 auto;
-	text-align: right;
-}
-.toastui-editor-contents img {
-    box-sizing: border-box;
-    margin: 4px 0 10px;
-    max-width: 100%;
-    vertical-align: top;
-}
-p{
-	/*text-align: center;*/
-}
-.view_q_user, .view_a_user{
-	border : 1px solid;
-	width: 70%;
-	margin: 0 auto;
-	color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
-    padding: 5px 15px;
-}
-</style>
+<link rel="stylesheet" href="<c:url value="/resources/css/qna/answer.css"/>" />
 </head>
 <body>
 	<header>
@@ -116,25 +39,47 @@ p{
 	<div id="container">
 		<div class="viewer_q_wrap">
 			<div class="qna-title">${subject}</div>
-			<div class="view_q_user">${userId}</div>
+			<div class="view_q_user">${name}</div>
 			<div id="viewer_q"></div>
+		</div>
+		<div class="btn">
+			<button onclick="javascript:submit('<c:url value='/qna/update/${qnaId}'/>');"
+				class="qna-btn">수정</button>
+			<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
+			class="qna-btn">삭제</button>
 		</div>
 		<h3 class="answer-title">댓글</h3>
 		<c:forEach var="answer" items="${answers}" varStatus="status">
 			<div class="view_a_wrap">
-				<div class="view_a_user">${answer.getUser().getUserId()}</div>
+				<div class="view_a_user">${answer.getUser().getName()}</div>
 				<div id="viewer_a">${answer.getDocument()}</div>
+			</div>
+			<div class="btn">
+				<button onclick="javascript:submit('<c:url value='/answer/update/${answer.getAnId()}'/>');"
+					class="qna-btn">수정</button>
+				<button onclick="javascript:submit('<c:url value='/answer/delete/${answer.getAnId()}'/>');"
+				class="qna-btn">삭제</button>
 			</div>
 		</c:forEach>
-			<div class="view_a_wrap">
-				<div class="view_a_user">${answer.getUser().getUserId()}</div>
-				<div id="viewer_a">${answer.getDocument()}</div>
-			</div>
+		<c:choose>
+		    <c:when test="${not empty answer}">
+				<div class="view_a_wrap">
+					<div class="view_a_user">${answer.getUser().getName()}</div>
+					<div id="viewer_a">${answer.getDocument()}</div>
+				</div>
+				<div class="btn">
+					<button onclick="javascript:submit('<c:url value='/answer/update/${answer.getAnId()}'/>');"
+						class="qna-btn">수정</button>
+					<button onclick="javascript:submit('<c:url value='/answer/delete/${answer.getAnId()}'/>');"
+					class="qna-btn">삭제</button>
+				</div>
+		    </c:when>
+		</c:choose>
 		<div id="editor"></div>
 		<div class="btn">
-			<button onclick="javascript:submit('<c:url value='/answer'/>');"
+			<button onclick="javascript:submit('<c:url value='/answer/insert/${qnaId}'/>');"
 				class="submit-btn">작성</button>
-		</div>	
+		</div>
 	</div>
 <script>
 	// 폼 생성
@@ -165,7 +110,7 @@ p{
 	    previewHighlight: false,
 	    height: '200px',
 	    // 사전입력 항목
-	    initialValue: '글을 작성해주세요.',
+	    //initialValue: '글을 작성해주세요.',
 	    // 이미지가 Base64 형식으로 입력되는 것 가로채주는 옵션
     	hooks: {
 	    	addImageBlobHook: (blob, callback) => {

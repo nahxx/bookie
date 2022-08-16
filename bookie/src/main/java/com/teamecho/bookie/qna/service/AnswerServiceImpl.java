@@ -40,4 +40,9 @@ public class AnswerServiceImpl implements AnswerService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Answer> getAnswersByUId(long uId) {
+		return answerDao.getAnswersByUId(uId);
+	}
 }

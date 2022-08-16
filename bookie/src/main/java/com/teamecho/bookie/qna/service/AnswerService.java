@@ -9,4 +9,5 @@ public interface AnswerService {
 	void addAnswer(Answer answer);
 	Answer getAnswerByQnaId(long qnaId);
 	List<Answer> getAnswersByQnaId(long qnaId);
+	List<Answer> getAnswersByUId(long uId);
 }
