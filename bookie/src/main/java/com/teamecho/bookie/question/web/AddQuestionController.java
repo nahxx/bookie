@@ -1,6 +1,7 @@
 package com.teamecho.bookie.question.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -77,7 +78,9 @@ public class AddQuestionController {
 		addQService.addQuestionText(questionText);
 		
 		// 지문, 문제 분리
-		
+		String mText = ""; // 지문 담을 변수
+		List<String> qList = new ArrayList(); // 문제 담을 리스트
+				
 		
 		return "";
 	}
@@ -95,16 +98,16 @@ public class AddQuestionController {
 
 		
 		// 에디터에서 받아온 html문자열에서 이미지 태그 분리 후 이미지파일 이름 저장
-		List<String> qTextImgNameList = commonService.getImageName(qText);
-		List<String> qCommentImgNameList = commonService.getImageName(qComment);
+		//List<String> qTextImgNameList = commonService.getImageName(qText);
+		//List<String> qCommentImgNameList = commonService.getImageName(qComment);
 		
 		// 임시저장 폴더에서 이미지파일 찾아서 최종적으로 html에 포함된 이미지만 골라서 최종 폴더에 저장
-		commonService.saveFinalImages(questionImgArr, qTextImgNameList);
-		commonService.saveFinalImages(commentImgArr, qCommentImgNameList);
+		//commonService.saveFinalImages(questionImgArr, qTextImgNameList);
+		//commonService.saveFinalImages(commentImgArr, qCommentImgNameList);
 		
 		// 임시 저장 이미지 삭제
-		commonService.deleteTempImages(questionImgArr);
-		commonService.deleteTempImages(commentImgArr);
+		//commonService.deleteTempImages(questionImgArr);
+		//commonService.deleteTempImages(commentImgArr);
 		
 		return "";
 	}
