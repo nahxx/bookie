@@ -35,7 +35,6 @@ public class Paging {
     	int pageLine;
     	
     	if(selectPageNo == viewPageNo) {
-    		System.out.println("진입");
     		pageLine = (int) Math.floor( (double) (selectPageNo - 1) / (double) viewPageNo);
     	}else {
     		pageLine = (int) Math.floor( (double) selectPageNo / (double) viewPageNo);

@@ -16,6 +16,7 @@ public class CategoryCashService {
 	
 	@Autowired
 	private CategoryDao categoryDao;
+	
 	@SuppressWarnings("unused")
 	private List<Category> categoryList;
 	

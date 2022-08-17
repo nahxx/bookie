@@ -52,8 +52,7 @@ public class AddQuestionController {
 	public String addQuestionForm(HttpServletRequest request) {
 		session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
-		String userId = userService.getUserByUid(uId).getUserId();
-		if(!userId.equals("admin@bookie.com")) {
+		if(userService.getUserByUid(uId).getManager() == 'N') {
 			// 에러 페이지 이동
 		}
 		
