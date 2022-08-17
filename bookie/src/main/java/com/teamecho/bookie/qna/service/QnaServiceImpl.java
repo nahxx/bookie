@@ -31,10 +31,27 @@ public class QnaServiceImpl implements QnaService{
 	public List<Qna> getAllQna() {
 		return qnaDao.findAllQna();
 	}
+	@Override
+	public List<Qna> getQnaByUid(long uId){
+		return qnaDao.findQnaByUid(uId);
+	}
 	
 	@Override
-	public List<Qna> getAllQnaByUid(long uId) {
-		return qnaDao.findCQnaByUid(uId);
+	public List<Qna> getQnaListByUid(long uId, int pagingNo, int listCount) {
+		int BoardStartItemNo;
+		pagingNo = pagingNo - 1;
+		if (pagingNo == 0) {
+			BoardStartItemNo = 0;
+		}else {
+			BoardStartItemNo = listCount * pagingNo;
+		}
+		List<Qna> qnaList = qnaDao.findQnaListByUid(uId, BoardStartItemNo);
+		
+		for(Qna qna : qnaList) {
+			qna.setCategory(categoryService.getCategoryByCateId(qna.getCategory().getCateId()));
+			qna.setUser(userService.getUserByUid(qna.getUser().getUId()));
+		}
+		return qnaList;
 	}
 
 	@Override

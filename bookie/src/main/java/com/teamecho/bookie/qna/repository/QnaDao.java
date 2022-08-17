@@ -48,11 +48,16 @@ public class QnaDao {
 		return jdbcTemplate.query(sql, new QnaRowMapper());
 	}
 	
-	public List<Qna> findCQnaByUid(long uId) {
+	public List<Qna> findQnaListByUid(long uId, int listViewNo) {
+		String sql = "SELECT * FROM Qna WHERE uid = ? ORDER BY regDate desc LIMIT ?, 10";
+		return jdbcTemplate.query(sql, new QnaRowMapper(), uId, listViewNo);
+	}
+	
+	public List<Qna> findQnaByUid(long uId){
 		String sql = "SELECT * FROM Qna WHERE uid = ?";
 		return jdbcTemplate.query(sql, new QnaRowMapper(), uId);
 	}
-	
+
 	public Qna findCQnaByQnaId(long qnaId) {
 		String sql = "SELECT * FROM Qna WHERE qnaId = ?";
 		return jdbcTemplate.queryForObject(sql, new QnaRowMapper(), qnaId);

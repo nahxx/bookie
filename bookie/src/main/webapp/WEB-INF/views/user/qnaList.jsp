@@ -8,12 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>bookie</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet"
-	href="<c:url value="/resources/css//user/qnaList.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/user/qnaList.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/qna/paging.css"/>" />
+
 </head>
 <body>
 	<header>
@@ -25,13 +25,11 @@
 		</div>
 		<div class="table-wrap">
 			<table class="inner-table">
-				<c:set var="boardNo"
-					value="${paging.totalCount - (paging.currentPageNo - 1) * paging.pageSize }" />
+				<c:set var="boardNo" value="${paging.totalCount - (paging.currentPageNo - 1) * paging.pageSize }" />
 				<thead>
 					<tr>
 						<th>번호</th>
-						<th>제목</th>
-						<th>내용</th>
+						<th>QNA 제목</th>
 						<th>작성일</th>
 					</tr>
 				</thead>
@@ -39,10 +37,8 @@
 					<c:forEach var="qnaList" items="${qnaList}">
 						<tr>
 							<td>${boardNo}</td>
-							<td>${qnaList.subject}</td>
-							<td>${qnaList.document}</td>
-							<td><fmt:formatDate value="${qnaList.regDate}"
-									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<td><a href="<c:url value='/answer/${qnaList.qnaId}'/>">${qnaList.subject}</a></td>
+							<td><fmt:formatDate value="${qnaList.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<c:set var="boardNo" value="${boardNo + 1}" />
 						</tr>
 					</c:forEach>
@@ -56,22 +52,19 @@
 					<li><a style="color: #808080;">◀</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a
-						href="<c:url value='/qna_board/${paging.currentPageNo - 1}'/>">◀</a></li>
+					<li><a href="<c:url value='/user/qnaList/${paging.currentPageNo - 1}'/>">◀</a></li>
 				</c:otherwise>
 			</c:choose>
-			<c:forEach var="i" begin="${ paging.startPageNo }"
-				end="${ paging.endPageNo }">
+			<c:forEach var="i" begin="${ paging.startPageNo }" end="${ paging.endPageNo }">
 				<li><a class="pageNo ${i}"
-					href="<c:url value="/qna_board/${i}"/>">${i}</a></li>
+					href="<c:url value="/user/qnaList/${i}"/>">${i}</a></li>
 			</c:forEach>
 			<c:choose>
 				<c:when test="${ paging.currentPageNo == paging.finalPageNo }">
 					<li><a style="color: #808080;">▶</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a
-						href="<c:url value='/qna_board/${paging.currentPageNo + 1}'/>">▶</a></li>
+					<li><a href="<c:url value='/user/qnaList/${paging.currentPageNo + 1}'/>">▶</a></li>
 				</c:otherwise>
 			</c:choose>
 		</ul>
