@@ -42,7 +42,7 @@ public class UserDao {
 	}
 	
 	public User isValidUser(String userId, String passwd) {
-		String sql = "SELECT uId, userId, passwd FROM User WHERE userId=? and passwd=?";
+		String sql = "SELECT uId, userId, passwd, name, uType, phone, manager, addr, regDate FROM User WHERE userId=? and passwd=?";
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), userId, passwd);
 	}
 	
