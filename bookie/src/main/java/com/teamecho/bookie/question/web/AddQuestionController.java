@@ -63,11 +63,11 @@ public class AddQuestionController {
 	@PostMapping("/question/add_questions")
 	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request) {
 		
-		System.out.println(command.getAnswerList());
-		System.out.println(command.getQCommentList());
-		System.out.println(command.getQuestionImgArr());
-		System.out.println(command.getQuestionCount());
-		
+//		System.out.println(command.getAnswerList());
+//		System.out.println(command.getQCommentList());
+//		System.out.println(command.getQuestionImgArr());
+//		System.out.println(command.getQuestionCount());
+//		
 		// 카테고리 얻기
 		Category category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
 		
@@ -81,11 +81,16 @@ public class AddQuestionController {
 		String mText = ""; // 지문 담을 변수
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
 		String str2= "";
-
-		StringTokenizer st = new StringTokenizer(text, "※", false);
+		System.out.println(text);
+		StringTokenizer st = new StringTokenizer(text, "◆<>", false);
 		while(st.hasMoreTokens()) {
 			String str = st.nextToken();
-			System.out.println(str);
+			//System.out.println(str);
+			if(!str.equals("p") && !str.equals("/p")  && !str.equals("br")) {
+				System.out.println(str);
+			}
+
+			
 			/*
 			String[] arr = str.split("[|]");
 			for(int i = 0; i < arr.length; i++) {
