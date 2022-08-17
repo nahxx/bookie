@@ -258,7 +258,7 @@
             // 지문 구분선
             function MainTextLine() {
             	//let text = '<p class="mainText" style="display: none"></p>';
-            	let text = '[지문]';
+            	let text = '※지문※';
             	qTextEditor.insertText(text);
             	let qT = qTextEditor.getHTML;
             	console.log(qT);
@@ -267,7 +267,7 @@
             // 질문 구분선
             function QuestionLine() {
             	//let text = '<p class="question" style="display: none"></p>';
-            	let text = '[질문]';
+            	let text = '※문제※';
             	qTextEditor.insertText(text);
             	let qT = qTextEditor.getHTML;
             	console.log(qT);

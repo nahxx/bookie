@@ -3,6 +3,7 @@ package com.teamecho.bookie.question.web;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.common.service.CommonService;
-import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionText;
 import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.user.service.UserService;
@@ -80,7 +80,20 @@ public class AddQuestionController {
 		// 지문, 문제 분리
 		String mText = ""; // 지문 담을 변수
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
-				
+		String str2= "";
+
+		StringTokenizer st = new StringTokenizer(text, "※", false);
+		while(st.hasMoreTokens()) {
+			String str = st.nextToken();
+			System.out.println(str);
+			/*
+			String[] arr = str.split("[|]");
+			for(int i = 0; i < arr.length; i++) {
+				System.out.println(arr[i]);
+			}
+			*/
+		}
+		
 		
 		return "";
 	}
