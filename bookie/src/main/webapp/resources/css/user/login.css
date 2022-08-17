@@ -57,3 +57,7 @@ input, select {
 	cursor: pointer;
 	font-family: 'IM_Hyemin-Regular';
 }
+
+input[type=submit] {
+	margin-top: 40px;
+}

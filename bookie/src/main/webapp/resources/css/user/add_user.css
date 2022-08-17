@@ -53,6 +53,14 @@ input, select {
 	box-sizing: content-box;
 }
 
+input[type=submit] {
+	cursor: pointer;
+}
+input[type=text], input[type=password] {
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+
 .btn {
 	display: flex;
 	justify-content: center;
