@@ -8,10 +8,12 @@
 }
 
 .copyright {
-	width: 700px;
+	width: 80%;
 	height: 100%;
 	margin: 0 auto;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 
 .copyright-logo {
@@ -23,7 +25,8 @@
 }
 
 .copyright-txt p {
-	margin-top: 5px;
+	margin-left: 30px;
+	margin-top: 10px;
 }
 
 .copyright-txt p a {
