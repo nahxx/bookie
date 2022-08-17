@@ -13,14 +13,12 @@ button {
 }
 
 .swiper-wrapper.swiper-wrap {
-	height: 400px;
+	height: 450px;
 }
 
 .swiper-slide img {
-	position: absolute;
-	top: 60%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	object-fit: cover;
+	height: 100%;
 	width: 100%;
 }
 
