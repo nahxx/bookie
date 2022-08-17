@@ -8,6 +8,10 @@
 	align-items: center;
 }
 
+.container>.title-wrap {
+	padding-top: 80px;
+}
+
 .container>#content-wrapper {
 	display: flex;
 	height: 100%;
