@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class QuestionText {
-	private long mtId; // MainText 클래스 키값
+	private long qtId; // QuestionText 클래스 키값
 	private String totalText; // 지문 텍스트
 	private Date regDate;
 	

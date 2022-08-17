@@ -16,8 +16,9 @@ public class Question {
 	private String qText; // 문제 내용
 	private int answer; // 답
 	private String qComment; // 해설
-	private QuestionText questionText; // MainText 클래스
+	private QuestionText questionText; // QuestionText 클래스
 	private Category category; // Category 클래스
+	private MainText mainText; // MainText 클래스
 	private Date regDate;
 	
 	public Question() {
