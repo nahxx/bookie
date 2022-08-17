@@ -52,7 +52,6 @@ public class DeveloperController {
 			if(r < 1) {
 				r = 1;
 			}
-			System.out.println(r);
 			Qna qna = new Qna();
 			qna.setSubject("제목"+i);
 			qna.setDocument("<p>본문"+i+"</p>");
@@ -81,7 +80,6 @@ public class DeveloperController {
 		
 		try { 
 			String uploadPath =  servletContext.getRealPath("/resources/temp");
-			System.out.println(uploadPath);
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 	        if (!folder.exists()) folder.mkdirs();

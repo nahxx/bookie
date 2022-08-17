@@ -29,7 +29,10 @@
 
 #logo>a {
 	color: white;
-	margin-left: 15px;
+}
+
+#logo .logo {
+	margin-left: 80px;
 }
 
 .login {

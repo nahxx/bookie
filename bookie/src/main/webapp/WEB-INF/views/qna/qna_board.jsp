@@ -108,7 +108,7 @@
             </c:otherwise>
           </c:choose>
           <c:forEach var="i" begin="${ paging.startPageNo }" end="${ paging.endPageNo }">
-            <li><a class="pageNo ${i}" href="<c:url value=" /qna_board/${i}" />">${i}</a></li>
+            <li><a class="pageNo ${i}" href="<c:url value="/qna_board/${i}" />">${i}</a></li>
           </c:forEach>
           <c:choose>
             <c:when test="${ paging.currentPageNo == paging.finalPageNo }">
