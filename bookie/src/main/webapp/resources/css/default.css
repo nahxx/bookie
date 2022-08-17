@@ -38,6 +38,13 @@ a {
   flex-direction: column;
 }
 
+.title-wrap {
+	margin-top: 150px;
+	justify-content: center;
+	text-align: center;
+}
+
+
 .title {
 	display: inline-block;
 	height: 100%;
@@ -56,5 +63,5 @@ a {
 	bottom: 7px;
 	left: 0;
 	z-index: -1;
-	background: #F9F5EB;
+	background: #607EAA;
 }

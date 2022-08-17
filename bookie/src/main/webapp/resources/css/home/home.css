@@ -10,7 +10,6 @@ button {
 
 #wrap {
 	margin-top: 80px;
-	width: 100vw;
 }
 
 .swiper-wrapper.swiper-wrap {
@@ -18,14 +17,16 @@ button {
 }
 
 .swiper-slide img {
-	display: block;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 100%;
-	height: 400px;
-	object-fit: cover;
 }
 
 .swiper-button-next:after, .swiper-rtl .swiper-button-prev:after,
-	.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after, .swiper-pagination {
+	.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after,
+	.swiper-pagination {
 	color: white;
 }
 
