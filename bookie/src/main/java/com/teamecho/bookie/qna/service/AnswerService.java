@@ -8,8 +8,9 @@ import com.teamecho.bookie.qna.domain.Qna;
 public interface AnswerService {
 	void addAnswer(Answer answer);
 	List<Answer> getAnswersByQnaId(long qnaId);
-	Answer getAnswerByQnaId(long qnaId);
+	Answer getAnswerByQnaId(long qnaId, long anId);
 	List<Answer> getAnswersByUId(long uId);
 	void deleteAnswersByQnaId(long qnaId, long uId);
 	void deleteAnswerByAnId(long anId);
+	void updateAnswerByAnId(String document, long anId);
 }

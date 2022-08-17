@@ -36,8 +36,8 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 	@Override
-	public Answer getAnswerByQnaId(long qnaId) {
-		return answerDao.getAnswerByQnaId(qnaId);
+	public Answer getAnswerByQnaId(long qnaId, long anId) {
+		return answerDao.getAnswerByQnaId(qnaId, anId);
 	}
 
 	@Override
@@ -53,5 +53,10 @@ public class AnswerServiceImpl implements AnswerService {
 	@Override
 	public void deleteAnswerByAnId(long anId) {
 		answerDao.deleteAnswerByAnId(anId);
+	}
+
+	@Override
+	public void updateAnswerByAnId(String document, long anId) {
+		answerDao.updateAnswerByAnId(document, anId);
 	}
 }

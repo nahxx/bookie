@@ -28,7 +28,7 @@
 	margin-bottom: 10px;
 	margin-top: 30px;
 }
-#editor {
+#editor{
 	/* border : 1px solid; */
 	width: 70%;
 	margin: 0 auto;
@@ -78,7 +78,7 @@ p{
     padding: 5px 15px;
 }
 .submit-btn {
-  width: 10%;
+  width: 6%;
   margin: 10px 0;
   outline: none;
   border: none;
@@ -92,7 +92,21 @@ p{
   cursor: pointer;
 }
 .qna-btn{
-  width: 10%;
+  width: 6%;
+  margin: 10px 0;
+  outline: none;
+  border: none;
+  background: #607EAA;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-family: 'IM_Hyemin-Regular';
+  cursor: pointer;
+}
+.qna-update-btn{
+  width: 6%;
   margin: 10px 0;
   outline: none;
   border: none;

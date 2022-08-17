@@ -39,103 +39,130 @@
 	</header>
 	<div id="container">
 		<div class="viewer_q_wrap">
-			<div class="qna-title">${subject}</div>
-			<!-- 
-			<div class="view_q_user">${name}</div>
-			-->	
-			<div class="view_q_user">
-				<c:forEach var="i" begin="1" end="${fn:length(name)}">
-					<c:choose>
-					  <c:when test="${ i == '1' }">
-		            		${fn:substring(name,0,1)}
-		        		</c:when>
-
-		        		<c:when test="${ i == fn:length(name)}">
-		            		${fn:substring(name,fn:length(name) - 1,fn:length(name))}
-		        		</c:when>
-		        		 <c:otherwise>
-                  			*
-              			</c:otherwise>
-		        	</c:choose>
-				</c:forEach>
-			</div>	
-			<div id="viewer_q"></div>
+			<div class="qna-title">${subject}</div>		
+			<c:choose>
+				<c:when  test="${uId_session eq uId}">
+					<div class="view_q_user">${name}</div>
+				</c:when>
+				<c:otherwise>
+					<div class="view_q_user">
+						<c:forEach var="i" begin="1" end="${fn:length(name)}">
+							<c:choose>
+							  <c:when test="${ i == '1' }">
+				            		${fn:substring(name,0,1)}
+				        		</c:when>
+				        		<c:when test="${ i == fn:length(name)}">
+				            		${fn:substring(name,fn:length(name) - 1,fn:length(name))}
+				        		</c:when>
+				        		 <c:otherwise>
+		                  			*
+		              			</c:otherwise>
+				        	</c:choose>
+						</c:forEach>
+					</div>
+				</c:otherwise>
+			</c:choose>				
+			<div id="viewer_q">${document_q}</div>
 		</div>
-		<div class="btn">
-			<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
-				class="qna-btn">수정</button>
-			<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
-			class="qna-btn">삭제</button>
-		</div>
-		<h3 class="answer-title">댓글</h3>
-		<c:forEach var="answer" items="${answers}" varStatus="status">
-			<div class="view_a_wrap">
-				<!--
-				<div class="view_a_user">${answer.getUser().getName()}</div>
-				-->
-				<div class="view_a_user">
-					<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
-						<c:choose>
-						  <c:when test="${ i == '1' }">
-			            		${fn:substring(answer.getUser().getName(),0,1)}
-			        		</c:when>
-
-			        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
-			            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
-			        		</c:when>
-			        		 <c:otherwise>
-                   				*
-               				</c:otherwise>
-			        	</c:choose>
-					</c:forEach>
-				</div>
-				<div id="viewer_a">${answer.getDocument()}</div>
-			</div>
+		<c:if test="${uId_session eq uId}">
 			<div class="btn">
-				<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
 					class="qna-btn">수정</button>
-				<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
 				class="qna-btn">삭제</button>
 			</div>
+		</c:if>
+		<h3 class="answer-title">댓글</h3>
+		<div id="editor"></div>
+		<div class="btn">
+			<c:choose>
+				<c:when test="${not empty update_answer_d}">
+					<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${update_answer.getAnId()}'/>');"
+					class="submit-btn">등록</button>
+					<a href="<c:url value='/answer/${qnaId}'/>" class="in-btn">취소</a>
+				</c:when>
+				<c:otherwise>
+					<button onclick="javascript:submit('<c:url value='/answer/insert/${qnaId}'/>');"
+					class="submit-btn">작성</button>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<c:forEach var="answer" items="${answers}" varStatus="status">
+			<div class="view_a_wrap">
+				<c:choose>
+					<c:when  test="${uId_session eq answer.getUser().getUId()}">
+						<div class="view_a_user">${answer.getUser().getName()}</div>
+					</c:when>
+					<c:otherwise>
+						<div class="view_a_user">
+							<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
+								<c:choose>
+								    <c:when test="${ i == '1' }">
+					            		${fn:substring(answer.getUser().getName(),0,1)}
+					        		</c:when>
+					        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
+					            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
+					        		</c:when>
+					        		 <c:otherwise>
+		                   				*
+		               				</c:otherwise>
+					        	</c:choose>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>			
+				<div id="viewer_a">${answer.getDocument()}</div>
+			</div>
+			<c:if test="${uId_session eq answer.getUser().getUId()}">
+				<div class="btn">
+					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+							class="qna-btn">수정</button>
+					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+					class="qna-btn">삭제</button>
+				</div>
+			</c:if>
 		</c:forEach>
 		<c:choose>
 		    <c:when test="${not empty answer}">
 				<div class="view_a_wrap">
-					<!--
-					<div class="view_a_user">${answer.getUser().getName()}</div>
-					-->
-					<div class="view_a_user">
-					<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
-						<c:choose>
-						  <c:when test="${ i == '1' }">
-			            		${fn:substring(answer.getUser().getName(),0,1)}
-			        		</c:when>
-
-			        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
-			            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
-			        		</c:when>
-			        		 <c:otherwise>
-                   				*
-               				</c:otherwise>
-			        	</c:choose>
-					</c:forEach>
-				</div>
+					<c:choose>
+						<c:when  test="${uId_session eq answer.getUser().getUId()}">
+							<div class="view_a_user">${answer.getUser().getName()}</div>
+						</c:when>
+						<c:otherwise>
+							<div class="view_a_user">
+								<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
+									<c:choose>
+									    <c:when test="${ i == '1' }">
+						            		${fn:substring(answer.getUser().getName(),0,1)}
+						        		</c:when>
+						        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
+						            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
+						        		</c:when>
+						        		 <c:otherwise>
+			                   				*
+			               				</c:otherwise>
+						        	</c:choose>
+								</c:forEach>
+							</div>
+						</c:otherwise>
+					</c:choose>	
 					<div id="viewer_a">${answer.getDocument()}</div>
 				</div>
-				<div class="btn">
-					<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+				<c:if test="${uId_session eq answer.getUser().getUId()}">
+					<div class="btn">
+						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
 						class="qna-btn">수정</button>
-					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
-					class="qna-btn">삭제</button>
-				</div>
+						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+						class="qna-btn">삭제</button>
+					</div>
+				</c:if>
 		    </c:when>
 		</c:choose>
-		<div id="editor"></div>
-		<div class="btn">
-			<button onclick="javascript:submit('<c:url value='/answer/insert/${qnaId}'/>');"
-				class="submit-btn">작성</button>
-		</div>
 	</div>
+	<footer id="footer">
+		<%@ include file="../incl/footer.jsp"%>
+	</footer>
 <script>
 	// 폼 생성
 	function submit(url){
@@ -163,7 +190,7 @@
 	    form.setAttribute('method', 'get');
 	    form.setAttribute('action', url);
 	    document.charset = "UTF-8";
-	     
+	    
 	    document.body.appendChild(form);
 	    form.submit();
 	}
@@ -176,8 +203,8 @@
 		previewStyle: 'tab',
 	    previewHighlight: false,
 	    height: '200px',
+	    initialValue: "",
 	    // 사전입력 항목
-	    //initialValue: '글을 작성해주세요.',
 	    // 이미지가 Base64 형식으로 입력되는 것 가로채주는 옵션
     	hooks: {
 	    	addImageBlobHook: (blob, callback) => {
@@ -220,11 +247,14 @@
 	    }
 	});
 	
+	let text = '${update_answer_d}';
+    editor.insertText(text);
+	
 	const viewer = Editor.factory({
 		  el: document.querySelector('#viewer_q'),
 		  viewer: true,
 		  height: '500px',
-		  initialValue: '${document_q}'
+		  //initialValue: '${document_q}'
 	});
 	
 	const viewer2 = Editor.factory({

@@ -31,9 +31,9 @@ public class AnswerDao {
 		return jdbcTemplate.query(sql, new AnswerRowMapper(), qnaId);
 	}
 	
-	public Answer getAnswerByQnaId(long qnaId) {
-		String sql = "SELECT * FROM Answer WHERE qnaId = ?";
-		return jdbcTemplate.queryForObject(sql, new AnswerRowMapper(), qnaId);
+	public Answer getAnswerByQnaId(long qnaId, long anId) {
+		String sql = "SELECT * FROM Answer WHERE qnaId = ? AND anId = ?";
+		return jdbcTemplate.queryForObject(sql, new AnswerRowMapper(), qnaId, anId);
 	}
 	
 	public List<Answer> getAnswersByUId(long uId) {
@@ -42,12 +42,17 @@ public class AnswerDao {
 	}
 	
 	public void deleteAnswersByQnaId(long qnaId, long uId) {
-		String sql = "DELETE FROM Answer WHERE qnaid = ? AND uid = ?";
+		String sql = "DELETE FROM Answer WHERE qnaId = ? AND uId = ?";
 		jdbcTemplate.update(sql, qnaId, uId);
 	}
 	
 	public void deleteAnswerByAnId(long anId) {
 		String sql = "DELETE FROM Answer WHERE anId = ?";
 		jdbcTemplate.update(sql, anId);
+	}
+	
+	public void updateAnswerByAnId(String document, long anId) {
+		String sql = "UPDATE Answer SET document = ? WHERE anId = ?";
+		jdbcTemplate.update(sql, document, anId);
 	}
 }
