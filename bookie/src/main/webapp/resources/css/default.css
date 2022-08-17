@@ -56,12 +56,13 @@ a {
 }
 
 .title:before {
-	position: absolute;
-	content: '';
-	width: 100%;
-	height: 14px;
-	bottom: 7px;
-	left: 0;
-	z-index: -1;
-	background: #607EAA;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 18px;
+    bottom: 4px;
+    left: 0;
+    z-index: -1;
+    background: #607EAA;
+    opacity: 0.5;
 }

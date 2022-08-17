@@ -18,7 +18,7 @@
 	<header>
 		<%@ include file="../incl/no_login_header.jsp"%>
 	</header>
-	<section>
+	<div class="wrap mh">
 		<div class="container">
 			<div class="title-wrap">
 				<h3 class="title">로그인</h3>
@@ -26,15 +26,13 @@
 			<div id="content-wrapper">
 				<div class="content">
 					<form action="login" method="post">
-						<input type="text" name="userId" placeholder="이메일" />
-						<br>
-						<input type="password" name="passwd" placeholder="비밀번호" />
-						<br>
-						<input class="btn" type="submit" value="로그인" />
+						<input type="text" name="userId" placeholder="이메일" /> <br> <input
+							type="password" name="passwd" placeholder="비밀번호" /> <br> <input
+							class="btn" type="submit" value="로그인" />
 					</form>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 </body>
 </html>
