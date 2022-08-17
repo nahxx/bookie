@@ -53,7 +53,10 @@ public class AnswerController {
 	public ModelAndView qnaForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
-		
+		// 세션 uId로 uType 'e' 찾기
+		user = userService.getUserByUid(uId);
+		mv.addObject("uType", user.getUType());
+		System.out.println(user.getUType());
 		qnaService.boardCounting(qnaId);
 		qna = qnaService.getQnaByQnaId(qnaId);
 		// 유저 세션

@@ -44,6 +44,9 @@
 				<c:when  test="${uId_session eq uId}">
 					<div class="view_q_user">${name}</div>
 				</c:when>
+				<c:when  test="${fn:contains(uType, 'e')}">
+					<div class="view_q_user">${name}</div>
+				</c:when>
 				<c:otherwise>
 					<div class="view_q_user">
 						<c:forEach var="i" begin="1" end="${fn:length(name)}">
@@ -64,14 +67,24 @@
 			</c:choose>				
 			<div id="viewer_q">${document_q}</div>
 		</div>
-		<c:if test="${uId_session eq uId}">
-			<div class="btn">
+		<c:choose>
+			<c:when test="${uId_session eq uId}">
+				<div class="btn">
 				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
 					class="qna-btn">수정</button>
 				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
 				class="qna-btn">삭제</button>
-			</div>
-		</c:if>
+				</div>
+			</c:when>
+			<c:when test="${fn:contains(uType, 'e')}">
+				<div class="btn">
+				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
+					class="qna-btn">수정</button>
+				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
+				class="qna-btn">삭제</button>
+				</div>
+			</c:when>
+		</c:choose>
 		<h3 class="answer-title">댓글</h3>
 		<div id="editor"></div>
 		<div class="btn">

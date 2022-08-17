@@ -57,7 +57,7 @@ public class AnswerDao {
 	}
 	
 	 public List<Answer> findAnswerListByUId(long uId, int listViewNo) {
-	     String sql = "SELECT * FROM Answer WHERE uId = ? ORDER BY regDate desc LIMIT ?, 1";
+	     String sql = "SELECT * FROM Answer WHERE uId = ? ORDER BY regDate desc LIMIT ?, 10";
 	     return jdbcTemplate.query(sql, new AnswerRowMapper(), uId, listViewNo);
 	}
 }
