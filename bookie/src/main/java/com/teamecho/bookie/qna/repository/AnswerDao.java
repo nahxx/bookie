@@ -55,4 +55,9 @@ public class AnswerDao {
 		String sql = "UPDATE Answer SET document = ? WHERE anId = ?";
 		jdbcTemplate.update(sql, document, anId);
 	}
+	
+	 public List<Answer> findAnswerListByUId(long uId, int listViewNo) {
+	     String sql = "SELECT * FROM Answer WHERE uId = ? ORDER BY regDate desc LIMIT ?, 1";
+	     return jdbcTemplate.query(sql, new AnswerRowMapper(), uId, listViewNo);
+	}
 }

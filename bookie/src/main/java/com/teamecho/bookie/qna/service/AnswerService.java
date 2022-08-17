@@ -13,4 +13,5 @@ public interface AnswerService {
 	void deleteAnswersByQnaId(long qnaId, long uId);
 	void deleteAnswerByAnId(long anId);
 	void updateAnswerByAnId(String document, long anId);
+	List<Answer> getAnswerListByUId(long uId, int pagingNo, int listCount);
 }

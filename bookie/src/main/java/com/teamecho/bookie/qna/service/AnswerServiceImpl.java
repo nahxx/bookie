@@ -18,6 +18,9 @@ public class AnswerServiceImpl implements AnswerService {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	QnaService qnaService;
+	
 	@Override
 	public void addAnswer(Answer answer) {
 		answerDao.addAnswer(answer);
@@ -58,5 +61,23 @@ public class AnswerServiceImpl implements AnswerService {
 	@Override
 	public void updateAnswerByAnId(String document, long anId) {
 		answerDao.updateAnswerByAnId(document, anId);
+	}
+	
+	@Override
+	public List<Answer> getAnswerListByUId(long uId, int pagingNo, int listCount) {
+	      int BoardStartItemNo;
+	      pagingNo = pagingNo - 1;
+	      if (pagingNo == 0) {
+	         BoardStartItemNo = 0;
+	      }else {
+	         BoardStartItemNo = listCount * pagingNo;
+	      }
+	      List<Answer> answerList = answerDao.findAnswerListByUId(uId, BoardStartItemNo);
+	      
+	      for(Answer answer : answerList) {
+	         answer.setQna(qnaService.getQnaByQnaId(answer.getQna().getQnaId()));
+	         answer.setUser(userService.getUserByUid(answer.getUser().getUId()));
+	      }
+	      return answerList;
 	}
 }
