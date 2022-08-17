@@ -10,11 +10,11 @@
   <meta charset="UTF-8">
   <title>Insert title here</title>
 </head>
-<link rel="stylesheet" href="<c:url value=" /resources/css/default.css" />" />
-<link rel="stylesheet" href="<c:url value=" /resources/css/footer.css" />" />
-<link rel="stylesheet" href="<c:url value=" /resources/css/header.css" />" />
-<link rel="stylesheet" href="<c:url value=" /resources/css/qna/table.css" />" />
-<link rel="stylesheet" href="<c:url value=" /resources/css/qna/paging.css" />" />
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/qna/table.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/qna/paging.css"/>" />
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

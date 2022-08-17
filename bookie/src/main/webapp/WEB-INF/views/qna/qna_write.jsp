@@ -7,10 +7,10 @@
   <meta charset='utf-8'>
   <title>QNA - 쓰기</title>
   <!-- 디자인 수정용 CSS 추가 -->
-  <link rel="stylesheet" href="<c:url value=" /resources/css/default.css" />" />
-  <link rel="stylesheet" href="<c:url value=" /resources/css/footer.css" />" />
-  <link rel="stylesheet" href="<c:url value=" /resources/css/header.css" />" />
-  <link rel="stylesheet" href="<c:url value=" /resources/css/qna/write.css" />" />
+  <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
+  <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
+  <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
+  <link rel="stylesheet" href="<c:url value="/resources/css/qna/write.css"/>" />
 
   <!-- jQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
