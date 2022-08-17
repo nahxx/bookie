@@ -29,10 +29,14 @@ public class QnaBoardController {
 		
 		if (session == null) {
 			  mav.addObject("session", "no");
+			  mav.setViewName("/error/no_session");
+			  return mav;
 	      } 
 		else {
 	         if(session.getAttribute("uId") == null) {
 	        	 mav.addObject("session", "no");
+	        	 mav.setViewName("/error/no_session");
+				 return mav;
 	         }
 	         mav.addObject("session", "yes");
 	      }
@@ -52,6 +56,7 @@ public class QnaBoardController {
 	        mav.addObject("boardList", boardList);
 	        mav.addObject("paging", paging);
 	        mav.addObject("uId", (long)session.getAttribute("uId"));
+	        mav.addObject("manager", (char) session.getAttribute("manager"));
 	        mav.setViewName("/qna/qna_board");
 	        
 	    } catch (Exception e) {

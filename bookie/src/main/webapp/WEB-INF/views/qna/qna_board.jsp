@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -65,8 +65,11 @@
               </td>
               <td><a href="<c:url value='/answer/${board.qnaId}'/>">${board.subject}</a></td>
               <td>
-                <c:choose>
+               <c:choose>
                   <c:when test="${uId eq board.user.getUId()}">
+                    ${board.user.name}
+                  </c:when>
+              		<c:when test="${fn:contains(manager, 'Y')}">
                     ${board.user.name}
                   </c:when>
                   <c:otherwise>

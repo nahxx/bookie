@@ -58,6 +58,12 @@ public class DeveloperController {
 			qna.setCategory(categoryService.getCategoryByCateId(r));
 			qna.setUser(userService.getUserByUid(1));
 			qnaService.addQna(qna);
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		return "redirect:/developer";
