@@ -7,8 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>bookie</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet"
@@ -30,14 +29,15 @@
 
 				<div class="content list">
 					<ul class="info-list">
-						<li><img src="<c:url value="/resources/img/update.png"/>"><a
-							href="/" class="mypage_list">정보 수정하기</a></li>
-						<li><img src="<c:url value="/resources/img/history.png"/>"><a
-							href="/" class="mypage_list">푼 문제 확인</a></li>
-						<li><img src="<c:url value="/resources/img/que.png"/>"><a
-							href="/bookie/user/answerList" class="mypage_list">질문 목록</a></li>
-						<li><img src="<c:url value="/resources/img/answer.png"/>"><a
-							href="/bookie/user/qnaList" class="mypage_list">답변 목록</a></li>
+						<li><a href="/" class="mypage_list"><img
+								src="<c:url value="/resources/img/update.png"/>">정보 수정하기</a></li>
+						<li><a href="/" class="mypage_list"><img
+								src="<c:url value="/resources/img/history.png"/>">푼 문제 확인</a></li>
+						<li><a href="/bookie/user/answerList" class="mypage_list"><img
+								src="<c:url value="/resources/img/que.png"/>">답변 목록</a></li>
+						<li><a href="/bookie/user/qnaList" class="mypage_list"> <img
+								src="<c:url value="/resources/img/answer.png"/>">질문 목록
+						</a></li>
 					</ul>
 				</div>
 			</div>

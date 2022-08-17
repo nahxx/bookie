@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-img {
-	margin-top: 10px;
-}
-
 .container {
 	flex-wrap: wrap;
 	width: 700px;
@@ -62,25 +58,10 @@ img {
 	font-size: 18px;
 }
 
-.info-list li>a:before {
-	position: absolute;
-	content: '';
-	height: 14px;
-	width: 0;
-	bottom: 3px;
-	left: 50%;
-	background: #EDE6DB;
-	z-index: -10;
-	transition: 0.7s;
-}
-
-.info-list li>a.on:before {
-	position: absolute;
-	content: '';
-	height: 14px;
-	width: 70%;
-	bottom: 3px;
-	left: 36px;
-	background: #EDE6DB;
-	z-index: -10;
+.info-list li>a>img {
+	width: 50px;
+	height: 50px;
+	justify-content: center;
+	text-align: center;
+	margin: 25px 25px 10px 25px;
 }

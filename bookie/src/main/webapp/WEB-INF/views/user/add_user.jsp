@@ -7,16 +7,18 @@
 <html>
 <head>
 <title>bookie</title>
-<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css/user/add_user.css"/>" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/user/add_user.css"/>" />
 </head>
 <body>
 	<header>
 		<%@ include file="../incl/no_login_header.jsp"%>
 	</header>
-	<section>
+	<div class="wrap mh">
 		<div class="container">
 			<div class="title-wrap">
 				<h3 class="title">회원가입</h3>
@@ -62,6 +64,6 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 </body>
 </html>

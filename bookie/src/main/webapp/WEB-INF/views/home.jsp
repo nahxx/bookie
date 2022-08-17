@@ -4,14 +4,11 @@
 <html>
 <head>
 <title>bookie</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/home/home.css"/>" />
-<link rel="stylesheet"
-	href="<c:url value="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/home/home.css"/>" />
+<link rel="stylesheet" href="<c:url value="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>" />
 </head>
 <body>
 	<header>
@@ -22,8 +19,7 @@
 			<%@ include file="./incl/header.jsp"%>
 		</c:if>
 	</header>
-	<section>
-		<div id="wrap">
+		<div id="wrap mh">
 			<!-- 메인 배너 -->
 			<div class="swiper mySwiper">
 				<div class="swiper-wrapper swiper-wrap">
@@ -141,7 +137,6 @@
 				</div>
 			</div>
 		</div>
-	</section>
 	<!--푸터 영역 -->
 	<footer id="footer">
 		<%@ include file="./incl/footer.jsp"%>

@@ -39,11 +39,11 @@ a {
 }
 
 .title-wrap {
-	margin-top: 150px;
-	justify-content: center;
+	width: 100%;
+	line-height: 60px;
+	padding-top: 150px;
 	text-align: center;
 }
-
 
 .title {
 	display: inline-block;
