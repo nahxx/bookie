@@ -18,7 +18,9 @@ import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.common.service.CommonService;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.domain.QuestionText;
 import com.teamecho.bookie.question.service.AddQuestionService;
+import com.teamecho.bookie.user.service.UserService;
 
 @Controller("question.web.addQuestionController")
 public class AddQuestionController {
@@ -32,36 +34,51 @@ public class AddQuestionController {
 	@Autowired
 	CommonService commonService;
 	
+	@Autowired
+	UserService userService;
+	
 	@Autowired 
 	ServletContext servletContext;
 	
 	HttpSession session;
 	long uId;
-	
-	String cLevel = "";
-	int grade = 0;
-	String subject = "";
-	int qType = 0;
 		
 	/**
 	 * add_question 페이지 접속
 	 * @return
 	 */
 	@GetMapping("/question/add_question")
-	public String addQuestionForm() {
+	public String addQuestionForm(HttpServletRequest request) {
+		session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		String userId = userService.getUserByUid(uId).getUserId();
+		if(!userId.equals("admin@bookie.com")) {
+			// 에러 페이지 이동
+		}
+		
 		return "question/add_question";
 	}
 	
 	@PostMapping("/question/add_questions")
-	public String addQuestions(AddQuestionsCommand command) {
-		System.out.println(command.getCLevel());
-		System.out.println(command.getGrade());
-		System.out.println(command.getSubject());
-		System.out.println(command.getQText());
+	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request) {
+		
 		System.out.println(command.getAnswerList());
 		System.out.println(command.getQCommentList());
 		System.out.println(command.getQuestionImgArr());
 		System.out.println(command.getQuestionCount());
+		
+		// 카테고리 얻기
+		Category category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
+		
+		// 전체 텍스트 DB에 저장
+		String text = command.getQText();
+		QuestionText questionText = new QuestionText();
+		questionText.setTotalText(text);
+		addQService.addQuestionText(questionText);
+		
+		// 지문, 문제 분리
+		
+		
 		return "";
 	}
 
@@ -75,52 +92,7 @@ public class AddQuestionController {
 			@RequestParam(value="questionImgArr", required=false) List<String> questionImgArr,
 			@RequestParam(value="commentImgArr", required=false) List<String> commentImgArr) throws IOException {
 		
-		String qType = request.getParameter("qType");
-		String qTitle = request.getParameter("qTitle");
-		String qText = request.getParameter("qText");
-		int answer = Integer.valueOf(request.getParameter("answer"));
-		String qComment = request.getParameter("qComment");
-		Category category = cateService.getCategory(cLevel, grade, subject);
-		
-		session = request.getSession(false);
-		uId = (long) session.getAttribute("uId");
-		//String noHidden = "no Hidden";
-		
-		// 유효성 검사
-		/*
-		if(qTitle == null || qTitle.length() == 0) {
-			String errMsg1 = "<span class=\"error\">제목을 입력해주세요.</span>";
-			request.setAttribute("errMsg1", errMsg1);
-			request.setAttribute("noHidden", noHidden);
-			return "/question/select_type";
-		}
-		if(qText == null || qText.length() == 0) {
-			String errMsg2 = "<span class=\"error\">질문을 입력해주세요.</span>";
-			request.setAttribute("errMsg2", errMsg2);
-		}
-		
-		// 만약 답을 radio로 선택할 수 있다면 이부분 삭제1
-		if(answer == 0) {
-			String errMsg3 = "<span class=\"error\">답을 입력해주세요.</span>";
-			request.setAttribute("errMsg2", errMsg3);
-		}
-		// 만약 답을 radio로 선택할 수 있다면 이부분 삭제1
-		if(answer < 0 || answer > 5) {
-			String errMsg4 = "<span class=\"error\">답은 1~5 중에서 선택해주세요.</span>";
-			request.setAttribute("errMsg2", errMsg4);
-		}
-		
-		if(qComment == null || qComment.length() == 0) {
-			String errMsg5 = "<span class=\"error\">해설을 입력해주세요.</span>";
-			request.setAttribute("errMsg5", errMsg5);
-		}
-		*/
-		
-		
-		Question q = new Question(qTitle, qText, answer, qComment, category);
-		
-		// 서비스 호출
-		addQService.addQuestionNotMainText(q);
+
 		
 		// 에디터에서 받아온 html문자열에서 이미지 태그 분리 후 이미지파일 이름 저장
 		List<String> qTextImgNameList = commonService.getImageName(qText);

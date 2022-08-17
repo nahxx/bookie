@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.domain.QuestionText;
 import com.teamecho.bookie.question.repository.AddQuestionDao;
 
 @Service("question.service.addQuestionService")
@@ -20,7 +21,8 @@ public class AddQuestionService {
 	@Autowired
 	AddQuestionDao addQDao;
 	
-	public void addQuestionNotMainText(Question question) {
-		addQDao.addQuestionNotMainText(question);
+	public void addQuestionText(QuestionText qt) {
+		addQDao.addQuestionText(qt);
 	}
+	
 }
