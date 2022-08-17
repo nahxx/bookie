@@ -77,25 +77,57 @@ public class AddQuestionController {
 		addQService.addQuestionText(questionText);
 		
 		// 지문, 문제 분리
-		String mText = ""; // 지문 담을 변수
+		List<String> mList = new ArrayList(); // 지문 담을 리스트
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
-		String str2= "";
-		System.out.println(text);
+		
+		List<String> textList = new ArrayList();
+		
 		StringTokenizer st = new StringTokenizer(text, "◆<>", false);
 		while(st.hasMoreTokens()) {
 			String str = st.nextToken();
 			//System.out.println(str);
 			if(!str.equals("p") && !str.equals("/p")  && !str.equals("br")) {
 				System.out.println(str);
+				textList.add(str);
 			}
-
-			
-			/*
-			String[] arr = str.split("[|]");
-			for(int i = 0; i < arr.length; i++) {
-				System.out.println(arr[i]);
+		}
+		System.out.println();
+		String m = "";
+		String s = "";
+		for(int i = 0; i < textList.size(); i++) {
+			if(textList.get(i).equals("지문")) {
+				for(int j = i + 1; j < textList.size(); j++) {
+					if(!(textList.get(j).equals("지문")) && !(textList.get(j).equals("문제"))) {
+						m += "<p>" + textList.get(j) + "</p>";
+						System.out.println("지문:" + j);
+					} else {
+						mList.add(m);
+						i = j-1;
+						m = "";
+						break;
+					}
+				}
+			} else if (textList.get(i).equals("문제")) {
+				for(int j = i + 1; j < textList.size(); j++) {
+					if(!(textList.get(j).equals("지문")) && !(textList.get(j).equals("문제"))) {
+						s += "<p>" + textList.get(j) + "</p>";
+						System.out.println("문제:" + j);
+					} else {
+						qList.add(s);
+						i = j-1;
+						s = "";
+						break;
+					}
+				}
 			}
-			*/
+		}
+		System.out.println(mList.size());
+		System.out.println(qList.size());
+		for(int i = 0; i < mList.size(); i++) {
+			System.out.println("mList" + i + ":" + mList.get(i));
+		}
+		for(int i = 0; i < qList.size(); i++) {
+			System.out.println("qList" + i + ":" + qList.get(i));
 		}
 		
 		
