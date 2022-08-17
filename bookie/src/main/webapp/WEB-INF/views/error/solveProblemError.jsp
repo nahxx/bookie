@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	<div class="container counts">
-		<a href="/bookie/user/login" class="submit-btn search solve">되돌아가기</a>
+		<a href="/bookie/question/solveProblemList" class="submit-btn search solve">되돌아가기</a>
 	</div>
 </div>
 <footer id="footer">
