@@ -66,6 +66,7 @@ public class QnaDao {
 	}
 	
 	public void deleteQnaByQnaId(long qnaId, long uId) {
+		deleteQnaCountByQnaId(qnaId);
 		String sql = "DELETE FROM Qna WHERE qnaid = ? AND uid = ?";
 		jdbcTemplate.update(sql, qnaId, uId);
 	}
@@ -78,6 +79,11 @@ public class QnaDao {
 	
 	public void boardCountingByQnaId(long qnaId) {
 		String sql = "UPDATE QnaCount SET qcCount = qcCount + 1 WHERE qnaid = ?";
+		jdbcTemplate.update(sql, qnaId);
+	}
+	
+	public void deleteQnaCountByQnaId(long qnaId) {
+		String sql = "DELETE FROM Qnacount WHERE qnaid = ?";
 		jdbcTemplate.update(sql, qnaId);
 	}
 }

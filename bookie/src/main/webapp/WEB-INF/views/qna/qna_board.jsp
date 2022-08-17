@@ -9,11 +9,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/table.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/paging.css"/>" />
+
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
@@ -21,6 +22,7 @@
 <script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
 <body>
+
 		<header>
 		<c:if test="${session eq 'no'}">
 			<%@ include file="../incl/no_login_header.jsp"%>
@@ -29,6 +31,10 @@
 			<%@ include file="../incl/header.jsp"%>
 		</c:if>
 	</header>
+	<div class ="mh">
+	<div class="title-wrap">
+				<h3 class="title">묻고답하기</h3>
+			</div>
 	<div class="table-wrap">
 		<table class="inner-table">
 			<c:set var="boardNo" value="${paging.totalCount - (paging.currentPageNo - 1) * paging.pageSize }" />
@@ -104,10 +110,14 @@
 			</ul>
 		</div>
 		<div class="write-btn">
-			<a href="<c:url value='/qna_write'/>" class="in-btn">글쓰기</a>
+			<a href="<c:url value='/qna_write/${paging.currentPageNo}'/>" class="in-btn">글쓰기</a>
 		</div>
 	</div>
-▶<script>
+	</div>
+		<footer id="footer">
+		<%@ include file="../incl/footer.jsp"%>
+	</footer>
+<script>
    $(".pageNo").each(function(){
 	  if($(this).hasClass("${paging.currentPageNo}")){
 		  $(this).addClass("on");
@@ -115,7 +125,6 @@
 		  $(this).removeClass("on");
 	  }
    });
-
 </script>
 </body>
 </html>

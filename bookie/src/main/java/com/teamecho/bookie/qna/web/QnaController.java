@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,8 +51,20 @@ public class QnaController {
 	/**
 	 * QNA 작성페이지로 이동 한다.
 	 */
-	@GetMapping("/qna_write")
-	public String qnaMainPage() {
+	@GetMapping("/qna_write/{pagingNo}")
+	public String qnaMainPage( HttpServletRequest request, Model model, @PathVariable int pagingNo) {
+		HttpSession session = request.getSession(false);
+
+		if (session == null) {
+			model.addAttribute("session", "no");
+	      } 
+		else {
+	         if(session.getAttribute("uId") == null) {
+	        	 model.addAttribute("session", "no");
+	         }
+	         model.addAttribute("session", "yes");
+	      }
+		model.addAttribute("pagingNo", pagingNo);
 		return "/qna/qna_write";
 	}
 	
@@ -62,15 +76,13 @@ public class QnaController {
 	public String saveQna(QnaCommand qnaCommand, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		long uId = (long) session.getAttribute("uId");
-		System.out.println(uId);
-		
 		Qna qna = new Qna();
 		qna.setSubject(qnaCommand.getQnaTitle());
 		qna.setDocument(qnaCommand.getContent());
 		qna.setCategory(categoryService.getCategory(qnaCommand.getLevel(), Integer.valueOf(qnaCommand.getGrade()), qnaCommand.getSubject()));
 		qna.setUser(userService.getUserByUid(uId));
 		qnaService.addQna(qna);
-		return "/qna/qna_success";
+		return "redirect:/qna_board/1";
 	}
 	
 	@ResponseBody

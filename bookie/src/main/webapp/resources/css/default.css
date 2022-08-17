@@ -31,7 +31,11 @@ a {
 }
 
 .mh {
-	min-height: calc(100vh - 160px);
+	min-height: calc(100vh - 70px);
+	  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .title {
