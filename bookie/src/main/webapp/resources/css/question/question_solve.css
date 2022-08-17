@@ -6,7 +6,7 @@
     font-style: normal;
 }
 .wrap.sub {
-    height: calc(100% - 160px);
+    height: calc(100% - 60px);
 }
 .container.counts.solve {
     padding-top: 140px;

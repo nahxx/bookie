@@ -9,13 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class MainText {
+public class QuestionText {
 	private long mtId; // MainText 클래스 키값
-	private String mTitle; // 지문 제목
-	private String mText; // 지문 텍스트
+	private String totalText; // 지문 텍스트
 	private Date regDate;
 	
-	public MainText() {
+	public QuestionText() {
 		
 	}
 }

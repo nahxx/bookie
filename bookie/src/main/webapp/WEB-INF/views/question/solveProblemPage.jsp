@@ -16,11 +16,6 @@
       <div class="title-wrap">
         <h1 class="title">문제풀기</h1>
       </div>
-      <div class="question-title-wrap">
-        <div class="question-title">
-          <h3 class="question-title-txt">${question.getQTitle()}</h3>
-        </div>
-      </div>
       <div class="question-box-wrap">
         <div class="qeustion-box">
 <%--            <div>${question.getQText()}</div>--%>
