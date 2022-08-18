@@ -40,6 +40,7 @@ public class UserUpdateController {
 		} else {
 			if (session.getAttribute("uId") == null) {
 				model.addAttribute("session", "no");
+				return "redirect:login";
 			}
 			model.addAttribute("session", "yes");
 		}

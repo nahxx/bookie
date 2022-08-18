@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/user/user_update.css"/>" />
+<script type="text/javascript" src="../resources/js/phoneform.js"></script>
 </head>
 <body>
 	<header>
@@ -66,7 +67,7 @@
 						<br>
 						<label>연락처</label>
 						<tr>
-						<td><input type=text name=phone value= "${user.getPhone()}"/></td>
+						<td><input type=text name=phone oninput="autoHyphen2(this)" value= "${user.getPhone()}" maxlength="13"/></td>
 						</tr>
 						<br>
 						<label>주소</label>
