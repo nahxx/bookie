@@ -33,6 +33,11 @@ public class AddQuestionDao {
 		jdbcTemplate.update(sql, q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getMainText().getMtId(), q.getCategory().getCateId());
 	}
 	
+	public void addQuestionNotMtId(Question q) {
+		String sql = "INSERT INTO Question (qText, answer, qComment, qtId, cateId) VALUES (?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getCategory().getCateId());
+	}
+	
 	public void addMainText(MainText mt) {
 		String sql = "INSERT INTO MainText (mText) VALUES (?)";
 		jdbcTemplate.update(sql, mt.getMText());

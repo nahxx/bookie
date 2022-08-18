@@ -26,6 +26,10 @@ public class AddQuestionService {
 		addQDao.addQuestion(q);
 	}
 	
+	public void addQuestionNotMtId(Question q) {
+		addQDao.addQuestionNotMtId(q);
+	}
+	
 	public void addMainText(MainText mt) {
 		addQDao.addMainText(mt);
 	}

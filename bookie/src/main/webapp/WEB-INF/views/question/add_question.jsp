@@ -95,7 +95,7 @@
 			</div>
 			
 		</div>
-		<button class="submit-btn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_questions"/>');" >등록</button>
+		<button class="submit-btn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_question"/>');" >등록</button>
 		
 	</div>
 	
