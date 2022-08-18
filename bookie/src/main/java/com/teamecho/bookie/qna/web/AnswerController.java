@@ -78,8 +78,8 @@ public class AnswerController {
 	}
 	
 	// 댓글 작성
-	@RequestMapping(value = "/answer/insert/{qnaId}", method = RequestMethod.POST)
-	public ModelAndView answerInsert(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId) throws Exception{
+	@RequestMapping(value = "/answer/insert/{qnaId}/{page}", method = RequestMethod.POST)
+	public ModelAndView answerInsert(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
 		// 세션 uId로 uType 'e' 찾기
@@ -114,40 +114,40 @@ public class AnswerController {
 		answerService.addAnswer(answer);
 		mv.addObject("answer", answer);
 		//mv.setViewName("qna/qna_answer");
-		mv.setViewName("redirect:/answer/{qnaId}");
+		mv.setViewName("redirect:/answer/{qnaId}/{page}");
 		return mv;
 	}
 	
 	// 댓글 삭제
-	@RequestMapping(value = "/answer/delete/{qnaId}/{anId}", method = RequestMethod.POST)
-	public ModelAndView answerDelete(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId){
+	@RequestMapping(value = "/answer/delete/{qnaId}/{anId}/{page}", method = RequestMethod.POST)
+	public ModelAndView answerDelete(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, @PathVariable int page){
 		answers = answerService.getAnswersByQnaId(qnaId);
 		answerService.deleteAnswerByAnId(anId);	
 		mv.addObject("answers", answers);
-		mv.setViewName("redirect:/answer/{qnaId}");
+		mv.setViewName("redirect:/answer/{qnaId}/{page}");
 		return mv;
 	}
 	
 	// 댓글 수정 get
-	@RequestMapping(value = "/answer/update/{qnaId}/{anId}", method = RequestMethod.GET)
-	public ModelAndView answerUpdateForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, RedirectAttributes redirectAttributes){
+	@RequestMapping(value = "/answer/update/{qnaId}/{anId}/{page}", method = RequestMethod.GET)
+	public ModelAndView answerUpdateForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, @PathVariable int page, RedirectAttributes redirectAttributes){
 		answer = answerService.getAnswerByQnaId(qnaId, anId);
 		String document = answer.getDocument();
 		String doc = document.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
 		redirectAttributes.addFlashAttribute("update_answer_d", doc);
 		redirectAttributes.addFlashAttribute("update_answer", answer);
-		mv.setViewName("redirect:/answer/{qnaId}");
+		mv.setViewName("redirect:/answer/{qnaId}/{page}");
 		return mv;
 	}
 	
 	// 댓글 수정 post
-	@RequestMapping(value = "/answer/update/{qnaId}/{anId}", method = RequestMethod.POST)
-	public ModelAndView answerUpdate(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, RedirectAttributes redirectAttributes){
+	@RequestMapping(value = "/answer/update/{qnaId}/{anId}/{page}", method = RequestMethod.POST)
+	public ModelAndView answerUpdate(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, @PathVariable int page, RedirectAttributes redirectAttributes){
 		String documnet = request.getParameter("documnet");
 		answerService.updateAnswerByAnId(documnet, anId);
 		answers = answerService.getAnswersByQnaId(qnaId);
 		redirectAttributes.addFlashAttribute("answers", answers);
-		mv.setViewName("redirect:/answer/{qnaId}");
+		mv.setViewName("redirect:/answer/{qnaId}/{page}");
 		return mv;
 	}
 	
@@ -159,7 +159,7 @@ public class AnswerController {
 		
 		answerService.deleteAnswersByQnaId(qnaId);
 		qnaService.deleteQna(qnaId);
-		System.out.println(page);
+		
 		String referer = request.getHeader("Referer");
 		System.out.println(referer);
 		mv.setViewName("redirect:/qna_board/{page}");
@@ -168,11 +168,11 @@ public class AnswerController {
 	}
 	
 	// 질문 수정 get
-	@RequestMapping(value = "/qna/update/{qnaId}", method = RequestMethod.GET)
-	public ModelAndView qnaUpdateForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
+	@RequestMapping(value = "/qna/update/{qnaId}/{page}", method = RequestMethod.GET)
+	public ModelAndView qnaUpdateForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page){
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
-		
+		mv.addObject("page", page);
 		qna = qnaService.getQnaByQnaId(qnaId);
 		
 		mv.addObject("qna", qna);
@@ -182,8 +182,8 @@ public class AnswerController {
 	}
 	
 	// 질문 수정 post
-	@RequestMapping(value = "/qna/update/{qnaId}", method = RequestMethod.POST)
-	public ModelAndView qnaUpdate(QnaCommand qnaCommand, HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId){
+	@RequestMapping(value = "/qna/update/{qnaId}/{page}", method = RequestMethod.POST)
+	public ModelAndView qnaUpdate(QnaCommand qnaCommand, HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page){
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
 		
@@ -195,7 +195,7 @@ public class AnswerController {
 		qna.setUser(userService.getUserByUid(uId));
 		qnaService.updateQna(qna);			
 		mv.addObject("document_q", qna.getDocument());
-		mv.setViewName("redirect:/answer/{qnaId}");
+		mv.setViewName("redirect:/answer/{qnaId}/{page}");
 		return mv;
 	}
 }

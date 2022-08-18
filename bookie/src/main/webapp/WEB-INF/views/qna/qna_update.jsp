@@ -54,7 +54,7 @@
 						<p class="mini-header"></p>
 						<div id="editor">${qna.document}</div>
 						<div class="write-btn">
-							<a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/qna/update/${qnaId}'/>');" class="in-btn">수정</a>
+							<a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/qna/update/${qnaId}/${page}'/>');" class="in-btn">수정</a>
 							<a href="<c:url value='/qna_board/1'/>" class="in-btn">취소</a>
 						</div>
 				</div>

@@ -70,7 +70,7 @@
 		<c:choose>
 			<c:when test="${uId_session eq uId}">
 				<div class="btn">
-				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
+				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}/${page}'/>');"
 					class="qna-btn">수정</button>
 				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
 				class="qna-btn">삭제</button>
@@ -78,7 +78,7 @@
 			</c:when>
 			<c:when test="${fn:contains(manager, 'Y')}">
 				<div class="btn">
-				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
+				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}/${page}'/>');"
 					class="qna-btn">수정</button>
 				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
 				class="qna-btn">삭제</button>
@@ -90,12 +90,12 @@
 		<div class="btn">
 			<c:choose>
 				<c:when test="${not empty update_answer_d}">
-					<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${update_answer.getAnId()}'/>');"
+					<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${update_answer.getAnId()}/${page}'/>');"
 					class="submit-btn">등록</button>
-					<a href="<c:url value='/answer/${qnaId}'/>" class="in-btn">취소</a>
+					<a href="<c:url value='/answer/${qnaId}/${page}'/>" class="in-btn">취소</a>
 				</c:when>
 				<c:otherwise>
-					<button onclick="javascript:submit('<c:url value='/answer/insert/${qnaId}'/>');"
+					<button onclick="javascript:submit('<c:url value='/answer/insert/${qnaId}/${page}'/>');"
 					class="submit-btn">작성</button>
 				</c:otherwise>
 			</c:choose>
@@ -129,19 +129,19 @@
 				</c:choose>			
 				<div id="viewer_a">${answer.getDocument()}</div>
 			</div>
-			<c:if test="${uId_session eq answer.getUser().getUId()}">
+			<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
 				<div class="btn">
-					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
 					class="qna-btn">수정</button>
-					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
 					class="qna-btn">삭제</button>
 				</div>
 			</c:if>
 			<c:if test="${fn:contains(manager, 'Y')}">
 				<div class="btn">
-					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
 					class="qna-btn">수정</button>
-					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
 					class="qna-btn">삭제</button>
 				</div>
 			</c:if>
@@ -176,19 +176,19 @@
 					</c:choose>	
 					<div id="viewer_a">${answer.getDocument()}</div>
 				</div>
-				<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'Y')}">
+				<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
 					<div class="btn">
-						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
 						class="qna-btn">수정</button>
-						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
 						class="qna-btn">삭제</button>
 					</div>
 				</c:if>
 				<c:if test="${fn:contains(manager, 'Y')}">
 					<div class="btn">
-						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
 						class="qna-btn">수정</button>
-						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
 						class="qna-btn">삭제</button>
 					</div>
 				</c:if>
