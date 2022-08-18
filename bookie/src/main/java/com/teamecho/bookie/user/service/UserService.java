@@ -37,5 +37,8 @@ public class UserService {
 	public User getUserByUserId(String userId) {
 		return userDao.findUserByUserId(userId);
 	}
-
+	
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
 }

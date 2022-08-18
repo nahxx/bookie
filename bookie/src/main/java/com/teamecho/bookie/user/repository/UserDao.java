@@ -51,4 +51,8 @@ public class UserDao {
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), userId);
 	}
 
+	public void updateUser(User user) {
+		String sql = "UPDATE User SET passwd=?, name=?, uType=?, phone=?, addr=? WHERE uId = ?";
+		jdbcTemplate.update(sql, user.getPasswd(), user.getName(), String.valueOf(user.getUType()), user.getPhone(), user.getAddr(), user.getUId());
+	}
 }

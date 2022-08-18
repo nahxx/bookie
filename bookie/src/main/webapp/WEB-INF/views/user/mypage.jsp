@@ -29,7 +29,7 @@
 
 				<div class="content list">
 					<ul class="info-list">
-						<li><a href="/" class="mypage_list"><img
+						<li><a href="/bookie/user/user_update" class="mypage_list"><img
 								src="<c:url value="/resources/img/update.png"/>">정보 수정하기</a></li>
 						<li><a href="/" class="mypage_list"><img
 								src="<c:url value="/resources/img/history.png"/>">푼 문제 확인</a></li>
