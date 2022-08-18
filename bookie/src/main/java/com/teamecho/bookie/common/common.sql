@@ -7,7 +7,7 @@ DROP TABLE Question;
 DROP TABLE QuestionText;
 DROP TABLE MainText;
 DROP TABLE SubjectPattern;
-DROP TABLE QNA;
+DROP TABLE Qna;
 DROP TABLE Category;
 DROP TABLE User;
 

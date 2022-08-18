@@ -180,6 +180,7 @@ public class AddQuestionController {
 			for(int i = 0; i < qList.size(); i++) {
 				Question question = new Question();
 				question.setQTitle(titleList.get(i));
+				System.out.println(titleList.get(i));
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
 				question.setQComment(command.getQCommentList().get(i));
