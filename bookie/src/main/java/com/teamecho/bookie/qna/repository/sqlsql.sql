@@ -61,3 +61,23 @@ INSERT INTO question (qText, answer, qComment, qtId, mtId, cateId)
 VALUES('<p>문제2 입니다 !</p>', 1, '<p>해설2 입니다 !!!</p>', 2 , 2 , 10);
 INSERT INTO question (qText, answer, qComment, qtId, mtId, cateId)
 VALUES('<p>문제3 입니다 !</p>', 1, '<p>해설3 입니다 !!!</p>', 2 , 2 , 10);
+
+INSERT INTO question (qText, answer, qComment, qtId, cateId)
+VALUES('<p>문제4 입니다 !</p>', 1, '<p>해설4 입니다 !!!</p>', 2 , 10);
+
+	SELECT q.qid, q.mtId 
+		FROM Question q 
+		WHERE q.cateid = 10
+		AND NOT EXISTS (SELECT * FROM Questionhistory qh WHERE qh.uid = 1 AND qh.identify = 'Y' AND q.qid = qh.qid)
+
+CALL FIND_QUESTION_SAME_CATEGORY(10, 1);
+
+
+
+SELECT @ROWNUM:=@ROWNUM+1 as rownum, q.qid, q.mtId 
+		FROM Question q , (SELECT @ROWNUM:=0) R
+		WHERE q.cateid = 10
+		AND NOT EXISTS (SELECT * FROM Questionhistory qh WHERE qh.uid = 1 AND qh.identify = 'Y' AND q.qid = qh.qid );
+
+
+
