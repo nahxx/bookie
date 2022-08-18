@@ -39,6 +39,9 @@
 	</header>
 	<div id="container">
 		<div class="viewer_q_wrap">
+			<div class="back">
+				<a href="<c:url value='/qna_board/${page}'/>">묻고답하기 ></a>
+			</div>
 			<div class="qna-title">${subject}</div>		
 			<c:choose>
 				<c:when  test="${uId_session eq uId}">
@@ -72,16 +75,40 @@
 				<div class="btn">
 				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}/${page}'/>');"
 					class="qna-btn">수정</button>
-				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
-				class="qna-btn">삭제</button>
+				<c:choose>
+					<c:when test="${form eq 'ma'}">
+						<button onclick="javascript:submit('<c:url value='/qna/delete/ma${qnaId}/${page}'/>');"
+						class="qna-btn">삭제</button>
+					</c:when>
+					<c:when test="${form eq 'mq'}">
+						<button onclick="javascript:submit('<c:url value='/qna/delete/mq${qnaId}/${page}'/>');"
+						class="qna-btn">삭제</button>
+					</c:when>
+					<c:otherwise>
+						<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
+						class="qna-btn">삭제</button>
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</c:when>
 			<c:when test="${fn:contains(manager, 'Y')}">
 				<div class="btn">
 				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}/${page}'/>');"
 					class="qna-btn">수정</button>
-				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
-				class="qna-btn">삭제</button>
+				<c:choose>
+					<c:when test="${form eq 'ma'}">
+						<button onclick="javascript:submit('<c:url value='/qna/delete/ma${qnaId}/${page}'/>');"
+						class="qna-btn">삭제</button>
+					</c:when>
+					<c:when test="${form eq 'mq'}">
+						<button onclick="javascript:submit('<c:url value='/qna/delete/mq${qnaId}/${page}'/>');"
+						class="qna-btn">삭제</button>
+					</c:when>
+					<c:otherwise>
+						<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
+						class="qna-btn">삭제</button>
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</c:when>
 		</c:choose>

@@ -12,6 +12,11 @@
 .viewer_q_wrap{
 	margin-top: 100px;
 }
+.back{
+	width: 70%;
+	margin: 0 auto;
+	margin-bottom: 5px;
+}
 .qna-title{	
 	border : 1px solid;
 	width: 70%;

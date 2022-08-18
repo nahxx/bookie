@@ -77,6 +77,66 @@ public class AnswerController {
 		return mv;
 	}
 	
+	// 나의 댓글 목록  폼
+	@RequestMapping(value = "/answer/ma{qnaId}/{page}", method = RequestMethod.GET)
+	public ModelAndView qnaFormMypageAnswer(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page) throws Exception{
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		mv.addObject("page", page);
+		mv.addObject("form", "ma");
+		// 세션 uId로 uType 'e' 찾기
+		user = userService.getUserByUid(uId);
+		mv.addObject("manager", user.getManager());
+		qnaService.boardCounting(qnaId);
+		qna = qnaService.getQnaByQnaId(qnaId);
+		// 유저 세션
+		mv.addObject("uId_session", uId);
+		// 질문 쓴 유저
+		mv.addObject("uId", qna.getUser().getUId());
+		// 질문 제목
+		mv.addObject("subject", qna.getSubject());	
+		// 질문		
+		mv.addObject("document_q", qna.getDocument());
+		// 질문 작성자 아이디
+		mv.addObject("name", qna.getUser().getName());
+		// 댓글 목록
+		answers = answerService.getAnswersByQnaId(qnaId);
+		mv.addObject("qnaId", qnaId);
+		mv.addObject("answers", answers);
+		mv.setViewName("qna/qna_answer");
+		return mv;
+	}
+	
+	// 나의 질문 목록  폼
+	@RequestMapping(value = "/answer/mq{qnaId}/{page}", method = RequestMethod.GET)
+	public ModelAndView qnaFormMypageQna(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page) throws Exception{
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		mv.addObject("page", page);
+		mv.addObject("form", "mq");	
+		// 세션 uId로 uType 'e' 찾기
+		user = userService.getUserByUid(uId);
+		mv.addObject("manager", user.getManager());
+		qnaService.boardCounting(qnaId);
+		qna = qnaService.getQnaByQnaId(qnaId);
+		// 유저 세션
+		mv.addObject("uId_session", uId);
+		// 질문 쓴 유저
+		mv.addObject("uId", qna.getUser().getUId());
+		// 질문 제목
+		mv.addObject("subject", qna.getSubject());	
+		// 질문		
+		mv.addObject("document_q", qna.getDocument());
+		// 질문 작성자 아이디
+		mv.addObject("name", qna.getUser().getName());
+		// 댓글 목록
+		answers = answerService.getAnswersByQnaId(qnaId);
+		mv.addObject("qnaId", qnaId);
+		mv.addObject("answers", answers);
+		mv.setViewName("qna/qna_answer");
+		return mv;
+	}
+	
 	// 댓글 작성
 	@RequestMapping(value = "/answer/insert/{qnaId}/{page}", method = RequestMethod.POST)
 	public ModelAndView answerInsert(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page) throws Exception{
@@ -160,10 +220,33 @@ public class AnswerController {
 		answerService.deleteAnswersByQnaId(qnaId);
 		qnaService.deleteQna(qnaId);
 		
-		String referer = request.getHeader("Referer");
-		System.out.println(referer);
 		mv.setViewName("redirect:/qna_board/{page}");
-	    //mv.setViewName("redirect:"+ referer);
+		return mv;
+	}
+	
+	// 답변 목록 질문 삭제
+	@RequestMapping(value = "/qna/delete/ma{qnaId}/{page}", method = RequestMethod.POST)
+	public ModelAndView qnaDeleteMypageAnswer(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page){
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		
+		answerService.deleteAnswersByQnaId(qnaId);
+		qnaService.deleteQna(qnaId);
+		
+		mv.setViewName("redirect:/user/answerList/{page}");
+		return mv;
+	}
+	
+	// 질문 목록 질문 삭제
+	@RequestMapping(value = "/qna/delete/mq{qnaId}/{page}", method = RequestMethod.POST)
+	public ModelAndView qnaDeleteMypageQna(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page){
+		HttpSession session = request.getSession(false);
+		uId = (long) session.getAttribute("uId");
+		
+		answerService.deleteAnswersByQnaId(qnaId);
+		qnaService.deleteQna(qnaId);
+		
+		mv.setViewName("redirect:/user/qnaList/{page}");
 		return mv;
 	}
 	
