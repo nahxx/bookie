@@ -44,7 +44,7 @@
 				<c:when  test="${uId_session eq uId}">
 					<div class="view_q_user">${name}</div>
 				</c:when>
-				<c:when  test="${fn:contains(uType, 'e')}">
+				<c:when  test="${fn:contains(manager, 'Y')}">
 					<div class="view_q_user">${name}</div>
 				</c:when>
 				<c:otherwise>
@@ -72,15 +72,15 @@
 				<div class="btn">
 				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
 					class="qna-btn">수정</button>
-				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
+				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
 				class="qna-btn">삭제</button>
 				</div>
 			</c:when>
-			<c:when test="${fn:contains(uType, 'e')}">
+			<c:when test="${fn:contains(manager, 'Y')}">
 				<div class="btn">
 				<button onclick="javascript:get('<c:url value='/qna/update/${qnaId}'/>');"
 					class="qna-btn">수정</button>
-				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}'/>');"
+				<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
 				class="qna-btn">삭제</button>
 				</div>
 			</c:when>
@@ -106,7 +106,7 @@
 					<c:when  test="${uId_session eq answer.getUser().getUId()}">
 						<div class="view_a_user">${answer.getUser().getName()}</div>
 					</c:when>
-					<c:when test="${fn:contains(uType, 'e')}">
+					<c:when test="${fn:contains(manager, 'Y')}">
 						<div class="view_a_user">${answer.getUser().getName()}</div>
 					</c:when>
 					<c:otherwise>
@@ -137,7 +137,7 @@
 					class="qna-btn">삭제</button>
 				</div>
 			</c:if>
-			<c:if test="${fn:contains(uType, 'e')}">
+			<c:if test="${fn:contains(manager, 'Y')}">
 				<div class="btn">
 					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
 					class="qna-btn">수정</button>
@@ -153,7 +153,7 @@
 						<c:when  test="${uId_session eq answer.getUser().getUId()}">
 							<div class="view_a_user">${answer.getUser().getName()}</div>
 						</c:when>
-						<c:when test="${fn:contains(uType, 'e')}">
+						<c:when test="${fn:contains(manager, 'Y')}">
 							<div class="view_a_user">${answer.getUser().getName()}</div>
 						</c:when>
 						<c:otherwise>
@@ -176,7 +176,7 @@
 					</c:choose>	
 					<div id="viewer_a">${answer.getDocument()}</div>
 				</div>
-				<c:if test="${uId_session eq answer.getUser().getUId()}">
+				<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'Y')}">
 					<div class="btn">
 						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
 						class="qna-btn">수정</button>
@@ -184,7 +184,7 @@
 						class="qna-btn">삭제</button>
 					</div>
 				</c:if>
-				<c:if test="${fn:contains(uType, 'e')}">
+				<c:if test="${fn:contains(manager, 'Y')}">
 					<div class="btn">
 						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
 						class="qna-btn">수정</button>

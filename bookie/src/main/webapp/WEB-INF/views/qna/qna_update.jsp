@@ -64,89 +64,102 @@
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
 	<!-- TOAST UI Editor 생성 JavaScript 코드 -->
-	<script>
-    	const editor = new toastui.Editor({
-    		el: document.querySelector('#editor'),
-		    previewStyle: 'tab',
-		    initialEditType : "markdown",
-		    previewHighlight: false,
-		    height: '500px',
-		    hooks: {
-		    	addImageBlobHook: (blob, callback) => {
-		    		const formData = new FormData();
-		        	formData.append('image', blob);
+<script>
+   	const editor = new toastui.Editor({
+   		el: document.querySelector('#editor'),
+	    previewStyle: 'tab',
+	    initialEditType : "markdown",
+	    previewHighlight: false,
+	    height: '500px',
+	    hooks: {
+	    	addImageBlobHook: (blob, callback) => {
+	    		const formData = new FormData();
+	        	formData.append('image', blob);
 
-		        	let url;
-		   			$.ajax({
-		           		type: 'POST',
-		           		enctype: 'multipart/form-data',
-		           		url: '/bookie/qna_write',
-		           		data: formData,
-		           		dataType: "json",
-		           		processData: false,
-		           		contentType: false,
-		           		cache: false,
-		           		timeout: 600000,
-		           		success: function(data) {
-		           			url = Object.values(data)[0] + Object.values(data)[1];
-		           			callback(url, '이미지');
-		           		},
-		           		error: function(e) {
-		           			callback(url, '이미지등록 오류 발생!!');
-		           		}
-		           	});
-		    	}
-		    }
-		});
+	        	let url;
+	   			$.ajax({
+	           		type: 'POST',
+	           		enctype: 'multipart/form-data',
+	           		url: '/bookie/qna_write',
+	           		data: formData,
+	           		dataType: "json",
+	           		processData: false,
+	           		contentType: false,
+	           		cache: false,
+	           		timeout: 600000,
+	           		success: function(data) {
+	           			url = Object.values(data)[0] + Object.values(data)[1];
+	           			callback(url, '이미지');
+	           		},
+	           		error: function(e) {
+	           			callback(url, '이미지등록 오류 발생!!');
+	           		}
+	           	});
+	    	}
+	    }
+	});
 
-		function sendPost(url) {
-			//1. 폼생성
-			var form = document.createElement('form');
-			form.setAttribute('method', 'post');
-			form.setAttribute('action', url);
-			document.charset = "UTF-8";
+	function sendPost(url) {
+		//1. 폼생성
+		var form = document.createElement('form');
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', url);
+		document.charset = "UTF-8";
 
-			//2. 제목 input Tag 가져오기
-			let qnaTitle = document.getElementById('qnaTitle');
-			qnaTitle.setAttribute('type', 'hidden');
-			form.appendChild(qnaTitle);
+		//2. 제목 input Tag 가져오기
+		let qnaTitle = document.getElementById('qnaTitle');
+		qnaTitle.setAttribute('type', 'hidden');
+		form.appendChild(qnaTitle);
 
-			//3. 에디터 안에 있는 html 전체 가져오기
-			var getHtml = editor.getHTML();
+		//3. 에디터 안에 있는 html 전체 가져오기
+		var getHtml = editor.getHTML();
 
-			//4. 변수 넘겨주는 hidden input tag 만들어서 에디터 안에 있는 콘
-			var hf_1 = document.createElement('input');
-			hf_1.setAttribute('type', 'hidden');
-			hf_1.setAttribute('name', "content");
-			hf_1.setAttribute('value', getHtml);
-			form.appendChild(hf_1);
+		//4. 변수 넘겨주는 hidden input tag 만들어서 에디터 안에 있는 콘
+		var hf_1 = document.createElement('input');
+		hf_1.setAttribute('type', 'hidden');
+		hf_1.setAttribute('name', "content");
+		hf_1.setAttribute('value', getHtml);
+		form.appendChild(hf_1);
 
-			//5. 라디오버튼으로 카테고리 선택한 값을 hiddenfrom으로 값 던져주기.
-			let level = document.querySelector('input[name="level"]:checked').value;
-			let grade = document.querySelector('input[name="grade"]:checked').value;
-			let subject = document.querySelector('input[name="subject"]:checked').value;
+		//5. 라디오버튼으로 카테고리 선택한 값을 hiddenfrom으로 값 던져주기.
+		let level = document.querySelector('input[name="level"]:checked').value;
+		let grade = document.querySelector('input[name="grade"]:checked').value;
+		let subject = document.querySelector('input[name="subject"]:checked').value;
 
-			var hf_2 = document.createElement('input');
-			hf_2.setAttribute('type', 'hidden');
-			hf_2.setAttribute('name', "level");
-			hf_2.setAttribute('value', level);
-			form.appendChild(hf_2);
+		var hf_2 = document.createElement('input');
+		hf_2.setAttribute('type', 'hidden');
+		hf_2.setAttribute('name', "level");
+		hf_2.setAttribute('value', level);
+		form.appendChild(hf_2);
 
-			var hf_3 = document.createElement('input');
-			hf_3.setAttribute('type', 'hidden');
-			hf_3.setAttribute('name', "grade");
-			hf_3.setAttribute('value', grade);
-			form.appendChild(hf_3);
+		var hf_3 = document.createElement('input');
+		hf_3.setAttribute('type', 'hidden');
+		hf_3.setAttribute('name', "grade");
+		hf_3.setAttribute('value', grade);
+		form.appendChild(hf_3);
 
-			var hf_4 = document.createElement('input');
-			hf_4.setAttribute('type', 'hidden');
-			hf_4.setAttribute('name', "subject");
-			hf_4.setAttribute('value', subject);
-			form.appendChild(hf_4);
+		var hf_4 = document.createElement('input');
+		hf_4.setAttribute('type', 'hidden');
+		hf_4.setAttribute('name', "subject");
+		hf_4.setAttribute('value', subject);
+		form.appendChild(hf_4);
 
-			document.body.appendChild(form);
-			form.submit();
-  };
-    </script>
+		document.body.appendChild(form);
+		form.submit();
+ 	};
+ 	
+ 	$.fn.radioSelect = function(val) {
+ 		this.each(function() {
+			var $this = $(this);
+			if($this.val() == val)
+				$this.attr('checked', true);
+			});
+ 		return this;
+ 	};
+ 	
+ 	$(":radio[name='level']").radioSelect('${qna.getCategory().getCLevel()}'); 
+ 	$(":radio[name='grade']").radioSelect('${qna.getCategory().getGrade()}');
+ 	$(":radio[name='subject']").radioSelect('${qna.getCategory().getSubject()}');
+</script>
 </body>
 </html>
