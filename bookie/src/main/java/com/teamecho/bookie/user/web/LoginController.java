@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.domain.UserCommand;
@@ -31,13 +32,14 @@ public class LoginController {
 	}
 
 	@PostMapping
-	public String login(User user, @RequestParam String userId, @RequestParam String passwd, Model model, HttpServletRequest request) {
+	public String login(User user, @RequestParam String userId, @RequestParam String passwd, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
 //		boolean isval = userService.isValidUser(userId, passwd);
 		
 		if(userService.isValidUser(userId, passwd) == false) {
 			int result = userService.login(userId, passwd);
-			model.addAttribute("result",result);
+			//model.addAttribute("result",result);
+			redirectAttributes.addFlashAttribute("result", result);
 
 			if (result == 2) {
 				return "user/error_login";

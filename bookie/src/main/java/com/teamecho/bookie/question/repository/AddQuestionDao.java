@@ -29,13 +29,13 @@ public class AddQuestionDao {
 	}
 	
 	public void addQuestion(Question q) {
-		String sql = "INSERT INTO Question (qText, answer, qComment, qtId, mtId, cateId) VALUES (?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql, q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getMainText().getMtId(), q.getCategory().getCateId());
+		String sql = "INSERT INTO Question (qTitle, qText, answer, qComment, qtId, mtId, cateId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, q.getQTitle(), q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getMainText().getMtId(), q.getCategory().getCateId());
 	}
 	
 	public void addQuestionNotMtId(Question q) {
-		String sql = "INSERT INTO Question (qText, answer, qComment, qtId, cateId) VALUES (?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql, q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getCategory().getCateId());
+		String sql = "INSERT INTO Question (qTitle, qText, answer, qComment, qtId, cateId) VALUES (?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, q.getQTitle(), q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getCategory().getCateId());
 	}
 	
 	public void addMainText(MainText mt) {

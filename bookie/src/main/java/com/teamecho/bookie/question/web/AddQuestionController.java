@@ -96,6 +96,7 @@ public class AddQuestionController {
 		// 지문, 문제 분리
 		List<String> mList = new ArrayList(); // 지문 담을 리스트
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
+		List<String> titleList = new ArrayList(); // 문제 제목 담을 리스트
 		List<String> textList = new ArrayList(); // 지문,문제 구분자 제거 후 텍스트 담을 리스트
 		
 		StringTokenizer st = new StringTokenizer(text, "◆<>", false);
@@ -106,6 +107,7 @@ public class AddQuestionController {
 				textList.add(str);
 			}
 		}
+		
 		String m = "";
 		String s = "";
 		
@@ -129,6 +131,9 @@ public class AddQuestionController {
 					for(int j = i + 1; j < textList.size(); j++) {
 						if(!(textList.get(j).equals("지문")) && !(textList.get(j).equals("문제"))) {
 							s += "<p>" + textList.get(j) + "</p>";
+							if(j == i + 1) {
+								titleList.add(textList.get(j));
+							}
 						} else {
 							qList.add(s);
 							i = j-1;
@@ -174,6 +179,7 @@ public class AddQuestionController {
 			QuestionText qt = addQService.getQuestionTextByTotalText(text);
 			for(int i = 0; i < qList.size(); i++) {
 				Question question = new Question();
+				question.setQTitle(titleList.get(i));
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
 				question.setQComment(command.getQCommentList().get(i));
@@ -182,12 +188,6 @@ public class AddQuestionController {
 				question.setMainText(mt);
 				question.setCategory(category);
 				
-				System.out.println(question.getQText());
-				System.out.println(question.getAnswer());
-				System.out.println(question.getQComment());
-				System.out.println(question.getQuestionText().getQtId());
-				System.out.println(question.getMainText().getMtId());
-				System.out.println(question.getCategory().getCateId());
 				addQService.addQuestion(question);
 			}
 		}
