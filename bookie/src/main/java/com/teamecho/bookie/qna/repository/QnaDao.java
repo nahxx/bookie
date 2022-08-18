@@ -65,7 +65,7 @@ public class QnaDao {
 	
 	public List<Board> findQnaBoardList(int BoardStartItemNo){
 		String sql = "SELECT q.qnaId, q.subject, q.cateid, q.uid, q.regDate, qc.qcCount "
-				    + "FROM qna q INNER JOIN qnacount qc ON q.qnaId = qc.qnaId"
+				    + "FROM Qna q INNER JOIN QnaCount qc ON q.qnaId = qc.qnaId"
 		     		+" ORDER BY q.regDate desc LIMIT ?, 10";
 		return jdbcTemplate.query(sql, new QnaBoardRowMapper(), BoardStartItemNo);
 	}

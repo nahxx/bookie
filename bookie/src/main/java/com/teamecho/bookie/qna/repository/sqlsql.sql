@@ -81,3 +81,10 @@ SELECT @ROWNUM:=@ROWNUM+1 as rownum, q.qid, q.mtId
 
 
 
+SELECT * FROM Qna WHERE uid = 1 ORDER BY regDate desc LIMIT 0, 10
+
+SELECT * FROM Qna WHERE uid = 1
+
+ SELECT q.qnaId, q.subject, q.cateid, q.uid, q.regDate, qc.qcCount
+	  FROM Qna q INNER JOIN QnaCount qc ON q.qnaId = qc.qnaId
+ 		ORDER BY q.regDate desc LIMIT 0, 10;
