@@ -56,7 +56,6 @@ public class AnswerController {
 		// 세션 uId로 uType 'e' 찾기
 		user = userService.getUserByUid(uId);
 		mv.addObject("uType", user.getUType());
-		System.out.println(user.getUType());
 		qnaService.boardCounting(qnaId);
 		qna = qnaService.getQnaByQnaId(qnaId);
 		// 유저 세션
@@ -82,6 +81,9 @@ public class AnswerController {
 	public ModelAndView answerInsert(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
+		// 세션 uId로 uType 'e' 찾기
+		user = userService.getUserByUid(uId);
+		mv.addObject("uType", user.getUType());
 		
 		qna = qnaService.getQnaByQnaId(qnaId);
 		// 유저 세션
@@ -110,7 +112,8 @@ public class AnswerController {
 		answer.setUser(userService.getUserByUid(uId));
 		answerService.addAnswer(answer);
 		mv.addObject("answer", answer);
-		mv.setViewName("qna/qna_answer");
+		//mv.setViewName("qna/qna_answer");
+		mv.setViewName("redirect:/answer/{qnaId}");
 		return mv;
 	}
 	
@@ -139,7 +142,6 @@ public class AnswerController {
 	// 댓글 수정 post
 	@RequestMapping(value = "/answer/update/{qnaId}/{anId}", method = RequestMethod.POST)
 	public ModelAndView answerUpdate(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, RedirectAttributes redirectAttributes){
-
 		String documnet = request.getParameter("documnet");
 		answerService.updateAnswerByAnId(documnet, anId);
 		answers = answerService.getAnswersByQnaId(qnaId);
@@ -154,8 +156,8 @@ public class AnswerController {
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
 		
-		answerService.deleteAnswersByQnaId(qnaId, uId);
-		qnaService.deleteQna(qnaId, uId);
+		answerService.deleteAnswersByQnaId(qnaId);
+		qnaService.deleteQna(qnaId);
 		
 		mv.setViewName("redirect:/qna_board/1");
 		return mv;

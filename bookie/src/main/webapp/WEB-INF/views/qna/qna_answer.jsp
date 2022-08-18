@@ -106,6 +106,9 @@
 					<c:when  test="${uId_session eq answer.getUser().getUId()}">
 						<div class="view_a_user">${answer.getUser().getName()}</div>
 					</c:when>
+					<c:when test="${fn:contains(uType, 'e')}">
+						<div class="view_a_user">${answer.getUser().getName()}</div>
+					</c:when>
 					<c:otherwise>
 						<div class="view_a_user">
 							<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
@@ -129,7 +132,15 @@
 			<c:if test="${uId_session eq answer.getUser().getUId()}">
 				<div class="btn">
 					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
-							class="qna-btn">수정</button>
+					class="qna-btn">수정</button>
+					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+					class="qna-btn">삭제</button>
+				</div>
+			</c:if>
+			<c:if test="${fn:contains(uType, 'e')}">
+				<div class="btn">
+					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+					class="qna-btn">수정</button>
 					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
 					class="qna-btn">삭제</button>
 				</div>
@@ -140,6 +151,9 @@
 				<div class="view_a_wrap">
 					<c:choose>
 						<c:when  test="${uId_session eq answer.getUser().getUId()}">
+							<div class="view_a_user">${answer.getUser().getName()}</div>
+						</c:when>
+						<c:when test="${fn:contains(uType, 'e')}">
 							<div class="view_a_user">${answer.getUser().getName()}</div>
 						</c:when>
 						<c:otherwise>
@@ -163,6 +177,14 @@
 					<div id="viewer_a">${answer.getDocument()}</div>
 				</div>
 				<c:if test="${uId_session eq answer.getUser().getUId()}">
+					<div class="btn">
+						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
+						class="qna-btn">수정</button>
+						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}'/>');"
+						class="qna-btn">삭제</button>
+					</div>
+				</c:if>
+				<c:if test="${fn:contains(uType, 'e')}">
 					<div class="btn">
 						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}'/>');"
 						class="qna-btn">수정</button>

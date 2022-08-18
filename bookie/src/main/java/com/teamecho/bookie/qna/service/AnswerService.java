@@ -10,7 +10,7 @@ public interface AnswerService {
 	List<Answer> getAnswersByQnaId(long qnaId);
 	Answer getAnswerByQnaId(long qnaId, long anId);
 	List<Answer> getAnswersByUId(long uId);
-	void deleteAnswersByQnaId(long qnaId, long uId);
+	void deleteAnswersByQnaId(long qnaId);
 	void deleteAnswerByAnId(long anId);
 	void updateAnswerByAnId(String document, long anId);
 	List<Answer> getAnswerListByUId(long uId, int pagingNo, int listCount);

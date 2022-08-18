@@ -41,9 +41,9 @@ public class AnswerDao {
 		return jdbcTemplate.query(sql, new AnswerRowMapper(), uId);
 	}
 	
-	public void deleteAnswersByQnaId(long qnaId, long uId) {
-		String sql = "DELETE FROM Answer WHERE qnaId = ? AND uId = ?";
-		jdbcTemplate.update(sql, qnaId, uId);
+	public void deleteAnswersByQnaId(long qnaId) {
+		String sql = "DELETE FROM Answer WHERE qnaId = ?";
+		jdbcTemplate.update(sql, qnaId);
 	}
 	
 	public void deleteAnswerByAnId(long anId) {

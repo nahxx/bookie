@@ -49,8 +49,8 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 	@Override
-	public void deleteAnswersByQnaId(long qnaId, long uId) {
-		answerDao.deleteAnswersByQnaId(qnaId, uId);	
+	public void deleteAnswersByQnaId(long qnaId) {
+		answerDao.deleteAnswersByQnaId(qnaId);	
 	}
 
 	@Override
