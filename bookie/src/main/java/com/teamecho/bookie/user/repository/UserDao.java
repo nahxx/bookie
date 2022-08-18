@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -54,5 +55,41 @@ public class UserDao {
 	public void updateUser(User user) {
 		String sql = "UPDATE User SET passwd=?, name=?, uType=?, phone=?, addr=? WHERE uId = ?";
 		jdbcTemplate.update(sql, user.getPasswd(), user.getName(), String.valueOf(user.getUType()), user.getPhone(), user.getAddr(), user.getUId());
+	}
+	
+	public int checkingUserId(String userId) {
+		try {
+			String sql = "SELECT userId FROM User WHERE userId=?";
+			return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Integer>() {
+				
+				public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+					if (rs.getString(1).contentEquals(userId)) {
+						return 1; // 생성 불가
+					}
+					return null;
+				}
+
+			}, userId);
+		} catch (IncorrectResultSizeDataAccessException error) {
+			return 2;
+		}
+	}
+	
+	public int login(String userId, String passwd) {
+		try {
+			String sql = "SELECT userId, passwd FROM User WHERE userId=? and passwd=?";
+			return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Integer>() {
+				
+				public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+					if (rs.getString(1).contentEquals(userId)) {
+						return 1; // 생성 불가
+					}
+					return null;
+				}
+
+			}, userId, passwd);
+		} catch (IncorrectResultSizeDataAccessException error) {
+			return 2;
+		}
 	}
 }

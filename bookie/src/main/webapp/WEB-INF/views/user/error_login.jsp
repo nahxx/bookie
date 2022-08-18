@@ -7,8 +7,7 @@
 <html>
 <head>
 <title>bookie</title>
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/default.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/user/login.css"/>" />
@@ -26,6 +25,10 @@
 			<div id="content-wrapper">
 				<div class="content">
 					<form action="login" method="post">
+						<c:set var="result" value="${result }" />
+						<c:if test="${result eq 2 }">
+							<p class="error" style = "text-align: center;">아이디 또는 비밀번호를 잘못 입력했습니다.</p>
+						</c:if>
 						<input type="text" name="userId" placeholder="이메일" /> <br>
 						<input type="password" name="passwd" placeholder="비밀번호" /> <br>
 						<input class="btn" type="submit" value="로그인" />
@@ -34,5 +37,6 @@
 			</div>
 		</div>
 	</div>
+</body>
 </body>
 </html>

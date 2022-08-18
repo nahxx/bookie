@@ -41,4 +41,12 @@ public class UserService {
 	public void updateUser(User user) {
 		userDao.updateUser(user);
 	}
+	
+	public int login(String userId, String passwd) {
+		return userDao.login(userId, passwd);
+	}
+
+	public int checkingUserId(String userId) {
+		return userDao.checkingUserId(userId);
+	}
 }

@@ -20,10 +20,10 @@ import com.teamecho.bookie.user.service.UserService;
 @Controller
 @RequestMapping("/user/add_user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping
 	public String addUserform(Model model) {
 		model.addAttribute("user", new UserCommand());
@@ -60,7 +60,30 @@ public class UserController {
 		String name = request.getParameter("name");
 		String uType = request.getParameter("uType");
 		String addr = request.getParameter("addr");
-		
+
+		int idResult = userService.checkingUserId(userId);
+		model.addAttribute("idResult", idResult);
+
+		// form 입력값이 잘못되었을때 다시 회원가입페이지로
+		if (idResult == 1) {
+			return "user/error_signUp";
+		}
+		if (phone == null || phone.length() == 0) {
+			return "user/error_signUp";
+		}
+		if (passwd == null || passwd.length() == 0) {
+			return "user/error_signUp";
+		}
+		if (name == null || name.length() == 0) {
+			return "user/error_signUp";
+		}
+		if (uType == null || uType.length() == 0) {
+			return "user/error_signUp";
+		}
+		if (addr == null || addr.length() == 0) {
+			return "user/error_signUp";
+		}
+
 		User user = new User();
 		user.setUserId(userId);
 		user.setPasswd(passwd);
@@ -69,12 +92,12 @@ public class UserController {
 		user.setPhone(phone);
 		user.setManager('N');
 		user.setAddr(addr);
-	
+
 		model.addAttribute("user", user);
-		
+
 		userService.addUser(user);
-		
+
 		return "user/login";
-		
+
 	}
 }
