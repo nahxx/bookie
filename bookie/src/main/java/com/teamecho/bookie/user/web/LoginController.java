@@ -33,21 +33,23 @@ public class LoginController {
 	@PostMapping
 	public String login(User user, @RequestParam String userId, @RequestParam String passwd, Model model, HttpServletRequest request) {
 
-		user = userService.isValidUser(userId, passwd);
+//		boolean isval = userService.isValidUser(userId, passwd);
 		
-		int result = userService.login(userId, passwd);
-		model.addAttribute("result",result);
+		if(userService.isValidUser(userId, passwd) == false) {
+			int result = userService.login(userId, passwd);
+			model.addAttribute("result",result);
 
-		if (result == 2) {
-			return "user/error_login";
+			if (result == 2) {
+				return "user/error_login";
+			}
+			if (userId == null || userId.length() == 0) {
+				return "user/error_signUp";
+			}
+			if (passwd == null || passwd.length() == 0) {
+				return "user/error_signUp";
+			}
 		}
-		if (userId == null || userId.length() == 0) {
-			return "user/error_signUp";
-		}
-		if (passwd == null || passwd.length() == 0) {
-			return "user/error_signUp";
-		}
-
+		
 		session = request.getSession(true);
 		session.setAttribute("uId", user.getUId());
 		session.setAttribute("name", user.getName());

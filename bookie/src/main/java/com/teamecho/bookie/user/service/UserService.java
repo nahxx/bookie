@@ -30,7 +30,7 @@ public class UserService {
 		return userDao.findUserByUid(uId);
 	}
 	
-	public User isValidUser(String userId, String passwd) {
+	public boolean isValidUser(String userId, String passwd) {
 		return userDao.isValidUser(userId, passwd);
 	}
 	
