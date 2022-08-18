@@ -70,16 +70,16 @@ public class QnaDao {
 		return jdbcTemplate.query(sql, new QnaBoardRowMapper(), BoardStartItemNo);
 	}
 	
-	public void deleteQnaByQnaId(long qnaId, long uId) {
+	public void deleteQnaByQnaId(long qnaId) {
 		deleteQnaCountByQnaId(qnaId);
-		String sql = "DELETE FROM Qna WHERE qnaid = ? AND uid = ?";
-		jdbcTemplate.update(sql, qnaId, uId);
+		String sql = "DELETE FROM Qna WHERE qnaid = ?";
+		jdbcTemplate.update(sql, qnaId);
 	}
 	
 	public void updateQnaByQnaId(Qna qna) {
-		String sql = "UPDATE Qna SET subject = ? , document = ?, cateId = ? WHERE qnaid = ? AND uid = ?";
+		String sql = "UPDATE Qna SET subject = ? , document = ?, cateId = ? WHERE qnaid = ?";
 		jdbcTemplate.update(sql, qna.getSubject(), qna.getDocument(), qna.getCategory().getCateId(), 
-				qna.getQnaId(), qna.getUser().getUId());
+				qna.getQnaId());
 	}
 	
 	public void boardCountingByQnaId(long qnaId) {

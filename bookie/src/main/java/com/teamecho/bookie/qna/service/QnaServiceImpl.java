@@ -83,8 +83,8 @@ public class QnaServiceImpl implements QnaService{
 	}
 	
 	@Override
-	public void deleteQna(long qnaId, long uId) {
-		qnaDao.deleteQnaByQnaId(qnaId, uId);
+	public void deleteQna(long qnaId) {
+		qnaDao.deleteQnaByQnaId(qnaId);
 	}
 	
 	@Override

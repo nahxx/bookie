@@ -12,7 +12,7 @@ public interface QnaService {
 	List<Qna> getQnaListByUid(long uId, int pagingNo, int listCount);
 	Qna getQnaByQnaId(long qnaId);
 	List<Board> getQnaBoardList(int pagingNo, int listCount);
-	void deleteQna(long qnaId, long uId);
+	void deleteQna(long qnaId);
 	public void updateQna(Qna qna);
 	void boardCounting(long qnaId);
 }
