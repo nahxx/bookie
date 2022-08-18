@@ -38,8 +38,8 @@ public class LoginController {
 		
 		if(userService.isValidUser(userId, passwd) == false) {
 			int result = userService.login(userId, passwd);
-			//model.addAttribute("result",result);
-			redirectAttributes.addFlashAttribute("result", result);
+			model.addAttribute("result",result);
+			//redirectAttributes.addFlashAttribute("result", result);
 
 			if (result == 2) {
 				return "user/error_login";
@@ -51,13 +51,12 @@ public class LoginController {
 				return "user/error_signUp";
 			}
 		}
-		
+		user = userService.getUserByUserId(userId);
 		session = request.getSession(true);
 		session.setAttribute("uId", user.getUId());
 		session.setAttribute("name", user.getName());
 		session.setAttribute("userId", user.getUserId());
 		session.setAttribute("manager", user.getManager());
-
 		return "redirect:/";
 	}
 }

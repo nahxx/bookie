@@ -60,7 +60,7 @@ public class UserDao {
 		}
 	}
 	public User findUserByUserId(String userId) {
-		String sql = "SELECT userId FROM User WHERE userId=?";
+		String sql = "SELECT * FROM User WHERE userId=?";
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), userId);
 	}
 
