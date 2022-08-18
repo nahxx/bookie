@@ -27,13 +27,13 @@
 				<div class="content">
 					<form:form method="post" modelAttribute="user">
 					<input type=hidden name=uId value="${user.getUId()}" />
+					<input type=hidden name=old_passwd value= "${user.getPasswd()}"/>
 						<label>e-mail</label>
 						<tr>
 						<td><input type=text name=userId value="${user.getUserId()}" readonly/></td>
 						</tr>
 						<label>비밀번호</label>
-						<tr>
-						<input type=hidden name=old_passwd value= "${user.getPasswd()}"/></td>
+						<tr>		
 						<td><input type=text name=new_passwd value= ""/></td>
 						</tr>
 						<label>이름</label>
