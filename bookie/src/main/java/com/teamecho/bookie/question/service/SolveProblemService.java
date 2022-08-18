@@ -1,6 +1,7 @@
 package com.teamecho.bookie.question.service;
 
 import com.teamecho.bookie.common.service.CategoryService;
+import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,9 @@ public class SolveProblemService {
 		return null;
 	}
 
-	public List<Question> findQuestionByCategoryId(long cateId) {
+	public List<Question> findQuestionByCategoryId(long cateId, long uId) {
 
-		List<Question> unsolveQuestionList = solveProblemRepository.getUnsolveQuestionByCateogyId(cateId);
+		List<Question> unsolveQuestionList = solveProblemRepository.getUnsolveQuestionByCateogyId(cateId, uId);
 
 		return unsolveQuestionList;
 	}
@@ -54,5 +55,9 @@ public class SolveProblemService {
 		} else {
 			solveProblemRepository.addQuestionHistory(uId, qId, 'N');
 		}
+	}
+
+	public MainText getMainText(long mtId) {
+		return solveProblemRepository.getMainTest(mtId);
 	}
 }

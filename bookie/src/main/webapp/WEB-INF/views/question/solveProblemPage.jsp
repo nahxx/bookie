@@ -55,7 +55,7 @@
 	    <div class="pop">
 	      <div class="popbox">
 	        <p class="pop-txt">로그인 해주세요 !</p>
-	        <a href="/bookie/question/solveProblemList" class="submit-btn search pop-btn">되돌아가기</a>
+	        <a href="/bookie/user/login" class="submit-btn search pop-btn">되돌아가기</a>
 	      </div>
 	    </div>
     </c:if>
@@ -64,13 +64,14 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>
 const Editor = toastui.Editor;
-let content = '${question.getQText()}';
+<%--let content = '${question.getMainText().getMText()}${question.getQText()}';--%>
+let content2 = '${mainText.MText}<c:forEach var="question" items="${questionList}">${question.QText}</c:forEach>';
 const viewer = Editor.factory({
     el: document.querySelector('#viewer'),
     viewer: true,
     height: '500px',
     <%--initialValue: '<img alt="" src="<c:url value="/resources/temp/27562658-a113-4916-b416-ed59715f5123_image.png"/>" class="qeustion_img" />'--%>
-    initialValue: content
+    initialValue: content2
 });
 let qeustion = document.createElement('input');
 qeustion.setAttribute('type', 'hidden');

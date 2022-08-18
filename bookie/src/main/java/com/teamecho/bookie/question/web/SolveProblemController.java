@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.teamecho.bookie.common.domain.Category;
+import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.service.SolveProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +76,16 @@ public class SolveProblemController {
 	}
 	
 	@GetMapping("/question/solveProblemList/list")
-	public String solveProblemListPage(@ModelAttribute("category") CategoryCommand category, Model model) {
-
+	public String solveProblemListPage(@ModelAttribute("category") CategoryCommand category, HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			model.addAttribute("session", "no");
+			return "error/no_session";
+		}
+		if(session.getAttribute("uId") == null) {
+			model.addAttribute("session", "no");
+			return "error/no_session";
+		}
 		Category realCategory = solveProblemService.findCategory(category.getCLevel(), category.getGrade(), category.getSubject());
 		
 //		System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
@@ -88,23 +97,25 @@ public class SolveProblemController {
 	}
 	
 	@GetMapping("/question/solveProblem")
-	public String solveProblemPage(Model model, HttpServletRequest request, @RequestParam(value="numOfquestions")int numOfquestions) {
+	public String solveProblemPage(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		if (session == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
+		if(session.getAttribute("uId") == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
 		int grade = Integer.parseInt(request.getParameter("grade"));
 		char cLevel = request.getParameter("cLevel").charAt(0);
 		String subject = request.getParameter("subject");
-		
-		if (session == null) {
-			model.addAttribute("session", "no");
-		}
-		
-		if(session.getAttribute("uId") == null) {
-			model.addAttribute("session", "no");
-		}
+		int numOfQuestion = Integer.parseInt(request.getParameter("numOfquestions"));
+
 		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
 		// 카테고리에 맞는 사용자가 풀지않은 문제 리스트 받아오기
-		List<Question> unsolveQuestionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId());
+		List<Question> unsolveQuestionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
 		
 		// 더이상 풀 문제가 없는 경우 보내는 메세지
 		if(unsolveQuestionList.size() == 0) {
@@ -113,7 +124,17 @@ public class SolveProblemController {
 			return "error/solveProblemError";
 		}
 
-		model.addAttribute("question", unsolveQuestionList.get(0));
+		System.out.println("unsolveQuestionList.size() = " + unsolveQuestionList.size());
+		long mtId = 0;
+		for(Question question : unsolveQuestionList) {
+			mtId = question.getMainText().getMtId();
+		}
+
+		MainText mainText = solveProblemService.getMainText(mtId);
+
+		model.addAttribute("questionList", unsolveQuestionList);
+		model.addAttribute("mainText", mainText);
+
 		return "question/solveProblemPage";
 	}
 	

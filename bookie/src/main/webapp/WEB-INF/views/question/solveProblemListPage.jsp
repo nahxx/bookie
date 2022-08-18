@@ -36,7 +36,7 @@
 	</div>
 	<div class="container counts select-wrap">
 		<div class="select-questionNum">
-			<form method="get" action="/bookie/question/solveProblem" class="listForm">
+			<form method="get" action="/bookie/question/solveProblem/" class="listForm">
 				<input type="number" placeholder="문항 수 입력" class="selec length" maxlength="2" name="numOfquestions" max="30" min="3"/>
 				<input type="submit" value="문제풀기" class="submit-btn search solve"/>
 				<span class="red-txt">* 문제는 3문제 이상 30문제 이하로 풀기 가능합니다.</span>
