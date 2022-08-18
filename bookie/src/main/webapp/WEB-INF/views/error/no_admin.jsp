@@ -15,7 +15,7 @@
 <c:if test="${session eq 'no'}">
 <div class="pop">
       <div class="popbox">
-        <p class="pop-txt">관리자 전용입니다.</p>
+        <p class="pop-txt">관리자 전용 페이지입니다.</p>
         <a href="/bookie/" class="submit-btn search pop-btn">홈으로가기</a>
       </div>
     </div>

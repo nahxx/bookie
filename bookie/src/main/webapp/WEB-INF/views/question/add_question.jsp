@@ -30,7 +30,7 @@
 <body>
 	<!-- 헤더 부분 -->
 	<header>
-		<%@ include file="../incl/no_login_header.jsp"%>
+		<%@ include file="../incl/header.jsp"%>
 	</header>
 	<!-- wrap 부분 -->
 	<div id="wrap" class="wrap mh">
@@ -39,7 +39,7 @@
 		<form class="select-type" action="select_type" method="post">
 			<table>
 				<tr>
-					<th class="cate" colspan="2"><label class="cate">카테고리</label></th>
+					<th class="cate" colspan="2"><label class="cate">카테고리 선택</label></th>
 				</tr>
 				<tr>
 					<th>학력 구분</th>
@@ -105,7 +105,11 @@
 	</footer>
 	
 	<script>
-		
+		/* 
+		해결해야할 것
+		1. 유효성 검사
+		2. css
+		*/
     	let questionImgArr = []; // 질문 이미지 배열
     	// let commentImgArr = []; // 해설 이미지 배열
     	// let mainTextImgArr = []; // 지문 이미지 배열

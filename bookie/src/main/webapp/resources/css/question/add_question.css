@@ -27,8 +27,12 @@ html, body {
 	text-align: center;
 }
 
+.title {
+	margin-bottom: 50px;
+}
+
 table {
-	width: 50%;
+	width: 400px;
 	margin: 0 auto;
 	border: 1px solid #f1f1f1;
 	border-collapse: collapse;
@@ -44,6 +48,10 @@ table th, table td {
 table th.cate {
 	text-align: center;
 	border-bottom: 0px;
+}
+
+table td {
+	text-align: center;
 }
 
 .editor {

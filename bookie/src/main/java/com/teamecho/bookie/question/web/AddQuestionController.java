@@ -54,7 +54,19 @@ public class AddQuestionController {
 	@GetMapping("/question/add_question")
 	public String addQuestionForm(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		session = request.getSession(false);
+		
+		if (session == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
+		if(session.getAttribute("uId") == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
 		uId = (long) session.getAttribute("uId");
+
 		if(userService.getUserByUid(uId).getManager() == 'N') {
 			redirectAttributes.addFlashAttribute("session", "no");
 			// 에러 페이지 이동
@@ -69,6 +81,11 @@ public class AddQuestionController {
 		return "error/no_admin";
 	}
 	
+	@GetMapping("/error/no_session")
+	public String noSession() {
+		return "error/no_session";
+	}
+	
 	/**
 	 * 문제 등록
 	 * @param command
@@ -79,11 +96,6 @@ public class AddQuestionController {
 	@PostMapping("/question/add_question")
 	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request) throws IOException {
 		
-//		System.out.println(command.getAnswerList());
-//		System.out.println(command.getQCommentList());
-//		System.out.println(command.getQuestionImgArr());
-//		System.out.println(command.getQuestionCount());
-//		
 		// 카테고리 얻기
 		Category category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
 		
@@ -97,12 +109,11 @@ public class AddQuestionController {
 		List<String> mList = new ArrayList(); // 지문 담을 리스트
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
 		List<String> titleList = new ArrayList(); // 문제 제목 담을 리스트
-		List<String> textList = new ArrayList(); // 지문,문제 구분자 제거 후 텍스트 담을 리스트
+		List<String> textList = new ArrayList(); // 지문, 문제 구분자 제거 후 텍스트 담을 리스트
 		
 		StringTokenizer st = new StringTokenizer(text, "◆<>", false);
 		while(st.hasMoreTokens()) {
 			String str = st.nextToken();
-			//System.out.println(str);
 			if(!str.equals("p") && !str.equals("/p")  && !str.equals("br")) {
 				textList.add(str);
 			}
@@ -153,6 +164,8 @@ public class AddQuestionController {
 			Question question = new Question();
 			QuestionText qt = addQService.getQuestionTextByTotalText(text);
 			MainText mt = new MainText();
+			titleList.add(textList.get(0));
+			question.setQTitle(titleList.get(0));
 			question.setQText(text);
 			question.setAnswer(command.getAnswerList().get(0));
 			question.setQComment(command.getQCommentList().get(0));
@@ -172,7 +185,6 @@ public class AddQuestionController {
 			// 지문 DB 등록
 			MainText mt = new MainText();
 			mt.setMText(mList.get(0));
-			System.out.println(mList.get(0));
 			addQService.addMainText(mt);
 			
 			// 문제 DB 등록
@@ -180,7 +192,6 @@ public class AddQuestionController {
 			for(int i = 0; i < qList.size(); i++) {
 				Question question = new Question();
 				question.setQTitle(titleList.get(i));
-				System.out.println(titleList.get(i));
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
 				question.setQComment(command.getQCommentList().get(i));
