@@ -75,6 +75,7 @@
 						<td><input type=text name=addr value= "${user.getAddr()}"/></td>
 						</tr>
 						<input class="btn" type="submit" value="수정하기" />
+						<a href="mypage" class="btn"><span>취소하기</span></a>
 					</form:form>
 				</div>
 			</div>
