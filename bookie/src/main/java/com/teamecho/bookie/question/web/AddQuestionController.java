@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.common.service.CommonService;
+import com.teamecho.bookie.question.domain.MainText;
+import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionText;
 import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.user.service.UserService;
@@ -60,7 +62,7 @@ public class AddQuestionController {
 	}
 	
 	@PostMapping("/question/add_questions")
-	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request) {
+	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request) throws IOException {
 		
 //		System.out.println(command.getAnswerList());
 //		System.out.println(command.getQCommentList());
@@ -75,7 +77,7 @@ public class AddQuestionController {
 		QuestionText questionText = new QuestionText();
 		questionText.setTotalText(text);
 		addQService.addQuestionText(questionText);
-		
+		/*
 		// 지문, 문제 분리
 		List<String> mList = new ArrayList(); // 지문 담을 리스트
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
@@ -129,6 +131,29 @@ public class AddQuestionController {
 		for(int i = 0; i < qList.size(); i++) {
 			System.out.println("qList" + i + ":" + qList.get(i));
 		}
+		*/
+		
+		// Question 테이블에 담기(한문제인경우)
+		Question question = new Question();
+		QuestionText qt = addQService.getQuestionTextByTotalText(text);
+		MainText mt = new MainText();
+		question.setQText(text);
+		question.setAnswer(command.getAnswerList().get(0));
+		question.setQComment(command.getQCommentList().get(0));
+		question.setQuestionText(qt);
+		mt.setMText(text);
+		addQService.addMainText(mt);
+		mt = addQService.getMainTextByMText(text);
+		question.setMainText(mt);
+		question.setCategory(category);
+		addQService.addQuestion(question);
+		
+		// 에디터에서 받아온 html문자열에서 이미지 태그 분리 후 이미지파일 이름 저장
+		List<String> qTextImgNameList = commonService.getImageName(text);
+		// 임시저장 폴더에서 이미지파일 찾아서 최종적으로 html에 포함된 이미지만 골라서 최종 폴더에 저장
+		commonService.saveFinalImages(command.getQuestionImgArr(), qTextImgNameList);
+		// 임시 저장 이미지 삭제
+		commonService.deleteTempImages(command.getQuestionImgArr());
 		
 		
 		return "";
