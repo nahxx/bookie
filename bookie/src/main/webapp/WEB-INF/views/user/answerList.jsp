@@ -38,7 +38,7 @@
 							<td>${boardNo}</td>
 							<td><a href="<c:url value='/answer/ma${answerList.qna.qnaId}/${ paging.currentPageNo}'/>">${answerList.qna.subject}</a></td>
 							<td><fmt:formatDate value="${answerList.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-							<c:set var="boardNo" value="${boardNo + 1}" />
+							<c:set var="boardNo" value="${boardNo - 1}" />
 						</tr>
 					</c:forEach>
 				</tbody>
