@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.service.QnaService;
@@ -41,6 +42,8 @@ public class DeveloperController {
 	
 	@GetMapping("/devel")
 	public String developerPage() {
+	Category category = categoryService.getCategory("m", 1, "국어");
+	System.out.println(category.getCLevel());
 		return "/developer";
 	}
 	
