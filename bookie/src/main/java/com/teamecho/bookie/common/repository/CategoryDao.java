@@ -33,16 +33,7 @@ public class CategoryDao {
 	
 	public Category findCategory(String cLevel, int grade, String subject) {
 		String sql = "SELECT * FROM Category WHERE cLevel = ? AND grade = ? AND subject = ?";
-		return jdbcTemplate.queryForObject(sql, new RowMapper<Category>() {
-
-			@Override
-			public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Category cate = new Category(rs.getLong("cateId"), rs.getString("cLevel").charAt(0), rs.getInt("grade"),
-						rs.getString("subject"), rs.getTimestamp("regDate"));
-				return cate;
-			}
-			
-		}, cLevel, grade, subject);
+		return jdbcTemplate.queryForObject(sql, new CategoryRowMapper(), cLevel, grade, subject);
 	};
 	
 	public Category findCategoryByCateId(long cateId) {

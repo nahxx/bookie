@@ -129,35 +129,15 @@
     	// let commentImgArr = []; // 해설 이미지 배열
     	// let mainTextImgArr = []; // 지문 이미지 배열
     	
-    	// 카테고리 가져와서 checked 적용
-    	/*
-    	if(${category} != null) {
-    		let cLevel = document.querySelector('input[value="' + ${category.cLevel} + '"]');
-        	cLevel.checked = true;
-        	let grade = document.querySelector('input[value="' + ${category.grade} + '"]');
-        	grade.checked = true;
-        	let subject = document.querySelector('input[value="' + ${category.subject} + '"]');
-        	subject.checked = true;
-    	}
-    	if(${bigPattern} != null) {
-    		let bp = document.querySelector('#bPattern');
-    		for(let i = 0; i = bp.length; i++) {
-    			if(bp.options[i].value == ${bigTag}) {
-    				bp.options[i].selected = true;
-    				break;
-    			}
-    		}
-    	}
-    	*/
-    	let cLevel = document.querySelector('input[value="' + ${category.cLevel} + '"]');
+    	let cLevel = document.querySelector('input[value="' + "${category.getCLevel()}" + '"]');
     	cLevel.checked = true;
-    	let grade = document.querySelector('input[value="' + ${category.grade} + '"]');
+    	let grade = document.querySelector('input[value="' + "${category.getGrade()}" + '"]');
     	grade.checked = true;
-    	let subject = document.querySelector('input[value="' + ${category.subject} + '"]');
+    	let subject = document.querySelector('input[value="' + "${category.getSubject()}" + '"]');
     	subject.checked = true;
     	let bp = document.querySelector('#bPattern');
 		for(let i = 0; i = bp.length; i++) {
-			if(bp.options[i].value == ${bigTag}) {
+			if(bp.options[i].value == "${bigPattern}") {
 				bp.options[i].selected = true;
 				break;
 			}
@@ -322,7 +302,6 @@
             	let text = '◆지문◆';
             	qTextEditor.insertText(text);
             	let qT = qTextEditor.getHTML;
-            	console.log(qT);
             }
             
             // 질문 구분선
@@ -331,7 +310,6 @@
             	let text = '◆문제◆';
             	qTextEditor.insertText(text);
             	let qT = qTextEditor.getHTML;
-            	console.log(qT);
             }
             
             // 과목유형 가져와서 컨트롤러로 넘기기 (대분류 가져오기)

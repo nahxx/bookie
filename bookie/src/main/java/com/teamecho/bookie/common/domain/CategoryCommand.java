@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CategoryCommand {
-	private char cLevel;
+	private String cLevel;
 	private int grade;
 	private String subject;
 	

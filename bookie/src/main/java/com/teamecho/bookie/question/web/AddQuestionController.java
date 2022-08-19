@@ -242,22 +242,22 @@ public class AddQuestionController {
 		return "";
 	}
 	
-	Category category = new Category();
+	
+	Category category;
 	
 	@PostMapping("/question/checking_pattern")
 	public String checkingPattern(CategoryCommand command, RedirectAttributes redirectAttributes) {
 		// jsp에 던져줄 태그 변수
-		String bigTag = "<select id='bPattern' name='bPattern'>";
+		String bigTag = "<select id='bPattern' name='bPattern' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', this.value)'>";
 		
 		// 위 세가지에 해당하는 카테고리 추출
-		category = cateService.getCategory(String.valueOf(command.getCLevel()), command.getGrade(), command.getSubject());
-		
+		category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
 		// 카테아이디를 통해 대분류를 각각 태그에 담아서 해당 String을 다시 던져주기(이때 각 태그에는 중분류를 찾는 스트립트함수 호출하는 내용 들어가야 함)
 		List<String> bigPatterns = spService.getBigPatternsPatternsByCateId(category.getCateId());
 		for(int i = 0; i < bigPatterns.size(); i++) {
 			String big = bigPatterns.get(i);
-			//bigTag += "<div id='" + i + "' class='big_pattern' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</div>";
-			bigTag += "<option value='" + big + "' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</option>";
+			bigTag += "<option value='" + big + "'>" + big + "</option>";
+			//bigTag += "<option value='" + big + "' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</option>";
 		}
 		bigTag += "</select>";
 		
@@ -269,14 +269,15 @@ public class AddQuestionController {
 	
 	@PostMapping("/question/checking_Mpattern")
 	public String checkingMPattern(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		String midTag = "<select id='mPattern' name='mPattern'>";
+		String midTag = "<select id='mPattern' name='mPattern' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', this.value)'>";
 		
 		String bigPattern = request.getParameter("bp");
 		
 		List<String> midPatterns = spService.getMidPatternsByBigPattern(bigPattern);
 		for(int i = 0; i < midPatterns.size(); i++) {
 			String mid = midPatterns.get(i);
-			midTag += "<option value='" + mid + "' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + mid + ")'>" + mid + "</option>";
+			midTag += "<option value='" + mid + "'>" + mid +  "</option>";
+			//midTag += "<option value='" + mid + "' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + mid + ")'>" + mid + "</option>";
 		}
 		midTag += "</select>";
 		
