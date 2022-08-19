@@ -59,9 +59,21 @@
 				<tr>
 					<th>과목</th>
 					<td>
-						<label class="subject"><input type="radio" name="subject" value="국어" />국어</label>
-						<label class="subject"><input type="radio" name="subject" value="영어" />영어</label>
-						<label class="subject"><input type="radio" name="subject" value="수학" />수학</label>
+						<label class="subject"><input type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>', '국어')"/>국어</label>
+						<label class="subject"><input type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>', '영어')"/>영어</label>
+						<label class="subject"><input type="radio" name="subject" value="수학" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>', '수학')"/>수학</label>
+					</td>
+				</tr>
+				<tr>
+					<th>대분류</th>
+					<td>
+						${bigTag}
+					</td>
+				</tr>
+				<tr>
+					<th>중분류</th>
+					<td>
+						${midTag}
 					</td>
 				</tr>
 			</table>
@@ -168,7 +180,6 @@
             // 폼 생성 후 컨트롤러로 넘어가기
     		function sendCommonQuestion(url) {
     			// 폼 생성
-    			console.log(url);
     			let form = document.createElement('form');
     			form.setAttribute('method', 'post');
     			form.setAttribute('action', url);
@@ -278,6 +289,32 @@
             	qTextEditor.insertText(text);
             	let qT = qTextEditor.getHTML;
             	console.log(qT);
+            }
+            
+            // 과목유형 가져와서 컨트롤러로 넘기기
+            function checkingPattern(url, subject) {
+            	// 폼 생성
+    			let form = document.createElement('form');
+    			form.setAttribute('type', 'hidden');
+    			form.setAttribute('method', 'post');
+    			form.setAttribute('action', url);
+    			document.charset = "UTF-8";
+    			
+    			// 학력
+            	let input1 = document.querySelector('input[name="cLevel"]:checked');
+            	form.appendChild(input1);
+            	
+            	// 학년
+            	let input2 = document.querySelector('input[name="grade"]:checked');
+            	form.appendChild(input2);
+            	
+            	// 과목
+            	let input3 = document.querySelector('input[name="subject"]:checked');
+            	form.appendChild(input3);
+            	
+            	// 폼 추가
+            	document.body.appendChild(form);
+    			form.submit();
             }
     </script> 
 </body>

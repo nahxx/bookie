@@ -1,25 +1,19 @@
 package com.teamecho.bookie.common.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.common.repository.SubjectPatternDao;
 
+@Service
 public class SubjectPatternService {
 	
 	@Autowired
 	SubjectPatternDao spDao;
 	
-	public List<String> getSubjectPatternList(String subject) {
-		List<SubjectPattern> spList = spDao.findSubjectPatternsBySubject(subject);
-		List<String> sp = new ArrayList<String>();
-		
-		for(String str : sp) {
-			sp.add(str);
-		}
-		return sp;
+	public List<String> getBigPatternsPatternsByCateId(long cateId) {
+		return spDao.findBigPatternsByCateId(cateId);
 	}
 }

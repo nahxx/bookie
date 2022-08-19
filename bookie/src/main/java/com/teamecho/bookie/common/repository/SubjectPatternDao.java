@@ -1,13 +1,16 @@
 package com.teamecho.bookie.common.repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
-import com.teamecho.bookie.common.domain.SubjectPattern;
-
+@Repository
 public class SubjectPatternDao {
 	
 private JdbcTemplate jdbcTemplate;
@@ -16,8 +19,16 @@ private JdbcTemplate jdbcTemplate;
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public List<SubjectPattern> findSubjectPatternsBySubject(String subject) {
-		String sql = "SELECT * FROM SubjectPattern WHERE subject = ?";
-		return jdbcTemplate.query(sql, new SubjectPatternRowMapper(), subject);
+	public List<String> findBigPatternsByCateId(long cateId) {
+		String sql = "SELECT DISTINCT BigPattern FROM SubjectPattern WHERE cateId = ?";
+		return jdbcTemplate.query(sql, new RowMapper<String>() {
+
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getString("bigPattern");
+			}
+			
+		}, cateId);
 	}
+	
 }

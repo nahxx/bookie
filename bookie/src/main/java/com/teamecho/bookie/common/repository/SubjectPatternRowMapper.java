@@ -13,7 +13,7 @@ public class SubjectPatternRowMapper implements RowMapper<SubjectPattern>{
 	public SubjectPattern mapRow(ResultSet rs, int rowNum) throws SQLException {
 		SubjectPattern sp = new SubjectPattern();
 		sp.setSpId(rs.getLong("spId"));
-		sp.setPattern(rs.getString("pattern"));
+		sp.setPattern(rs.getString("big"));
 		sp.setSubject(rs.getString("subject"));
 		sp.setRegDate(rs.getTimestamp("regDate"));
 		return sp;

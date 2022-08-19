@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.common.domain.Category;
+import com.teamecho.bookie.common.domain.CategoryCommand;
+import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.common.service.CommonService;
 import com.teamecho.bookie.common.service.SubjectPatternService;
@@ -74,14 +76,6 @@ public class AddQuestionController {
 			// 에러 페이지 이동
 			return "redirect:/error/no_admin";
 		}
-		
-		List<String> kor = spService.getSubjectPatternList("국어");
-		List<String> eng = spService.getSubjectPatternList("영어");
-		List<String> math = spService.getSubjectPatternList("수학");
-		
-		redirectAttributes.addFlashAttribute("kor", kor);
-		redirectAttributes.addFlashAttribute("eng", eng);
-		redirectAttributes.addFlashAttribute("math", math);
 		
 		return "question/add_question";
 	}
@@ -227,6 +221,29 @@ public class AddQuestionController {
 		
 		return "";
 	}
-
-
+	
+	@PostMapping("/question/checking_pattern")
+	public String checkingPattern(CategoryCommand command, RedirectAttributes redirectAttributes) {
+		// jsp에 던져줄 태그 변수
+		String bigTag = "";
+		
+		// 위 세가지에 해당하는 카테고리 추출
+		Category category = cateService.getCategory(String.valueOf(command.getCLevel()), command.getGrade(), command.getSubject());
+		
+		// 카테아이디를 통해 대분류를 각각 태그에 담아서 해당 String을 다시 던져주기(이때 각 태그에는 중분류를 찾는 스트립트함수 호출하는 내용 들어가야 함)
+		List<String> bigPatterns = spService.getBigPatternsPatternsByCateId(category.getCateId());
+		for(String big : bigPatterns) {
+			bigTag += "<div class='big_pattern' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</div>";
+		}
+		
+		redirectAttributes.addFlashAttribute("bigTag", bigTag);
+		
+		return "redirect:/question/add_question";
+	}
+	
+	@PostMapping("/question/checking_Mpattern")
+	public String checkingMPattern(RedirectAttributes redirectAttributes) {
+		
+		return "redirect:/question/add_question";
+	}
 }
