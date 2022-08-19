@@ -1,14 +1,8 @@
 package com.teamecho.bookie.question.web;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.teamecho.bookie.common.domain.Category;
+import com.teamecho.bookie.common.domain.CategoryCommand;
+import com.teamecho.bookie.common.domain.CategoryProvider;
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.service.SolveProblemService;
@@ -17,12 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.teamecho.bookie.common.domain.CategoryCommand;
-import com.teamecho.bookie.common.domain.CategoryProvider;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller("question.web.solveProblemController")
 public class SolveProblemController {
@@ -75,27 +72,6 @@ public class SolveProblemController {
 		return list;
 	}
 	
-	@GetMapping("/question/solveProblemList/list")
-	public String solveProblemListPage(@ModelAttribute("category") CategoryCommand category, HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(false);
-		if (session == null) {
-			model.addAttribute("session", "no");
-			return "error/no_session";
-		}
-		if(session.getAttribute("uId") == null) {
-			model.addAttribute("session", "no");
-			return "error/no_session";
-		}
-		Category realCategory = solveProblemService.findCategory(category.getCLevel(), category.getGrade(), category.getSubject());
-		
-//		System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
-//		System.out.println("realCategory.getGrade() = " + realCategory.getGrade());
-//		System.out.println("realCategory.getCLevel() = " + realCategory.getCLevel());
-		
-		model.addAttribute("realCategory",realCategory);
-		return "question/solveProblemListPage";
-	}
-	
 //	@GetMapping("/question/solveProblem")
 //	public String solveProblemPage(Model model, HttpServletRequest request) {
 //		HttpSession session = request.getSession(false);
@@ -144,35 +120,37 @@ public class SolveProblemController {
 //		return "question/solveProblemPage";
 //	}
 
-	@GetMapping("/question/solveProblem/{numOfquestions}")
-	public String solveProblem(HttpServletRequest request, @PathVariable int numOfquestions, Model model) {
+	@GetMapping("/question/solveProblem")
+	public String solveProblem(HttpServletRequest request, Model model, @ModelAttribute("category") CategoryCommand category) {
 		HttpSession session = request.getSession(false);
 
-		if(session.getAttribute("flag") != null && (boolean) session.getAttribute("flag") == false) {
-			System.out.println("진입2");
-			return "redirect:/question/solveProblem/"+numOfquestions;
+		// 해당 카테고리 불러오기
+		Category realCategory = solveProblemService.findCategory(category.getCLevel(), category.getGrade(), category.getSubject());
+
+		// 새로고침 했을때 question이 랜덤으로 바뀌지 않게 하기 위함
+		List<Question> questionList = (List<Question>) session.getAttribute("unsolveQuestionList");
+		if(questionList == null) {
+			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
+			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+			// session에 담아주기
+			session.setAttribute("questionList", questionList);
 		}
 
-		int grade = Integer.parseInt(request.getParameter("grade"));
-		char cLevel = request.getParameter("cLevel").charAt(0);
-		String subject = request.getParameter("subject");
-
-		// 해당 카테고리 불러오기
-		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
-		// 카테고리에 맞는 사용자가 풀지않은 문제 리스트 받아오기
-		List<Question> unsolveQuestionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+		// 더이상 풀 문제가 없는 경우 보내는 메세지
+		if(questionList.size() == 0) {
+			String str = "해당 학년의 문제를 다 푸셨습니다!";
+			model.addAttribute("str", str);
+			return "error/solveProblemError";
+		}
 
 		long mtId = 0;
-		for(Question question : unsolveQuestionList) {
+		for(Question question : questionList) {
 			mtId = question.getMainText().getMtId();
 		}
 
 		MainText mainText = solveProblemService.getMainText(mtId);
 
-		model.addAttribute("questionList", unsolveQuestionList);
 		model.addAttribute("mainText", mainText);
-
-		session.setAttribute("flag", false);
 
 		return "question/solveProblemPage";
 	}
