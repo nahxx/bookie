@@ -59,9 +59,9 @@
 				<tr>
 					<th>과목</th>
 					<td>
-						<label class="subject"><input type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>', '국어')"/>국어</label>
-						<label class="subject"><input type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>', '영어')"/>영어</label>
-						<label class="subject"><input type="radio" name="subject" value="수학" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>', '수학')"/>수학</label>
+						<label class="subject"><input type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>국어</label>
+						<label class="subject"><input type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>영어</label>
+						<label class="subject"><input type="radio" name="subject" value="수학" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>수학</label>
 					</td>
 				</tr>
 				<tr>
@@ -128,6 +128,40 @@
     	let questionImgArr = []; // 질문 이미지 배열
     	// let commentImgArr = []; // 해설 이미지 배열
     	// let mainTextImgArr = []; // 지문 이미지 배열
+    	
+    	// 카테고리 가져와서 checked 적용
+    	/*
+    	if(${category} != null) {
+    		let cLevel = document.querySelector('input[value="' + ${category.cLevel} + '"]');
+        	cLevel.checked = true;
+        	let grade = document.querySelector('input[value="' + ${category.grade} + '"]');
+        	grade.checked = true;
+        	let subject = document.querySelector('input[value="' + ${category.subject} + '"]');
+        	subject.checked = true;
+    	}
+    	if(${bigPattern} != null) {
+    		let bp = document.querySelector('#bPattern');
+    		for(let i = 0; i = bp.length; i++) {
+    			if(bp.options[i].value == ${bigTag}) {
+    				bp.options[i].selected = true;
+    				break;
+    			}
+    		}
+    	}
+    	*/
+    	let cLevel = document.querySelector('input[value="' + ${category.cLevel} + '"]');
+    	cLevel.checked = true;
+    	let grade = document.querySelector('input[value="' + ${category.grade} + '"]');
+    	grade.checked = true;
+    	let subject = document.querySelector('input[value="' + ${category.subject} + '"]');
+    	subject.checked = true;
+    	let bp = document.querySelector('#bPattern');
+		for(let i = 0; i = bp.length; i++) {
+			if(bp.options[i].value == ${bigTag}) {
+				bp.options[i].selected = true;
+				break;
+			}
+		}
     	
     	// 질문 에디터
     	const qTextEditor = new toastui.Editor({
@@ -248,6 +282,15 @@
     			input8.setAttribute('value', aBoxs.length);
     			form.appendChild(input8);
     			
+    			// input9 추가 - 대분류
+    			let input9 = document.querySelector('input[name="bPattern"]:selected');
+    			form.appendChild(input9);
+    			
+    			// input10 추가 - 중분류
+    			let input10 = document.querySelector('input[name="mPattern"]:selected');
+    			form.appendChild(input10);
+    			
+    			// 폼 적용
     			document.body.appendChild(form);
     			form.submit();
     			
@@ -291,8 +334,8 @@
             	console.log(qT);
             }
             
-            // 과목유형 가져와서 컨트롤러로 넘기기
-            function checkingPattern(url, subject) {
+            // 과목유형 가져와서 컨트롤러로 넘기기 (대분류 가져오기)
+            function checkingPattern(url) {
             	// 폼 생성
     			let form = document.createElement('form');
     			form.setAttribute('type', 'hidden');
@@ -311,6 +354,30 @@
             	// 과목
             	let input3 = document.querySelector('input[name="subject"]:checked');
             	form.appendChild(input3);
+            	
+            	// 폼 추가
+            	document.body.appendChild(form);
+    			form.submit();
+            }
+            
+            // 대분류 가져와서 컨트롤러로 넘기기 (중분류 가져오기)
+            function checkingMPattern(url, bPattern) {
+            	// 폼 생성
+    			let form = document.createElement('form');
+    			form.setAttribute('type', 'hidden');
+    			form.setAttribute('method', 'post');
+    			form.setAttribute('action', url);
+    			document.charset = "UTF-8";
+    			
+    			// 대분류
+            	let s = document.querySelector('#bPattern');
+    			let bp = s.options[s.selectedIndex].value;
+    			
+    			let input1 = document.createElement('input');
+    			input1.setAttribute('type', 'hidden');
+    			input1.setAttribute('name', 'bp');
+    			input1.setAttribute('value', bp);
+            	form.appendChild(input1);
             	
             	// 폼 추가
             	document.body.appendChild(form);

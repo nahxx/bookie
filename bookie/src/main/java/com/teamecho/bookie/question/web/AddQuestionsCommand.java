@@ -16,4 +16,6 @@ public class AddQuestionsCommand {
 	private List<String> qCommentList;
 	private List<String> questionImgArr;
 	private int questionCount;
+	private String bPattern;
+	private String mPattern;
 }

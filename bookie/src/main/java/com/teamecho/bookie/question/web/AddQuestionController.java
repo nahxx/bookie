@@ -23,6 +23,7 @@ import com.teamecho.bookie.common.service.CommonService;
 import com.teamecho.bookie.common.service.SubjectPatternService;
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.domain.QuestionPattern;
 import com.teamecho.bookie.question.domain.QuestionText;
 import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.user.service.UserService;
@@ -163,7 +164,7 @@ public class AddQuestionController {
 			}
 		}
 		
-		// MainText, Question 테이블에 담기
+		// MainText, Question, QuestionPattern 테이블에 담기
 		if(command.getQuestionCount() == 1) { // 한문제인 경우
 			Question question = new Question();
 			QuestionText qt = addQService.getQuestionTextByTotalText(text);
@@ -185,6 +186,16 @@ public class AddQuestionController {
 			} else { // 지문이 없다면
 				addQService.addQuestionNotMtId(question);
 			}
+			
+			// QuestionPattern DB 등록
+			Question q = addQService.getQuestionByText(text);
+			SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPattern(command.getBPattern(), command.getMPattern());
+			
+			QuestionPattern qp = new QuestionPattern();
+			qp.setQuestion(q);
+			qp.setSubjectPattern(sp);
+			addQService.addQuestionPattern(qp);
+			
 		} else { // 지문1에 문제 여러개인 경우
 			// 지문 DB 등록
 			MainText mt = new MainText();
@@ -205,6 +216,15 @@ public class AddQuestionController {
 				question.setCategory(category);
 				
 				addQService.addQuestion(question);
+				
+				// QuestionPattern DB 등록
+				Question q = addQService.getQuestionByText(text);
+				SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPattern(command.getBPattern(), command.getMPattern());
+				
+				QuestionPattern qp = new QuestionPattern();
+				qp.setQuestion(q);
+				qp.setSubjectPattern(sp);
+				addQService.addQuestionPattern(qp);
 			}
 		}
 		
@@ -222,27 +242,47 @@ public class AddQuestionController {
 		return "";
 	}
 	
+	Category category = new Category();
+	
 	@PostMapping("/question/checking_pattern")
 	public String checkingPattern(CategoryCommand command, RedirectAttributes redirectAttributes) {
 		// jsp에 던져줄 태그 변수
-		String bigTag = "";
+		String bigTag = "<select id='bPattern' name='bPattern'>";
 		
 		// 위 세가지에 해당하는 카테고리 추출
-		Category category = cateService.getCategory(String.valueOf(command.getCLevel()), command.getGrade(), command.getSubject());
+		category = cateService.getCategory(String.valueOf(command.getCLevel()), command.getGrade(), command.getSubject());
 		
 		// 카테아이디를 통해 대분류를 각각 태그에 담아서 해당 String을 다시 던져주기(이때 각 태그에는 중분류를 찾는 스트립트함수 호출하는 내용 들어가야 함)
 		List<String> bigPatterns = spService.getBigPatternsPatternsByCateId(category.getCateId());
-		for(String big : bigPatterns) {
-			bigTag += "<div class='big_pattern' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</div>";
+		for(int i = 0; i < bigPatterns.size(); i++) {
+			String big = bigPatterns.get(i);
+			//bigTag += "<div id='" + i + "' class='big_pattern' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</div>";
+			bigTag += "<option value='" + big + "' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</option>";
 		}
+		bigTag += "</select>";
 		
 		redirectAttributes.addFlashAttribute("bigTag", bigTag);
+		redirectAttributes.addFlashAttribute("category", category);
 		
 		return "redirect:/question/add_question";
 	}
 	
 	@PostMapping("/question/checking_Mpattern")
-	public String checkingMPattern(RedirectAttributes redirectAttributes) {
+	public String checkingMPattern(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		String midTag = "<select id='mPattern' name='mPattern'>";
+		
+		String bigPattern = request.getParameter("bp");
+		
+		List<String> midPatterns = spService.getMidPatternsByBigPattern(bigPattern);
+		for(int i = 0; i < midPatterns.size(); i++) {
+			String mid = midPatterns.get(i);
+			midTag += "<option value='" + mid + "' onclick='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + mid + ")'>" + mid + "</option>";
+		}
+		midTag += "</select>";
+		
+		redirectAttributes.addFlashAttribute("midTag", midTag);
+		redirectAttributes.addFlashAttribute("category", category);
+		redirectAttributes.addFlashAttribute("bigPattern", bigPattern);
 		
 		return "redirect:/question/add_question";
 	}

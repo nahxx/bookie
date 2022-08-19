@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.domain.QuestionPattern;
 import com.teamecho.bookie.question.domain.QuestionText;
 import com.teamecho.bookie.question.repository.AddQuestionDao;
 
@@ -36,5 +37,13 @@ public class AddQuestionService {
 	
 	public MainText getMainTextByMText(String mText) {
 		return addQDao.findMainTextByMText(mText);
+	}
+	
+	public Question getQuestionByText(String qText) {
+		return addQDao.findQuestionByText(qText);
+	}
+	
+	public void addQuestionPattern(QuestionPattern qp) {
+		addQDao.addQuestionPattern(qp);
 	}
 }

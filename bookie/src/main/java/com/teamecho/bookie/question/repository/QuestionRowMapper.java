@@ -22,6 +22,7 @@ public class QuestionRowMapper implements RowMapper<Question>{
 		questionText.setQtId(rs.getLong("qtId"));
 		mainText.setMtId(rs.getLong("mtId"));
 		q.setQId(rs.getLong("qId"));
+		q.setQTitle(rs.getString("qTitle"));
 		q.setQText(rs.getString("qText"));
 		q.setAnswer(rs.getInt("answer"));
 		q.setQComment(rs.getString("qComment"));

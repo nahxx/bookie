@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.domain.QuestionPattern;
 import com.teamecho.bookie.question.domain.QuestionText;
 
 @Repository("question.repository.addQuestionDao")
@@ -46,5 +47,15 @@ public class AddQuestionDao {
 	public MainText findMainTextByMText(String mText) {
 		String sql = "SELECT * FROM MainText WHERE mText = ?";
 		return jdbcTemplate.queryForObject(sql, new MainTextRowMapper(), mText);
+	}
+	
+	public Question findQuestionByText(String qText) {
+		String sql = "SELECT * FROM Question WHERE qText = ?";
+		return jdbcTemplate.queryForObject(sql, new QuestionRowMapper(), qText);
+	}
+	
+	public void addQuestionPattern(QuestionPattern qp) {
+		String sql = "INSERT INTO QuestionPattern (qId, spId) VALUES (?, ?)";
+		jdbcTemplate.update(sql, qp.getQuestion().getQId(), qp.getSubjectPattern().getSpId());
 	}
 }
