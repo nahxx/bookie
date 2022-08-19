@@ -29,8 +29,8 @@ public class SolveProblemRepository {
 	public List<Question> getUnsolveQuestionByCateogyId(long cateId, long uid) {
 		String sql = "SELECT qt.* FROM Question qt WHERE qt.mtId IN ( "
 						+ "SELECT q.mtId FROM Question q WHERE q.cateid = ? "
-						+ "AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = 2 AND qh.identify = 'Y' AND q.qid = qh.qid ) "
-						+ "GROUP BY q.mtId "
+						+ "AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = ? AND qh.identify = 'Y' AND q.qid = qh.qid ) "
+						+ "GROUP BY q.mtId) "
 						+ "limit 30";
 		return jdbcTemplate.query(sql, new QuestionRowMapper(), cateId, uid);
 	}
