@@ -1,0 +1,6 @@
+database : bookie
+localhost -> 210.95.10.31
+3306 -> 3307
+
+username : bookie
+password : Admin#123!@

@@ -9,7 +9,7 @@ BEGIN
       SELECT @ROWNUM:=@ROWNUM+1 as r, q.qid as q, q.mtid as m
       FROM Question q , (SELECT @ROWNUM:=0) R
       WHERE q.cateid = CATE_ID
-      AND NOT EXISTS (SELECT * FROM Questionhistory qh WHERE qh.uid = UID AND qh.identify = 'Y' AND q.qid = qh.qid )
+      AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = UID AND qh.identify = 'Y' AND q.qid = qh.qid )
    );
 
     /* 2. 안푼문제들 총갯수 가져오기 */

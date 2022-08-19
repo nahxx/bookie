@@ -27,16 +27,16 @@ INSERT INTO User (userId, passwd, name, uType, phone, addr, manager) VALUES('gsj
 INSERT INTO User (userId, passwd, name, uType, phone, addr, manager) VALUES('syj@bookie.com', '1q2w', '관리자6', 'e', '010-6666-6666', '부키', 'Y');
 
 
-INSERT INTO questiontext(totalText) VALUES ('<p>지문 지문 입니다 !!</p><p>문제1 문제 입니다 !</p>');
-INSERT INTO maintext (mText) VALUES ('<p>지문 입니다 !!</p>');
-INSERT INTO question (qText, answer, qComment, qtId, mtId, cateId)
-VALUES('<p>문제 입니다 !</p>', 1, '<p>해설입니다 !!!</p>', 1 , 1 , 10);
+INSERT INTO QuestionText(totalText) VALUES ('<p>지문 지문 입니다 !!</p><p>문제1 문제 입니다 !</p>');
+INSERT INTO MainText (mText) VALUES ('<p>지문 입니다 !!</p>');
+INSERT INTO Question (qTitel, qText, answer, qComment, qtId, mtId, cateId)
+VALUES('문제 입니다 !', '<p>문제 입니다 !</p>', 1, '<p>해설입니다 !!!</p>', 1 , 1 , 10);
 
-INSERT INTO questiontext(totalText) VALUES ('<p>지문 지문 입니다 !!</p><p>문제1 문제 입니다 !</p><p>문제2 문제 입니다 !</p><p>문제3 문제 입니다 !</p>');
-INSERT INTO maintext (mText) VALUES ('<p>지문 입니다 !!</p>');
-INSERT INTO question (qText, answer, qComment, qtId, mtId, cateId)
-VALUES('<p>문제1 입니다 !</p>', 1, '<p>해설1 입니다 !!!</p>', 2 , 2 , 10);
-INSERT INTO question (qText, answer, qComment, qtId, mtId, cateId)
-VALUES('<p>문제2 입니다 !</p>', 1, '<p>해설2 입니다 !!!</p>', 2 , 2 , 10);
-INSERT INTO question (qText, answer, qComment, qtId, mtId, cateId)
-VALUES('<p>문제3 입니다 !</p>', 1, '<p>해설3 입니다 !!!</p>', 2 , 2 , 10);
+INSERT INTO QuestionText(totalText) VALUES ('<p>지문 지문 입니다 !!</p><p>문제1 문제 입니다 !</p><p>문제2 문제 입니다 !</p><p>문제3 문제 입니다 !</p>');
+INSERT INTO MainText (mText) VALUES ('<p>지문 입니다 !!</p>');
+INSERT INTO Question (qTitel,qText, answer, qComment, qtId, mtId, cateId)
+VALUES('문제1 입니다 !', '<p>문제1 입니다 !</p>', 1, '<p>해설1 입니다 !!!</p>', 2 , 2 , 10);
+INSERT INTO Question (qTitel,qText, answer, qComment, qtId, mtId, cateId)
+VALUES('문제2 입니다 !', '<p>문제2 입니다 !</p>', 1, '<p>해설2 입니다 !!!</p>', 2 , 2 , 10);
+INSERT INTO Question (qTitel,qText, answer, qComment, qtId, mtId, cateId)
+VALUES('문제3 입니다 !', '<p>문제3 입니다 !</p>', 1, '<p>해설3 입니다 !!!</p>', 2 , 2 , 10);

@@ -88,3 +88,53 @@ SELECT * FROM Qna WHERE uid = 1
  SELECT q.qnaId, q.subject, q.cateid, q.uid, q.regDate, qc.qcCount
 	  FROM Qna q INNER JOIN QnaCount qc ON q.qnaId = qc.qnaId
  		ORDER BY q.regDate desc LIMIT 0, 10;
+ 		
+ 		
+ 		select q.*
+ 		  FROM Question q
+      WHERE q.cateid = 10
+      AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = 1 AND qh.identify = 'Y' AND q.qid = qh.qid )
+      
+      
+      
+      
+ SELECT q.qId
+	      FROM Question q
+    	  WHERE q.mtId = 2
+    	  AND q.cateId = 10
+	      AND EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = 2 AND qh.identify = 'Y' AND q.qid = qh.qid )
+	      
+	      
+SELECT qt.*
+FROM Question qt
+WHERE qt.cateId = 17
+AND ( qt.mtId IS NULL OR qt.mtId IN (
+	SELECT q.mtId
+	FROM Question q
+	WHERE q.cateId = qt.cateId
+	AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = 2 AND qh.identify = 'Y' AND q.qid = qh.qid )
+	GROUP BY q.mtId ))
+	ORDER BY qt.mtId
+	limit 30;
+	      
+	
+	      
+	   
+SELECT qt.*
+FROM Question qt
+WHERE qt.mtId IN ( NULL
+	SELECT q.mtId
+	FROM Question q
+	WHERE q.cateid = 10
+	AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = 2 AND qh.identify = 'Y' AND q.qid = qh.qid )
+	GROUP BY q.mtId
+) OR (qt.mtId IS NULL AND qt.cateId = 17)
+ORDER BY qt.mtId
+limit 30;
+
+
+
+   SELECT uid, count(*)
+   FROM QuestionHistory
+   where identify = 'Y'
+   group by uid
