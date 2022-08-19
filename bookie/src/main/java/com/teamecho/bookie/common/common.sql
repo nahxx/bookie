@@ -63,10 +63,14 @@ CREATE TABLE Category (
 -- SubjectPattern 테이블 생성
 CREATE TABLE SubjectPattern (
    	spId      		BIGINT         	PRIMARY KEY AUTO_INCREMENT,
-   	pattern      	VARCHAR(20)    	NOT NULL,
-   	subject      	VARCHAR(10)    	NOT NULL,
-   	regDate      	TIMESTAMP      	NOT NULL	DEFAULT CURRENT_TIMESTAMP
+   	bigPattern      VARCHAR(20)     NOT NULL,
+   	midPattern      VARCHAR(20)     NOT NULL,
+   	cateId			BIGINT		    NOT NULL,
+   	regDate      	TIMESTAMP      	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT  SubjectPattern_cateId_FK  FOREIGN KEY(cateId)  REFERENCES  Category(cateId)
 )AUTO_INCREMENT = 1;
+
 
 -- MainText 테이블 생성
 CREATE TABLE MainText (

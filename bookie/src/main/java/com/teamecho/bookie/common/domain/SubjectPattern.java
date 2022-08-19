@@ -11,8 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SubjectPattern {
 	private long spId;
-	private String pattern;
-	private String subject;
+	private String bigPattern;
+	private String midPattern;
+	private Category category;
 	private Date regDate;
 	
 	public SubjectPattern() {
