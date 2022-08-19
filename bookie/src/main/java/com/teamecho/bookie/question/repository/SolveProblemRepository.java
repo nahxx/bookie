@@ -3,7 +3,6 @@ package com.teamecho.bookie.question.repository;
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import org.apache.tomcat.jdbc.pool.DataSource;
-import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -28,7 +27,11 @@ public class SolveProblemRepository {
 	}
 	
 	public List<Question> getUnsolveQuestionByCateogyId(long cateId, long uid) {
-		String sql = "CALL FIND_QUESTION_SAME_CATEGORY(?, ?)";
+		String sql = "SELECT qt.* FROM Question qt WHERE qt.mtId IN ( "
+						+ "SELECT q.mtId FROM Question q WHERE q.cateid = ? "
+						+ "AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = 2 AND qh.identify = 'Y' AND q.qid = qh.qid ) "
+						+ "GROUP BY q.mtId "
+						+ "limit 30";
 		return jdbcTemplate.query(sql, new QuestionRowMapper(), cateId, uid);
 	}
 
