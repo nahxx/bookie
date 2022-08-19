@@ -18,7 +18,6 @@
       </div>
       <div class="question-box-wrap">
         <div class="qeustion-box">
-<%--            <div>${question.getQText()}</div>--%>
         	<div id="viewer"></div>
         </div>
       </div>
@@ -64,14 +63,14 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>
 const Editor = toastui.Editor;
-<%--let content = '${question.getMainText().getMText()}${question.getQText()}';--%>
-let content2 = '${mainText.MText}<c:forEach var="question" items="${questionList}">${question.QText}</c:forEach>';
+let content = '${mainText.MText}${question.QText}';
+<%--let content2 = '${mainText.MText}<c:forEach var="question" items="${questionList}">${question.QText}</c:forEach>';--%>
 const viewer = Editor.factory({
     el: document.querySelector('#viewer'),
     viewer: true,
     height: '500px',
     <%--initialValue: '<img alt="" src="<c:url value="/resources/temp/27562658-a113-4916-b416-ed59715f5123_image.png"/>" class="qeustion_img" />'--%>
-    initialValue: content2
+    initialValue: content
 });
 let qeustion = document.createElement('input');
 qeustion.setAttribute('type', 'hidden');

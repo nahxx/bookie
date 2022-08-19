@@ -31,6 +31,7 @@ public class SolveProblemController {
 	public String solveProblemListPage(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
 		HttpSession session = request.getSession(false);
+		session.removeAttribute("question");
 		if (session == null) {
 			model.addAttribute("session", "no");
 			return "error/no_session";
@@ -124,17 +125,50 @@ public class SolveProblemController {
 	public String solveProblem(HttpServletRequest request, Model model, @ModelAttribute("category") CategoryCommand category) {
 		HttpSession session = request.getSession(false);
 
+		if (session == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
+		if(session.getAttribute("uId") == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
+
 		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(category.getCLevel(), category.getGrade(), category.getSubject());
 
 		// 새로고침 했을때 question이 랜덤으로 바뀌지 않게 하기 위함
-		List<Question> questionList = (List<Question>) session.getAttribute("unsolveQuestionList");
+		List<Question> questionList = (List<Question>) session.getAttribute("questionList");
 		if(questionList == null) {
+
+			System.out.println("questionList 가 없는 경우 : 진입");
 			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+
+			// 문제가 한문제인 경우
+
+			// 한개의 지문에 문제가 여러개인 경우
+			if(questionList.get(0).getMainText() != null) {
+				model.addAttribute("mainText", questionList.get(0).getMainText());
+				model.addAttribute("question", questionList.get(0));
+			}
+
+			model.addAttribute("question", questionList.get(0));
+
 			// session에 담아주기
 			session.setAttribute("questionList", questionList);
+
+			return "question/solveProblemPage";
 		}
+
+		// session에 리스트가 담겼을 경우
+		System.out.println("questionList가 있는 경우 : 진입");
+		if(questionList.get(0).getMainText() != null) {
+			model.addAttribute("mainText", questionList.get(0).getMainText());
+			model.addAttribute("question", questionList.get(0));
+		}
+
+		model.addAttribute("question", questionList.get(0));
 
 		// 더이상 풀 문제가 없는 경우 보내는 메세지
 		if(questionList.size() == 0) {
@@ -143,14 +177,6 @@ public class SolveProblemController {
 			return "error/solveProblemError";
 		}
 
-		long mtId = 0;
-		for(Question question : questionList) {
-			mtId = question.getMainText().getMtId();
-		}
-
-		MainText mainText = solveProblemService.getMainText(mtId);
-
-		model.addAttribute("mainText", mainText);
 
 		return "question/solveProblemPage";
 	}
