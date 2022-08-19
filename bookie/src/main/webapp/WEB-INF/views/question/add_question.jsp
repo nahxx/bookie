@@ -78,6 +78,9 @@
 			<button class="submit-btn" onclick="javascript:QuestionLine();" >문제 구분</button>
 			
 			<button class="submit-btn" onclick="javascript:addAnswer();" >답안 추가</button>
+			<div>
+				
+			</div>
 			<div id="answer-wrap">
 				<div class="a-box">
 					<h6>문제1</h6>

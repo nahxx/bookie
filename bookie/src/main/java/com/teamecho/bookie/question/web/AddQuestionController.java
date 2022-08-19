@@ -11,15 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.common.service.CommonService;
+import com.teamecho.bookie.common.service.SubjectPatternService;
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionText;
@@ -40,6 +39,9 @@ public class AddQuestionController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired 
+	SubjectPatternService spService;
 	
 	@Autowired 
 	ServletContext servletContext;
@@ -72,6 +74,14 @@ public class AddQuestionController {
 			// 에러 페이지 이동
 			return "redirect:/error/no_admin";
 		}
+		
+		List<String> kor = spService.getSubjectPatternList("국어");
+		List<String> eng = spService.getSubjectPatternList("영어");
+		List<String> math = spService.getSubjectPatternList("수학");
+		
+		redirectAttributes.addFlashAttribute("kor", kor);
+		redirectAttributes.addFlashAttribute("eng", eng);
+		redirectAttributes.addFlashAttribute("math", math);
 		
 		return "question/add_question";
 	}
