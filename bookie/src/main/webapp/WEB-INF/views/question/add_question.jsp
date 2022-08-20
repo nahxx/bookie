@@ -61,7 +61,6 @@
 					<td>
 						<label class="subject"><input class="category" type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>국어</label>
 						<label class="subject"><input class="category" type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>영어</label>
-						<label class="subject"><input class="category" type="radio" name="subject" value="수학" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>수학</label>
 					</td>
 				</tr>
 				<tr>
@@ -87,19 +86,16 @@
 		<!-- 문제 등록 폼 -->
 		<div class="question-box">
 			<div class="q-box">
-				<h6>문제입력 ></h6>
+				<h6 class="ques">문제입력 ></h6>
+				<div class="qBtn-box">
+					<button class="submit-btn" onclick="javascript:MainTextLine();" >지문 구분</button>
+					<button class="submit-btn" onclick="javascript:QuestionLine();" >문제 구분</button>
+				</div>
 				<div class="editor" id="qTextEditor"></div>
-			</div>
-			<button class="submit-btn" onclick="javascript:MainTextLine();" >지문 구분</button>
-			<button class="submit-btn" onclick="javascript:QuestionLine();" >문제 구분</button>
-			
-			<button class="submit-btn" onclick="javascript:addAnswer();" >답안 추가</button>
-			<div>
-				
 			</div>
 			<div id="answer-wrap">
 				<div class="a-box">
-					<h6>문제1</h6>
+					<h6 class="answerQ">문제1</h6>
 					<div class="answer-box">
 						<span>답</span>
 						<label class="answer"><input type="radio" name="answer1" value="1" />1</label>
@@ -112,6 +108,7 @@
 					<textarea class="qComment" cols="50" rows="10"></textarea>
 				</div>
 			</div>
+			<button class="submit-btn aBtn" onclick="javascript:addAnswer();" >답안 추가</button>
 			
 		</div>
 		<button class="submit-btn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_question"/>');" >등록</button>
@@ -180,7 +177,7 @@
     		    el: document.querySelector('#qTextEditor'),
     		    previewStyle: 'vertical',
     		    previewHighlight: false,
-    		    height: '500px',
+    		    height: '600px',
     		    // 사전입력 항목
     		    initialValue: "",
     		    // 이미지가 Base64 형식으로 입력되는 것 가로채주는 옵션
@@ -322,7 +319,7 @@
             function addAnswer() {
             	let index = document.querySelectorAll('.a-box').length + 1;
             	let aBox = '<div class="a-box">'
-    						+ '<h6>문제2</h6>'
+    						+ '<h6 class="answerQ">문제2</h6>'
     						+ '<div class="answer-box">'
     						+ '<span>답</span>'
     						+ '<label class="answer"><input type="radio" name="answer' + index + '" value="1" />1</label>'

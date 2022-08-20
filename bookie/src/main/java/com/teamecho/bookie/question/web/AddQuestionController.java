@@ -61,7 +61,7 @@ public class AddQuestionController {
 	@GetMapping("/question/add_question")
 	public String addQuestionForm(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		session = request.getSession(false);
-		
+		/*
 		if (session == null) {
 			redirectAttributes.addFlashAttribute("session", "no");
 			return "redirect:/error/no_session";
@@ -79,7 +79,7 @@ public class AddQuestionController {
 			// 에러 페이지 이동
 			return "redirect:/error/no_admin";
 		}
-		
+		*/
 		return "question/add_question";
 	}
 	
