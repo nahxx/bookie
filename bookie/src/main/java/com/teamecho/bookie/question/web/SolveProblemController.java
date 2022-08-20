@@ -31,7 +31,10 @@ public class SolveProblemController {
 	public String solveProblemListPage(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
 		HttpSession session = request.getSession(false);
-		session.removeAttribute("question");
+		if(session.getAttribute("question") != null) {
+			session.removeAttribute("question");
+		}
+
 		if (session == null) {
 			model.addAttribute("session", "no");
 			return "error/no_session";
@@ -142,8 +145,16 @@ public class SolveProblemController {
 		if(questionList == null) {
 
 			System.out.println("questionList 가 없는 경우 : 진입");
+
 			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+
+			// 더이상 풀 문제가 없는 경우 보내는 메세지
+			if(questionList.size() == 0) {
+				String str = "해당 학년의 문제를 다 푸셨습니다!";
+				model.addAttribute("str", str);
+				return "error/solveProblemError";
+			}
 
 			// 문제가 한문제인 경우
 

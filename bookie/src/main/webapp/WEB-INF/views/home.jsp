@@ -147,6 +147,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 	<script>
 		var swiper = new Swiper(".mySwiper", {
+			loop: true,
+			effect: 'slide',
+			autoplay: {
+				delay: 3000,
+			},
 			pagination : {
 				el : ".swiper-pagination",
 				type : "fraction",
@@ -156,6 +161,7 @@
 				prevEl : ".swiper-button-prev",
 			},
 		});
+
 	</script>
 </body>
 </html>
