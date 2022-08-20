@@ -147,9 +147,15 @@ public class AddQuestionController {
 					for(int j = i + 1; j < textList.size(); j++) {
 						if(!(textList.get(j).equals("지문")) && !(textList.get(j).equals("문제"))) {
 							s += "<p>" + textList.get(j) + "</p>";
+							
 							if(j == i + 1) {
-								titleList.add(textList.get(j));
+								if(textList.get(j).contains("src=\"http://local")) {
+									titleList.add("이미지문제");
+								} else {
+									titleList.add(textList.get(j));
+								}
 							}
+							
 						} else {
 							qList.add(s);
 							i = j-1;
@@ -177,27 +183,21 @@ public class AddQuestionController {
 			}
 			
 			question.setQTitle(titleList.get(0));
-			
-			question.setQText(text);
 			question.setAnswer(command.getAnswerList().get(0));
 			question.setQComment(command.getQCommentList().get(0));
 			question.setQuestionText(qt);
 			question.setCategory(category);
 			
 			if(mList.size() > 0) { // 지문이 있다면
-				if(textList.get(0).contains("src=\"http://local") || textList.get(1).contains("src=\"http://local")) {
-					titleList.set(0, "이미지문제");
-				} else {
-					titleList.set(0, textList.get(1));
-				}
 				question.setQTitle(titleList.get(0));
-				
+				question.setQText(qList.get(0));
 				mt.setMText(mList.get(0));
 				addQService.addMainText(mt);
 				mt = addQService.getMainTextByMText(mList.get(0));
 				question.setMainText(mt);
 				addQService.addQuestion(question);
 			} else { // 지문이 없다면
+				question.setQText(text);
 				addQService.addQuestionNotMtId(question);
 			}
 			
@@ -223,18 +223,11 @@ public class AddQuestionController {
 			for(int i = 0; i < qList.size(); i++) {
 				Question question = new Question();
 				
-				/*
-				if(qList.get(i).contains("src=\"http://local")) {
-					titleList.set(i, "이미지문제" + (i+1));
-				} else {
-					titleList.set(i, textList.get(i+1));
+				for(String t : titleList) {
+					System.out.println(t + ":" + i);
 				}
-				*/
 				
 				question.setQTitle(titleList.get(i));
-				
-				System.out.println(question.getQTitle());
-				
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
 				question.setQComment(command.getQCommentList().get(i));
@@ -246,7 +239,7 @@ public class AddQuestionController {
 				addQService.addQuestion(question);
 				
 				// QuestionPattern DB 등록
-				Question q = addQService.getQuestionByText(text);
+				Question q = addQService.getQuestionByText(qList.get(i));
 				SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPatternAndCateId(command.getBPattern(), command.getMPattern(), category.getCateId());
 				
 				QuestionPattern qp = new QuestionPattern();
