@@ -33,6 +33,43 @@
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/answer.css"/>" />
 </head>
+<style>
+/*
+#container{
+	width: 100%;
+	margin: 0 auto;
+}
+.view_q_user, .view_a_user{
+	position: relative;
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 5px 15px;
+}
+.button{
+	display: inline-block;
+	position: absolute;
+	right: 15px;
+    top: 5px;
+}
+.update-btn{
+  	color: blue;
+  	float: left;
+}
+.delete-btn{
+  	color: red;
+  	display: inline-block;
+}
+.btn-wrap{
+	width: 110%;
+	margin: 0 auto;
+	text-align: right;
+}
+*/
+</style>
 <body>
 	<header>
 		<%@ include file="../incl/header.jsp"%>
@@ -40,7 +77,7 @@
 	<div id="container">
 		<div class="viewer_q_wrap">
 			<div class="back">
-				<a href="<c:url value='/qna_board/${page}'/>">묻고답하기 ></a>
+				<a href="<c:url value='/qna_board/${page}'/>"> < 목록으로 </a>
 			</div>
 			<div class="qna-title">${subject}</div>		
 			<c:choose>
@@ -131,60 +168,54 @@
 			<div class="view_a_wrap">
 				<c:choose>
 					<c:when  test="${uId_session eq answer.getUser().getUId()}">
-						<div class="view_a_user">${answer.getUser().getName()}</div>
+						<div class="view_a_user">
+							<div class="user_name">${answer.getUser().getName()}</div>
+							<div class="button">
+								<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
+									<div class="btn-wrap">
+										<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="update-btn">수정</a>
+										<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="delete-btn">삭제</a>
+									</div>
+								</c:if>
+								<c:if test="${fn:contains(manager, 'Y')}">
+									<div class="btn-wrap">
+										<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="update-btn">수정</a>
+										<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="delete-btn">삭제</a>
+									</div>
+								</c:if>
+							</div>
+						</div>
 					</c:when>
 					<c:when test="${fn:contains(manager, 'Y')}">
-						<div class="view_a_user">${answer.getUser().getName()}</div>
+						<div class="view_a_user">
+							<div class="user_name">${answer.getUser().getName()}</div>
+							<div class="button">
+								<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
+									<div class="btn-wrap">
+										<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="update-btn">수정</a>
+										<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="delete-btn">삭제</a>
+									</div>
+								</c:if>
+								<c:if test="${fn:contains(manager, 'Y')}">
+									<div class="btn-wrap">
+										<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="update-btn">수정</a>
+										<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="delete-btn">삭제</a>
+									</div>
+								</c:if>
+							</div>
+						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="view_a_user">
-							<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
-								<c:choose>
-								    <c:when test="${ i == '1' }">
-					            		${fn:substring(answer.getUser().getName(),0,1)}
-					        		</c:when>
-					        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
-					            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
-					        		</c:when>
-					        		 <c:otherwise>
-		                   				*
-		               				</c:otherwise>
-					        	</c:choose>
-							</c:forEach>
-						</div>
-					</c:otherwise>
-				</c:choose>			
-				<div id="viewer_a">${answer.getDocument()}</div>
-			</div>
-			<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
-				<div class="btn">
-					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
-					class="qna-btn">수정</button>
-					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
-					class="qna-btn">삭제</button>
-				</div>
-			</c:if>
-			<c:if test="${fn:contains(manager, 'Y')}">
-				<div class="btn">
-					<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
-					class="qna-btn">수정</button>
-					<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
-					class="qna-btn">삭제</button>
-				</div>
-			</c:if>
-		</c:forEach>
-		<c:choose>
-		    <c:when test="${not empty answer}">
-				<div class="view_a_wrap">
-					<c:choose>
-						<c:when  test="${uId_session eq answer.getUser().getUId()}">
-							<div class="view_a_user">${answer.getUser().getName()}</div>
-						</c:when>
-						<c:when test="${fn:contains(manager, 'Y')}">
-							<div class="view_a_user">${answer.getUser().getName()}</div>
-						</c:when>
-						<c:otherwise>
-							<div class="view_a_user">
+							<div class="user_name">
 								<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
 									<c:choose>
 									    <c:when test="${ i == '1' }">
@@ -199,26 +230,120 @@
 						        	</c:choose>
 								</c:forEach>
 							</div>
+							<div class="button">
+								<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
+									<div class="btn-wrap">
+										<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="update-btn">수정</a>
+										<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="delete-btn">삭제</a>
+									</div>
+								</c:if>
+								<c:if test="${fn:contains(manager, 'Y')}">
+									<div class="btn-wrap">
+										<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="update-btn">수정</a>
+										<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+										class="delete-btn">삭제</a>
+									</div>
+								</c:if>
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>			
+				<div id="viewer_a">${answer.getDocument()}</div>
+			</div>
+		</c:forEach>
+		<c:choose>
+		    <c:when test="${not empty answer}">
+				<div class="view_a_wrap">
+					<c:choose>
+						<c:when  test="${uId_session eq answer.getUser().getUId()}">
+							<div class="view_a_user">
+								<div class="user_name">${answer.getUser().getName()}</div>
+								<div class="button">
+									<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
+										<div class="btn-wrap">
+											<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="update-btn">수정</a>
+											<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="delete-btn">삭제</a>
+										</div>
+									</c:if>
+									<c:if test="${fn:contains(manager, 'Y')}">
+										<div class="btn-wrap">
+											<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="update-btn">수정</a>
+											<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="delete-btn">삭제</a>
+										</div>
+									</c:if>
+								</div>
+							</div>
+						</c:when>
+						<c:when test="${fn:contains(manager, 'Y')}">
+							<div class="view_a_user">
+								<div class="user_name">${answer.getUser().getName()}</div>
+								<div class="button">
+									<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
+										<div class="btn-wrap">
+											<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="update-btn">수정</a>
+											<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="delete-btn">삭제</a>
+										</div>
+									</c:if>
+									<c:if test="${fn:contains(manager, 'Y')}">
+										<div class="btn-wrap">
+											<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="update-btn">수정</a>
+											<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="delete-btn">삭제</a>
+										</div>
+									</c:if>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="view_a_user">
+								<div class="user_name">
+									<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
+										<c:choose>
+										    <c:when test="${ i == '1' }">
+							            		${fn:substring(answer.getUser().getName(),0,1)}
+							        		</c:when>
+							        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
+							            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
+							        		</c:when>
+							        		 <c:otherwise>
+				                   				*
+				               				</c:otherwise>
+							        	</c:choose>
+									</c:forEach>
+								</div>
+								<div class="button">
+									<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
+										<div class="btn-wrap">
+											<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="update-btn">수정</a>
+											<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="delete-btn">삭제</a>
+										</div>
+									</c:if>
+									<c:if test="${fn:contains(manager, 'Y')}">
+										<div class="btn-wrap">
+											<a onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="update-btn">수정</a>
+											<a onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
+											class="delete-btn">삭제</a>
+										</div>
+									</c:if>
+								</div>
+							</div>
 						</c:otherwise>
-					</c:choose>	
+					</c:choose>			
 					<div id="viewer_a">${answer.getDocument()}</div>
 				</div>
-				<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
-					<div class="btn">
-						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
-						class="qna-btn">수정</button>
-						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
-						class="qna-btn">삭제</button>
-					</div>
-				</c:if>
-				<c:if test="${fn:contains(manager, 'Y')}">
-					<div class="btn">
-						<button onclick="javascript:get('<c:url value='/answer/update/${qnaId}/${answer.getAnId()}/${page}'/>');"
-						class="qna-btn">수정</button>
-						<button onclick="javascript:submit('<c:url value='/answer/delete/${qnaId}/${answer.getAnId()}/${page}'/>');"
-						class="qna-btn">삭제</button>
-					</div>
-				</c:if>
 		    </c:when>
 		</c:choose>
 	</div>

@@ -39,7 +39,6 @@
 	margin: 0 auto;
 	margin-top: 20px;
 }
-/* editor content 받을 div태그 스타일 추가. */
 #contents {
 	width: 50%;
 	height: 100px;
@@ -74,6 +73,7 @@ p{
 	text-align: center;
 }
 .view_q_user, .view_a_user{
+	position: relative;
 	border : 1px solid;
 	width: 70%;
 	margin: 0 auto;
@@ -82,47 +82,66 @@ p{
     border-color: #ddd;
     padding: 5px 15px;
 }
+.button{
+	display: inline-block;
+	position: absolute;
+	right: 15px;
+    top: 5px;
+}
+.btn-wrap{
+	width: 110%;
+	margin: 0 auto;
+	text-align: right;
+}
+.update-btn{
+  	color: blue;
+  	float: left;
+}
+.delete-btn{
+  	color: red;
+  	display: inline-block;
+}
 .submit-btn {
-  width: 6%;
-  margin: 10px 0;
-  outline: none;
-  border: none;
-  background: #607EAA;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 10px;
-  color: white;
-  font-size: 15px;
-  font-family: 'IM_Hyemin-Regular';
-  cursor: pointer;
+  	width: 6%;
+  	margin: 10px 0;
+  	outline: none;
+  	border: none;
+  	background: #607EAA;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+ 	color: white;
+  	font-size: 15px;
+  	font-family: 'IM_Hyemin-Regular';
+  	cursor: pointer;
 }
 .qna-btn{
-  width: 6%;
-  margin: 10px 0;
-  outline: none;
-  border: none;
-  background: #607EAA;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 10px;
-  color: white;
-  font-size: 15px;
-  font-family: 'IM_Hyemin-Regular';
-  cursor: pointer;
+  	width: 6%;
+  	margin: 10px 0;
+ 	outline: none;
+  	border: none;
+  	background: #607EAA;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+  	color: white;
+  	font-size: 15px;
+  	font-family: 'IM_Hyemin-Regular';
+  	cursor: pointer;
 }
 .qna-update-btn{
-  width: 6%;
-  margin: 10px 0;
-  outline: none;
-  border: none;
-  background: #607EAA;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 10px;
-  color: white;
-  font-size: 15px;
-  font-family: 'IM_Hyemin-Regular';
-  cursor: pointer;
+  	width: 6%;
+  	margin: 10px 0;
+  	outline: none;
+  	border: none;
+  	background: #607EAA;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+  	color: white;
+  	font-size: 15px;
+  	font-family: 'IM_Hyemin-Regular';
+  	cursor: pointer;
 }
 .toastui-editor-contents {
     font-family: 'IM_Hyemin-Regular';

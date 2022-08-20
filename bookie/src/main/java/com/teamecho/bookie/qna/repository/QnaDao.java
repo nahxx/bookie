@@ -88,7 +88,7 @@ public class QnaDao {
 	}
 	
 	public void deleteQnaCountByQnaId(long qnaId) {
-		String sql = "DELETE FROM Qnacount WHERE qnaid = ?";
+		String sql = "DELETE FROM QnaCount WHERE qnaid = ?";
 		jdbcTemplate.update(sql, qnaId);
 	}
 }
