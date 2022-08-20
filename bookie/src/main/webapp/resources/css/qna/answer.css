@@ -8,9 +8,10 @@
 #container{
 	width: 100%;
 	margin: 0 auto;
+	min-height: calc(100vh - 60px);
 }
 .viewer_q_wrap{
-	margin-top: 100px;
+	padding-top: 100px;
 }
 .back{
 	width: 70%;
@@ -58,6 +59,11 @@
 	margin: 0 auto;
 	border-color: #ddd;
 }
+
+.view_a_wrap:last-child {
+	margin-bottom: 50px;
+}
+
 .btn{
 	width: 70%;
 	margin: 0 auto;
