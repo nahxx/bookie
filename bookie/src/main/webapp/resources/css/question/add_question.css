@@ -22,7 +22,7 @@ html, body {
 .wrap {
 	width: 100%;
 	margin: 0 auto;
-	padding-top: 100px;
+	padding-top: 150px;
 	box-sizing: border-box;
 	text-align: center;
 }
@@ -111,7 +111,7 @@ select:focus {
     margin: 10px 0;
     outline: none;
     border: none;
-    background: #607EAA;
+    background: linear-gradient(90deg, rgba(114,154,244,1) 0%, rgba(31,203,217,1) 100%);
     height: 30px;
     line-height: 30px;
     border-radius: 25px;
@@ -167,16 +167,76 @@ select:focus {
 	display: inline-block;
 }
 
-.answer-box {
-	display: inline-block;
-}
-
 .a-box {
-	margin-top: 150px;
+	margin-top: 50px;
 	border: 1px solid #ddd;
 	border-radius: 5px;
 }
 
+.a-box:first-child {
+	margin-top: 150px;
+}
+
+.a-box table th, .a-box table td {
+	border: 0px;
+}
+
+.a-box table th {
+	width: 20%;
+}
+
+.a-box table td {
+	width: 80%;
+}
+
+.a-box table td .answer {
+	font-size: 20px;
+}
+
+.a-box table td .answer + .answer {
+	margin-left: 10px;
+}
+
+.a-box table td .answer input {
+	margin-right: 3px;
+}
+
+.commentQ {
+	display: block;
+	text-align: center;
+}
+
 input[type="text"] {
 	width: 100%;
+}
+
+textarea {
+	resize: none;
+	width: 700px;
+}
+
+.aBtn {
+	margin-top: 30px;
+    margin-bottom: 150px;
+}
+
+.sBtn {
+	position: relative;
+	width: 150px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+.sBtn:before {
+	position: absolute;
+    display: block;
+    top: -100px;
+    left: -430px;
+    content: '';
+    width: 1000px;
+    height: 1px;
+    background: #ddd;
 }

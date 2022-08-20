@@ -95,23 +95,41 @@
 			</div>
 			<div id="answer-wrap">
 				<div class="a-box">
-					<h6 class="answerQ">문제1</h6>
-					<div class="answer-box">
-						<span>답</span>
-						<label class="answer"><input type="radio" name="answer1" value="1" />1</label>
-						<label class="answer"><input type="radio" name="answer1" value="2" />2</label>
-						<label class="answer"><input type="radio" name="answer1" value="3" />3</label>
-						<label class="answer"><input type="radio" name="answer1" value="4" />4</label>
-						<label class="answer"><input type="radio" name="answer1" value="5" />5</label>
-					</div>
-					<h6>해설</h6>
-					<textarea class="qComment" cols="50" rows="10"></textarea>
+					<table>
+						<tr>
+							<th colspan="2">
+								<h6 class="answerQ">문제1</h6>
+							</th>
+						</tr>
+						<tr>
+							<th>
+								<h6 class="answerQ">답</h6>
+							</th>
+							<td>
+								<div class="answer-box">
+									<label class="answer"><input type="radio" name="answer1" value="1" />1</label>
+									<label class="answer"><input type="radio" name="answer1" value="2" />2</label>
+									<label class="answer"><input type="radio" name="answer1" value="3" />3</label>
+									<label class="answer"><input type="radio" name="answer1" value="4" />4</label>
+									<label class="answer"><input type="radio" name="answer1" value="5" />5</label>
+								</div>
+							<td>
+						</tr>
+						<tr>
+							<th>
+								<h6 class="commentQ">해설</h6>
+							</th>
+							<td>
+								<textarea class="qComment" cols="50" rows="10"></textarea>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<button class="submit-btn aBtn" onclick="javascript:addAnswer();" >답안 추가</button>
 			
 		</div>
-		<button class="submit-btn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_question"/>');" >등록</button>
+		<button class="submit-btn sBtn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_question"/>');" >등록</button>
 		
 	</div>
 	
@@ -319,18 +337,17 @@
             function addAnswer() {
             	let index = document.querySelectorAll('.a-box').length + 1;
             	let aBox = '<div class="a-box">'
-    						+ '<h6 class="answerQ">문제2</h6>'
-    						+ '<div class="answer-box">'
-    						+ '<span>답</span>'
+    						+ '<table><tr><th colspan="2"><h6 class="answerQ">문제' + index + '</h6></th></tr>'
+    						+ '<tr><th><h6 class="answerQ">답</h6></th><td><div class="answer-box">'
     						+ '<label class="answer"><input type="radio" name="answer' + index + '" value="1" />1</label>'
     						+ '<label class="answer"><input type="radio" name="answer' + index + '" value="2" />2</label>'
     						+ '<label class="answer"><input type="radio" name="answer' + index + '" value="3" />3</label>'
     						+ '<label class="answer"><input type="radio" name="answer' + index + '" value="4" />4</label>'
     						+ '<label class="answer"><input type="radio" name="answer' + index + '" value="5" />5</label>'
-    						+ '</div>'
-    						+ '<h6>해설</h6>'
-    						+ '<textarea class="qComment" cols="50" rows="10"></textarea>'
-    						+ '</div>';
+    						+ '</div></td></tr>'
+    						+ '<tr><th><h6 class="commentQ">해설</h6></th>'
+    						+ '<td><textarea class="qComment" cols="50" rows="10"></textarea></td>'
+    						+ '</tr></table></div>';
     			let answerWrap = document.getElementById('answer-wrap');
     			answerWrap.innerHTML += aBox;
             }
