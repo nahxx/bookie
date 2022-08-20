@@ -13,7 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class QuestionBoard {
 	private long qId; // Question 클래스 키값
-	private String qTitle; // 문제 제목
 	private String qText; // 문제 내용
 	private int answer; // 답
 	private String qComment; // 해설

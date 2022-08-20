@@ -115,7 +115,6 @@ public class AddQuestionController {
 		// 지문, 문제 분리
 		List<String> mList = new ArrayList(); // 지문 담을 리스트
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
-		List<String> titleList = new ArrayList(); // 문제 제목 담을 리스트
 		List<String> textList = new ArrayList(); // 지문, 문제 구분자 제거 후 텍스트 담을 리스트
 		
 		StringTokenizer st = new StringTokenizer(text, "◆<>", false);
@@ -149,15 +148,6 @@ public class AddQuestionController {
 					for(int j = i + 1; j < textList.size(); j++) {
 						if(!(textList.get(j).equals("지문")) && !(textList.get(j).equals("문제"))) {
 							s += "<p>" + textList.get(j) + "</p>";
-							
-							if(j == i + 1) {
-								if(textList.get(j).contains("src=\"http://local")) {
-									titleList.add("이미지문제");
-								} else {
-									titleList.add(textList.get(j));
-								}
-							}
-							
 						} else {
 							qList.add(s);
 							i = j-1;
@@ -177,21 +167,13 @@ public class AddQuestionController {
 			Question question = new Question();
 			QuestionText qt = addQService.getQuestionTextByTotalText(text);
 			MainText mt = new MainText();
-			
-			if(textList.get(0).contains("src=\"http://localhost:8080/bookie/tempimg/")) {
-				titleList.add("이미지문제");
-			} else {
-				titleList.add(textList.get(0));
-			}
-			
-			question.setQTitle(titleList.get(0));
+
 			question.setAnswer(command.getAnswerList().get(0));
 			question.setQComment(command.getQCommentList().get(0));
 			question.setQuestionText(qt);
 			question.setCategory(category);
 			Question q;
 			if(mList.size() > 0) { // 지문이 있다면
-				question.setQTitle(titleList.get(0));
 				question.setQText(qList.get(0));
 				mt.setMText(mList.get(0));
 				addQService.addMainText(mt);
@@ -224,7 +206,6 @@ public class AddQuestionController {
 			for(int i = 0; i < qList.size(); i++) {
 				Question question = new Question();
 
-				question.setQTitle(titleList.get(i));
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
 				question.setQComment(command.getQCommentList().get(i));
