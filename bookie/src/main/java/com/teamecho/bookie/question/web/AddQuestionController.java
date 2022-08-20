@@ -1,12 +1,14 @@
 package com.teamecho.bookie.question.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +101,7 @@ public class AddQuestionController {
 	 * @throws IOException
 	 */
 	@PostMapping("/question/add_question")
-	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request) throws IOException {
+	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		// 카테고리 얻기
 		Category category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
@@ -187,7 +189,7 @@ public class AddQuestionController {
 			question.setQComment(command.getQCommentList().get(0));
 			question.setQuestionText(qt);
 			question.setCategory(category);
-			
+			Question q;
 			if(mList.size() > 0) { // 지문이 있다면
 				question.setQTitle(titleList.get(0));
 				question.setQText(qList.get(0));
@@ -196,14 +198,14 @@ public class AddQuestionController {
 				mt = addQService.getMainTextByMText(mList.get(0));
 				question.setMainText(mt);
 				addQService.addQuestion(question);
+				q = addQService.getQuestionByText(qList.get(0));
 			} else { // 지문이 없다면
 				question.setQText(text);
 				addQService.addQuestionNotMtId(question);
+				q = addQService.getQuestionByText(text);
 			}
 			
 			// QuestionPattern DB 등록
-			Question q = addQService.getQuestionByText(text);
-			
 			SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPatternAndCateId(command.getBPattern(), command.getMPattern(), category.getCateId());
 			
 			QuestionPattern qp = new QuestionPattern();
@@ -217,16 +219,11 @@ public class AddQuestionController {
 			mt.setMText(mList.get(0));
 			addQService.addMainText(mt);
 			
-			
 			// 문제 DB 등록
 			QuestionText qt = addQService.getQuestionTextByTotalText(text);
 			for(int i = 0; i < qList.size(); i++) {
 				Question question = new Question();
-				
-				for(String t : titleList) {
-					System.out.println(t + ":" + i);
-				}
-				
+
 				question.setQTitle(titleList.get(i));
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
@@ -259,8 +256,12 @@ public class AddQuestionController {
 		// 임시 저장 이미지 삭제
 		commonService.deleteTempImages(command.getQuestionImgArr());
 		
+		response.setContentType("text/html; charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.println("<script>alert('문제가 추가되었습니다.'); location.href='add_question';</script>"); // 경고창 띄우기
+        writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
 		
-		return "";
+		return "question/add_question";
 	}
 	
 	
@@ -268,19 +269,17 @@ public class AddQuestionController {
 	String bigTag;
 	@PostMapping("/question/checking_pattern")
 	public String checkingPattern(CategoryCommand command, RedirectAttributes redirectAttributes) {
-		// jsp에 던져줄 태그 변수
-		bigTag = "<select id='bPattern' name='bPattern' onChange='javascript:checkingMPattern(this);'>";
-		
 		// 위 세가지에 해당하는 카테고리 추출
 		category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
 		// 카테아이디를 통해 대분류를 각각 태그에 담아서 해당 String을 다시 던져주기(이때 각 태그에는 중분류를 찾는 스트립트함수 호출하는 내용 들어가야 함)
 		List<String> bigPatterns = spService.getBigPatternsPatternsByCateId(category.getCateId());
+		
+		bigTag = "";
 		for(int i = 0; i < bigPatterns.size(); i++) {
 			String big = bigPatterns.get(i);
 			bigTag += "<option value='" + big + "'>" + big + "</option>";
 			
 		}
-		bigTag += "</select>";
 
 		redirectAttributes.addFlashAttribute("bigTag", bigTag);
 		redirectAttributes.addFlashAttribute("category", category);
@@ -290,16 +289,14 @@ public class AddQuestionController {
 	
 	@PostMapping("/question/checking_pattern_m")
 	public String checkingMPattern(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		String midTag = "<select id='mPattern' name='mPattern'>";
+		String midTag = "";
 		String bigPattern = request.getParameter("bp");
 		
 		List<String> midPatterns = spService.getMidPatternsByBigPatternAndCateId(bigPattern, category.getCateId());
 		for(int i = 0; i < midPatterns.size(); i++) {
 			String mid = midPatterns.get(i);
 			midTag += "<option value='" + mid + "'>" + mid +  "</option>";
-			//midTag += "<option value='" + mid + "' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + mid + ")'>" + mid + "</option>";
 		}
-		midTag += "</select>";
 		
 		redirectAttributes.addFlashAttribute("midTag", midTag);
 		redirectAttributes.addFlashAttribute("category", category);

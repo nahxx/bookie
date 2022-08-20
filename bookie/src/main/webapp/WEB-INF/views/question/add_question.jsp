@@ -44,36 +44,40 @@
 				<tr>
 					<th>학력 구분</th>
 					<td>
-						<label class="c-level"><input type="radio" name="cLevel" value="m" />중학교</label>
-						<label class="c-level"><input type="radio" name="cLevel" value="h" />고등학교</label>
+						<label class="c-level"><input class="category" type="radio" name="cLevel" value="m" />중학교</label>
+						<label class="c-level"><input class="category" type="radio" name="cLevel" value="h" />고등학교</label>
 					</td>
 				</tr>
 				<tr>
 					<th>학년</th>
 					<td>
-						<label class="grade"><input type="radio" name="grade" value="1" />1학년</label>
-						<label class="grade"><input type="radio" name="grade" value="2" />2학년</label>
-						<label class="grade"><input type="radio" name="grade" value="3" />3학년</label>
+						<label class="grade"><input class="category" type="radio" name="grade" value="1" />1학년</label>
+						<label class="grade"><input class="category" type="radio" name="grade" value="2" />2학년</label>
+						<label class="grade"><input class="category" type="radio" name="grade" value="3" />3학년</label>
 					</td>
 				</tr>
 				<tr>
 					<th>과목</th>
 					<td>
-						<label class="subject"><input type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>국어</label>
-						<label class="subject"><input type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>영어</label>
-						<label class="subject"><input type="radio" name="subject" value="수학" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>수학</label>
+						<label class="subject"><input class="category" type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>국어</label>
+						<label class="subject"><input class="category" type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>영어</label>
+						<label class="subject"><input class="category" type="radio" name="subject" value="수학" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>수학</label>
 					</td>
 				</tr>
 				<tr>
 					<th>대분류</th>
 					<td>
-						${bigTag}
+						<select id='bPattern' name='bPattern' onChange='javascript:checkingMPattern(this);'>
+							${bigTag}
+						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>중분류</th>
 					<td>
-						${midTag}
+						<select id='mPattern' name='mPattern'>
+							${midTag}
+						</select>
 					</td>
 				</tr>
 			</table>
@@ -83,7 +87,7 @@
 		<!-- 문제 등록 폼 -->
 		<div class="question-box">
 			<div class="q-box">
-				<h6>문제입력</h6>
+				<h6>문제입력 ></h6>
 				<div class="editor" id="qTextEditor"></div>
 			</div>
 			<button class="submit-btn" onclick="javascript:MainTextLine();" >지문 구분</button>
@@ -120,28 +124,61 @@
 	</footer>
 	
 	<script>
+	
+		// 컨트롤러 다녀올 때 check 표시
+	    <c:if test="${not empty category}">
+	        let cLevel = document.querySelector('input[value="' + "${category.getCLevel()}" + '"]');
+	    	cLevel.checked = true;
+	    	cLevel.parentNode.className += ' on';
+	    	
+	    	let grade = document.querySelector('input[value="' + "${category.getGrade()}" + '"]');
+	    	grade.checked = true;
+	    	grade.parentNode.className += ' on';
+	    	
+	    	let subject = document.querySelector('input[value="' + "${category.getSubject()}" + '"]');
+	    	subject.checked = true;
+	    	subject.parentNode.className += ' on';
+	    	
+	    	let bp = document.querySelector('#bPattern');
+	    	for(let i = 0; i < bp.length; i++) {
+				if(bp.options[i].value === "${bigPattern}") {
+					bp.options[i].selected = true;
+					break;
+				}
+			}
+		</c:if>
+		
+		// 라디오버튼 없애기
+		$(function() {
+			$('.category').css("display", "none");
+			$('.c-level').click(function() {
+				$('input[name=c-level]').removeAttr("checked");
+				$(this).find('input[type=radio]').attr("checked", "checked");
+				$('.c-level').removeClass("on");
+	    		$(this).addClass("on");
+			});
+			$('.grade').click(function() {
+				$('input[name=grade]').removeAttr("checked");
+				$(this).find('input[type=radio]').attr("checked", "checked");
+				$('.grade').removeClass("on");
+	    		$(this).addClass("on");
+			});
+			$('.subject').click(function() {
+				$('input[name=subject]').removeAttr("checked");
+				$(this).find('input[type=radio]').attr("checked", "checked");
+				$('.subject').removeClass("on");
+	    		$(this).addClass("on");
+			});
+		});
 
     	let questionImgArr = []; // 질문 이미지 배열
     	// let commentImgArr = []; // 해설 이미지 배열
     	// let mainTextImgArr = []; // 지문 이미지 배열
     	
-    	let cLevel = document.querySelector('input[value="' + "${category.getCLevel()}" + '"]');
-    	cLevel.checked = true;
-    	let grade = document.querySelector('input[value="' + "${category.getGrade()}" + '"]');
-    	grade.checked = true;
-    	let subject = document.querySelector('input[value="' + "${category.getSubject()}" + '"]');
-    	subject.checked = true;
-    	let bp = document.querySelector('#bPattern');
-    	for(let i = 0; i < bp.length; i++) {
-			if(bp.options[i].value === "${bigPattern}") {
-				bp.options[i].selected = true;
-				break;
-			}
-		}
     	// 질문 에디터
     	const qTextEditor = new toastui.Editor({
     		    el: document.querySelector('#qTextEditor'),
-    		    previewStyle: 'tab',
+    		    previewStyle: 'vertical',
     		    previewHighlight: false,
     		    height: '500px',
     		    // 사전입력 항목
