@@ -18,11 +18,11 @@ public class SubjectPatternService {
 		return spDao.findBigPatternsByCateId(cateId);
 	}
 	
-	public List<String> getMidPatternsByBigPattern(String bigPattern) {
-		return spDao.findMidPatternsByBigPattern(bigPattern);
+	public List<String> getMidPatternsByBigPatternAndCateId(String bigPattern, long cateId) {
+		return spDao.findMidPatternsByBigPatternAndCateId(bigPattern, cateId);
 	}
 	
-	public SubjectPattern getSubjectPatternByBPatternAndMPattern(String bp, String mp) {
-		return spDao.findSubjectPatternByBPatternAndMPattern(bp, mp);
+	public SubjectPattern getSubjectPatternByBPatternAndMPatternAndCateId(String bp, String mp, long cateId) {
+		return spDao.findSubjectPatternByBPatternAndMPatternAndCateId(bp, mp, cateId);
 	}
 }

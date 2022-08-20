@@ -258,11 +258,21 @@
     			form.appendChild(input8);
     			
     			// input9 추가 - 대분류
-    			let input9 = document.querySelector('input[name="bPattern"]:selected');
+    			let input9 = document.createElement('input');
+    			let big = document.querySelector('#bPattern');
+    			let bPattern = big.options[big.selectedIndex].value;
+    			input9.setAttribute('type', 'hidden');
+    			input9.setAttribute('name', 'bPattern');
+    			input9.setAttribute('value', bPattern);
     			form.appendChild(input9);
     			
     			// input10 추가 - 중분류
-    			let input10 = document.querySelector('input[name="mPattern"]:selected');
+    			let input10 = document.createElement('input');
+    			let mid = document.querySelector('#mPattern');
+    			let mPattern = mid.options[mid.selectedIndex].value;
+    			input10.setAttribute('type', 'hidden');
+    			input10.setAttribute('name', 'mPattern');
+    			input10.setAttribute('value', mPattern);
     			form.appendChild(input10);
     			
     			// 폼 적용

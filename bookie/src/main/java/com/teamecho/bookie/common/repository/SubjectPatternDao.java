@@ -33,8 +33,8 @@ private JdbcTemplate jdbcTemplate;
 		}, cateId);
 	}
 	
-	public List<String> findMidPatternsByBigPattern(String bigPattern) {
-		String sql = "SELECT midPattern FROM SubjectPattern WHERE bigPattern = ?";
+	public List<String> findMidPatternsByBigPatternAndCateId(String bigPattern, long cateId) {
+		String sql = "SELECT midPattern FROM SubjectPattern WHERE bigPattern = ? AND cateId = ?";
 		return jdbcTemplate.query(sql, new RowMapper<String>() {
 
 			@Override
@@ -42,12 +42,12 @@ private JdbcTemplate jdbcTemplate;
 				return rs.getString("midPattern");
 			}
 			
-		}, bigPattern);
+		}, bigPattern, cateId);
 	}
 	
-	public SubjectPattern findSubjectPatternByBPatternAndMPattern(String bp, String mp) {
-		String sql = "SELECT spId FROM SubjectPattern WHERE bigPattern = ? AND MidPattern = ?";
-		return jdbcTemplate.queryForObject(sql, new SubjectPatternRowMapper(), bp, mp);
+	public SubjectPattern findSubjectPatternByBPatternAndMPatternAndCateId(String bp, String mp, long cateId) {
+		String sql = "SELECT * FROM SubjectPattern WHERE bigPattern = ? AND midPattern = ? AND cateId = ?";
+		return jdbcTemplate.queryForObject(sql, new SubjectPatternRowMapper(), bp, mp, cateId);
 	}
 	
 }

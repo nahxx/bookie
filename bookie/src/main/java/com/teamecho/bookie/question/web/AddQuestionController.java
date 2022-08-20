@@ -169,8 +169,15 @@ public class AddQuestionController {
 			Question question = new Question();
 			QuestionText qt = addQService.getQuestionTextByTotalText(text);
 			MainText mt = new MainText();
-			titleList.add(textList.get(0));
+			
+			if(textList.get(0).contains("src=\"http://localhost:8080/bookie/tempimg/")) {
+				titleList.add("이미지문제");
+			} else {
+				titleList.add(textList.get(0));
+			}
+			
 			question.setQTitle(titleList.get(0));
+			
 			question.setQText(text);
 			question.setAnswer(command.getAnswerList().get(0));
 			question.setQComment(command.getQCommentList().get(0));
@@ -178,6 +185,13 @@ public class AddQuestionController {
 			question.setCategory(category);
 			
 			if(mList.size() > 0) { // 지문이 있다면
+				if(textList.get(0).contains("src=\"http://local") || textList.get(1).contains("src=\"http://local")) {
+					titleList.set(0, "이미지문제");
+				} else {
+					titleList.set(0, textList.get(1));
+				}
+				question.setQTitle(titleList.get(0));
+				
 				mt.setMText(mList.get(0));
 				addQService.addMainText(mt);
 				mt = addQService.getMainTextByMText(mList.get(0));
@@ -189,7 +203,8 @@ public class AddQuestionController {
 			
 			// QuestionPattern DB 등록
 			Question q = addQService.getQuestionByText(text);
-			SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPattern(command.getBPattern(), command.getMPattern());
+			
+			SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPatternAndCateId(command.getBPattern(), command.getMPattern(), category.getCateId());
 			
 			QuestionPattern qp = new QuestionPattern();
 			qp.setQuestion(q);
@@ -202,11 +217,24 @@ public class AddQuestionController {
 			mt.setMText(mList.get(0));
 			addQService.addMainText(mt);
 			
+			
 			// 문제 DB 등록
 			QuestionText qt = addQService.getQuestionTextByTotalText(text);
 			for(int i = 0; i < qList.size(); i++) {
 				Question question = new Question();
+				
+				/*
+				if(qList.get(i).contains("src=\"http://local")) {
+					titleList.set(i, "이미지문제" + (i+1));
+				} else {
+					titleList.set(i, textList.get(i+1));
+				}
+				*/
+				
 				question.setQTitle(titleList.get(i));
+				
+				System.out.println(question.getQTitle());
+				
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
 				question.setQComment(command.getQCommentList().get(i));
@@ -219,7 +247,7 @@ public class AddQuestionController {
 				
 				// QuestionPattern DB 등록
 				Question q = addQService.getQuestionByText(text);
-				SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPattern(command.getBPattern(), command.getMPattern());
+				SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPatternAndCateId(command.getBPattern(), command.getMPattern(), category.getCateId());
 				
 				QuestionPattern qp = new QuestionPattern();
 				qp.setQuestion(q);
@@ -272,7 +300,7 @@ public class AddQuestionController {
 		String midTag = "<select id='mPattern' name='mPattern'>";
 		String bigPattern = request.getParameter("bp");
 		
-		List<String> midPatterns = spService.getMidPatternsByBigPattern(bigPattern);
+		List<String> midPatterns = spService.getMidPatternsByBigPatternAndCateId(bigPattern, category.getCateId());
 		for(int i = 0; i < midPatterns.size(); i++) {
 			String mid = midPatterns.get(i);
 			midTag += "<option value='" + mid + "'>" + mid +  "</option>";
