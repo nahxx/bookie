@@ -120,11 +120,7 @@
 	</footer>
 	
 	<script>
-		/* 
-		해결해야할 것
-		1. 유효성 검사
-		2. css
-		*/
+
     	let questionImgArr = []; // 질문 이미지 배열
     	// let commentImgArr = []; // 해설 이미지 배열
     	// let mainTextImgArr = []; // 지문 이미지 배열
@@ -339,7 +335,7 @@
             }
             
             // 대분류 가져와서 컨트롤러로 넘기기 (중분류 가져오기)
-            function checkingMPattern(url, bPattern) {
+            function checkingMPattern(url) {
             	// 폼 생성
     			let form = document.createElement('form');
     			form.setAttribute('type', 'hidden');
@@ -348,8 +344,9 @@
     			document.charset = "UTF-8";
     			
     			// 대분류
-            	let s = document.querySelector('#bPattern');
+    			let s = document.getElementById("bPattern");
     			let bp = s.options[s.selectedIndex].value;
+    			console.log(bp);
     			
     			let input1 = document.createElement('input');
     			input1.setAttribute('type', 'hidden');
@@ -361,6 +358,8 @@
             	document.body.appendChild(form);
     			form.submit();
             }
+            
+            
     </script> 
 </body>
 </html>

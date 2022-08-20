@@ -248,7 +248,7 @@ public class AddQuestionController {
 	@PostMapping("/question/checking_pattern")
 	public String checkingPattern(CategoryCommand command, RedirectAttributes redirectAttributes) {
 		// jsp에 던져줄 태그 변수
-		String bigTag = "<select id='bPattern' name='bPattern' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', this.value)'>";
+		String bigTag = "<select id='bPattern' name='bPattern' onChange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>');'>";
 		
 		// 위 세가지에 해당하는 카테고리 추출
 		category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
@@ -257,10 +257,10 @@ public class AddQuestionController {
 		for(int i = 0; i < bigPatterns.size(); i++) {
 			String big = bigPatterns.get(i);
 			bigTag += "<option value='" + big + "'>" + big + "</option>";
-			//bigTag += "<option value='" + big + "' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', " + big + ")'>" + big + "</option>";
+			
 		}
 		bigTag += "</select>";
-		
+
 		redirectAttributes.addFlashAttribute("bigTag", bigTag);
 		redirectAttributes.addFlashAttribute("category", category);
 		
@@ -269,8 +269,8 @@ public class AddQuestionController {
 	
 	@PostMapping("/question/checking_Mpattern")
 	public String checkingMPattern(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		String midTag = "<select id='mPattern' name='mPattern' onchange='javascript:checkingMPattern('<c:url value=\"/question/checking_Mpattern\"/>', this.value)'>";
-		
+		String midTag = "<select id='mPattern' name='mPattern'>";
+		System.out.println("진입");
 		String bigPattern = request.getParameter("bp");
 		
 		List<String> midPatterns = spService.getMidPatternsByBigPattern(bigPattern);
