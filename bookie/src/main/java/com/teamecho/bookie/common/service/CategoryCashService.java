@@ -27,7 +27,7 @@ public class CategoryCashService {
 	
 	public void checkList(CategoryCommand menuCategory) {
 		for(Category category : categoryList) {
-			if(!(category.getCLevel() == menuCategory.getCLevel())) {
+			if(!(category.getCLevel() == menuCategory.getCLevel().charAt(0))) {
 				categoryList = categoryDao.getAllCategory();				
 			}
 			if(!(category.getGrade() == menuCategory.getGrade())) {

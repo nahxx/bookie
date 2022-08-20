@@ -135,7 +135,7 @@ public class SolveProblemController {
 		}
 
 		// 해당 카테고리 불러오기
-		Category realCategory = solveProblemService.findCategory(category.getCLevel(), category.getGrade(), category.getSubject());
+		Category realCategory = solveProblemService.findCategory(category.getCLevel().charAt(0), category.getGrade(), category.getSubject());
 
 		// 새로고침 했을때 question이 랜덤으로 바뀌지 않게 하기 위함
 		List<Question> questionList = (List<Question>) session.getAttribute("questionList");
