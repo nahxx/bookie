@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Question {
+public class QuestionBoard {
 	private long qId; // Question 클래스 키값
 	private String qTitle; // 문제 제목
 	private String qText; // 문제 내용
@@ -21,16 +21,17 @@ public class Question {
 	private Category category; // Category 클래스
 	private MainText mainText; // MainText 클래스
 	private Date regDate;
+	private QuestionHistory questionHistory;
 	
-	public Question() {
+	public QuestionBoard() {
 		
 	}
 	
-	public Question(long qId) {
+	public QuestionBoard(long qId) {
 		this.qId = qId;
 	}
 	
-	public Question(String qText, int answer, String qComment, Category category) {
+	public QuestionBoard(String qText, int answer, String qComment, Category category) {
 		this.qText = qText;
 		this.answer = answer;
 		this.qComment = qComment;

@@ -28,6 +28,7 @@ public class UserUpdateController {
 		
 		if (session == null) {
 			model.addAttribute("session", "no");
+			return "redirect:login";
 		} else {
 			if (session.getAttribute("uId") == null) {
 				model.addAttribute("session", "no");
