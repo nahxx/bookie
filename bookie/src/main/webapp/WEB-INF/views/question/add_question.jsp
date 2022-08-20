@@ -132,13 +132,12 @@
     	let subject = document.querySelector('input[value="' + "${category.getSubject()}" + '"]');
     	subject.checked = true;
     	let bp = document.querySelector('#bPattern');
-		for(let i = 0; i = bp.length; i++) {
-			if(bp.options[i].value == "${bigPattern}") {
+    	for(let i = 0; i < bp.length; i++) {
+			if(bp.options[i].value === "${bigPattern}") {
 				bp.options[i].selected = true;
 				break;
 			}
 		}
-    	
     	// 질문 에디터
     	const qTextEditor = new toastui.Editor({
     		    el: document.querySelector('#qTextEditor'),
@@ -335,7 +334,9 @@
             }
             
             // 대분류 가져와서 컨트롤러로 넘기기 (중분류 가져오기)
-            function checkingMPattern(url) {
+            function checkingMPattern(value) {
+            	console.log(value)
+            	let url = "checking_pattern_m";
             	// 폼 생성
     			let form = document.createElement('form');
     			form.setAttribute('type', 'hidden');
