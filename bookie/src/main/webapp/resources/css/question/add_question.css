@@ -234,13 +234,6 @@ select:focus {
 	padding-top: 30px;
 }
 
-/*
-.commentQ {
-	display: block;
-	text-align: center;
-}
-*/
-
 input[type="text"] {
 	width: 100%;
 }
@@ -249,8 +242,12 @@ input[type="text"] {
 	position: absolute;
     right: 0;
 	margin-top: 140px;
-	width: 100px;
+	width: 80px;
 	text-align: center;
+}
+
+.aBtn:first-child {
+	right: 90px;
 }
 
 .sBtn {

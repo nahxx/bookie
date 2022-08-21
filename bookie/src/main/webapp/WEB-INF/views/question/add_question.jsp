@@ -103,6 +103,7 @@
 				</div>
 				<div id="answer-wrap">
 					<button class="submit-btn aBtn" onclick="javascript:addAnswer();" >답안 추가</button>
+					<button class="submit-btn aBtn" onclick="javascript:removeAnswer();" >답안 삭제</button>
 					<div class="a-box">
 						<table>
 							<tr>
@@ -417,6 +418,13 @@
     			let answerWrap = document.getElementById('answer-wrap');
     			answerWrap.innerHTML += aBox;
     			QCommentLine(); // 해설 구분선 추가
+            }
+            
+            function removeAnswer() {
+            	let aBox = document.querySelectorAll('.a-box');
+            	let index = aBox.length - 1;
+            	let answerWrap = document.getElementById('answer-wrap');
+            	answerWrap.removeChild(aBox[index]);
             }
             
             // 지문 구분선
