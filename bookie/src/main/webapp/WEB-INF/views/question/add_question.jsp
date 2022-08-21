@@ -139,6 +139,7 @@
 	</footer>
 	
 	<script>
+		
 	
 		// 컨트롤러 다녀올 때 check 표시
 	    <c:if test="${not empty category}">
@@ -240,6 +241,7 @@
             
             // 폼 생성 후 컨트롤러로 넘어가기
     		function sendCommonQuestion(url) {
+            	
     			// 폼 생성
     			let form = document.createElement('form');
     			form.setAttribute('method', 'post');
@@ -370,6 +372,46 @@
             
             // 과목유형 가져와서 컨트롤러로 넘기기 (대분류 가져오기)
             function checkingPattern(url) {
+            	// 검사
+            	let check = 0;
+            	let c1 = document.querySelectorAll('input[name="cLevel"]');
+				let c2 = document.querySelectorAll('input[name="grade"]');
+				let c3 = document.querySelectorAll('input[name="subject"]');
+				for(let i = 0; i < c1.length; i++) {
+					if(c1[i].checked == true) {
+						console.log(c1[i]);
+						check++;
+						break;
+					}
+				}
+				if(check == 0) {
+					return alert("학력을 선택해주세요.");
+				}
+				
+				check = 0;
+				for(let i = 0; i < c2.length; i++) {
+					if(c2[i].checked == true) {
+						check++;
+						break;
+					}
+				}
+				if(check == 0) {
+					return alert("학년을 선택해주세요.");
+				}
+				
+				check = 0;
+				for(let i = 0; i < c3.length; i++) {
+					if(c3[i].checked == true) {
+						check++;
+						break;
+					}
+				}
+				if(check == 0) {
+					return alert("과목을 선택해주세요.");
+				} else {
+					checke = 0;
+				}
+            	
             	// 폼 생성
     			let form = document.createElement('form');
     			form.setAttribute('type', 'hidden');
