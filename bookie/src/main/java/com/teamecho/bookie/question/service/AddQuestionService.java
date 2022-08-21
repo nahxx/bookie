@@ -1,5 +1,7 @@
 package com.teamecho.bookie.question.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +64,13 @@ public class AddQuestionService {
 	 */
 	public QuestionText getQuestionTextByQtId(long qtId) {
 		return addQDao.finQuestionTextByQtId(qtId);
+	}
+	/**
+	 * 작성자 : 박동근
+	 * 내용 :
+	 * QuestionText 키값으로 Question 리스트 가져온다.
+	 */
+	public List<Question> getQuestionByQtId(long qtId){
+		return addQDao.findQuestionByQtId(qtId);
 	}
 }

@@ -1,6 +1,7 @@
 package com.teamecho.bookie.question.repository;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -81,5 +82,10 @@ public class AddQuestionDao {
 	public QuestionText finQuestionTextByQtId(long qtId) {
 		String sql = "SELECT * FROM QuestionText WHERE qtId = ?";
 		return jdbcTemplate.queryForObject(sql, new QuestionTextRowMapper(), qtId);
+	}
+	
+	public List<Question> findQuestionByQtId(long qtId){
+		String sql = "SELECT * FROM Question WHERE qtId = ?";
+		return jdbcTemplate.query(sql, new QuestionRowMapper(), qtId);
 	}
 }

@@ -1,6 +1,7 @@
 package com.teamecho.bookie.question.web;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionText;
 import com.teamecho.bookie.question.service.AddQuestionService;
 
@@ -32,14 +34,22 @@ public class AddCommentController {
 	ServletContext servletContext;
 	
 	@GetMapping("/question/add_comment/{qnaId}")
-	public ModelAndView qnaForm(HttpServletRequest request, ModelAndView mv, @PathVariable long qnaId) throws Exception{
+	public ModelAndView commentForm(HttpServletRequest request, ModelAndView mv, @PathVariable long qnaId) throws Exception{
 		HttpSession session = request.getSession(false);
 		long uId = (long) session.getAttribute("uId");
-		System.out.println(qnaId);
+		
 		QuestionText questionText = addQuestionService.getQuestionTextByQtId(qnaId);
-		System.out.println(questionText.getTotalText());
+		List<Question> qList = addQuestionService.getQuestionByQtId(questionText.getQtId());
+		
 		mv.addObject("questionText", questionText);
+		mv.addObject("qList", qList);
 		mv.setViewName("question/add_comment");
+		return mv;
+	}
+	
+	@PostMapping("/question/add_comment/{qId}")
+	public ModelAndView addComment(HttpServletRequest request, ModelAndView mv, @PathVariable long qId) throws Exception{
+		//DB에 넣으면 끝.
 		return mv;
 	}
 	

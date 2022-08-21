@@ -52,10 +52,16 @@
 			<div id="viewer_q">${questionText.totalText}</div>
 		</div>
 		<h3 class="answer-title">해설/답변</h3>
-		<div id="editor"></div>
-		<div class="btn">
-			작성
+		<div> 
+		 <c:forEach var="list" items="${qList}">
+		 	<label class="answer"><input type="radio" name="answer1" value="${list.getQId()}" /> 문제 ${list.getQId()}</label>
+		 </c:forEach>
 		</div>
+		<div id="editor"></div>
+		<div class="write-btn">
+          <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/add_qna'/>');" class="in-btn">글쓰기</a>
+          <a href="<c:url value=''/>" class="in-btn">취소</a>
+        </div>
 	</div>
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>

@@ -154,3 +154,4 @@ limit 30;
    
    ALTER TABLE Question ADD CONSTRAINT constraint_name DEFAULT 0 FOR answer;
    
+   SELECT * FROM Question WHERE qtId = 9;
