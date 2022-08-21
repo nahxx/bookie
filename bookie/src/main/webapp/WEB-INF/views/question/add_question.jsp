@@ -67,6 +67,7 @@
 					<th>대분류</th>
 					<td>
 						<select id='bPattern' name='bPattern' onChange='javascript:checkingMPattern(this);'>
+							<option value="unknown">---선택---</option>
 							${bigTag}
 						</select>
 					</td>
@@ -75,6 +76,7 @@
 					<th>중분류</th>
 					<td>
 						<select id='mPattern' name='mPattern'>
+							<option value="unknown">---선택---</option>
 							${midTag}
 						</select>
 					</td>
@@ -241,6 +243,12 @@
             
             // 폼 생성 후 컨트롤러로 넘어가기
     		function sendCommonQuestion(url) {
+            	// 검사
+            	let sCheck = document.getElementById("mPattern");
+            	let bpCheck = sCheck.options[sCheck.selectedIndex].value;
+				if(bpCheck == "unknown") {
+					return alert("중분류를 선택해주세요.");
+				}
             	
     			// 폼 생성
     			let form = document.createElement('form');
@@ -438,7 +446,12 @@
             
             // 대분류 가져와서 컨트롤러로 넘기기 (중분류 가져오기)
             function checkingMPattern(value) {
-            	console.log(value)
+            	let sCheck = document.getElementById("bPattern");
+            	let bpCheck = sCheck.options[sCheck.selectedIndex].value;
+				if(bpCheck == "unknown") {
+					return alert("대분류를 선택해주세요.");
+				}
+            	
             	let url = "checking_pattern_m";
             	// 폼 생성
     			let form = document.createElement('form');
@@ -450,7 +463,6 @@
     			// 대분류
     			let s = document.getElementById("bPattern");
     			let bp = s.options[s.selectedIndex].value;
-    			console.log(bp);
     			
     			let input1 = document.createElement('input');
     			input1.setAttribute('type', 'hidden');

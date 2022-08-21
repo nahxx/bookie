@@ -96,3 +96,5 @@ END;
 
 CALL FIND_QUESTION_SAME_CATEGORY(10, 2);
 >>>>>>> Stashed changes
+
+SELECT * FROM SubjectPattern WHERE bigPattern = "읽기" AND midPattern = "세부 정보 이해" AND cateId = 2;

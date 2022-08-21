@@ -188,6 +188,9 @@ public class AddQuestionController {
 			}
 			
 			// QuestionPattern DB 등록
+			System.out.println(command.getBPattern());
+			System.out.println(command.getMPattern());
+			System.out.println(category.getCateId());
 			SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPatternAndCateId(command.getBPattern(), command.getMPattern(), category.getCateId());
 			
 			QuestionPattern qp = new QuestionPattern();
