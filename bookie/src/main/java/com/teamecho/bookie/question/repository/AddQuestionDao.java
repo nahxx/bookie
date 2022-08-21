@@ -1,8 +1,13 @@
 package com.teamecho.bookie.question.repository;
 
+import java.sql.PreparedStatement;
+
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.teamecho.bookie.question.domain.MainText;
@@ -57,5 +62,24 @@ public class AddQuestionDao {
 	public void addQuestionPattern(QuestionPattern qp) {
 		String sql = "INSERT INTO QuestionPattern (qId, spId) VALUES (?, ?)";
 		jdbcTemplate.update(sql, qp.getQuestion().getQId(), qp.getSubjectPattern().getSpId());
+	}
+	
+	//동근
+	public long addQuestionTextRetrunID(String text) {
+		String sql = "INSERT INTO QuestionText (totalText) VALUES (?)";
+		
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		PreparedStatementCreator creator = (connection) -> {
+			PreparedStatement pstmt = connection.prepareStatement(sql, new String[] {"qtId"});
+			pstmt.setString(1, text);
+			return pstmt;
+		};
+		jdbcTemplate.update(creator, keyHolder);
+		
+		return keyHolder.getKey().longValue();
+	}
+	public QuestionText finQuestionTextByQtId(long qtId) {
+		String sql = "SELECT * FROM QuestionText WHERE qtId = ?";
+		return jdbcTemplate.queryForObject(sql, new QuestionTextRowMapper(), qtId);
 	}
 }

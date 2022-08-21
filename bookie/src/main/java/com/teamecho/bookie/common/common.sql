@@ -6,9 +6,9 @@ DROP TABLE QuestionPattern;
 DROP TABLE Question;
 DROP TABLE QuestionText;
 DROP TABLE MainText;
-DROP TABLE SubjectPattern;
+-- DROP TABLE SubjectPattern;
 DROP TABLE Qna;
-DROP TABLE Category;
+-- DROP TABLE Category;
 DROP TABLE User;
 
 
@@ -89,7 +89,6 @@ CREATE TABLE QuestionText (
 -- Question 테이블 생성
 CREATE TABLE Question (
 	qId				BIGINT			PRIMARY KEY AUTO_INCREMENT,
-	qTitle			VARCHAR(100)	NOT NULL,
 	qText			VARCHAR(3500)	NOT NULL,
 	answer			INT				NOT NULL,
 	qComment		VARCHAR(1000)	NULL,

@@ -46,4 +46,21 @@ public class AddQuestionService {
 	public void addQuestionPattern(QuestionPattern qp) {
 		addQDao.addQuestionPattern(qp);
 	}
+	
+	/**
+	 * 작성자 : 박동근
+	 * 내용 :
+	 * QuestionText insert할때 스트링값으로 넣고, 리턴으로 key값을 받는다.
+	 */
+	public long addQuestionTextRetrunID(String text) {
+		return addQDao.addQuestionTextRetrunID(text);
+	}
+	/**
+	 * 작성자 : 박동근
+	 * 내용 :
+	 * QuestionText 키값으로 QuestionText가져온다.
+	 */
+	public QuestionText getQuestionTextByQtId(long qtId) {
+		return addQDao.finQuestionTextByQtId(qtId);
+	}
 }

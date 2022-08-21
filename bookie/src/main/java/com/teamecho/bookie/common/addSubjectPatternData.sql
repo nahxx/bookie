@@ -122,17 +122,6 @@ INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('어휘', '역사', 2);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('어휘', '정보통신', 2);
--- 1학년 수학
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('함수', '함수와 그래프', 3);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '평면 도형', 3);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '입체 도형', 3);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '통계', 3);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수와 연산', '수의 체계 및 연산', 3);
 -- 2학년 국어
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('듣기·말하기', '주장하는 글', 4);
@@ -253,15 +242,7 @@ INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('어휘', '동의어와 반의어', 5);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('어휘', '혼동하기 쉬운 어휘', 5);
--- 2학년 수학
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('함수', '함수와 그래프', 6);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '평면 도형', 6);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '확률', 6);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수와 연산', '수의 체계 및 연산', 6);
+
 -- 3학년 국어
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('듣기·말하기', '발표', 7);
@@ -402,17 +383,7 @@ INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('어휘', '다의어', 8);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('어휘', '동의어와 반의어', 8);
--- 3학년 수학
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '평면 도형', 9);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '통계', 9);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수와 연산', '수의 체계 및 연산', 9);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('문자와 식', '다항식', 9);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('문자와 식', '방정식과 부등식', 9);
+
 -- 고
 -- 1학년 국어
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
@@ -580,48 +551,6 @@ INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '가목적어(형식상의 목적어)', 11);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '기타', 11);
--- 1학년 수학
-VALUES('수학', '다항식', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '방정식과 부등식', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '도형의 방정식', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '집합과 명제', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '함수', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '경우의 수', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅰ', '지수함수와 로그함수', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅰ', '삼각함수', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅰ', '수열', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅱ', '함수의 극한과 연속', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅱ', '미분', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅱ', '적분', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '경우의 수', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '확률', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '통계', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('미적분', '수열의 극한', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('미적분', '미분법', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('미적분', '적분법', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '이차곡선', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '평면벡터', 12);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '공간도형과 공간좌표', 12);
 -- 2학년 국어
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('독서', '독서의 본질', 13);
@@ -832,48 +761,7 @@ INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '가목적어(형식상의 목적어)', 14);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '기타', 14);
--- 2학년 수학
-VALUES('수학', '다항식', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '방정식과 부등식', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '도형의 방정식', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '집합과 명제', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '함수', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학', '경우의 수', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅰ', '지수함수와 로그함수', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅰ', '삼각함수', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅰ', '수열', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅱ', '함수의 극한과 연속', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅱ', '미분', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('수학Ⅱ', '적분', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '경우의 수', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '확률', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('확률과 통계', '통계', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('미적분', '수열의 극한', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('미적분', '미분법', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('미적분', '적분법', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '이차곡선', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '평면벡터', 15);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('기하', '공간도형과 공간좌표', 15);
+
 -- 3학년 국어
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('독서', '독서의 본질', 16);
@@ -1084,6 +972,127 @@ INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '가목적어(형식상의 목적어)', 17);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '기타', 17);
+
+-- 중등수학
+-- 1학년 수학
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('함수', '함수와 그래프', 3);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '평면 도형', 3);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '입체 도형', 3);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '통계', 3);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수와 연산', '수의 체계 및 연산', 3);
+-- 2학년 수학
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('함수', '함수와 그래프', 6);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '평면 도형', 6);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '확률', 6);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수와 연산', '수의 체계 및 연산', 6);
+-- 3학년 수학
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '평면 도형', 9);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '통계', 9);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수와 연산', '수의 체계 및 연산', 9);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('문자와 식', '다항식', 9);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('문자와 식', '방정식과 부등식', 9);
+
+-- 고등수학
+-- 1학년 수학
+VALUES('수학', '다항식', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '방정식과 부등식', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '도형의 방정식', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '집합과 명제', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '함수', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '경우의 수', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅰ', '지수함수와 로그함수', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅰ', '삼각함수', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅰ', '수열', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅱ', '함수의 극한과 연속', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅱ', '미분', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅱ', '적분', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '경우의 수', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '확률', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '통계', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('미적분', '수열의 극한', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('미적분', '미분법', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('미적분', '적분법', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '이차곡선', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '평면벡터', 12);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '공간도형과 공간좌표', 12);
+
+-- 2학년 수학
+VALUES('수학', '다항식', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '방정식과 부등식', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '도형의 방정식', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '집합과 명제', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '함수', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학', '경우의 수', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅰ', '지수함수와 로그함수', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅰ', '삼각함수', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅰ', '수열', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅱ', '함수의 극한과 연속', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅱ', '미분', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('수학Ⅱ', '적분', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '경우의 수', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '확률', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('확률과 통계', '통계', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('미적분', '수열의 극한', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('미적분', '미분법', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('미적분', '적분법', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '이차곡선', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '평면벡터', 15);
+INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
+VALUES('기하', '공간도형과 공간좌표', 15);
+
 -- 3학년 수학
 VALUES('수학', '다항식', 18);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)

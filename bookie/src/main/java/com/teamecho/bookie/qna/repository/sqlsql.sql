@@ -138,3 +138,19 @@ limit 30;
    FROM QuestionHistory
    where identify = 'Y'
    group by uid
+   
+  select *
+   from SubjectPattern
+   where spid >=553
+   ;
+   
+   SELECT count(*)
+   FROM SubjectPattern a, SubjectPattern b 
+   WHERE a.bigPattern = b.bigPattern 
+   AND a.midPattern = b.midPattern 
+   AND a.cateId = a.cateId
+   having count(*) > 2
+   
+   
+   ALTER TABLE Question ADD CONSTRAINT constraint_name DEFAULT 0 FOR answer;
+   
