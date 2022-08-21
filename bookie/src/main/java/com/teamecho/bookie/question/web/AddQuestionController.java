@@ -102,7 +102,7 @@ public class AddQuestionController {
 	 */
 	@PostMapping("/question/add_question")
 	public String addQuestions(AddQuestionsCommand command, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		// 카테고리 얻기
 		Category category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
 		
@@ -112,11 +112,17 @@ public class AddQuestionController {
 		questionText.setTotalText(text);
 		addQService.addQuestionText(questionText);
 		
+		// 해설 텍스트
+		String comments = command.getQComment();
+		
 		// 지문, 문제 분리
 		List<String> mList = new ArrayList(); // 지문 담을 리스트
 		List<String> qList = new ArrayList(); // 문제 담을 리스트
+		List<String> comList = new ArrayList(); // 해설 담을 리스트
 		List<String> textList = new ArrayList(); // 지문, 문제 구분자 제거 후 텍스트 담을 리스트
+		List<String> commentList = new ArrayList(); // 해설 구분자 제거 후 텍스트 담을 리스트
 		
+		// qText 분리
 		StringTokenizer st = new StringTokenizer(text, "◆<>", false);
 		while(st.hasMoreTokens()) {
 			String str = st.nextToken();
@@ -125,9 +131,19 @@ public class AddQuestionController {
 			}
 		}
 		
+		// qComment 분리
+		StringTokenizer st2 = new StringTokenizer(comments, "◆<>", false);
+		while(st2.hasMoreTokens()) {
+			String str = st2.nextToken();
+			if(!str.equals("p") && !str.equals("/p")  && !str.equals("br")) {
+				commentList.add(str);
+			}
+		}
+		
 		String m = "";
 		String s = "";
 		
+		// 지문, 문제 분리
 		if(textList.size() > 0) {
 			for(int i = 0; i < textList.size(); i++) {
 				if(textList.get(i).equals("지문")) {
@@ -162,6 +178,27 @@ public class AddQuestionController {
 			}
 		}
 		
+		// 해설 분리
+		if(commentList.size() > 0) {
+			for(int i = 0; i < commentList.size(); i++) {
+				if(commentList.get(i).equals("해설")) {
+					for(int j = i + 1; j < commentList.size(); j++) {
+						if(!(commentList.get(j).equals("해설"))) {
+							m += "<p>" + commentList.get(j) + "</p>";
+						} else {
+							comList.add(m);
+							i = j-1;
+							m = "";
+							break;
+						}
+						if(j == commentList.size() - 1) {
+							comList.add(m);
+						}
+					}
+				}
+			}
+		}
+		
 		// MainText, Question, QuestionPattern 테이블에 담기
 		if(command.getQuestionCount() == 1) { // 한문제인 경우
 			Question question = new Question();
@@ -169,7 +206,7 @@ public class AddQuestionController {
 			MainText mt = new MainText();
 
 			question.setAnswer(command.getAnswerList().get(0));
-			question.setQComment(command.getQCommentList().get(0));
+			question.setQComment(comList.get(0));
 			question.setQuestionText(qt);
 			question.setCategory(category);
 			Question q;
@@ -211,7 +248,7 @@ public class AddQuestionController {
 
 				question.setQText(qList.get(i));
 				question.setAnswer(command.getAnswerList().get(i));
-				question.setQComment(command.getQCommentList().get(i));
+				question.setQComment(comList.get(i));
 				question.setQuestionText(qt);
 				mt = addQService.getMainTextByMText(mList.get(0));
 				question.setMainText(mt);
@@ -235,14 +272,19 @@ public class AddQuestionController {
 		
 		// 에디터에서 받아온 html문자열에서 이미지 태그 분리 후 이미지파일 이름 저장
 		List<String> qTextImgNameList = commonService.getImageName(text);
+		List<String> qCommentImgNameList = commonService.getImageName(comments);
+		
 		// 임시저장 폴더에서 이미지파일 찾아서 최종적으로 html에 포함된 이미지만 골라서 최종 폴더에 저장
-		commonService.saveFinalImages(command.getQuestionImgArr(), qTextImgNameList);
+		commonService.saveFinalImages(command.getQuestionImgArr(), qTextImgNameList, "question");
+		commonService.saveFinalImages(command.getCommentImgArr(), qCommentImgNameList, "comment");
+		
 		// 임시 저장 이미지 삭제
 		commonService.deleteTempImages(command.getQuestionImgArr());
+		commonService.deleteTempImages(command.getCommentImgArr());
 		
 		response.setContentType("text/html; charset=UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.println("<script>alert('문제가 추가되었습니다.'); location.href='add_question';</script>"); // 경고창 띄우기
+        writer.println("<script>alert('문제가 추가되었습니다.'); location.href='test_question';</script>"); // 경고창 띄우기
         writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
 		
 		return "question/add_question";

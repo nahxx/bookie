@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/default.css"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/question/test_question.css"/>"/>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/question/add_question.css"/>"/>
 
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -59,8 +59,9 @@
 				<tr>
 					<th>과목</th>
 					<td>
-						<label class="subject"><input class="category" type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/test_checking_pattern"/>')"/>국어</label>
-						<label class="subject"><input class="category" type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/test_checking_pattern"/>')"/>영어</label>
+						<label class="subject"><input class="category" type="radio" name="subject" value="국어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>국어</label>
+						<label class="subject"><input class="category" type="radio" name="subject" value="영어" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>영어</label>
+						<label class="subject"><input class="category" type="radio" name="subject" value="수학" onclick="javascript:checkingPattern('<c:url value="/question/checking_pattern"/>')"/>수학</label>
 					</td>
 				</tr>
 				<tr>
@@ -129,7 +130,7 @@
 			</div>
 			
 		</div>
-		<button class="submit-btn sBtn" onclick="javascript:sendCommonQuestion('<c:url value="/question/test_question"/>');" >등록</button>
+		<button class="submit-btn sBtn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_question"/>');" >등록</button>
 		
 	</div>
 	
@@ -140,7 +141,10 @@
 	
 	<script>
 		
-	
+		setTimeout(function() {
+			scrollTo(0, 0);
+		}, 10);
+		
 		// 컨트롤러 다녀올 때 check 표시
 	    <c:if test="${not empty category}">
 	        let cLevel = document.querySelector('input[value="' + "${category.getCLevel()}" + '"]');
@@ -417,7 +421,6 @@
             
             // 지문 구분선
             function MainTextLine() {
-            	//let text = '<p class="mainText" style="display: none"></p>';
             	let text = '◆지문◆';
             	qTextEditor.insertText(text);
             	let qT = qTextEditor.getHTML;
@@ -425,7 +428,6 @@
             
             // 질문 구분선
             function QuestionLine() {
-            	//let text = '<p class="question" style="display: none"></p>';
             	let text = '◆문제◆';
             	qTextEditor.insertText(text);
             	let qT = qTextEditor.getHTML;
@@ -433,7 +435,6 @@
             
             // 해설 구분선
             function QCommentLine() {
-            	//let text = '<p class="question" style="display: none"></p>';
             	let text = '◆해설◆';
             	qCommentEditor.insertText(text);
             	let qT = qCommentEditor.getHTML;
@@ -513,7 +514,7 @@
 					return alert("대분류를 선택해주세요.");
 				}
             	
-            	let url = "test_checking_pattern_m";
+            	let url = "checking_pattern_m";
             	// 폼 생성
     			let form = document.createElement('form');
     			form.setAttribute('type', 'hidden');

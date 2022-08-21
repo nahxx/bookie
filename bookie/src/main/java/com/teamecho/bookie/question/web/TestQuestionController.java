@@ -178,6 +178,7 @@ public class TestQuestionController {
 			}
 		}
 		
+		// 해설 분리
 		if(commentList.size() > 0) {
 			for(int i = 0; i < commentList.size(); i++) {
 				if(commentList.get(i).equals("해설")) {
@@ -197,12 +198,6 @@ public class TestQuestionController {
 				}
 			}
 		}
-		
-		// 해설 잘 담겼나 출력
-		for(int i = 0; i < comList.size(); i++) {
-			System.out.println("해설" + (i+1) + ": " + comList.get(i));
-		}
-		
 		
 		// MainText, Question, QuestionPattern 테이블에 담기
 		if(command.getQuestionCount() == 1) { // 한문제인 경우
@@ -280,8 +275,8 @@ public class TestQuestionController {
 		List<String> qCommentImgNameList = commonService.getImageName(comments);
 		
 		// 임시저장 폴더에서 이미지파일 찾아서 최종적으로 html에 포함된 이미지만 골라서 최종 폴더에 저장
-		commonService.saveFinalImages(command.getQuestionImgArr(), qTextImgNameList);
-		commonService.saveFinalImages(command.getCommentImgArr(), qCommentImgNameList);
+		commonService.saveFinalImages(command.getQuestionImgArr(), qTextImgNameList, "question");
+		commonService.saveFinalImages(command.getCommentImgArr(), qCommentImgNameList, "comment");
 		
 		// 임시 저장 이미지 삭제
 		commonService.deleteTempImages(command.getQuestionImgArr());
@@ -292,7 +287,7 @@ public class TestQuestionController {
         writer.println("<script>alert('문제가 추가되었습니다.'); location.href='test_question';</script>"); // 경고창 띄우기
         writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
 		
-		return "question/test_question";
+		return "question/add_question";
 	}
 	
 	

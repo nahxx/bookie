@@ -79,13 +79,14 @@ public class CommonService {
 	 * 임시저장 폴더에서 이미지파일 찾아서 최종적으로 html에 포함된 이미지만 골라서 최종 폴더에 저장
 	 * @param tempList (임시 저장된 imageName 리스트)
 	 * @param FinalList (최종 등록된 imageName 리스트)
+	 * @param newFolderName (저장할 폴더 이름)
 	 * @throws IOException
 	 */
-	public void saveFinalImages(List<String> tempList, List<String> FinalList) throws IOException {
+	public void saveFinalImages(List<String> tempList, List<String> FinalList, String newFolderName) throws IOException {
 		for(String imgName1 : tempList) {
 			for(String imgName2 : FinalList) {
 				if(imgName1.equals(imgName2)) {
-					copyImage(imgName1, "/resources/question/question/");
+					copyImage(imgName1, "/resources/question/" + newFolderName + "/");
 				}
 			}
 		}
