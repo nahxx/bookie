@@ -6,12 +6,12 @@ import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.teamecho.bookie.user.domain.Ranking;
 import com.teamecho.bookie.user.domain.User;
 
 @Component("userDao")
@@ -104,5 +104,10 @@ public class UserDao {
 		} catch (IncorrectResultSizeDataAccessException error) {
 			return 2;
 		}
+	}
+	
+	public List<Ranking> rankingUser() {
+		String sql = "CALL RANK_USER_PROCEDURE()";
+		return jdbcTemplate.query(sql, new RankingRowMapper());
 	}
 }
