@@ -76,8 +76,40 @@ nav {
 
 .gnb li>a {
 	color: white;
-}
+}color picker
 
 .gnb li:first-child {
 	margin-left: 0;
 }
+
+/*
+.nav-box {
+	width: 800px;
+	margin: 0 auto;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+	display: inline-block;
+    font-size: 20px;
+}
+
+.gnb {
+	overflow: hidden;
+	line-height: 80px;
+}
+
+.gnb li {
+	float: left;
+}
+
+.gnb li + li {
+	margin-left: 50px;
+}
+
+.gnb li a {
+	color: white;
+}
+*/
