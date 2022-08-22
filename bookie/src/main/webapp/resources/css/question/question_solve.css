@@ -147,7 +147,7 @@
 .subjectPattern {
     font-size: 19px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin: 15px 0;
 }
 .sp-txt {
     color: #b94a48;

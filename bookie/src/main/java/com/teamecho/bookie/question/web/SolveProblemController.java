@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller("question.web.solveProblemController")
@@ -27,7 +28,10 @@ public class SolveProblemController {
 	
 	@Autowired
 	private SolveProblemService solveProblemService;
-	
+
+	private List<Question> questionList;
+	SubjectPattern subjectPattern;
+
 	@GetMapping("/question/solveProblemList")
 	public String solveProblemListPage(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
@@ -140,10 +144,11 @@ public class SolveProblemController {
 
 		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(category.getCLevel().charAt(0), category.getGrade(), category.getSubject());
+		model.addAttribute("realCategory", realCategory);
 
 		// 새로고침 했을때 question이 랜덤으로 바뀌지 않게 하기 위함
-		List<Question> questionList = (List<Question>) session.getAttribute("questionList");
-		SubjectPattern subjectPattern = null;
+		questionList = (List<Question>) session.getAttribute("questionList");
+
 		if(questionList == null) {
 
 			System.out.println("questionList 가 없는 경우 : 진입");
@@ -162,7 +167,7 @@ public class SolveProblemController {
 			// 문제가 한문제인 경우
 
 			// 한개의 지문에 문제가 여러개인 경우
-			if(questionList.get(0).getMainText() != null) {
+			if(questionList.get(14).getMainText() != null) {
 				System.out.println("문제가 여러개인 경우 -> 진입");
 				model.addAttribute("mainText", questionList.get(0).getMainText());
 
@@ -178,11 +183,11 @@ public class SolveProblemController {
 
 			return "question/solveProblemPage";
 		}
-
-		// session에 리스트가 담겼을 경우
+		/**
+		 * session에 리스트가 담겼을 경우
+		 */
 		System.out.println("questionList가 있는 경우 : 진입");
 		if(questionList.get(0).getMainText() != null) {
-			model.addAttribute("mainText", questionList.get(0).getMainText());
 			model.addAttribute("question", questionList.get(0));
 		}
 
@@ -205,12 +210,51 @@ public class SolveProblemController {
 	@PostMapping("/question/solveProblem")
 	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String questionId, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		
+
+		if (session == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
+		if(session.getAttribute("uId") == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
+
+		// 해당 카테고리 불러오기
+		char cLevel = request.getParameter("cLevel").charAt(0);
+		int grade = Integer.parseInt(request.getParameter("grade"));
+		String subject = request.getParameter("subject");
+
+		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
+		model.addAttribute("realCategory", realCategory);
+
+		// 문제 다 풀었을때 새로 불러오기
+		if(questionList.get(questionList.size()-1).getQId() == Long.parseLong(questionId)){
+			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+		}
+
+		// 정답 확인 후 DB넣기
+		solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
+
 		System.out.println(answer);
 		System.out.println("questionId = " + questionId);
+
+		Question question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
+
+
+
+		for(int i=0;i<questionList.size();i++){
+			if(questionList.get(i).getQId() == question.getQId()){
+				subjectPattern = solveProblemService.getQuestionPattern(questionList.get(i+1).getQId());
+				model.addAttribute("question", questionList.get(i+1));
+				model.addAttribute("subjectPattern", subjectPattern);
+			}
+		}
+
+
+
 //		System.out.println("session.getAttribute(\"uId\") = " + session.getAttribute("uId"));
 //		solveProblemService.findQuestionByQuestionId(Long.parseLong(question));
-//		solveProblemService.answerChecking(Long.parseLong(question), (long)session.getAttribute("uId"), Integer.parseInt(answer));
 		return "question/solveProblemPage";
 	}
 }

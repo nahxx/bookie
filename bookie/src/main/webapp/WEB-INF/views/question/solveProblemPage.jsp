@@ -69,9 +69,7 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>
 const Editor = toastui.Editor;
-let questionList = ${mainQuestionList};
-<%--if(${questionList})--%>
-let content = '${mainText.MText}${question.QText}';
+let content = '${question.mainText.MText}${question.QText}';
 <%--let content2 = '${mainText.MText}<c:forEach var="question" items="${questionList}">${question.QText}</c:forEach>';--%>
 const viewer = Editor.factory({
     el: document.querySelector('#viewer'),
@@ -131,6 +129,23 @@ function sendPost(url) {
     qeustion.setAttribute('name', 'question');
     qeustion.setAttribute('value', '${question.QId}');
     form.appendChild(qeustion);
+
+    // 카테고리 넘겨주기
+    let input1 = document.createElement('input');
+    input1.setAttribute('type', 'hidden');
+    input1.setAttribute('name', 'cLevel');
+    input1.setAttribute('value', '${realCategory.getCLevel()}');
+    form.appendChild(input1);
+    let input2 = document.createElement('input');
+    input2.setAttribute('type', 'hidden');
+    input2.setAttribute('name', 'grade');
+    input2.setAttribute('value', '${realCategory.getGrade()}');
+    form.appendChild(input2);
+    let input3 = document.createElement('input');
+    input3.setAttribute('type', 'hidden');
+    input3.setAttribute('name', 'subject');
+    input3.setAttribute('value', '${realCategory.getSubject()}');
+    form.appendChild(input3);
 
     // 문제 답 던져주기
     form.appendChild(checkButton);
