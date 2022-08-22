@@ -38,9 +38,6 @@ import com.teamecho.bookie.user.service.UserService;
 @Controller
 public class QnaController {
 	@Autowired
-	ServletContext servletContext;
-
-	@Autowired
 	CategoryService categoryService;
 
 	@Autowired
@@ -86,28 +83,4 @@ public class QnaController {
 		qnaService.addQna(qna);
 		return "redirect:/qna_board/1";
 	}
-
-	@ResponseBody
-	@RequestMapping(value = "/qna_write", method = RequestMethod.POST)
-	public ModelAndView imageTempSave(@RequestParam("image") MultipartFile multi, HttpServletRequest request,
-			HttpServletResponse response) {
-		String url = null;
-		ModelAndView mv = new ModelAndView();
-		try {
-			String uploadPath = servletContext.getRealPath("/resources/temp");
-			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
-			File folder = new File(uploadPath);
-			if (!folder.exists()) folder.mkdirs();
-			url = folder.getPath() + File.separator;
-			File destination = new File(url + originFilename);
-			multi.transferTo(destination);
-			mv.addObject("url", "http://localhost:8080/bookie/tempimg/");
-			mv.addObject("filename", originFilename);
-			mv.setViewName("/qna/qna_image_json");
-		} catch (Exception e) {
-			System.out.println("[Error] " + e.getMessage());
-		}
-		return mv;
-	}
-
 }

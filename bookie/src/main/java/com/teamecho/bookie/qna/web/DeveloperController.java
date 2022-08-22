@@ -88,14 +88,14 @@ public class DeveloperController {
 		ModelAndView mv = new ModelAndView();
 		
 		try { 
-			String uploadPath =  servletContext.getRealPath("/resources/temp");
+			String uploadPath =  servletContext.getRealPath("/resources/qna");
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 	        if (!folder.exists()) folder.mkdirs();
 	        url = folder.getPath() + File.separator;
 	        File destination = new File(url + originFilename);
 	        multi.transferTo(destination);
-			mv.addObject("url", "http://localhost:8080/bookie/tempimg/");
+			mv.addObject("url", "http://localhost:8080//bookie/images/qna/");
 			mv.addObject("filename", originFilename);
 			mv.setViewName("image_json");
 		} catch (Exception e) {
