@@ -1,6 +1,7 @@
 package com.teamecho.bookie.qna.web;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teamecho.bookie.common.service.CategoryService;
+import com.teamecho.bookie.common.service.CommonService;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.service.QnaService;
 import com.teamecho.bookie.user.service.UserService;
@@ -45,7 +47,8 @@ public class QnaController {
 
 	@Autowired
 	UserService userService;
-
+	@Autowired
+	CommonService commonService;
 	/**
 	 * QNA 작성페이지로 이동 한다.
 	 */
@@ -81,6 +84,10 @@ public class QnaController {
 				qnaCommand.getSubject()));
 		qna.setUser(userService.getUserByUid(uId));
 		qnaService.addQna(qna);
+		
+		List<String> qTextImgNameList = commonService.getImageName(qnaCommand.getContent());
+		commonService.deleteTempImages(qnaCommand.getQnaImgArr(), qTextImgNameList, "qna");
+		
 		return "redirect:/qna_board/1";
 	}
 }

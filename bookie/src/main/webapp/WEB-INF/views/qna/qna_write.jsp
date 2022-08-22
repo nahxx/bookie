@@ -46,6 +46,7 @@
           <input type="radio" id="korean" name="subject" value="국어"><label for="korean">국어</label>
           <input type="radio" id="english" name="subject" value="영어"><label for="english">영어</label>
           <input type="radio" id="math" name="subject" value="수학"><label for="math">수학</label>
+          <input type="radio" id="etc" name="subject" value="기타"><label for="etc">기타</label>
         </div>
       </div>
     </div>
@@ -67,6 +68,8 @@
   </footer>
   <!-- TOAST UI Editor 생성 JavaScript 코드 -->
   <script>
+  let qnaImgArr = [];
+  
     const editor = new toastui.Editor({
       el: document.querySelector('#editor'),
       previewStyle: 'tab',
@@ -91,6 +94,7 @@
             timeout: 600000,
             success: function(data) {
               url = Object.values(data)[0] + Object.values(data)[1];
+              qnaImgArr.push(Object.values(data)[1]);
               callback(url, '이미지');
             },
             error: function(e) {
@@ -145,7 +149,13 @@
       hf_4.setAttribute('name', "subject");
       hf_4.setAttribute('value', subject);
       form.appendChild(hf_4);
-
+	  
+      var hf_5 = document.createElement('input');
+      hf_5.setAttribute('type', 'hidden');
+      hf_5.setAttribute('name', "qnaImgArr");
+      hf_5.setAttribute('value', qnaImgArr);
+      form.appendChild(hf_5);
+      
       document.body.appendChild(form);
       form.submit();
     };

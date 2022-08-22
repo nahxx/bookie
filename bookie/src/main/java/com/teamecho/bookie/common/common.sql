@@ -6,9 +6,9 @@ DROP TABLE QuestionPattern;
 DROP TABLE Question;
 DROP TABLE QuestionText;
 DROP TABLE MainText;
--- DROP TABLE SubjectPattern;
+DROP TABLE SubjectPattern;
 DROP TABLE Qna;
--- DROP TABLE Category;
+DROP TABLE Category;
 DROP TABLE User;
 
 
