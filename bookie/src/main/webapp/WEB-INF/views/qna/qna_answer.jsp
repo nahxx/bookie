@@ -384,6 +384,12 @@
 	    hiddenField.setAttribute('value', documnet);
 	    form.appendChild(hiddenField);
 	    
+	    var hiddenField2 = document.createElement('input');
+	    hiddenField2.setAttribute('type', 'hidden');
+	    hiddenField2.setAttribute('name', "answerImgArr");
+	    hiddenField2.setAttribute('value', answerImgArr);
+	    form.appendChild(hiddenField2);
+	    
 	    document.body.appendChild(form);   
 	    form.submit();
 	}

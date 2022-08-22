@@ -1,5 +1,7 @@
 package com.teamecho.bookie.qna.web;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.common.service.CategoryService;
+import com.teamecho.bookie.common.service.CommonService;
 import com.teamecho.bookie.qna.domain.Answer;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.service.AnswerService;
@@ -41,6 +45,9 @@ public class AnswerController {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	CommonService commonService;
 	
 	long uId;
 	User user;
@@ -139,7 +146,8 @@ public class AnswerController {
 	
 	// 댓글 작성
 	@RequestMapping(value = "/answer/insert/{qnaId}/{page}", method = RequestMethod.POST)
-	public ModelAndView answerInsert(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page) throws Exception{
+	public ModelAndView answerInsert(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page,
+			@RequestParam(value="answerImgArr") List<String> answerImgArr) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
 		// 세션 uId로 uType 'e' 찾기
@@ -164,14 +172,29 @@ public class AnswerController {
 		// 해당 질문에 대한 답변 쓰기
 		// 에디터에서 쓴 글(폼으로)
 		String documnet = request.getParameter("documnet");
-
+		// 내가 등록한 이미지
+		/*
+		String answerImgArr = request.getParameter("answerImgArr");
+		
+		String[] strArr = answerImgArr.split("\\s+");//Splitting using whitespace
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(strArr));
+		System.out.println(list);
+        */
 		Answer answer = new Answer();
 		answer.setDocument(documnet);
 		// 해당 qnaId를 가진 qna객체
 		answer.setQna(qnaService.getQnaByQnaId(qnaId));
 		// 현재 로그인한 유저
 		answer.setUser(userService.getUserByUid(uId));
+		
 		answerService.addAnswer(answer);
+		
+		// 최종이미지
+		List<String> answerImgNameList = commonService.getImageName(documnet);
+		System.out.println(answerImgNameList);
+		
+		commonService.deleteTempImages(answerImgArr, answerImgNameList, "answer");
+		
 		mv.addObject("answer", answer);
 		//mv.setViewName("qna/qna_answer");
 		mv.setViewName("redirect:/answer/{qnaId}/{page}");
@@ -293,4 +316,5 @@ public class AnswerController {
 		mv.setViewName("redirect:/answer/{qnaId}/{page}");
 		return mv;
 	}
+	
 }
