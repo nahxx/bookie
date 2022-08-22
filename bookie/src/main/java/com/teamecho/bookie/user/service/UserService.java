@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamecho.bookie.user.domain.Ranking;
+//import com.teamecho.bookie.user.domain.Ranking;
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.repository.UserDao;
 
@@ -51,8 +51,8 @@ public class UserService {
 		return userDao.checkingUserId(userId);
 	}
 	
-	public List<Ranking> rankingUser() {
-		return userDao.rankingUser();
-	}
+//	public List<Ranking> rankingUser() {
+//		return userDao.rankingUser();
+//	}
 
 }

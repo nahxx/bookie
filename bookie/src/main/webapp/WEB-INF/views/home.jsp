@@ -51,22 +51,22 @@
 			</div>
 			<div class="count">
 				<span class="counter">12345</span>
-				<h4>전체 문제</h4>
+				<h4>국어</h4>
 			</div>
 			<div class="count">
 				<span class="counter">12345</span>
-				<h4>전체 문제</h4>
+				<h4>영어</h4>
 			</div>
 			<div class="count">
 				<span class="counter">12345</span>
-				<h4>전체 문제</h4>
+				<h4>수학</h4>
 			</div>
 		</div>
 		<div class="container content">
 			<div class="qna contents">
 				<div class="headline">
 					<h2>
-						<a href="/">유저 랭</a>
+						<a href="/">유저 랭킹</a>
 					</h2>
 				</div>
 				<div class="qna inner">
@@ -110,15 +110,7 @@
 						</a></li>
 					</ul>
 				</div>
-				<div class="ranking inner">
-					<ul>
-						<li><a href="/">
-								<div class="rank-num">1</div>
-								<div class="article-subject">subject</div>
-								<div class="article-text">text</div>
-						</a></li>
-					</ul>
-				</div>
+
 			</div>
 		</div>
 	</div>
