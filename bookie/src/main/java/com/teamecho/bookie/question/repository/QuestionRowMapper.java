@@ -1,13 +1,15 @@
 package com.teamecho.bookie.question.repository;
 
+import org.springframework.jdbc.core.RowMapper;
+
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionText;
-import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 
 public class QuestionRowMapper implements RowMapper<Question>{

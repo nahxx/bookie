@@ -155,3 +155,8 @@ limit 30;
    ALTER TABLE Question ADD CONSTRAINT constraint_name DEFAULT 0 FOR answer;
    
    SELECT * FROM Question WHERE qtId = 9;
+   
+   
+   SELECT qp.spId, sp.bigPattern, sp.midPattern, count(*) FROM QuestionPattern qp INNER JOIN SubjectPattern sp ON qp.spId = sp.spId
+   GROUP BY qp.spId, sp.bigPattern, sp.midPattern
+   ;

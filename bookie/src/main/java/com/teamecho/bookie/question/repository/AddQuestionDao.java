@@ -1,7 +1,9 @@
 package com.teamecho.bookie.question.repository;
 
 import java.sql.PreparedStatement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -87,5 +89,10 @@ public class AddQuestionDao {
 	public List<Question> findQuestionByQtId(long qtId){
 		String sql = "SELECT * FROM Question WHERE qtId = ?";
 		return jdbcTemplate.query(sql, new QuestionRowMapper(), qtId);
+	}
+	
+	public Map<String, String> questionCount(){
+		String sql = "CALL QUESTION_COUNT_PROCEDURE";
+		return jdbcTemplate.queryForObject(sql, new QuestionCountRowMapper());
 	}
 }
