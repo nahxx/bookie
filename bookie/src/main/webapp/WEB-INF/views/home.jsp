@@ -66,17 +66,8 @@
 			<div class="qna contents">
 				<div class="headline">
 					<h2>
-						<a href="/">새로운 QNA</a>
+						<a href="/">유저 랭</a>
 					</h2>
-				</div>
-				<div class="qna inner">
-					<ul>
-						<li><a href="/">
-								<div class="article-username">username</div>
-								<div class="article-subject">subject</div>
-								<div class="article-text">text</div>
-						</a></li>
-					</ul>
 				</div>
 				<div class="qna inner">
 					<ul>
@@ -91,17 +82,8 @@
 			<div class="question contents">
 				<div class="headline">
 					<h2>
-						<a href="/">추가된 문제</a>
+						<a href="/">새로운 질문</a>
 					</h2>
-				</div>
-				<div class="question inner">
-					<ul>
-						<li><a href="/">
-								<div class="article-level">고1</div>
-								<div class="article-subject">subject</div>
-								<div class="article-text">text</div>
-						</a></li>
-					</ul>
 				</div>
 				<div class="question inner">
 					<ul>
@@ -116,7 +98,7 @@
 			<div class="ranking contents">
 				<div class="headline">
 					<h2>
-						<a href="/">문제 순위</a>
+						<a href="/">새로운 답변</a>
 					</h2>
 				</div>
 				<div class="ranking inner">

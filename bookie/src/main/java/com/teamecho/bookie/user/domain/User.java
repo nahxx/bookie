@@ -1,10 +1,12 @@
 package com.teamecho.bookie.user.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class User {
 	private long uId;
 	private String userId;
@@ -22,6 +24,7 @@ public class User {
 	public User(long uId) {
 		this.uId = uId;
 	}
+
 }
 
 	
