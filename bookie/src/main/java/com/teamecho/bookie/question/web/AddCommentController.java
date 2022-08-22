@@ -52,7 +52,7 @@ public class AddCommentController {
 		//DB에 넣으면 끝.
 		return mv;
 	}
-	
+	/*
 	@ResponseBody
 	@RequestMapping(value = "/add_comment", method = RequestMethod.POST)
 	public ModelAndView imageTempSave(@RequestParam("image") MultipartFile multi, HttpServletRequest request, HttpServletResponse response) {
@@ -74,4 +74,5 @@ public class AddCommentController {
 		}
 		return mv;
 	}
+	*/
 }

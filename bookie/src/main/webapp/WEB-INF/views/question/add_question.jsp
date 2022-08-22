@@ -219,7 +219,7 @@
     		   			$.ajax({
     		           		type: 'POST',
     		           		enctype: 'multipart/form-data',
-    		           		url: '/bookie/testdg',
+    		           		url: '/bookie/add_question',
     		           		data: formData,
     		           		dataType: "json",
     		           		processData: false,
@@ -267,7 +267,7 @@
     		   			$.ajax({
     		           		type: 'POST',
     		           		enctype: 'multipart/form-data',
-    		           		url: '/bookie/testdg',
+    		           		url: '/bookie/add_comment',
     		           		data: formData,
     		           		dataType: "json",
     		           		processData: false,

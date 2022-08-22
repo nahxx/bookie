@@ -94,9 +94,40 @@ public class CommonService {
 	
 	/**
 	 * 임시 저장된 이미지 삭제하는 메소드
+	 * @param tempImageNameList (삭제할 임시 저장된 imageName 리스트)
+	 * @param finalImageNameList (최종 저장된 imageName 리스트)
+	 * @param folderName (삭제할 임시 저장된 image가 있는 폴더 이름)
+	 */
+	List<String> list = new ArrayList<String>();
+	int cnt;
+	public void deleteTempImages(List<String> tempImageNameList, List<String> finalImageNameList, String folderName) {
+		String tempUrl = servletContext.getRealPath("/resources/images/" + folderName + "/");
+		
+		for(int i = 0; i < tempImageNameList.size(); i++) {
+			cnt = 0;
+			for(int j = 0; j < finalImageNameList.size(); j++) {
+				if (tempImageNameList.get(i).equals(finalImageNameList.get(j))) {
+					cnt++;
+				}
+			}
+			if (cnt == 0){
+				list.add(tempImageNameList.get(i));
+			}
+		}
+		
+		for(int i=0; i<list.size(); i++) {
+			for(String imgName: list) {
+				File file = new File(tempUrl + imgName);
+				file.delete();
+			}
+		}
+	}
+	
+	/**
+	 * 임시 저장된 이미지 삭제하는 메소드
 	 * @param imageNameList (삭제할 임시 저장된 imageName 리스트)
 	 */
-	public void deleteTempImages(List<String> imageNameList) {
+	public void deleteTempImages2(List<String> imageNameList) {
 		String tempUrl = servletContext.getRealPath("/resources/temp/");
 		for(String imgName: imageNameList) {
 			File file = new File(tempUrl + imgName);

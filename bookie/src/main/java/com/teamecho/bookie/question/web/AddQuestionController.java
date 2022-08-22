@@ -225,9 +225,6 @@ public class AddQuestionController {
 			}
 			
 			// QuestionPattern DB 등록
-			System.out.println(command.getBPattern());
-			System.out.println(command.getMPattern());
-			System.out.println(category.getCateId());
 			SubjectPattern sp = spService.getSubjectPatternByBPatternAndMPatternAndCateId(command.getBPattern(), command.getMPattern(), category.getCateId());
 			
 			QuestionPattern qp = new QuestionPattern();
@@ -274,17 +271,19 @@ public class AddQuestionController {
 		List<String> qTextImgNameList = commonService.getImageName(text);
 		List<String> qCommentImgNameList = commonService.getImageName(comments);
 		
+		/*
 		// 임시저장 폴더에서 이미지파일 찾아서 최종적으로 html에 포함된 이미지만 골라서 최종 폴더에 저장
 		commonService.saveFinalImages(command.getQuestionImgArr(), qTextImgNameList, "question");
 		commonService.saveFinalImages(command.getCommentImgArr(), qCommentImgNameList, "comment");
+		*/
 		
 		// 임시 저장 이미지 삭제
-		commonService.deleteTempImages(command.getQuestionImgArr());
-		commonService.deleteTempImages(command.getCommentImgArr());
+		commonService.deleteTempImages(command.getQuestionImgArr(), qTextImgNameList, "question");
+		commonService.deleteTempImages(command.getCommentImgArr(), qCommentImgNameList, "comment");
 		
 		response.setContentType("text/html; charset=UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.println("<script>alert('문제가 추가되었습니다.'); location.href='test_question';</script>"); // 경고창 띄우기
+        writer.println("<script>alert('문제가 추가되었습니다.'); location.href='add_question';</script>"); // 경고창 띄우기
         writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
 		
 		return "question/add_question";

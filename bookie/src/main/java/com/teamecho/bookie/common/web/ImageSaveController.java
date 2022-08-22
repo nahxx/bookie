@@ -38,7 +38,7 @@ public class ImageSaveController {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/qna");
+			String uploadPath = servletContext.getRealPath("/resources/images/qna");
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
@@ -61,7 +61,7 @@ public class ImageSaveController {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/question");
+			String uploadPath = servletContext.getRealPath("/resources/images/question");
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
@@ -78,13 +78,36 @@ public class ImageSaveController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/add_comment", method = RequestMethod.POST)
+	public ModelAndView commentImageSave(@RequestParam("image") MultipartFile multi, HttpServletRequest request,
+			HttpServletResponse response) {
+		String url = null;
+		ModelAndView mv = new ModelAndView();
+		try {
+			String uploadPath = servletContext.getRealPath("/resources/images/comment");
+			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
+			File folder = new File(uploadPath);
+			if (!folder.exists()) folder.mkdirs();
+			url = folder.getPath() + File.separator;
+			File destination = new File(url + originFilename);
+			multi.transferTo(destination);
+			mv.addObject("url", "http://localhost:8080/bookie/images/comment/");
+			mv.addObject("filename", originFilename);
+			mv.setViewName("/common/image_json");
+		} catch (Exception e) {
+			System.out.println("[Error] " + e.getMessage());
+		}
+		return mv;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/add_answer", method = RequestMethod.POST)
 	public ModelAndView answerImageSave(@RequestParam("image") MultipartFile multi, HttpServletRequest request,
 			HttpServletResponse response) {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/answer");
+			String uploadPath = servletContext.getRealPath("/resources/images/answer");
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
