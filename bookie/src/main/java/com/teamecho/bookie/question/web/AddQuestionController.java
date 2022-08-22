@@ -142,6 +142,7 @@ public class AddQuestionController {
 		
 		String m = "";
 		String s = "";
+		String qq = "";
 		
 		// 지문, 문제 분리
 		if(textList.size() > 0) {
@@ -149,7 +150,11 @@ public class AddQuestionController {
 				if(textList.get(i).equals("지문")) {
 					for(int j = i + 1; j < textList.size(); j++) {
 						if(!(textList.get(j).equals("지문")) && !(textList.get(j).equals("문제"))) {
-							m += "<p>" + textList.get(j) + "</p>";
+							if(textList.get(j).contains("img src=")) {
+								m += "<p><" + textList.get(j) + "></p>";
+							} else {
+								m += "<p>" + textList.get(j) + "</p>";
+							}
 						} else {
 							mList.add(m);
 							i = j-1;
@@ -163,7 +168,11 @@ public class AddQuestionController {
 				} else if (textList.get(i).equals("문제")) {
 					for(int j = i + 1; j < textList.size(); j++) {
 						if(!(textList.get(j).equals("지문")) && !(textList.get(j).equals("문제"))) {
-							s += "<p>" + textList.get(j) + "</p>";
+							if(textList.get(j).contains("img src=")) {
+								s += "<p><" + textList.get(j) + "></p>";
+							} else {
+								s += "<p>" + textList.get(j) + "</p>";
+							}
 						} else {
 							qList.add(s);
 							i = j-1;
@@ -184,15 +193,19 @@ public class AddQuestionController {
 				if(commentList.get(i).equals("해설")) {
 					for(int j = i + 1; j < commentList.size(); j++) {
 						if(!(commentList.get(j).equals("해설"))) {
-							m += "<p>" + commentList.get(j) + "</p>";
+							if(commentList.get(j).contains("img src=")) {
+								qq += "<p><" + commentList.get(j) + "></p>";
+							} else {
+								qq += "<p>" + commentList.get(j) + "</p>";
+							}
 						} else {
-							comList.add(m);
+							comList.add(qq);
 							i = j-1;
-							m = "";
+							qq = "";
 							break;
 						}
 						if(j == commentList.size() - 1) {
-							comList.add(m);
+							comList.add(qq);
 						}
 					}
 				}
