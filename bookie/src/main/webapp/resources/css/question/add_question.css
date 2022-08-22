@@ -92,6 +92,7 @@ select {
     font-weight: 700;
     /*font-family: 'IM_Hyemin-Regular';*/
     font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
 }
 
 select:focus {

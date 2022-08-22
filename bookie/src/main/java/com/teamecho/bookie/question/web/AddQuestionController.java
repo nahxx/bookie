@@ -298,7 +298,7 @@ public class AddQuestionController {
 		category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
 		// 카테아이디를 통해 대분류를 각각 태그에 담아서 해당 String을 다시 던져주기(이때 각 태그에는 중분류를 찾는 스트립트함수 호출하는 내용 들어가야 함)
 		List<String> bigPatterns = spService.getBigPatternsPatternsByCateId(category.getCateId());
-		
+
 		bigTag = "";
 		for(int i = 0; i < bigPatterns.size(); i++) {
 			String big = bigPatterns.get(i);

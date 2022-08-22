@@ -94,7 +94,7 @@ public class CommonService {
 	
 	/**
 	 * 임시 저장된 이미지 삭제하는 메소드
-	 * @param tempImageNameList (삭제할 임시 저장된 imageName 리스트)
+	 * @param tempImageNameList (임시 저장된 imageName 리스트)
 	 * @param finalImageNameList (최종 저장된 imageName 리스트)
 	 * @param folderName (삭제할 임시 저장된 image가 있는 폴더 이름)
 	 */
