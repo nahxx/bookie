@@ -420,11 +420,14 @@
     			QCommentLine(); // 해설 구분선 추가
             }
             
+         	// 답안 삭제하는 함수
             function removeAnswer() {
             	let aBox = document.querySelectorAll('.a-box');
             	let index = aBox.length - 1;
             	let answerWrap = document.getElementById('answer-wrap');
-            	answerWrap.removeChild(aBox[index]);
+            	if(aBox.length > 1) {
+            		answerWrap.removeChild(aBox[index]);
+            	}
             }
             
             // 지문 구분선
