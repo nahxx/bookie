@@ -1,5 +1,7 @@
 package com.teamecho.bookie.question.service;
 
+import com.teamecho.bookie.common.domain.SubjectPattern;
+import com.teamecho.bookie.common.repository.SubjectPatternDao;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
@@ -10,6 +12,7 @@ import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.repository.CategoryDao;
 import com.teamecho.bookie.question.repository.SolveProblemRepository;
 
+import javax.security.auth.Subject;
 import java.util.*;
 
 @Service("question.service.solveProblemService")
@@ -17,6 +20,8 @@ public class SolveProblemService {
 	
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private SubjectPatternDao subjectPatternDao;
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
@@ -37,7 +42,9 @@ public class SolveProblemService {
 		List<Question> unsolveQuestionList = solveProblemRepository.getUnsolveQuestionByCateogyId(cateId, uId);
 		
 		for(Question question : unsolveQuestionList) {
-			question.setMainText(solveProblemRepository.getMainTest(question.getMainText().getMtId()));
+			if (question.getMainText().getMtId() != 0) {
+				question.setMainText(solveProblemRepository.getMainTest(question.getMainText().getMtId()));
+			}
 		}
 
 		return unsolveQuestionList;
@@ -63,5 +70,9 @@ public class SolveProblemService {
 
 	public MainText getMainText(long mtId) {
 		return solveProblemRepository.getMainTest(mtId);
+	}
+
+	public SubjectPattern getQuestionPattern(long qId) {
+		return subjectPatternDao.getQuestionPattern(qId);
 	}
 }

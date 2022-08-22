@@ -3,6 +3,7 @@ package com.teamecho.bookie.question.web;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.CategoryCommand;
 import com.teamecho.bookie.common.domain.CategoryProvider;
+import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.service.SolveProblemService;
@@ -31,8 +32,8 @@ public class SolveProblemController {
 	public String solveProblemListPage(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
 		HttpSession session = request.getSession(false);
-		if(session.getAttribute("question") != null) {
-			session.removeAttribute("question");
+		if(session.getAttribute("questionList") != null) {
+			session.removeAttribute("questionList");
 		}
 
 		if (session == null) {
@@ -142,12 +143,14 @@ public class SolveProblemController {
 
 		// 새로고침 했을때 question이 랜덤으로 바뀌지 않게 하기 위함
 		List<Question> questionList = (List<Question>) session.getAttribute("questionList");
+		SubjectPattern subjectPattern = null;
 		if(questionList == null) {
 
 			System.out.println("questionList 가 없는 경우 : 진입");
 
 			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+			subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
 
 			// 더이상 풀 문제가 없는 경우 보내는 메세지
 			if(questionList.size() == 0) {
@@ -164,7 +167,9 @@ public class SolveProblemController {
 				model.addAttribute("question", questionList.get(0));
 			}
 
+
 			model.addAttribute("question", questionList.get(0));
+			model.addAttribute("subjectPattern", subjectPattern);
 
 			// session에 담아주기
 			session.setAttribute("questionList", questionList);
@@ -179,7 +184,10 @@ public class SolveProblemController {
 			model.addAttribute("question", questionList.get(0));
 		}
 
+		subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
+
 		model.addAttribute("question", questionList.get(0));
+		model.addAttribute("subjectPattern", subjectPattern);
 
 		// 더이상 풀 문제가 없는 경우 보내는 메세지
 		if(questionList.size() == 0) {

@@ -1,3 +1,8 @@
+SELECT qt.* FROM Question qt WHERE qt.cateId = 11
+AND ( qt.mtId IS NULL OR qt.mtId IN ( SELECT q.mtId FROM Question q WHERE q.cateId = qt.cateId
+AND NOT EXISTS ( SELECT * FROM QuestionHistory qh WHERE qh.uid = 6 AND qh.identify = 'Y' AND q.qid = qh.qid )
+GROUP BY q.mtId )) ORDER BY qt.mtId limit 30;
+
 <<<<<<< Updated upstream
 CREATE PROCEDURE `FIND_QUESTION_SAME_CATEGORY` ( CATE_ID long, UID long )
 BEGIN

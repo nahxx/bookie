@@ -18,7 +18,8 @@
       </div>
       <div class="question-box-wrap">
         <div class="qeustion-box">
-        	<div id="viewer"></div>
+            <div class="subjectPattern">문제유형 : <span>${subjectPattern.bigPattern}</span> > <span class="sp-txt">${subjectPattern.midPattern}</span></div>
+            <div id="viewer"></div>
         </div>
       </div>
       <div class="question-answer-wrap">
@@ -43,10 +44,10 @@
 						<input type="radio" value="5" name="answer" class="sub" />
 						5
 					</label>
-          <input type="submit" value="제출" class="submit-btn"/>
+          <input type="button" value="제출" class="submit-btn"/>
         </form>
         <div class="question-answer">
-
+            ${question.QComment}
         </div>
       </div>
     </div>

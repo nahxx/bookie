@@ -45,5 +45,5 @@ public class CategoryDao {
 		String sql = "SELECT * FROM Category";
 		return jdbcTemplate.query(sql, new CategoryRowMapper());
 	};
-	
+
 }
