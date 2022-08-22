@@ -44,6 +44,7 @@
 			      <input type="radio" id="korean" name="subject" value="국어"><label for="korean">국어</label>
 			      <input type="radio" id="english" name="subject" value="영어"><label for="english">영어</label>
 			      <input type="radio" id="math" name="subject" value="수학"><label for="math">수학</label>
+			      <input type="radio" id="etc" name="subject" value="기타"><label for="etc">기타</label>
 			    </div>
 		  </div>
 	  	</div>

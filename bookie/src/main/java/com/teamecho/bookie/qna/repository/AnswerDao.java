@@ -56,8 +56,13 @@ public class AnswerDao {
 		jdbcTemplate.update(sql, document, anId);
 	}
 	
-	 public List<Answer> findAnswerListByUId(long uId, int listViewNo) {
-	     String sql = "SELECT * FROM Answer WHERE uId = ? ORDER BY regDate desc LIMIT ?, 10";
-	     return jdbcTemplate.query(sql, new AnswerRowMapper(), uId, listViewNo);
+	public List<Answer> findAnswerListByUId(long uId, int listViewNo) {
+	    String sql = "SELECT * FROM Answer WHERE uId = ? ORDER BY regDate desc LIMIT ?, 10";
+	    return jdbcTemplate.query(sql, new AnswerRowMapper(), uId, listViewNo);
+	}
+	
+	public List<Answer> getAllAnswers() {
+		String sql = "SELECT * FROM Answer";
+		return jdbcTemplate.query(sql, new AnswerRowMapper());
 	}
 }

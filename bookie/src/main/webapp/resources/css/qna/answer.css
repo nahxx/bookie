@@ -59,11 +59,9 @@
 	margin: 0 auto;
 	border-color: #ddd;
 }
-
 .view_a_wrap:last-child {
 	margin-bottom: 50px;
 }
-
 .btn{
 	width: 70%;
 	margin: 0 auto;
@@ -74,9 +72,6 @@
     margin: 4px 0 10px;
     max-width: 100%;
     vertical-align: top;
-}
-p{
-	text-align: center;
 }
 .view_q_user, .view_a_user{
 	position: relative;
@@ -100,11 +95,11 @@ p{
 	text-align: right;
 }
 .update-btn{
-  	color: blue;
+  	color: #1C3879;
   	float: left;
 }
 .delete-btn{
-  	color: red;
+  	color: gray;
   	display: inline-block;
 }
 .submit-btn {
@@ -157,4 +152,12 @@ p{
 .toastui-editor-contents p {	
     color: #222;
     margin: 0;
+    text-align: center;
+}
+#viewer_q .toastui-editor-contents p{
+	text-align: center;
+}
+#viewer_a  p{
+	text-align: left;
+	padding: 0px 10px;
 }

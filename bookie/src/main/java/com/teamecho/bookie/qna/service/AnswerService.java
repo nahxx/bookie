@@ -14,4 +14,5 @@ public interface AnswerService {
 	void deleteAnswerByAnId(long anId);
 	void updateAnswerByAnId(String document, long anId);
 	List<Answer> getAnswerListByUId(long uId, int pagingNo, int listCount);
+	List<Answer> getAllAnswers();
 }

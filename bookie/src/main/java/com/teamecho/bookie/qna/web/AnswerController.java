@@ -193,7 +193,19 @@ public class AnswerController {
 	public ModelAndView answerUpdateForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, @PathVariable int page, RedirectAttributes redirectAttributes){
 		answer = answerService.getAnswerByQnaId(qnaId, anId);
 		String document = answer.getDocument();
-		String doc = document.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+		System.out.println(document);
+//		String pattern = "<(\\/?)(?!\\/####)(^<|>]+)?>";
+//		String a = document;
+//		String[] allowTags = "img,br".split(",");
+//		StringBuffer buffer = new StringBuffer();
+//		for(int i=0; i<allowTags.length; i++) {
+//			buffer.append("|" + allowTags[i].trim() + "(?!\\w)");
+//		}
+//		pattern = pattern.replace("####", buffer.toString());
+//		System.out.println("pattern: "+pattern);
+//		String msg = a.replaceAll(pattern, "");
+//		System.out.println("msg: "+msg);
+ 		String doc = document.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
 		redirectAttributes.addFlashAttribute("update_answer_d", doc);
 		redirectAttributes.addFlashAttribute("update_answer", answer);
 		mv.setViewName("redirect:/answer/{qnaId}/{page}");

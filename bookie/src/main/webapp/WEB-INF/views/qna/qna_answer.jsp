@@ -69,6 +69,24 @@
 	text-align: right;
 }
 */
+.update-btn{
+  	color: #1C3879;
+  	float: left;
+}
+.delete-btn{
+  	color: gray;
+  	display: inline-block;
+}
+#viewer_q p{
+	text-align: center;
+}
+#viewer_a p{
+	text-align: left;
+	padding: 0px 10px;
+}
+#viewer_a p img{
+	
+}
 </style>
 <body>
 	<header>
@@ -382,10 +400,10 @@
 	    form.submit();
 	}
 	
-	// 스마트에디터
-	const Editor = toastui.Editor;
-
-	const editor = new Editor({
+	let answerImgArr = []; // 댓글 이미지 배열
+	
+	// 댓글 스마트에디터
+	const editor = new toastui.Editor({
 	    el: document.querySelector('#editor'),
 		previewStyle: 'tab',
 	    previewHighlight: false,
@@ -406,19 +424,17 @@
 	   			$.ajax({
 	           		type: 'POST',
 	           		enctype: 'multipart/form-data',
-	           		url: '/bookie/testdg',
+	           		url: '/bookie/add_answer',
 	           		data: formData,
 	           		dataType: "json",
 	           		processData: false,
 	           		contentType: false,
 	           		cache: false,
 	           		timeout: 600000,
-	           		success: function(data) {
-	           			console.log('ajax 이미지 업로드 성공');
-	           			console.log(data)
-	           			console.log(Object.values(data)[0])
+	           		success: function(data) {	           			
 	           			//url += "image.png"//data.filename;
-	           				url = Object.values(data)[0] + Object.values(data)[1];
+	           			url = Object.values(data)[0] + Object.values(data)[1];
+	           			answerImgArr.push(Object.values(data)[1]); // 등록된 이미지 배열에 넣기
 	           			// callback : 에디터(마크다운 편집기)에 표시할 텍스트, 뷰어에는 imageUrl 주소에 저장된 사진으로 나옴
 	        			// 형식 : ![대체 텍스트](주소)
 	           			callback(url, '이미지');
@@ -426,7 +442,6 @@
 	           		error: function(e) {
 	           			console.log(e);
 	           			//console.log(e.abort([statusText]));
-	           			
 	           			callback(url, '사진 대체 텍스트 입력2');
 	           		}
 	           	});

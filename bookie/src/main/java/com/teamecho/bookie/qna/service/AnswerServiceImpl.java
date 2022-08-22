@@ -80,4 +80,9 @@ public class AnswerServiceImpl implements AnswerService {
 	      }
 	      return answerList;
 	}
+
+	@Override
+	public List<Answer> getAllAnswers() {
+		return answerDao.getAllAnswers();
+	}
 }
