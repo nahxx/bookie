@@ -69,6 +69,8 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script>
 const Editor = toastui.Editor;
+let questionList = ${mainQuestionList};
+<%--if(${questionList})--%>
 let content = '${mainText.MText}${question.QText}';
 <%--let content2 = '${mainText.MText}<c:forEach var="question" items="${questionList}">${question.QText}</c:forEach>';--%>
 const viewer = Editor.factory({

@@ -163,7 +163,9 @@ public class SolveProblemController {
 
 			// 한개의 지문에 문제가 여러개인 경우
 			if(questionList.get(0).getMainText() != null) {
+				System.out.println("문제가 여러개인 경우 -> 진입");
 				model.addAttribute("mainText", questionList.get(0).getMainText());
+
 				model.addAttribute("question", questionList.get(0));
 			}
 
