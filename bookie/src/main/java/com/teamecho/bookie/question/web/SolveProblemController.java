@@ -167,7 +167,7 @@ public class SolveProblemController {
 			// 문제가 한문제인 경우
 
 			// 한개의 지문에 문제가 여러개인 경우
-			if(questionList.get(14).getMainText() != null) {
+			if(questionList.get(0).getMainText() != null) {
 				System.out.println("문제가 여러개인 경우 -> 진입");
 				model.addAttribute("mainText", questionList.get(0).getMainText());
 
@@ -242,7 +242,7 @@ public class SolveProblemController {
 		Question question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
 
 
-
+		// 다음문제 넘기기
 		for(int i=0;i<questionList.size();i++){
 			if(questionList.get(i).getQId() == question.getQId()){
 				subjectPattern = solveProblemService.getQuestionPattern(questionList.get(i+1).getQId());
@@ -252,9 +252,6 @@ public class SolveProblemController {
 		}
 
 
-
-//		System.out.println("session.getAttribute(\"uId\") = " + session.getAttribute("uId"));
-//		solveProblemService.findQuestionByQuestionId(Long.parseLong(question));
 		return "question/solveProblemPage";
 	}
 }
