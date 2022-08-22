@@ -210,7 +210,8 @@ public class SolveProblemController {
 	@PostMapping("/question/solveProblem")
 	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String questionId, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-
+		long sessionQid;
+		Question question;
 		if (session == null) {
 			model.addAttribute("session", "no");
 			return "question/solveProblemPage";
@@ -224,7 +225,6 @@ public class SolveProblemController {
 		char cLevel = request.getParameter("cLevel").charAt(0);
 		int grade = Integer.parseInt(request.getParameter("grade"));
 		String subject = request.getParameter("subject");
-
 		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
 		model.addAttribute("realCategory", realCategory);
 
@@ -233,25 +233,48 @@ public class SolveProblemController {
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
 		}
 
-		// 정답 확인 후 DB넣기
-		solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
+		if(session.getAttribute("questionId") == null) {
+			sessionQid  = 0;
+		}else {
+			sessionQid = (long)session.getAttribute("questionId");
+		}
+		
+		System.out.println(sessionQid + " // "+ Long.parseLong(questionId));
+		// 세션에 담긴 questionId와 리턴받은 questionId값이 다를경우 정답 확인 후 DB넣기
+		if ( sessionQid == 0 && Long.parseLong(questionId) != sessionQid ) {
+			System.out.println("questionId의 세션이 다를때 진입");
+			solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
+			
+			System.out.println(answer);
+			System.out.println("questionId = " + questionId);
 
-		System.out.println(answer);
-		System.out.println("questionId = " + questionId);
-
-		Question question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
+			question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
 
 
-		// 다음문제 넘기기
-		for(int i=0;i<questionList.size();i++){
-			if(questionList.get(i).getQId() == question.getQId()){
-				subjectPattern = solveProblemService.getQuestionPattern(questionList.get(i+1).getQId());
-				model.addAttribute("question", questionList.get(i+1));
-				model.addAttribute("subjectPattern", subjectPattern);
+			// 다음문제 넘기기
+			for(int i=0;i<questionList.size();i++){
+				if(questionList.get(i).getQId() == question.getQId()){
+					subjectPattern = solveProblemService.getQuestionPattern(questionList.get(i+1).getQId());
+					model.addAttribute("question", questionList.get(i+1));
+					model.addAttribute("subjectPattern", subjectPattern);
+				}
+			}
+			session.setAttribute("questionId", Long.parseLong(questionId));
+						
+		}else {
+			question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
+
+
+			// 다음문제 넘기기
+			for(int i=0;i<questionList.size();i++){
+				if(questionList.get(i).getQId() == question.getQId()){
+					subjectPattern = solveProblemService.getQuestionPattern(questionList.get(i+1).getQId());
+					model.addAttribute("question", questionList.get(i+1));
+					model.addAttribute("subjectPattern", subjectPattern);
+				}
 			}
 		}
-
-
+		
 		return "question/solveProblemPage";
 	}
 }
