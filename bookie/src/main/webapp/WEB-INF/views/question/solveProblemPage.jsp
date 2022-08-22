@@ -21,11 +21,12 @@
             <div class="subjectPattern">문제유형 : <span>${subjectPattern.bigPattern}</span> > <span class="sp-txt">${subjectPattern.midPattern}</span></div>
             <div id="viewer"></div>
         </div>
+        <span class="answerChecking"></span>
       </div>
       <div class="question-answer-wrap">
-        <form action="solveProblem" method="post" class="question-answer-form">
+        <div class="question-answer-form">
           <label class="answerLa">
-						<input type="radio" value="1" name="answer" class="sub" />
+						<input type="radio" value="1" name="answer" class="sub" checked/>
 						1
 					</label>
           <label class="answerLa">
@@ -44,10 +45,14 @@
 						<input type="radio" value="5" name="answer" class="sub" />
 						5
 					</label>
-          <input type="button" value="제출" class="submit-btn"/>
-        </form>
+          <input type="button" value="제출" class="submit-btn subBtn"/>
+        </div>
         <div class="question-answer">
-            ${question.QComment}
+            <span class="qcomment">해설</span>
+            <div id="viewer_answer"></div>
+            <div class="btn-wrap">
+                <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/question/solveProblem'/>');" class="submit-btn search nextBtn">다음문제</a>
+            </div>
         </div>
       </div>
     </div>
@@ -73,11 +78,64 @@ const viewer = Editor.factory({
     <%--initialValue: '<img alt="" src="<c:url value="/resources/temp/27562658-a113-4916-b416-ed59715f5123_image.png"/>" class="qeustion_img" />'--%>
     initialValue: content
 });
-let qeustion = document.createElement('input');
-qeustion.setAttribute('type', 'hidden');
-qeustion.setAttribute('name', 'question');
-qeustion.setAttribute('value', '${question.QId}');
-document.getElementsByClassName("question-answer-form")[0].appendChild(qeustion);
+const viewer2 = Editor.factory({
+    el: document.querySelector('#viewer_answer'),
+    viewer: true,
+    height: '500px',
+    <%--initialValue: '<img alt="" src="<c:url value="/resources/temp/27562658-a113-4916-b416-ed59715f5123_image.png"/>" class="qeustion_img" />'--%>
+    initialValue: '${question.QComment}'
+});
+
+let submitBtn = document.getElementsByClassName("subBtn")[0];
+let comment = document.getElementsByClassName("question-answer")[0];
+let checkedBtn = document.getElementsByClassName("sub");
+let checkButton = null;
+let answerLa = document.getElementsByClassName("answerLa");
+
+
+
+
+submitBtn.addEventListener('click', function(){
+
+    comment.style.display = 'block';
+    Array.prototype.forEach.call(checkedBtn, (item, i) => {
+        if(item.checked == true) {
+            checkButton = item;
+            if(checkButton.value == ${question.answer}){
+                let check = document.getElementsByClassName("answerChecking")[0];
+                check.style.display = 'block';
+            } else {
+                let check = document.getElementsByClassName("answerChecking")[0];
+                check.classList.add('false');
+            }
+        }
+    });
+
+    this.setAttribute('disabled', 'true');
+});
+
+
+
+function sendPost(url) {
+    //1. 폼생성
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', url);
+    document.charset = "UTF-8";
+
+    // 문제 qId 넘겨주기
+    let qeustion = document.createElement('input');
+    qeustion.setAttribute('type', 'hidden');
+    qeustion.setAttribute('name', 'question');
+    qeustion.setAttribute('value', '${question.QId}');
+    form.appendChild(qeustion);
+
+    // 문제 답 던져주기
+    form.appendChild(checkButton);
+
+    document.body.appendChild(form);
+    form.submit();
+};
 </script>
 </body>
 </html>

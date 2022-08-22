@@ -201,14 +201,14 @@ public class SolveProblemController {
 	}
 
 	@PostMapping("/question/solveProblem")
-	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String question, HttpServletRequest request) {
+	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String questionId, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		
-//		System.out.println(answer);
-//		System.out.println("question = " + question);
+		System.out.println(answer);
+		System.out.println("questionId = " + questionId);
 //		System.out.println("session.getAttribute(\"uId\") = " + session.getAttribute("uId"));
 //		solveProblemService.findQuestionByQuestionId(Long.parseLong(question));
-		solveProblemService.answerChecking(Long.parseLong(question), (long)session.getAttribute("uId"), Integer.parseInt(answer));
+//		solveProblemService.answerChecking(Long.parseLong(question), (long)session.getAttribute("uId"), Integer.parseInt(answer));
 		return "question/solveProblemPage";
 	}
 }

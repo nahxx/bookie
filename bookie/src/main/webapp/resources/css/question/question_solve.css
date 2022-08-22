@@ -47,6 +47,7 @@
   padding: 10px 0;
   border: 1px solid #000;
   padding: 0 30px;
+  position: relative;
 }
 .qeustion-box {
   display: inline-block;
@@ -245,4 +246,42 @@
     margin-top: 40px;
     padding-top: 40px;
     border-top: 1px solid #000;
+    display: none;
+}
+.btn-wrap {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100px;
+}
+.submit-btn.search.nextBtn {
+    width: 130px;
+    text-align: center;
+}
+.qcomment {
+    display: block;
+    font-size: 26px;
+    font-weight: bold;
+    color: #b94a48;
+    margin-bottom: 20px;
+}
+
+.answerChecking {
+    width: 300px;
+    height: 280px;
+    position: absolute;
+    top: -50px;
+    left: -30px;
+    background: url("/bookie/resources/img/answer/m_cheking.png");
+    background-size: cover;
+    display: none;
+}
+.answerChecking.false {
+    width: 220px;
+    height: 180px;
+    background: url("/bookie/resources/img/answer/m_cheking_false.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
 }
