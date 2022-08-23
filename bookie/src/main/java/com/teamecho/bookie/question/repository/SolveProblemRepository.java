@@ -31,6 +31,7 @@ public class SolveProblemRepository {
 //				+ "SELECT q.mtId FROM Question q WHERE q.cateId = qt.cateId AND NOT EXISTS ( "
 //				+ "SELECT * FROM QuestionHistory qh WHERE qh.uid = ? AND qh.identify = 'Y' AND q.qid = qh.qid ) "
 //				+ "GROUP BY q.mtId )) ORDER BY qt.mtId limit 30";
+		System.out.println("repository : cateId = " + cateId);
 		String sql = "CALL FIND_QUESTION_SAME_CATEGORY(?, ?, ?)";
 		return jdbcTemplate.query(sql, new QuestionRowMapper(), cateId, uid, 30);
 	}

@@ -69,7 +69,7 @@
 	      <div class="popbox">
 	        <p class="pop-txt">문제 더 푸시겠습니까?</p>
             <div class="select-wrap">
-               <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/question/solveProblem'/>');" class="submit-btn search btn2">예</a>
+               <a href="javascript:void(0);" onclick="javascript:sendGet('<c:url value='/question/solveProblem'/>');" class="submit-btn search btn2">예</a>
                <a href="/bookie/question/solveProblemList" class="submit-btn search btn2">되돌아가기</a>
             </div>
           </div>
@@ -155,6 +155,41 @@ function sendPost(url) {
 
     // 문제 답 던져주기
     form.appendChild(checkButton);
+
+    document.body.appendChild(form);
+    form.submit();
+};
+
+function sendGet(url) {
+    //1. 폼생성
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', url);
+    document.charset = "UTF-8";
+
+    // 문제 qId 넘겨주기
+    let qeustion = document.createElement('input');
+    qeustion.setAttribute('type', 'hidden');
+    qeustion.setAttribute('name', 'question');
+    qeustion.setAttribute('value', '${question.QId}');
+    form.appendChild(qeustion);
+
+    // 카테고리 넘겨주기
+    let input1 = document.createElement('input');
+    input1.setAttribute('type', 'hidden');
+    input1.setAttribute('name', 'cLevel');
+    input1.setAttribute('value', '${realCategory.getCLevel()}');
+    form.appendChild(input1);
+    let input2 = document.createElement('input');
+    input2.setAttribute('type', 'hidden');
+    input2.setAttribute('name', 'grade');
+    input2.setAttribute('value', '${realCategory.getGrade()}');
+    form.appendChild(input2);
+    let input3 = document.createElement('input');
+    input3.setAttribute('type', 'hidden');
+    input3.setAttribute('name', 'subject');
+    input3.setAttribute('value', '${realCategory.getSubject()}');
+    form.appendChild(input3);
 
     document.body.appendChild(form);
     form.submit();

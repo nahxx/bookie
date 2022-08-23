@@ -38,6 +38,7 @@ public class SolveProblemController {
 
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("questionList") != null) {
+			System.out.println("session 초기화");
 			session.removeAttribute("questionList");
 		}
 
@@ -100,6 +101,9 @@ public class SolveProblemController {
 		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(category.getCLevel().charAt(0), category.getGrade(), category.getSubject());
 		model.addAttribute("realCategory", realCategory);
+		System.out.println("realCategory.getCLevel() = " + realCategory.getCLevel());
+		System.out.println("realCategory.getGrade() = " + realCategory.getGrade());
+		System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
 
 		// 새로고침 했을때 question이 랜덤으로 바뀌지 않게 하기 위함
 		questionList = (List<Question>) session.getAttribute("questionList");
@@ -109,7 +113,12 @@ public class SolveProblemController {
 			System.out.println("questionList 가 없는 경우 : 진입");
 
 			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
+			System.out.println("questionList 가 없는 경우 : 진입"+realCategory.getCateId());
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+			System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
+			for(Question question: questionList) {
+				System.out.println("question.getQId() = " + question.getQId());
+			}
 
 			// 더이상 풀 문제가 없는 경우 보내는 메세지
 			if(questionList.size() == 0) {
@@ -118,16 +127,7 @@ public class SolveProblemController {
 				return "error/solveProblemError";
 			}
 
-			// 문제가 한문제인 경우
 			subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
-			// 한개의 지문에 문제가 여러개인 경우
-			if(questionList.get(0).getMainText() != null) {
-				System.out.println("문제가 여러개인 경우 -> 진입");
-				model.addAttribute("mainText", questionList.get(0).getMainText());
-
-				model.addAttribute("question", questionList.get(0));
-			}
-
 
 			model.addAttribute("question", questionList.get(0));
 			model.addAttribute("subjectPattern", subjectPattern);
@@ -206,8 +206,6 @@ public class SolveProblemController {
 			for(int i=0;i<questionList.size();i++){
 				if(questionList.get(i).getQId() == question.getQId()){
 					if((i+1) >= questionList.size()){
-						System.out.println("진입");
-						count++;
 						questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
 						model.addAttribute("againProblem", "on");
 						return "question/solveProblemPage";
