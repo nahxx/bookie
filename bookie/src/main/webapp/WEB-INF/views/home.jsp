@@ -22,7 +22,7 @@
 			<%@ include file="./incl/header.jsp"%>
 		</c:if>
 	</header>
-	<div id="wrap mh">
+	<div class="wrap mh">
 		<!-- 메인 배너 -->
 		<div class="swiper mySwiper">
 			<div class="swiper-wrapper swiper-wrap">
@@ -89,7 +89,7 @@
 					<ul>
 						<c:forEach var="qnaList" items="${qnaList}" begin="0" end="2">
 							<li><a href="/"><div class="article-subject">과목 : ${qnaList.subject}</div></a></li>
-							<li><a href="/"><div class="article-user">질문한 유저 : ${uName}</div></a></li>
+							<li><a href="/"><div class="article-user">질문한 유저 : ${qnaList.getUser().getName()}</div></a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -105,7 +105,7 @@
 						<c:forEach var="answerList" items="${answerList}" begin="0"
 							end="2">
 							<li><a href="/"><div class="article-subject">질문 번호 : ${answerList.qna.qnaId}</div></a></li>
-							<li><a href="/"><div class="article-user">답변한 유저 : ${userName}</div></a></li>
+							<li><a href="/"><div class="article-user">답변한 유저 : ${answerList.getUser().getName()}</div></a></li>
 						</c:forEach>
 					</ul>
 				</div>

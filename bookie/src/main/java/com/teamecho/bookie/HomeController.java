@@ -50,7 +50,7 @@ public class HomeController {
 	         
 	         model.addAttribute("session", "yes");
 	        
-	         List<Qna> qnaList = qnaService.getAllQna();;
+	         List<Qna> qnaList = qnaService.getAllQna();
 	         Collections.reverse(qnaList);
 	         request.setAttribute("qnaList", qnaList);
 	         
@@ -59,11 +59,10 @@ public class HomeController {
 	        	 long caId = q.getCategory().getCateId();
 	        	 User u = userService.getUserByUid(uid);
 	        	 Category ca = categoryService.getCategoryByCateId(caId);
-	        	 String uName = u.getName();
+	        	 q.setUser(u);
 	        	 String caName = ca.getSubject();
-	        	 request.setAttribute("uName",uName);
-	        	 request.setAttribute("caName",caName);
 	         }
+
 	  
 	         List<Answer> answerList = answerService.getAllAnswers();
 	         Collections.reverse(answerList);
@@ -72,8 +71,7 @@ public class HomeController {
 	         for(Answer a : answerList) {
 	        	 long uid = a.getUser().getUId();
 	        	 User u = userService.getUserByUid(uid);
-	        	 String userName = u.getName();
-	        	 request.setAttribute("userName",userName);
+	        	 a.setUser(u);
 	         }
 	         
 	         return "home";
