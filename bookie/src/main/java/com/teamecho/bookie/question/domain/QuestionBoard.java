@@ -20,6 +20,7 @@ public class QuestionBoard {
 	private Category category; // Category 클래스
 	private MainText mainText; // MainText 클래스
 	private Date regDate;
+	private String subject;
 	private QuestionHistory questionHistory;
 	
 	public QuestionBoard() {

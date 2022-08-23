@@ -17,4 +17,8 @@ public class QuestionText {
 	public QuestionText() {
 		
 	}
+	
+	public QuestionText(long qtId) {
+		this.qtId = qtId;
+	}
 }

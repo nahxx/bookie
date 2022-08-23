@@ -36,6 +36,7 @@ public class QuestionHistoryService {
 		for(QuestionBoard qb : qbList) {
 			qb.setCategory(categoryService.getCategoryByCateId(qb.getCategory().getCateId()));
 			qb.setQuestionHistory(qhDao.findQuestionHistoryByQhId(qb.getQuestionHistory().getQhId()));
+			qb.setSubject(qhDao.findSubjectPatternByQid(qb.getQuestionHistory().getQhId()));
 		}
 		return qbList;
 	}

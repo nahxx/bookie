@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css/qna/table.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/qna/htable.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/paging.css"/>" />
 
 <!-- jQuery CDN -->
@@ -54,19 +54,19 @@
             <tr>
               <td>${boardNo}</td>
               <td>
-                <c:if test="${fn:contains(qbList.category.getCLevel(), 'm')}">
+                <c:if test="${fn:contains(board.category.getCLevel(), 'm')}">
                   중등 /
                 </c:if>
-                <c:if test="${fn:contains(qbList.category.getCLevel(), 'h')}">
+                <c:if test="${fn:contains(board.category.getCLevel(), 'h')}">
                   고등 /
                 </c:if>
-                ${qbList.category.getGrade()}학년 / ${qbList.category.getSubject()}
+                ${board.category.getGrade()}학년 / ${board.category.getSubject()}
               </td>
-              <td><a href="<c:url value='//${questionHistoryBoard.qId}/${paging.currentPageNo}'/>">${questionHistoryBoard.qTitle}</a></td>
+              <td><a href="<c:url value='//${paging.currentPageNo}'/>">${board.subject}</a></td>
               <td>
-                <fmt:formatDate value="${qbList.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                <fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />
               </td>
-              <td>${qbList.questionHistory.getIdentify()}</td>
+              <td>${board.questionHistory.getIdentify()}</td>
               <c:set var="boardNo" value="${boardNo - 1}" />
             </tr>
           </c:forEach>

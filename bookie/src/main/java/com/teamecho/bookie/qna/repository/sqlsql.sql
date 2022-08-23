@@ -160,3 +160,14 @@ limit 30;
    SELECT qp.spId, sp.bigPattern, sp.midPattern, count(*) FROM QuestionPattern qp INNER JOIN SubjectPattern sp ON qp.spId = sp.spId
    GROUP BY qp.spId, sp.bigPattern, sp.midPattern
    ;
+   
+   
+   SELECT *
+   FROM SubjectPattern sp INNER JOIN QuestionPattern qp ON sp.spId = qp.spId
+   WHERE qp.qId = 18
+   
+   
+   SELECT q.*, qh.qhId
+ FROM Question q INNER JOIN QuestionHistory qh ON q.qid = qh.qid
+ WHERE qh.uid = 7 ORDER BY qh.regDate
+	  LIMIT 0 , 10

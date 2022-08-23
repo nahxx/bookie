@@ -14,5 +14,11 @@ public class MainText {
     private String mText; // 지문 텍스트
     private Date regDate;
 
-    public MainText() {}
+    public MainText() {
+    	
+    }
+    
+    public MainText(long mtId) {
+    	this.mtId = mtId;
+    }
 }

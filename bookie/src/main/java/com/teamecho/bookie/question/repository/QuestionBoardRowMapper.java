@@ -17,19 +17,15 @@ public class QuestionBoardRowMapper implements RowMapper<QuestionBoard>{
 	@Override
 	public QuestionBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
 		QuestionBoard q = new QuestionBoard();
-		QuestionText questionText = new QuestionText();
-		MainText mainText = new MainText();
-		Category category = new Category();
-		category.setCateId(rs.getLong("cateId"));
-		questionText.setQtId(rs.getLong("qtId"));
-		mainText.setMtId(rs.getLong("mtId"));
+		
 		q.setQId(rs.getLong("qId"));
 		q.setQText(rs.getString("qText"));
 		q.setAnswer(rs.getInt("answer"));
 		q.setQComment(rs.getString("qComment"));
-		q.setQuestionText(questionText);
-		q.setCategory(category);
-		q.setMainText(mainText);
+		q.setQuestionText(new QuestionText(rs.getLong("qtId")));
+		q.setCategory(new Category(rs.getLong("cateId")));
+		q.setMainText(new MainText(rs.getLong("mtId")));
+		q.setRegDate(rs.getTimestamp("regDate"));
 		q.setQuestionHistory(new QuestionHistory(rs.getLong("qhId")));
 		return q;
 	}

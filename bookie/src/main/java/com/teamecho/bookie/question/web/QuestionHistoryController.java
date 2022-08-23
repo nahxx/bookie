@@ -1,25 +1,18 @@
 package com.teamecho.bookie.question.web;
 
-import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.teamecho.bookie.common.domain.Paging;
-import com.teamecho.bookie.qna.domain.Board;
-import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionBoard;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.question.service.SolveProblemService;
-import com.teamecho.bookie.user.domain.User;
+
 
 @Controller
 public class QuestionHistoryController {
@@ -58,8 +51,7 @@ public class QuestionHistoryController {
 	        paging.calcPagingNo();	//초기값5 : 페이지 갯수 계산 함.
 	        
 	        paging.makePaging(pagingNo); //페이지에 맞게
-	        List<QuestionBoard> qbList = questionHistoryService.getQuestionHistory((long)session.getAttribute("uId"), pagingNo, paging.getPageSize()); 
-	        
+	        List<QuestionBoard> qbList = questionHistoryService.getQuestionHistory((long)session.getAttribute("uId"), pagingNo, paging.getPageSize());
 	        mav.addObject("qbList", qbList);
 	        mav.addObject("paging", paging);
 	        mav.setViewName("/question/questionHistory_list");
