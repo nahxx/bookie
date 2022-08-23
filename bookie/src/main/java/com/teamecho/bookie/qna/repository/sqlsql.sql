@@ -30,3 +30,8 @@ CALL BOARD_PROCEDURE(0);
 CALL FIND_QUESTION_SAME_CATEGORY(18, 8, 30)
 
 SELECT a.* FROM (SELECT q.* FROM Question q WHERE q.cateid = 17 AND NOT EXISTS (SELECT * FROM QuestionHistory qh WHERE qh.uid = 7 AND qh.identify = 'Y' AND q.qid = qh.qid ) ORDER BY RAND() LIMIT 30) a ORDER BY a.mtId;
+
+
+SELECT bigPattern, midPattern, qid FROM SubjectPattern sp INNER JOIN QuestionPattern qp ON sp.spId = qp.spId WHERE qp.qId = 193;
+
+CALL RANK_USER_PROCEDURE
