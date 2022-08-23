@@ -239,14 +239,14 @@ public class SolveProblemController {
 			sessionQid = (long)session.getAttribute("questionId");
 		}
 		
-		System.out.println(sessionQid + " // "+ Long.parseLong(questionId));
+//		System.out.println(sessionQid + " // "+ Long.parseLong(questionId));
 		// 세션에 담긴 questionId와 리턴받은 questionId값이 다를경우 정답 확인 후 DB넣기
 		if ( sessionQid == 0 && Long.parseLong(questionId) != sessionQid ) {
 			System.out.println("questionId의 세션이 다를때 진입");
 			solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
 			
-			System.out.println(answer);
-			System.out.println("questionId = " + questionId);
+//			System.out.println(answer);
+//			System.out.println("questionId = " + questionId);
 
 			question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
 

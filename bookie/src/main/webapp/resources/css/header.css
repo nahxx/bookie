@@ -57,6 +57,22 @@
 	text-transform: uppercase;
 }
 
+.loginbar li {
+	position: relative;
+}
+.loginbar li:before {
+	position: absolute;
+	content: '';
+	background: #c6c6c6;
+	width: 2px;
+	height: 16px;
+	top: 30.5px;
+	right: -16px;
+}
+.loginbar li:last-child:before {
+	display: none;
+}
+
 nav {
 	display: flex;
 	justify-content: center;
