@@ -64,6 +64,15 @@
 	      </div>
 	    </div>
     </c:if>
+    <c:if test="${againProblem eq 'on'}">
+	    <div class="pop">
+	      <div class="popbox">
+	        <p class="pop-txt">로그인 해주세요 !</p>
+	        <a href="/bookie/question/questionProblem" class="submit-btn search pop-btn">예</a>
+	        <a href="/bookie/question/questionProblemList" class="submit-btn search pop-btn">되돌아가기</a>
+	      </div>
+	    </div>
+    </c:if>
   </section>
 
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>

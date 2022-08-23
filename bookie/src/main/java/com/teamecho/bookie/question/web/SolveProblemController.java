@@ -80,54 +80,6 @@ public class SolveProblemController {
 		list.add(new CategoryProvider("영어", "영어"));
 		return list;
 	}
-	
-//	@GetMapping("/question/solveProblem")
-//	public String solveProblemPage(Model model, HttpServletRequest request) {
-//		HttpSession session = request.getSession(false);
-//		if (session == null) {
-//			model.addAttribute("session", "no");
-//			return "question/solveProblemPage";
-//		}
-//		if(session.getAttribute("uId") == null) {
-//			model.addAttribute("session", "no");
-//			return "question/solveProblemPage";
-//		}
-//
-//		if(session.getAttribute("flag") != null && (boolean) session.getAttribute("flag") == false) {
-//			return "redirect:/question/solveProblem";
-//		}
-//		int grade = Integer.parseInt(request.getParameter("grade"));
-//		char cLevel = request.getParameter("cLevel").charAt(0);
-//		String subject = request.getParameter("subject");
-//		int numOfQuestion = Integer.parseInt(request.getParameter("numOfquestions"));
-//
-//		// 해당 카테고리 불러오기
-//		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
-//		// 카테고리에 맞는 사용자가 풀지않은 문제 리스트 받아오기
-//		List<Question> unsolveQuestionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
-//
-//		// 더이상 풀 문제가 없는 경우 보내는 메세지
-//		if(unsolveQuestionList.size() == 0) {
-//			String str = "해당 학년의 문제를 다 푸셨습니다!";
-//			model.addAttribute("str", str);
-//			return "error/solveProblemError";
-//		}
-//
-//		System.out.println("unsolveQuestionList.size() = " + unsolveQuestionList.size());
-//		long mtId = 0;
-//		for(Question question : unsolveQuestionList) {
-//			mtId = question.getMainText().getMtId();
-//		}
-//
-//		MainText mainText = solveProblemService.getMainText(mtId);
-//
-//		model.addAttribute("questionList", unsolveQuestionList);
-//		model.addAttribute("mainText", mainText);
-//
-//		session.setAttribute("flag", false);
-//
-//		return "question/solveProblemPage";
-//	}
 
 	@GetMapping("/question/solveProblem")
 	public String solveProblem(HttpServletRequest request, Model model, @ModelAttribute("category") CategoryCommand category) {
@@ -238,15 +190,11 @@ public class SolveProblemController {
 		}else {
 			sessionQid = (long)session.getAttribute("questionId");
 		}
-		
-//		System.out.println(sessionQid + " // "+ Long.parseLong(questionId));
+
 		// 세션에 담긴 questionId와 리턴받은 questionId값이 다를경우 정답 확인 후 DB넣기
 		if ( sessionQid == 0 && Long.parseLong(questionId) != sessionQid ) {
 			System.out.println("questionId의 세션이 다를때 진입");
 			solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
-			
-//			System.out.println(answer);
-//			System.out.println("questionId = " + questionId);
 
 			question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
 
@@ -254,6 +202,11 @@ public class SolveProblemController {
 			// 다음문제 넘기기
 			for(int i=0;i<questionList.size();i++){
 				if(questionList.get(i).getQId() == question.getQId()){
+					if((i+1) >= questionList.size()){
+						questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+						model.addAttribute("againProblem", "on");
+						return "question/solveProblemPage";
+					}
 					subjectPattern = solveProblemService.getQuestionPattern(questionList.get(i+1).getQId());
 					model.addAttribute("question", questionList.get(i+1));
 					model.addAttribute("subjectPattern", subjectPattern);
