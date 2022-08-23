@@ -30,7 +30,8 @@ public class SolveProblemController {
 	private SolveProblemService solveProblemService;
 
 	private List<Question> questionList;
-	SubjectPattern subjectPattern;
+	private SubjectPattern subjectPattern;
+	private int count = 0;
 
 	@GetMapping("/question/solveProblemList")
 	public String solveProblemListPage(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
@@ -51,6 +52,8 @@ public class SolveProblemController {
 		}
 		
 		long uId = (long)session.getAttribute("uId");
+
+		count = 0;
 		
 		model.addAttribute("category", new CategoryCommand());
 		return "question/solveProblemListPage";
@@ -107,7 +110,6 @@ public class SolveProblemController {
 
 			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
-			subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
 
 			// 더이상 풀 문제가 없는 경우 보내는 메세지
 			if(questionList.size() == 0) {
@@ -117,7 +119,7 @@ public class SolveProblemController {
 			}
 
 			// 문제가 한문제인 경우
-
+			subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
 			// 한개의 지문에 문제가 여러개인 경우
 			if(questionList.get(0).getMainText() != null) {
 				System.out.println("문제가 여러개인 경우 -> 진입");
@@ -162,6 +164,7 @@ public class SolveProblemController {
 	@PostMapping("/question/solveProblem")
 	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String questionId, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+
 		long sessionQid;
 		Question question;
 		if (session == null) {
@@ -192,7 +195,7 @@ public class SolveProblemController {
 		}
 
 		// 세션에 담긴 questionId와 리턴받은 questionId값이 다를경우 정답 확인 후 DB넣기
-		if ( sessionQid == 0 && Long.parseLong(questionId) != sessionQid ) {
+		if ( sessionQid == 0 || Long.parseLong(questionId) != sessionQid ) {
 			System.out.println("questionId의 세션이 다를때 진입");
 			solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
 
@@ -203,6 +206,8 @@ public class SolveProblemController {
 			for(int i=0;i<questionList.size();i++){
 				if(questionList.get(i).getQId() == question.getQId()){
 					if((i+1) >= questionList.size()){
+						System.out.println("진입");
+						count++;
 						questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
 						model.addAttribute("againProblem", "on");
 						return "question/solveProblemPage";

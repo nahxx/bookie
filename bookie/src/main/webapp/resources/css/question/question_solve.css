@@ -285,3 +285,16 @@
     background-size: cover;
     display: block;
 }
+
+.select-wrap {
+    display: flex;
+    height: 324px;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 30px;
+    padding: 0 150px;
+}
+.submit-btn.search.btn2 {
+    width: 120px;
+    text-align: center;
+}

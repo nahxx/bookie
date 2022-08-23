@@ -67,11 +67,13 @@
     <c:if test="${againProblem eq 'on'}">
 	    <div class="pop">
 	      <div class="popbox">
-	        <p class="pop-txt">로그인 해주세요 !</p>
-	        <a href="/bookie/question/questionProblem" class="submit-btn search pop-btn">예</a>
-	        <a href="/bookie/question/questionProblemList" class="submit-btn search pop-btn">되돌아가기</a>
-	      </div>
-	    </div>
+	        <p class="pop-txt">문제 더 푸시겠습니까?</p>
+            <div class="select-wrap">
+               <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/question/solveProblem'/>');" class="submit-btn search btn2">예</a>
+               <a href="/bookie/question/solveProblemList" class="submit-btn search btn2">되돌아가기</a>
+            </div>
+          </div>
+        </div>
     </c:if>
   </section>
 
@@ -101,9 +103,6 @@ let checkedBtn = document.getElementsByClassName("sub");
 let checkButton = null;
 let answerLa = document.getElementsByClassName("answerLa");
 
-
-
-
 submitBtn.addEventListener('click', function(){
 
     comment.style.display = 'block';
@@ -122,8 +121,6 @@ submitBtn.addEventListener('click', function(){
 
     this.setAttribute('disabled', 'true');
 });
-
-
 
 function sendPost(url) {
     //1. 폼생성
