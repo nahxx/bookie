@@ -37,7 +37,12 @@ public class AnswerServiceImpl implements AnswerService {
 		}
 		return answers;
 	}
-
+	
+	@Override
+	public Answer getAnswerByAnId(long anId) {
+		return answerDao.findAnswerByAnId(anId);
+	}
+	
 	@Override
 	public Answer getAnswerByQnaId(long qnaId, long anId) {
 		return answerDao.getAnswerByQnaId(qnaId, anId);

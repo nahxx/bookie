@@ -36,6 +36,11 @@ public class AnswerDao {
 		return jdbcTemplate.queryForObject(sql, new AnswerRowMapper(), qnaId, anId);
 	}
 	
+	public Answer findAnswerByAnId(long anId) {
+		String sql = "SELECT * FROM Answer WHERE anId = ?";
+		return jdbcTemplate.queryForObject(sql, new AnswerRowMapper(), anId);
+	}
+	
 	public List<Answer> getAnswersByUId(long uId) {
 		String sql = "SELECT * FROM Answer WHERE uId = ?";
 		return jdbcTemplate.query(sql, new AnswerRowMapper(), uId);

@@ -15,6 +15,7 @@ public class Board {
 	private String subject;
 	private Category category;
 	private User user;
+	private int answerCount;
 	private Date regDate;
 	private int qcCount;
 }

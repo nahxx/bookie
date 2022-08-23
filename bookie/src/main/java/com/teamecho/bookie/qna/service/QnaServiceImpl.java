@@ -22,6 +22,9 @@ public class QnaServiceImpl implements QnaService{
 	@Autowired
 	CategoryService categoryService;
 	
+	@Autowired
+	AnswerService answerService;
+	
 	@Override
 	public void addQna(Qna qna) {
 		qnaDao.addQna(qna);

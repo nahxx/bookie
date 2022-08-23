@@ -15,4 +15,13 @@ public class Answer {
 	private Qna qna;
 	private User user;
 	private Date regDate;
+	
+	public Answer() {
+		
+	}
+	
+	public Answer(long anId) {
+		this.anId = anId;
+	}
 }
+

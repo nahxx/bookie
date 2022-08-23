@@ -63,7 +63,12 @@
                 </c:if>
                 ${board.category.getGrade()}학년 / ${board.category.getSubject()}
               </td>
-              <td><a href="<c:url value='/answer/${board.qnaId}/${paging.currentPageNo}'/>">${board.subject}</a></td>
+              <td><a href="<c:url value='/answer/${board.qnaId}/${paging.currentPageNo}'/>">
+              ${board.subject} 
+               <c:if test="${board.answerCount ne '0'}">
+              	<b style="color:#1C3879;">(${board.answerCount})</b> 
+              </c:if>
+              </a></td>
               <td>
                <c:choose>
                   <c:when test="${uId eq board.user.getUId()}">

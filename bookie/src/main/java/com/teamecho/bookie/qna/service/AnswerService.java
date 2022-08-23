@@ -9,6 +9,7 @@ public interface AnswerService {
 	void addAnswer(Answer answer);
 	List<Answer> getAnswersByQnaId(long qnaId);
 	Answer getAnswerByQnaId(long qnaId, long anId);
+	Answer getAnswerByAnId(long anId);
 	List<Answer> getAnswersByUId(long uId);
 	void deleteAnswersByQnaId(long qnaId);
 	void deleteAnswerByAnId(long anId);

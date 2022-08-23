@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.teamecho.bookie.common.domain.Category;
+import com.teamecho.bookie.qna.domain.Answer;
 import com.teamecho.bookie.qna.domain.Board;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.user.domain.User;
@@ -21,6 +22,7 @@ public class QnaBoardRowMapper implements RowMapper<Board>{
 		b.setSubject(rs.getString("subject"));
 		b.setCategory(new Category(rs.getLong("cateId")));
 		b.setUser(new User(rs.getLong("uId")));
+		b.setAnswerCount(rs.getInt("answerCount"));
 		b.setRegDate(rs.getTimestamp("regDate"));
 		b.setQcCount(rs.getInt("qcCount"));
 		return b;
