@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.teamecho.bookie.admin.repository.AdminDao;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
 import com.teamecho.bookie.user.domain.User;
-import com.teamecho.bookie.user.repository.UserDao;
 
 @Service("admin.service.adminService")
 public class AdminService {
@@ -40,6 +40,19 @@ public class AdminService {
 		List<Question> questionList = adminDao.findQuestionList(BoardStartItemNo);
 		
 		return questionList;
+	}
+	
+	public List<QuestionAndQuestionPattern> getQuestionsAndQuestionPatterns(int pagingNo, int listCount) {
+		int BoardStartItemNo;
+		pagingNo = pagingNo - 1;
+		if(pagingNo == 0) {
+			BoardStartItemNo = 0;
+		} else {
+			BoardStartItemNo = listCount * pagingNo;
+		}
+		List<QuestionAndQuestionPattern> qaqpList = adminDao.findQuestionsAndQuestionPatterns(BoardStartItemNo);
+		
+		return qaqpList;
 	}
 }
 

@@ -109,3 +109,12 @@ DELETE FROM MainText WHERE mtId = 22;
 SELECT qp.spId, sp.bigPattern, sp.midPattern, count(*) FROM QuestionPattern qp INNER JOIN SubjectPattern sp ON qp.spId = sp.spId
    GROUP BY qp.spId, sp.bigPattern, sp.midPattern
    ;
+   
+   
+SELECT q.qId, q.regDate, c.cateId, c.cLevel, c.grade, c.subject, qp.qpId, qp.spId
+FROM Question q
+INNER JOIN Category c
+ON c.cateId = q.cateId
+INNER JOIN QuestionPattern qp
+ON qp.qId = q.qId
+ORDER BY q.regDate DESC LIMIT 0, 10;

@@ -1,6 +1,5 @@
 package com.teamecho.bookie.admin.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.admin.service.AdminService;
 import com.teamecho.bookie.common.domain.Paging;
-import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
 import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.user.domain.User;
@@ -161,36 +160,14 @@ public class AdminController {
 	        paging.calcPagingNo();	//초기값5 : 페이지 갯수 계산 함.
 	        
 	        paging.makePaging(pagingNo); //페이지에 맞게
-	        List<Question> questionList = adminService.getQuestionList(pagingNo, paging.getPageSize());
+	        List<QuestionAndQuestionPattern> qaqpList = adminService.getQuestionsAndQuestionPatterns(pagingNo, paging.getPageSize());
 	        request.setAttribute("paging", paging);
-	        request.setAttribute("questionList", questionList);
+	        request.setAttribute("qaqpList", qaqpList);
 	        
-	        /*
-	        List<String> cateTitleList = new ArrayList<>();
-	        for(Question q : questionList) {
-	        	String title = "";
-	        	if(q.getCategory().getCLevel() == 'm') {
-	        		title += "중등/";
-	        	} else if(q.getCategory().getCLevel() == 'h') {
-	        		title += "고등/";
-	        	}
-	        	title += q.getCategory().getGrade() + "학년/";
-	        	title += q.getCategory().getSubject();
-	        	
-	        	cateTitleList.add(title);
-	        }
-	        request.setAttribute("cateTitleList", cateTitleList);
-	        */
-	        
-	        List<String> spTitleList = new ArrayList<>();
-	        for(Question q : questionList) {
-	        	spTitleList.add(qhService.getSubjectPatternByQid(q.getQId()));
-	        }
-	        
-	        request.setAttribute("spTitleList", spTitleList);
 		} catch(Exception e) {
 			throw e;
 		}
+
 		return "admin/admin_question";
 	}
 	

@@ -42,8 +42,9 @@ html, body {
 	position: fixed;
 	display: inline-block;
 	width: 280px;
-	height:calc(100vh - 182px);
+	height: 100vh;
 	border-right: 1px solid #d9d9d9;
+	z-index: 500;
 }
 
 .side-menu .only-admin {
@@ -125,27 +126,27 @@ html, body {
     align-items: center;
 }
 */
-.main-box .user-table {
+.main-box .user-table, .main-box .question-table {
 	display: flex;
     justify-content: center;
     align-items: center;
 	border-top: 0px solid white;
     border-collapse: collapse;
     margin-top: 50px;
-    margin-bottom: 210px;
+    margin-bottom: 100px;
     color: #444;
 }
 
-.main-box .user-table tbody {
+.main-box .user-table tbody, .main-box .question-table tbody {
 	width: 1320px;
 	text-align: center;
 }
 
-.main-box .user-table th, .main-box .user-table td {
+.main-box .user-table th, .main-box .user-table td, .main-box .question-table th, .main-box .question-table td {
 	height: 40px;
 }
 
-.main-box .user-table th {
+.main-box .user-table th, .main-box .question-table th {
 	border-top: 1px solid #d9d9d9;
 	border-bottom: 1px solid #d9d9d9;
 	width: 10%;
@@ -174,7 +175,23 @@ html, body {
 	width: 346px;
 }
 
-.main-box .user-table td {
+.main-box .question-table th:nth-child(1), .main-box .question-table td:nth-child(1) {
+	width: 95px;
+}
+
+.main-box .question-table th:nth-child(2), .main-box .question-table td:nth-child(2) {
+	width: 355px;
+}
+
+.main-box .question-table th:nth-child(3), .main-box .question-table td:nth-child(3) {
+	width: 450px;
+}
+
+.main-box .question-table th:nth-child(4), .main-box .question-table td:nth-child(4) {
+	width: 420px;
+}
+
+.main-box .user-table td, .question-table td {
 	border-bottom: 1px solid #d9d9d9;
 	
 }
