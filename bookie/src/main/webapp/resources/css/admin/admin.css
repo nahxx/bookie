@@ -47,12 +47,15 @@ html, body {
 .side-menu .only-admin {
 	height: 100px;
     background: white;
-    color: #1C3879;
-    font-size: 26px;
     line-height: 100px;
     text-align: center;
     font-weight: 700;
     border-bottom: 1px solid #d9d9d9;
+}
+
+.side-menu .only-admin a {
+	color: #1C3879;
+    font-size: 26px;
 }
 
 .side-menu .menu-box {
@@ -64,7 +67,6 @@ html, body {
 	font-size: 22px;
     font-weight: 700;
     color: #888;
-    transition: .3s;
 	cursor: pointer;
 }
 
@@ -72,7 +74,32 @@ html, body {
 	margin-top: 20px;
 }
 
-.side-menu .menu-box .menu-item:hover {
+.side-menu .menu-box .menu-item.on {
+	position: relative;
+	padding-left: 10px;
+}
+
+.side-menu .menu-box .menu-item.on a {
+	color: #444;
+}
+
+/* 이따 다시 확인 */
+.side-menu .menu-box .menu-item.on:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	width: 10px;
+	height: 5px;
+	background: #1C3879;
+}
+
+.side-menu .menu-box .menu-item a {
+	color: #888;
+	transition: .3s;
+}
+
+.side-menu .menu-box .menu-item a:hover {
 	padding-left: 10px;
 	color: #444;
 }

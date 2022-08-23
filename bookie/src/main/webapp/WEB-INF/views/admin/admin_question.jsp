@@ -31,13 +31,13 @@
 				<li class="menu-item">
 					<a href="<c:url value="admin_user/1" />">회원 관리</a>
 				</li>
-				<li class="menu-item">
+				<li class="menu-item on">
 					<a href="<c:url value="admin_question" />">문제 관리</a>
 				</li>
 			</ul>
 		</div>
 		
-		<!-- 메인 화면 -->
+		<!-- 문제 관리 메인 화면 -->
 	</div>
 	
 	<!-- 푸터 부분 -->

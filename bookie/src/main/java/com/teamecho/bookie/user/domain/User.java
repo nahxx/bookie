@@ -1,5 +1,7 @@
 package com.teamecho.bookie.user.domain;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +18,7 @@ public class User {
 	private String phone;
 	private char manager;
 	private String addr;
+	private Date regDate;
 	
 	public User() {
 		

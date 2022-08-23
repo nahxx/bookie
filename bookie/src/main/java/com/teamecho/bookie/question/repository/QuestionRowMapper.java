@@ -30,6 +30,7 @@ public class QuestionRowMapper implements RowMapper<Question>{
 		q.setQuestionText(questionText);
 		q.setCategory(category);
 		q.setMainText(mainText);
+		q.setRegDate(rs.getTimestamp("regDate"));
 		return q;
 	}
 }

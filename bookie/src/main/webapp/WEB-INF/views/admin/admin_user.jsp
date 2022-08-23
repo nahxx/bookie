@@ -28,7 +28,7 @@
 				<a href="<c:url value="admin_service" />">관리자 전용</a>
 			</div>
 			<ul class="menu-box">
-				<li class="menu-item">
+				<li class="menu-item on">
 					<a href="<c:url value="admin_user/1" />">회원 관리</a>
 				</li>
 				<li class="menu-item">
@@ -37,7 +37,8 @@
 			</ul>
 		</div>
 		
-		<!-- 메인 화면 -->
+		<!-- 회원관리 메인 화면 -->
+		
 	</div>
 	
 	<!-- 푸터 부분 -->
