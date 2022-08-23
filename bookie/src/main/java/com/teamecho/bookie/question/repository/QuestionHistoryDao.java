@@ -38,7 +38,7 @@ public class QuestionHistoryDao {
 	public List<QuestionBoard> getQuestionByUId(long uId, int BoardStartItemNo) {
 		String sql = "SELECT q.*, qh.qhId, qh.regDate"
 				+ "   FROM Question q INNER JOIN QuestionHistory qh ON q.qid = qh.qid"
-				+ "   WHERE qh.uid = ? ORDER BY qh.regDate"
+				+ "   WHERE qh.uid = ? ORDER BY qh.regDate desc"
 				+ "	  LIMIT ? , 10";
 		return jdbcTemplate.query(sql, new QuestionBoardRowMapper(), uId, BoardStartItemNo);
 	}
