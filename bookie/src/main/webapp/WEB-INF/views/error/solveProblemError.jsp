@@ -18,12 +18,12 @@
 	<header>
 		<%@ include file="../incl/header.jsp"%>
 	</header>
-	<div class="container counts solve">
+	<div class="container counts solve errorP">
 		<div class="category-wrap">
 			<span class="errorMsg">${str}</span>
 		</div>
 	</div>
-	<div class="container counts">
+	<div class="container counts errorContents">
 		<a href="/bookie/question/solveProblemList" class="submit-btn search solve">되돌아가기</a>
 	</div>
 </div>

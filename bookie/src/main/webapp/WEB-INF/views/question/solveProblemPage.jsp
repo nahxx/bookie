@@ -12,6 +12,7 @@
 </head>
 <body>
 <section class="subpage-question-sec">
+    <div class="end-btn-wrap"><input type="button" class="end-btn"/><span class="cross-r"></span><span class="cross-l"></span></div>
     <div class="subpage-question">
       <div class="title-wrap">
         <h1 class="title">문제풀기</h1>
@@ -69,12 +70,21 @@
 	      <div class="popbox">
 	        <p class="pop-txt">문제 더 푸시겠습니까?</p>
             <div class="select-wrap">
-               <a href="javascript:void(0);" onclick="javascript:sendGet('<c:url value='/question/solveProblem'/>');" class="submit-btn search btn2">예</a>
+               <a class="submit-btn search btn2" href="javascript:void(0);" onclick="javascript:sendGet('<c:url value='/question/solveProblem'/>');">예</a>
                <a href="/bookie/question/solveProblemList" class="submit-btn search btn2">되돌아가기</a>
             </div>
           </div>
         </div>
     </c:if>
+    <div class="pop end-pop">
+        <div class="popbox">
+            <p class="pop-txt">끝내시겠습니까?</p>
+            <div class="select-wrap">
+                <a href="javascript:void(0);" onclick="javascript:sendBack('<c:url value='/question/solveProblemList'/>');" class="submit-btn search btn2">예</a>
+                <input type="button" class="submit-btn search btn2 cancellBtn" value="아니요"/>
+            </div>
+        </div>
+    </div>
   </section>
 
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -109,7 +119,7 @@ submitBtn.addEventListener('click', function(){
     Array.prototype.forEach.call(checkedBtn, (item, i) => {
         if(item.checked == true) {
             checkButton = item;
-            if(checkButton.value == ${question.answer}){
+            if(checkButton.value == '${question.answer}'){
                 let check = document.getElementsByClassName("answerChecking")[0];
                 check.style.display = 'block';
             } else {
@@ -123,6 +133,7 @@ submitBtn.addEventListener('click', function(){
 });
 
 function sendPost(url) {
+
     //1. 폼생성
     var form = document.createElement('form');
     form.setAttribute('method', 'post');
@@ -161,18 +172,12 @@ function sendPost(url) {
 };
 
 function sendGet(url) {
+
     //1. 폼생성
     var form = document.createElement('form');
-    form.setAttribute('method', 'post');
+    form.setAttribute('method', 'get');
     form.setAttribute('action', url);
     document.charset = "UTF-8";
-
-    // 문제 qId 넘겨주기
-    let qeustion = document.createElement('input');
-    qeustion.setAttribute('type', 'hidden');
-    qeustion.setAttribute('name', 'question');
-    qeustion.setAttribute('value', '${question.QId}');
-    form.appendChild(qeustion);
 
     // 카테고리 넘겨주기
     let input1 = document.createElement('input');
@@ -191,9 +196,54 @@ function sendGet(url) {
     input3.setAttribute('value', '${realCategory.getSubject()}');
     form.appendChild(input3);
 
+    let requestion = document.createElement('input');
+    requestion.setAttribute('type', 'hidden');
+    requestion.setAttribute('name', 'requestionState');
+    requestion.setAttribute('value', 'Y');
+    form.appendChild(requestion);
+
     document.body.appendChild(form);
     form.submit();
 };
+function sendBack(url) {
+    console.log(comment.style.display);
+    // if()
+    //1. 폼생성
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', url);
+    document.charset = "UTF-8";
+
+    // 문제 qId 넘겨주기
+    let qeustion = document.createElement('input');
+    qeustion.setAttribute('type', 'hidden');
+    qeustion.setAttribute('name', 'question');
+    qeustion.setAttribute('value', '${question.QId}');
+    form.appendChild(qeustion);
+
+    let requestion = document.createElement('input');
+    requestion.setAttribute('type', 'hidden');
+    requestion.setAttribute('name', 'requestionState');
+    requestion.setAttribute('value', 'Y');
+    form.appendChild(requestion);
+
+    document.body.appendChild(form);
+    form.submit();
+};
+
+// 끝내는 버튼 눌렀을 때
+let endBtn = document.getElementsByClassName("end-btn")[0];
+let endPop = document.getElementsByClassName("end-pop")[0];
+
+endBtn.addEventListener('click', function(){
+    endPop.style.display = 'flex';
+});
+
+let cencellBtn = document.getElementsByClassName("cancellBtn")[0];
+
+cencellBtn.addEventListener('click', function(){
+   endPop.style.display = 'none';
+});
 </script>
 </body>
 </html>

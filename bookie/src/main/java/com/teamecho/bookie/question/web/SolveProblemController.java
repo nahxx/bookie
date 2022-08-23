@@ -10,10 +10,8 @@ import com.teamecho.bookie.question.service.SolveProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,14 +29,13 @@ public class SolveProblemController {
 
 	private List<Question> questionList;
 	private SubjectPattern subjectPattern;
-	private int count = 0;
 
 	@GetMapping("/question/solveProblemList")
 	public String solveProblemListPage(Model model, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
 		HttpSession session = request.getSession(false);
+
 		if(session.getAttribute("questionList") != null) {
-			System.out.println("session 초기화");
 			session.removeAttribute("questionList");
 		}
 
@@ -54,7 +51,6 @@ public class SolveProblemController {
 		
 		long uId = (long)session.getAttribute("uId");
 
-		count = 0;
 		
 		model.addAttribute("category", new CategoryCommand());
 		return "question/solveProblemListPage";
@@ -85,6 +81,41 @@ public class SolveProblemController {
 		return list;
 	}
 
+	@PostMapping("/question/solveProblemList")
+	public String solveProblemListBack(Model model, HttpServletRequest request, @RequestParam(value="question")String questionId, @RequestParam(value="answer")String answer) {
+		HttpSession session = request.getSession(false);
+		long sessionQid;
+
+		if(session.getAttribute("questionList") != null) {
+			session.removeAttribute("questionList");
+		}
+
+		if (session == null) {
+			model.addAttribute("session", "no");
+			return "error/no_session";
+		}
+
+		if(session.getAttribute("uId") == null) {
+			model.addAttribute("session", "no");
+			return "error/no_session";
+		}
+
+		long uId = (long)session.getAttribute("uId");
+
+		System.out.println(session.getAttribute("questionId"));
+		if(session.getAttribute("questionId") == null) {
+			sessionQid  = 0;
+		}else {
+			sessionQid = (long)session.getAttribute("questionId");
+		}
+		if ( sessionQid == 0 || Long.parseLong(questionId) != sessionQid ) {
+			solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
+		}
+
+		model.addAttribute("category", new CategoryCommand());
+		return "question/solveProblemListPage";
+	}
+
 	@GetMapping("/question/solveProblem")
 	public String solveProblem(HttpServletRequest request, Model model, @ModelAttribute("category") CategoryCommand category) {
 		HttpSession session = request.getSession(false);
@@ -98,6 +129,31 @@ public class SolveProblemController {
 			return "question/solveProblemPage";
 		}
 
+		if(request.getParameter("requestionState") != null){
+			System.out.println("문제 더 풀기 했을 때 = " + request.getParameter("requestionState"));
+			char cLevel = request.getParameter("cLevel").charAt(0);
+			int grade = Integer.parseInt(request.getParameter("grade"));
+			String subject = request.getParameter("subject");
+
+			Category subCategory = solveProblemService.findCategory(cLevel, grade, subject);
+
+			questionList = solveProblemService.findQuestionByCategoryId(subCategory.getCateId(), (long)session.getAttribute("uId"));
+			subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
+
+			model.addAttribute("realCategory", subCategory);
+			model.addAttribute("question", questionList.get(0));
+			model.addAttribute("subjectPattern", subjectPattern);
+
+			// 더이상 풀 문제가 없는 경우 보내는 메세지
+			if(questionList.size() == 0) {
+				String str = "해당 학년의 문제를 다 푸셨습니다!";
+				model.addAttribute("str", str);
+				return "error/solveProblemError";
+			}
+			System.out.println("파라메터 정보 받아옴");
+			return "question/solveProblemPage";
+		}
+
 		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(category.getCLevel().charAt(0), category.getGrade(), category.getSubject());
 		model.addAttribute("realCategory", realCategory);
@@ -108,7 +164,6 @@ public class SolveProblemController {
 		if(questionList == null) {
 			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
-			System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
 
 			// 더이상 풀 문제가 없는 경우 보내는 메세지
 			if(questionList.size() == 0) {
@@ -131,9 +186,6 @@ public class SolveProblemController {
 		 * session에 리스트가 담겼을 경우
 		 */
 		System.out.println("questionList가 있는 경우 : 진입");
-		if(questionList.get(0).getMainText() != null) {
-			model.addAttribute("question", questionList.get(0));
-		}
 
 		subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
 
@@ -152,7 +204,7 @@ public class SolveProblemController {
 	}
 
 	@PostMapping("/question/solveProblem")
-	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String questionId, HttpServletRequest request) {
+	public String solveProblemPaging(Model model, @RequestParam(value="answer")String answer, @RequestParam(value="question")String questionId, HttpServletRequest request, RedirectAttributes redirect) {
 		HttpSession session = request.getSession(false);
 
 		long sessionQid;
@@ -173,11 +225,6 @@ public class SolveProblemController {
 		Category realCategory = solveProblemService.findCategory(cLevel, grade, subject);
 		model.addAttribute("realCategory", realCategory);
 
-		// 문제 다 풀었을때 새로 불러오기
-		if(questionList.get(questionList.size()-1).getQId() == Long.parseLong(questionId)){
-			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
-		}
-
 		if(session.getAttribute("questionId") == null) {
 			sessionQid  = 0;
 		}else {
@@ -191,12 +238,17 @@ public class SolveProblemController {
 
 			question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));
 
-
+			if(questionList == null) {
+				return "question/solveProblemListPage";
+			}
 			// 다음문제 넘기기
 			for(int i=0;i<questionList.size();i++){
 				if(questionList.get(i).getQId() == question.getQId()){
 					if((i+1) >= questionList.size()){
 						questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+						if(questionList.size() == 0) {
+							return "redirect:/error/solveProblemError";
+						}
 						model.addAttribute("againProblem", "on");
 						return "question/solveProblemPage";
 					}
@@ -214,6 +266,16 @@ public class SolveProblemController {
 			// 다음문제 넘기기
 			for(int i=0;i<questionList.size();i++){
 				if(questionList.get(i).getQId() == question.getQId()){
+					if((i+1) >= questionList.size()){
+						questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
+						if(questionList.size() == 0) {
+							String str = "해당 학년의 문제를 다 푸셨습니다!";
+							model.addAttribute("str", str);
+							return "error/solveProblemError";
+						}
+						model.addAttribute("againProblem", "on");
+						return "question/solveProblemPage";
+					}
 					subjectPattern = solveProblemService.getQuestionPattern(questionList.get(i+1).getQId());
 					model.addAttribute("question", questionList.get(i+1));
 					model.addAttribute("subjectPattern", subjectPattern);
@@ -222,5 +284,12 @@ public class SolveProblemController {
 		}
 		
 		return "question/solveProblemPage";
+	}
+
+	@RequestMapping(value="/error/solveProblemError")
+	public String error(Model model) {
+		String str = "해당 학년의 문제를 다 푸셨습니다!";
+		model.addAttribute("str", str);
+		return "error/solveProblemError";
 	}
 }
