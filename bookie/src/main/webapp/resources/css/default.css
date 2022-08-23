@@ -32,10 +32,10 @@ a {
 
 .mh {
 	min-height: calc(100vh - 61px);
-	  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	flex-direction: column;
 }
 
 .title-wrap {
