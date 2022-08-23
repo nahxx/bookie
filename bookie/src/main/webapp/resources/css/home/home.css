@@ -9,6 +9,7 @@ button {
 }
 
 .swiper {
+	width: 100%;
 	margin-top: 80px;
 }
 
@@ -17,8 +18,8 @@ button {
 }
 
 .swiper-slide img {
-	object-fit: cover;
 	width: 100%;
+	object-fit: cover;
 }
 
 .swiper-button-next:after, .swiper-rtl .swiper-button-prev:after,

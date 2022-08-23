@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-//import com.teamecho.bookie.user.domain.Ranking;
 import com.teamecho.bookie.user.domain.User;
 
 @Component("userDao")
@@ -106,8 +105,5 @@ public class UserDao {
 		}
 	}
 	
-//	public List<Ranking> rankingUser() {
-//		String sql = "CALL RANK_USER_PROCEDURE()";
-//		return jdbcTemplate.query(sql, new RankingRowMapper());
-//	}
+
 }

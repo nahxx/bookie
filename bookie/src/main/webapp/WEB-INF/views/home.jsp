@@ -63,13 +63,13 @@
 			</div>
 		</div>
 		<div class="container content">
-			<div class="qna contents">
+			<div class="user contents">
 				<div class="headline">
 					<h2>
 						<a href="/">유저 랭킹</a>
 					</h2>
 				</div>
-				<div class="qna inner">
+				<div class="user inner">
 					<ul>
 						<li><a href="/">
 								<div class="article-username">username</div>
@@ -79,35 +79,34 @@
 					</ul>
 				</div>
 			</div>
-			<div class="question contents">
+			<div class="qna contents">
 				<div class="headline">
 					<h2>
 						<a href="/">새로운 질문</a>
 					</h2>
 				</div>
-				<div class="question inner">
+				<div class="qna inner">
 					<ul>
-						<li><a href="/">
-								<div class="article-level">고1</div>
-								<div class="article-subject">subject</div>
-								<div class="article-text">text</div>
-						</a></li>
+						<c:forEach var="qnaList" items="${qnaList}" begin="0" end="2">
+							<li><a href="/"><div class="article-subject">과목 : ${qnaList.subject}</div></a></li>
+							<li><a href="/"><div class="article-user">질문한 유저 : ${uName}</div></a></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
-			<div class="ranking contents">
+			<div class="answer contents">
 				<div class="headline">
 					<h2>
 						<a href="/">새로운 답변</a>
 					</h2>
 				</div>
-				<div class="ranking inner">
+				<div class="answer inner">
 					<ul>
-						<li><a href="/">
-								<div class="rank-num">1</div>
-								<div class="article-subject">subject</div>
-								<div class="article-text">text</div>
-						</a></li>
+						<c:forEach var="answerList" items="${answerList}" begin="0"
+							end="2">
+							<li><a href="/"><div class="article-subject">질문 번호 : ${answerList.qna.qnaId}</div></a></li>
+							<li><a href="/"><div class="article-user">답변한 유저 : ${userName}</div></a></li>
+						</c:forEach>
 					</ul>
 				</div>
 
@@ -121,10 +120,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 	<script>
 		var swiper = new Swiper(".mySwiper", {
-			loop: true,
-			effect: 'slide',
-			autoplay: {
-				delay: 3000,
+			loop : true,
+			effect : 'slide',
+			autoplay : {
+				delay : 3000,
 			},
 			pagination : {
 				el : ".swiper-pagination",
@@ -135,7 +134,6 @@
 				prevEl : ".swiper-button-prev",
 			},
 		});
-
 	</script>
 </body>
 </html>
