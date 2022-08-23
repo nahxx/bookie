@@ -101,24 +101,14 @@ public class SolveProblemController {
 		// 해당 카테고리 불러오기
 		Category realCategory = solveProblemService.findCategory(category.getCLevel().charAt(0), category.getGrade(), category.getSubject());
 		model.addAttribute("realCategory", realCategory);
-		System.out.println("realCategory.getCLevel() = " + realCategory.getCLevel());
-		System.out.println("realCategory.getGrade() = " + realCategory.getGrade());
-		System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
 
 		// 새로고침 했을때 question이 랜덤으로 바뀌지 않게 하기 위함
 		questionList = (List<Question>) session.getAttribute("questionList");
 
 		if(questionList == null) {
-
-			System.out.println("questionList 가 없는 경우 : 진입");
-
 			// session에 아직 리스트가 안담겼을 경우 DB에서 받아오기
-			System.out.println("questionList 가 없는 경우 : 진입"+realCategory.getCateId());
 			questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
 			System.out.println("realCategory.getSubject() = " + realCategory.getSubject());
-			for(Question question: questionList) {
-				System.out.println("question.getQId() = " + question.getQId());
-			}
 
 			// 더이상 풀 문제가 없는 경우 보내는 메세지
 			if(questionList.size() == 0) {

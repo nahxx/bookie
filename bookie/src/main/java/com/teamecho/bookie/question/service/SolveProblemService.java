@@ -38,15 +38,12 @@ public class SolveProblemService {
 	}
 
 	public List<Question> findQuestionByCategoryId(long cateId, long uId) {
-
 		List<Question> unsolveQuestionList = solveProblemRepository.getUnsolveQuestionByCateogyId(cateId, uId);
-		
 		for(Question question : unsolveQuestionList) {
 			if (question.getMainText().getMtId() != 0) {
 				question.setMainText(solveProblemRepository.getMainTest(question.getMainText().getMtId()));
 			}
 		}
-
 		return unsolveQuestionList;
 	}
 
