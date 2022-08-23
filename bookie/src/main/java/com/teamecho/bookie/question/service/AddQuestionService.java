@@ -49,6 +49,14 @@ public class AddQuestionService {
 		addQDao.addQuestionPattern(qp);
 	}
 	
+	public List<Question> getAllQuestions() {
+		return addQDao.findAllQuestions();
+	}
+	
+	public List<QuestionPattern> getAllQuestionPatterns() {
+		return addQDao.findAllQuestionPatterns();
+	}
+	
 	/**
 	 * 작성자 : 박동근
 	 * 내용 :

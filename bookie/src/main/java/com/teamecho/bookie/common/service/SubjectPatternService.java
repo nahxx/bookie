@@ -25,4 +25,8 @@ public class SubjectPatternService {
 	public SubjectPattern getSubjectPatternByBPatternAndMPatternAndCateId(String bp, String mp, long cateId) {
 		return spDao.findSubjectPatternByBPatternAndMPatternAndCateId(bp, mp, cateId);
 	}
+	
+	public SubjectPattern getSubjectPatternBySpId(long spId) {
+		return spDao.findSubjectPatternBySpId(spId);
+	}
 }

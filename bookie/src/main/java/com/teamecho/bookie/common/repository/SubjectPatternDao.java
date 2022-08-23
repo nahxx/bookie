@@ -54,4 +54,10 @@ private JdbcTemplate jdbcTemplate;
 		String sql = "SELECT * FROM SubjectPattern sp WHERE sp.spId = (SELECT spId FROM QuestionPattern qp WHERE qId = ?)";
 		return jdbcTemplate.queryForObject(sql, new SubjectPatternRowMapper(), qId );
 	}
+	
+	public SubjectPattern findSubjectPatternBySpId(long spId) {
+		String sql = "SELECT * FROM SubjectPattern WHERE spId = ?";
+		return jdbcTemplate.queryForObject(sql, new SubjectPatternRowMapper(), spId);
+	}
+
 }

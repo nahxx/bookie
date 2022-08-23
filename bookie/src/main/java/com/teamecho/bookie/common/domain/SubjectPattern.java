@@ -19,4 +19,8 @@ public class SubjectPattern {
 	public SubjectPattern() {
 		
 	}
+	
+	public SubjectPattern(long spId) {
+		this.spId = spId;
+	}
 }

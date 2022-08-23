@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +40,69 @@
 		</div>
 		
 		<!-- 문제 관리 메인 화면 -->
+		<div class="main-box">
+			<h3>문제관리</h3>
+			<!-- 문제 관리 메인 화면 -->
+			<table class="user-table">
+				<c:set var="boardNo" value="${1}" />
+				<tr>
+					<th>No.</th>
+					<th>카테고리</th>
+					<th>제목</th>
+					<th>등록일자</th>
+				</tr>
+				<c:forEach var="question" items="${questionList}">
+					<tr>
+						<td>${boardNo}</td>
+						<td>
+							<c:choose>
+								<c:when test="${fn:contains(question.category.cLevel(), 'm')}">
+									중등/
+								</c:when>
+								<c:when test="${fn:contains(question.category.cLevel(), 'm')}">
+									고등/
+								</c:when>
+							</c:choose>
+							${question.category.grade}/${question.category.subject}
+						</td>
+						<td>
+							${spTitleList}
+						</td>
+						<td>
+							<fmt:formatDate value="${user.regDate}"  pattern="yyyy-MM-dd HH:mm:ss" />
+						</td>
+						<c:set var="boardNo" value="${boardNo + 1}" />
+					</tr>
+				</c:forEach>
+			</table>
+			
+			<!-- 페이징 -->
+			<div class="paging">
+		        <div class="paging-box">
+		        	<ul class="inner-paging-wrap">
+			          <c:choose>
+			            <c:when test="${ paging.currentPageNo == '1' }">
+			              <li><a style="color:#808080; disabled">◀</a></li>
+			            </c:when>
+			            <c:otherwise>
+			              <li><a href="<c:url value='/admin_question/${paging.currentPageNo - 1}'/>">◀</a></li>
+			            </c:otherwise>
+			          </c:choose>
+			          <c:forEach var="i" begin="${ paging.startPageNo }" end="${ paging.endPageNo }">
+			            <li><a class="pageNo ${i}" href="<c:url value="/admin_question/${i}" />">${i}</a></li>
+			          </c:forEach>
+			          <c:choose>
+			            <c:when test="${ paging.currentPageNo == paging.finalPageNo }">
+			              <li><a style="color:#808080; disabled">▶</a></li>
+			            </c:when>
+			            <c:otherwise>
+			              <li><a href="<c:url value='/admin_question/${paging.currentPageNo + 1}'/>">▶</a></li>
+			            </c:otherwise>
+			          </c:choose>
+			        </ul>
+		        </div>
+		     </div>
+	     </div>
 	</div>
 	
 	<!-- 푸터 부분 -->

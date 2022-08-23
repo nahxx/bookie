@@ -39,6 +39,8 @@ html, body {
 
 /* 왼쪽 메뉴 */
 .side-menu {
+	position: fixed;
+	display: inline-block;
 	width: 280px;
 	height:calc(100vh - 182px);
 	border-right: 1px solid #d9d9d9;
@@ -102,4 +104,77 @@ html, body {
 .side-menu .menu-box .menu-item a:hover {
 	padding-left: 10px;
 	color: #444;
+}
+
+.main-box {
+	display: inline-block;
+	width: calc(100vw - 290px);
+	margin-left: 281px;
+}
+
+.main-box h3 {
+	margin-top: 100px;
+	margin-left: 160px;
+	color: #444;
+	font-size: 32px;
+}
+/*
+.main-box .user-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+*/
+.main-box .user-table {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	border-top: 0px solid white;
+    border-collapse: collapse;
+    margin-top: 50px;
+    margin-bottom: 210px;
+    color: #444;
+}
+
+.main-box .user-table tbody {
+	width: 1320px;
+	text-align: center;
+}
+
+.main-box .user-table th, .main-box .user-table td {
+	height: 40px;
+}
+
+.main-box .user-table th {
+	border-top: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+	width: 10%;
+	background: #f1f1f1;
+}
+
+.main-box .user-table th:nth-child(1), .main-box .user-table td:nth-child(1) {
+	width: 95px;
+}
+.main-box .user-table th:nth-child(2), .main-box .user-table td:nth-child(2) {
+	width: 195px;
+}
+.main-box .user-table th:nth-child(3), .main-box .user-table td:nth-child(3) {
+	width: 246px;
+}
+.main-box .user-table th:nth-child(4), .main-box .user-table td:nth-child(4) {
+	width: 146px;
+}
+.main-box .user-table th:nth-child(5), .main-box .user-table td:nth-child(5) {
+	width: 145px;
+}
+.main-box .user-table th:nth-child(6), .main-box .user-table td:nth-child(6) {
+	width: 146px;
+}
+.main-box .user-table th:nth-child(7), .main-box .user-table td:nth-child(7) {
+	width: 346px;
+}
+
+.main-box .user-table td {
+	border-bottom: 1px solid #d9d9d9;
+	
 }

@@ -42,6 +42,11 @@ public class AddQuestionDao {
 		jdbcTemplate.update(sql, q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getMainText().getMtId(), q.getCategory().getCateId());
 	}
 	
+	public List<Question> findAllQuestions() {
+		String sql = "SELECT * FROM Question";
+		return jdbcTemplate.query(sql, new QuestionRowMapper());
+	}
+	
 	public void addQuestionNotMtId(Question q) {
 		String sql = "INSERT INTO Question (qText, answer, qComment, qtId, cateId) VALUES (?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, q.getQText(), q.getAnswer(), q.getQComment(), q.getQuestionText().getQtId(), q.getCategory().getCateId());
@@ -65,6 +70,11 @@ public class AddQuestionDao {
 	public void addQuestionPattern(QuestionPattern qp) {
 		String sql = "INSERT INTO QuestionPattern (qId, spId) VALUES (?, ?)";
 		jdbcTemplate.update(sql, qp.getQuestion().getQId(), qp.getSubjectPattern().getSpId());
+	}
+	
+	public List<QuestionPattern> findAllQuestionPatterns() {
+		String sql = "SELECT * FROM QuestionPattern";
+		return jdbcTemplate.query(sql, new QuestionPatternRowMapper());
 	}
 	
 	//동근
