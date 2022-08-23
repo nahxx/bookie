@@ -85,7 +85,7 @@
 	padding: 0px 10px;
 }
 #viewer_a p img{
-	
+
 }
 </style>
 <body>
@@ -168,7 +168,13 @@
 			</c:when>
 		</c:choose>
 		<h3 class="answer-title">댓글</h3>
-		<div id="editor"></div>
+		<div id="editor">
+			<c:choose>
+				<c:when test="${not empty update_answer_d}">
+					${update_answer_d}
+				</c:when>
+			</c:choose>
+		</div>
 		<div class="btn">
 			<c:choose>
 				<c:when test="${not empty update_answer_d}">
@@ -455,14 +461,13 @@
 	    }
 	});
 	
-	let text = '${update_answer_d}';
-    editor.insertText(text);
+	//let text = '${update_answer_d}';
+    //editor.insertText(text);
 	
 	const viewer = Editor.factory({
 		  el: document.querySelector('#viewer_q'),
 		  viewer: true,
 		  height: '500px',
-		  //initialValue: '${document_q}'
 	});
 	
 	const viewer2 = Editor.factory({

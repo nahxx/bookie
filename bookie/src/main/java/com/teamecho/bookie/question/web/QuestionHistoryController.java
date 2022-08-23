@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import com.teamecho.bookie.common.domain.Paging;
+import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionBoard;
+import com.teamecho.bookie.question.domain.QuestionHistory;
+import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.question.service.SolveProblemService;
 
@@ -60,5 +63,16 @@ public class QuestionHistoryController {
 	        throw e;
 	    }
 	    return mav;
+	}
+	
+	@GetMapping("/question/questionHistory_detail/{pagingNo}/{qhId}")
+	public ModelAndView questionHistoryDetail(@PathVariable int pagingNo, @PathVariable int qhId, HttpServletRequest request, ModelAndView mv) throws Exception {
+		QuestionHistory qh = questionHistoryService.getQuestionHistoryByQhId(qhId);
+		System.out.println(qh.getQuestion().getQId());
+		Question q = questionHistoryService.getQuestionByQId(qh.getQuestion().getQId());
+		
+		mv.addObject("q", q);
+		mv.setViewName("/question/questionHistory_detail");
+		return mv;
 	}
 }

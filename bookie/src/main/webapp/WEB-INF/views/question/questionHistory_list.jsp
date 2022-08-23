@@ -62,7 +62,7 @@
                 </c:if>
                 ${board.category.getGrade()}학년 / ${board.category.getSubject()}
               </td>
-              <td><a href="<c:url value='//${paging.currentPageNo}'/>">${board.subject}</a></td>
+              <td><a href="<c:url value='/question/questionHistory_detail/${paging.currentPageNo}/${board.getQuestionHistory().getQhId()}'/>">${board.subject}</a></td>
               <td>
                 <fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />
               </td>

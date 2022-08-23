@@ -121,7 +121,7 @@ public class AnswerController {
 		uId = (long) session.getAttribute("uId");
 		mv.addObject("page", page);
 		mv.addObject("form", "mq");	
-		// 세션 uId로 uType 'e' 찾기
+		// 세션 uId로 uType manger 구분
 		user = userService.getUserByUid(uId);
 		mv.addObject("manager", user.getManager());
 		qnaService.boardCounting(qnaId);
@@ -172,14 +172,7 @@ public class AnswerController {
 		// 해당 질문에 대한 답변 쓰기
 		// 에디터에서 쓴 글(폼으로)
 		String documnet = request.getParameter("documnet");
-		// 내가 등록한 이미지
-		/*
-		String answerImgArr = request.getParameter("answerImgArr");
 		
-		String[] strArr = answerImgArr.split("\\s+");//Splitting using whitespace
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(strArr));
-		System.out.println(list);
-        */
 		Answer answer = new Answer();
 		answer.setDocument(documnet);
 		// 해당 qnaId를 가진 qna객체
@@ -191,7 +184,6 @@ public class AnswerController {
 		
 		// 최종이미지
 		List<String> answerImgNameList = commonService.getImageName(documnet);
-		System.out.println(answerImgNameList);
 		
 		commonService.deleteTempImages(answerImgArr, answerImgNameList, "answer");
 		
@@ -216,20 +208,7 @@ public class AnswerController {
 	public ModelAndView answerUpdateForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int anId, @PathVariable int page, RedirectAttributes redirectAttributes){
 		answer = answerService.getAnswerByQnaId(qnaId, anId);
 		String document = answer.getDocument();
-		System.out.println(document);
-//		String pattern = "<(\\/?)(?!\\/####)(^<|>]+)?>";
-//		String a = document;
-//		String[] allowTags = "img,br".split(",");
-//		StringBuffer buffer = new StringBuffer();
-//		for(int i=0; i<allowTags.length; i++) {
-//			buffer.append("|" + allowTags[i].trim() + "(?!\\w)");
-//		}
-//		pattern = pattern.replace("####", buffer.toString());
-//		System.out.println("pattern: "+pattern);
-//		String msg = a.replaceAll(pattern, "");
-//		System.out.println("msg: "+msg);
- 		String doc = document.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-		redirectAttributes.addFlashAttribute("update_answer_d", doc);
+		redirectAttributes.addFlashAttribute("update_answer_d", document);
 		redirectAttributes.addFlashAttribute("update_answer", answer);
 		mv.setViewName("redirect:/answer/{qnaId}/{page}");
 		return mv;

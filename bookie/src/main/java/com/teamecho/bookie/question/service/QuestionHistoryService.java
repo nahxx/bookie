@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionBoard;
+import com.teamecho.bookie.question.domain.QuestionHistory;
 import com.teamecho.bookie.question.repository.QuestionHistoryDao;
 
 @Service
@@ -21,6 +22,10 @@ public class QuestionHistoryService {
 	
 	public List<Question> getAllQuestionHistory(long uId){
 		return qhDao.findAllQuestionHistory(uId);
+	}
+	
+	public Question getQuestionByQId(long qId) {
+		return qhDao.findQuestionByQId(qId);
 	}
 	
 	public List<QuestionBoard> getQuestionHistory(long uId, int pagingNo, int listCount){
@@ -39,5 +44,9 @@ public class QuestionHistoryService {
 			qb.setSubject(qhDao.findSubjectPatternByQid(qb.getQuestionHistory().getQhId()));
 		}
 		return qbList;
+	}
+	
+	public QuestionHistory getQuestionHistoryByQhId(long qhId) {
+		return qhDao.findQuestionHistoryByQhId(qhId);
 	}
 }
