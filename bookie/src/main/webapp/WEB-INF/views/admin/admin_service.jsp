@@ -55,6 +55,14 @@
 		google.charts.load('current', {'packages' : [ 'bar', 'corechart' ] });
 		google.charts.setOnLoadCallback(drawChart);
 		
+		let cntList = new Array();
+		<c:forEach var="cnt" items="${cntList}">
+			cntList.push("${cnt.grade}");
+			cntList.push(${cnt.kor});
+			cntList.push(${cnt.eng});
+			cntList.push(${cnt.math});
+		</c:forEach>
+		
 		function drawChart() {
 			// 학년/과목별 등록된 문제수
 			var data = new google.visualization.DataTable();
@@ -63,6 +71,9 @@
 			data.addColumn('number', '영어');
 			data.addColumn('number', '수학');
 			
+			for(let i = 0; i < cntList.length; i++) {
+				data.addRow([cntList[i], cntList[++i], cntList[++i], cntList[++i]]);
+			}
 			
 			var options = {
 				series: {

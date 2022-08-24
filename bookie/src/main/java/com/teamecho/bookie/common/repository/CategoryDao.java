@@ -6,12 +6,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.teamecho.bookie.common.domain.Category;
-import com.teamecho.bookie.qna.repository.QnaRowMapper;
 
 @Repository
 public class CategoryDao {
@@ -45,9 +45,17 @@ public class CategoryDao {
 		String sql = "SELECT * FROM Category";
 		return jdbcTemplate.query(sql, new CategoryRowMapper());
 	};
-	/*
-	public long getCategoryCountNotEtc() {
-		String sql = "SELECT COUNT(*) FROM Category WHERE subject != '기타'";
+	
+	public long findCategoryCountNotEtc() {
+		String sql = "SELECT COUNT(*) as cnt FROM Category WHERE subject != '기타'";
+		return jdbcTemplate.queryForObject(sql, new RowMapper<Long>() {
+
+			@Override
+			public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getLong("cnt");
+			}
+			
+		});
 	}
-	*/
+	
 }

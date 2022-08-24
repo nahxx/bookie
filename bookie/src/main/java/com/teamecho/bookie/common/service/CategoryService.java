@@ -27,4 +27,8 @@ public class CategoryService {
 	public List<Category> getAllCategory() {
 		return categoryCashService.getCategories();
 	}
+	
+	public long findCategoryCountNotEtc() {
+		return cateDao.findCategoryCountNotEtc();
+	}
 }

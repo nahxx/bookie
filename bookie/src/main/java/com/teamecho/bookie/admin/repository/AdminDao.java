@@ -1,10 +1,14 @@
 package com.teamecho.bookie.admin.repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.teamecho.bookie.common.domain.SubjectPattern;
@@ -90,4 +94,15 @@ public class AdminDao {
 		return qaqpList;
 	}
 	
+	public long findQuestionCountByCateId(long cateId) {
+		String sql = "SELECT Count(*) as cnt FROM Question WHERE cateId = ?";
+		return jdbcTemplate.queryForObject(sql, new RowMapper<Long>() {
+
+			@Override
+			public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getLong("cnt");
+			}
+			
+		}, cateId);
+	}
 }

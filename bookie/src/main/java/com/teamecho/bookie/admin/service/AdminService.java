@@ -1,11 +1,13 @@
 package com.teamecho.bookie.admin.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamecho.bookie.admin.repository.AdminDao;
+import com.teamecho.bookie.common.domain.QuestionCountForGrade;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
 import com.teamecho.bookie.user.domain.User;
@@ -66,6 +68,23 @@ public class AdminService {
 		List<QuestionAndQuestionPattern> qaqpList = adminDao.findQuestionsAndQuestionPatternsByCateId(cateId, BoardStartItemNo);
 		
 		return qaqpList;
+	}
+	
+	public long getQuestionCountByCateId(long cateId) {
+		return adminDao.findQuestionCountByCateId(cateId);
+	}
+	
+	public List<QuestionCountForGrade> getQuestionCountGrades(long cateCnt) {
+		List<QuestionCountForGrade> cntList = new ArrayList<>();
+		for(long i = 1; i < cateCnt + 1; i += 3) {
+			long kor = getQuestionCountByCateId(i);
+			long eng = getQuestionCountByCateId(i+1);
+			long math = getQuestionCountByCateId(i+2);
+
+			QuestionCountForGrade cnt = new QuestionCountForGrade(kor, eng, math);
+			cntList.add(cnt);
+		}
+		return cntList;
 	}
 }
 

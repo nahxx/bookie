@@ -119,3 +119,7 @@ INNER JOIN QuestionPattern qp
 ON qp.qId = q.qId
 WHERE c.cateId = 18
 ORDER BY q.regDate DESC LIMIT 0, 10;
+
+SELECT COUNT(*) FROM Category WHERE subject != '기타'
+
+SELECT Count(*) as cnt FROM Question WHERE cateId = 18;

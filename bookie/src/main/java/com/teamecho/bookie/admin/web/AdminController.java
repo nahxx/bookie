@@ -1,5 +1,6 @@
 package com.teamecho.bookie.admin.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import com.teamecho.bookie.admin.service.AdminService;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.CategoryCommand;
 import com.teamecho.bookie.common.domain.Paging;
+import com.teamecho.bookie.common.domain.QuestionCountForGrade;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
 import com.teamecho.bookie.question.domain.QuestionHistory;
@@ -71,8 +73,19 @@ public class AdminController {
 			return "redirect:/error/no_admin";
 		}
 		
+		// 로그인 회원 던지기
 		User user = userService.getUserByUid(uId);
 		request.setAttribute("user", user);
+		
+		// 학년/과목별 등록문제수 그래프 자료 던지기
+		String[] gradeArr = {"중등 1학년", "중등 2학년", "중등 3학년", "고등 1학년", "고등 2학년", "고등 3학년"};
+		long cateCnt = cateService.findCategoryCountNotEtc();
+		List<QuestionCountForGrade> cntList = adminService.getQuestionCountGrades(cateCnt); // 학년/과목 별 등록문제수 객체 담은 리스트
+		for(int i = 0; i < cntList.size(); i++) {
+			cntList.get(i).setGrade(gradeArr[i]);
+		}
+		request.setAttribute("cntList", cntList);
+		
 		return "admin/admin_service";
 	}
 	

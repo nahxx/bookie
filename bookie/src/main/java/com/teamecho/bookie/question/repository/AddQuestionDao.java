@@ -110,4 +110,5 @@ public class AddQuestionDao {
 		String sql = "CALL QUESTION_COUNT_PROCEDURE";
 		return jdbcTemplate.queryForObject(sql, new QuestionCountRowMapper());
 	}
+	
 }
