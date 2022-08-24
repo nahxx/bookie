@@ -53,6 +53,6 @@ public class AdminService {
 		List<QuestionAndQuestionPattern> qaqpList = adminDao.findQuestionsAndQuestionPatterns(BoardStartItemNo);
 		
 		return qaqpList;
-	}
+	}	
 }
 

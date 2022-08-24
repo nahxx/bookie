@@ -28,6 +28,11 @@ public class QuestionHistoryDao {
 		return jdbcTemplate.query(sql, new QuestionRowMapper(), uId);
 	}
 	
+	public List<QuestionHistory> findAllQuestionHistoryByUId(long uId) {
+		String sql = "SELECT * FROM QuestionHistory WHERE uId = ?";
+		return jdbcTemplate.query(sql, new QuestionHistoryRowMapper(), uId);
+	}
+	
 	public Question findQuestionByQId(long qId){
 		String sql = "SELECT q.*"
 				+ "   FROM Question q INNER JOIN QuestionHistory qh ON q.qid = qh.qid"

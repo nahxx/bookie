@@ -12,18 +12,13 @@ import com.teamecho.bookie.common.domain.Paging;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionBoard;
 import com.teamecho.bookie.question.domain.QuestionHistory;
-import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
-import com.teamecho.bookie.question.service.SolveProblemService;
-
 
 @Controller
 public class QuestionHistoryController {
 	
 	@Autowired
 	QuestionHistoryService questionHistoryService;
-	
-	SolveProblemService solveProblemService;
 	
 	@GetMapping("/question/questionHistory_list/{pagingNo}")
 	public ModelAndView questionHistoryBoard(@PathVariable int pagingNo, HttpServletRequest request) throws Exception {

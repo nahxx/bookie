@@ -24,6 +24,10 @@ public class QuestionHistoryService {
 		return qhDao.findAllQuestionHistory(uId);
 	}
 	
+	public List<QuestionHistory> getAllQuestionHistoryByUid(long uId) {
+		return qhDao.findAllQuestionHistoryByUId(uId);
+	}
+	
 	public Question getQuestionByQId(long qId) {
 		return qhDao.findQuestionByQId(qId);
 	}

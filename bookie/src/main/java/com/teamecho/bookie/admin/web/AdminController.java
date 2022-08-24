@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.admin.service.AdminService;
 import com.teamecho.bookie.common.domain.Paging;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
+import com.teamecho.bookie.question.domain.QuestionBoard;
+import com.teamecho.bookie.question.domain.QuestionHistory;
 import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.user.domain.User;
@@ -171,5 +174,38 @@ public class AdminController {
 		return "admin/admin_question";
 	}
 	
-	
+	/**
+	 * admin_user_info 접속
+	 */
+	@GetMapping("/admin/admin_user_info/{checkUId}")
+	public String adminUserInfoForm(@PathVariable long checkUId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		session = request.getSession(false);
+		
+		if (session == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
+		if(session.getAttribute("uId") == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
+		uId = (long) session.getAttribute("uId");
+
+		if(userService.getUserByUid(uId).getManager() == 'N') {
+			redirectAttributes.addFlashAttribute("session", "no");
+			// 에러 페이지 이동
+			return "redirect:/error/no_admin";
+		}
+		
+		// 로그인한 관리자 정보 넘기기
+		User adminUser = userService.getUserByUid(uId);
+		request.setAttribute("adminUser", adminUser);
+		
+        List<QuestionHistory> qh = qhService.getAllQuestionHistoryByUid(checkUId);
+        request.setAttribute("qh",qh);
+        
+		return "admin/admin_user_info";
+	}
 }
