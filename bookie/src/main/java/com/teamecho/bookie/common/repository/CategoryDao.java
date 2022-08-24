@@ -45,5 +45,9 @@ public class CategoryDao {
 		String sql = "SELECT * FROM Category";
 		return jdbcTemplate.query(sql, new CategoryRowMapper());
 	};
-
+	/*
+	public long getCategoryCountNotEtc() {
+		String sql = "SELECT COUNT(*) FROM Category WHERE subject != '기타'";
+	}
+	*/
 }

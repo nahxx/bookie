@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/admin/admin.css"/>" />
+<!-- 구글 차트 -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <title>Bookie</title>
 </head>
 <body>
@@ -38,11 +40,41 @@
 		</div>
 		
 		<!-- 메인 화면 -->
+		<div class="question-chart">
+			<div id="barchart-section" style="width: 800px; height: 500px;"></div>
+		</div>
 	</div>
 	
 	<!-- 푸터 부분 -->
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
+	
+	<!-- 스크립트 부분 -->
+	<script>
+		google.charts.load('current', {'packages' : [ 'bar', 'corechart' ] });
+		google.charts.setOnLoadCallback(drawChart);
+		
+		function drawChart() {
+			// 학년/과목별 등록된 문제수
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', '학년');
+			data.addColumn('number', '국어');
+			data.addColumn('number', '영어');
+			data.addColumn('number', '수학');
+			
+			
+			var options = {
+				series: {
+					0: {color: '#A66CFF'},
+					1: {color: '#9C9EFE'},
+					2: {color: '#B1E1FF'}
+				}
+			};
+			
+			var chart = new google.charts.Bar(document.getElementById('barchart-section'));
+			chart.draw(data, google.charts.Bar.convertOptions(options));
+		}
+	</script>
 </body>
 </html>

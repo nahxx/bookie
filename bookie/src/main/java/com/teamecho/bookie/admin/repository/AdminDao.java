@@ -71,7 +71,7 @@ public class AdminDao {
 					+ " ON q.cateId = c.cateId"
 					+ " INNER JOIN QuestionPattern qp"
 					+ " ON qp.qId = q.qId"
-					+ " WHERE cateId = ?"
+					+ " WHERE q.cateId = ?"
 					+ " ORDER BY q.regDate desc LIMIT ?, 10";
 		List<QuestionAndQuestionPattern> qaqpList = jdbcTemplate.query(sql, new QuesCateQPRowMappper(), cateId, BoardStartItemNo);
 		

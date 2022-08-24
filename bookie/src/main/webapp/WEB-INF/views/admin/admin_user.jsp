@@ -44,7 +44,12 @@
 			<h3>회원관리</h3>
 			<!-- 회원관리 메인 화면 -->
 			<table class="user-table">
-				<c:set var="boardNo" value="${1}" />
+				<c:if test="${paging.currentPageNo == 1}">
+					<c:set var="boardNo" value="${1}" />
+				</c:if>
+				<c:if test="${paging.currentPageNo > 1}">
+					<c:set var="boardNo" value="${(paging.currentPageNo - 1) * 10 + 1}" />
+				</c:if>
 				<tr>
 					<th>No.</th>
 					<th>회원번호</th>

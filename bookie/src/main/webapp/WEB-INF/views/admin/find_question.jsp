@@ -112,18 +112,18 @@
 			              <li><a style="color:#808080; disabled">◀</a></li>
 			            </c:when>
 			            <c:otherwise>
-			              <li><a href="<c:url value='/admin/admin_question/${paging.currentPageNo - 1}'/>">◀</a></li>
+			              <li><a href="<c:url value='/admin/find_question/${paging.currentPageNo - 1}'/>">◀</a></li>
 			            </c:otherwise>
 			          </c:choose>
 			          <c:forEach var="i" begin="${ paging.startPageNo }" end="${ paging.endPageNo }">
-			            <li><a class="pageNo ${i}" href="<c:url value="/admin/admin_question/${i}" />">${i}</a></li>
+			            <li><a class="pageNo ${i}" href="<c:url value="/admin/find_question/${i}" />">${i}</a></li>
 			          </c:forEach>
 			          <c:choose>
 			            <c:when test="${ paging.currentPageNo == paging.finalPageNo }">
 			              <li><a style="color:#808080; disabled">▶</a></li>
 			            </c:when>
 			            <c:otherwise>
-			              <li><a href="<c:url value='/admin/admin_question/${paging.currentPageNo + 1}'/>">▶</a></li>
+			              <li><a href="<c:url value='/admin/find_question/${paging.currentPageNo + 1}'/>">▶</a></li>
 			            </c:otherwise>
 			          </c:choose>
 			        </ul>
@@ -143,6 +143,31 @@
 	
 	<!-- 스크립트 -->
 	<script>
+		// 컨트롤러 다녀올 때 check 표시
+		<c:if test="${not empty cate}">
+			let cLevel = document.querySelector('#cLevel');
+			for(let i = 0; i < cLevel.length; i++) {
+				if(cLevel.options[i].value == "${cate.getCLevel()}") {
+					cLevel.options[i].selected = true;
+					break;
+				}
+			}
+			let grade = document.querySelector('#grade');
+			for(let i = 0; i < grade.length; i++) {
+				if(grade.options[i].value == "${cate.getGrade()}") {
+					grade.options[i].selected = true;
+					break;
+				}
+			}
+			let subject = document.querySelector('#subject');
+			for(let i = 0; i < subject.length; i++) {
+				if(subject.options[i].value == "${cate.getSubject()}") {
+					subject.options[i].selected = true;
+					break;
+				}
+			}
+		</c:if>
+		
 	    $(".pageNo").each(function() {
 	      if ($(this).hasClass("${paging.currentPageNo}")) {
 	        $(this).addClass("on");
@@ -159,10 +184,11 @@
    			let grade = c2.options[c2.selectedIndex].value;
    			let c3 = document.querySelector('#subject');
    			let subject = c3.options[c3.selectedIndex].value;
-   			if(cLevel == "unknown" | grade == "unknown" | subject == "unknown") {
+   			if(cLevel == "unknown" || grade == "unknown" || subject == "unknown") {
    				return alert("카테고리를 선택해주세요.");
    			}
    			
+	    	
 	    	// 폼 생성
 			let form = document.createElement('form');
 			form.setAttribute('method', 'post');

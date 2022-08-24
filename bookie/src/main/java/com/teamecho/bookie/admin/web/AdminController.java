@@ -213,9 +213,61 @@ public class AdminController {
 		return "admin/admin_user_info";
 	}
 	
-	@PostMapping("/admin/admin_question/find_category/{pagingNo}")
+	Category cate = null;
+	@PostMapping("/admin/find_question/{pagingNo}")
 	public String findQuestionByCategory(@PathVariable int pagingNo, CategoryCommand command, HttpServletRequest request) {
-		Category cate = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
+		cate = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
+		request.setAttribute("cate", cate);
+		// 페이징
+		try {
+			Paging paging = new Paging();
+			paging.setViewPageNo(5); 	// 초기값1 : 화면에 5개의 번호를 보여주고 싶다.
+	        paging.setFirstPageNo(1); 	// 초기값2 :  화면에 시작번호 이다.
+	        paging.setPageSize(10);		// 초기값3 : 한 페이지에 보여줄 게시글 갯수
+	        paging.setTotalCount(addQService.getAllQuestions().size());	// 초기값4 : 총 회원 수 이다.
+	        paging.calcPagingNo();	//초기값5 : 페이지 갯수 계산 함.
+	        
+	        paging.makePaging(pagingNo); //페이지에 맞게
+	        List<QuestionAndQuestionPattern> qaqpList = adminService.getQuestionsAndQuestionPatternsByCateId(pagingNo, paging.getPageSize(), cate.getCateId());
+	        request.setAttribute("paging", paging);
+	        request.setAttribute("qaqpList", qaqpList);
+	        
+		} catch(Exception e) {
+			throw e;
+		}
+
+		return "admin/find_question";
+	}
+	
+	/**
+	 * find_question 페이지 접속
+	 * @return
+	 */
+	@GetMapping("/admin/find_question/{pagingNo}")
+	public String adminFindQuestionForm(@PathVariable int pagingNo, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		session = request.getSession(false);
+		
+		if (session == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
+		if(session.getAttribute("uId") == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
+		uId = (long) session.getAttribute("uId");
+
+		if(userService.getUserByUid(uId).getManager() == 'N') {
+			redirectAttributes.addFlashAttribute("session", "no");
+			// 에러 페이지 이동
+			return "redirect:/error/no_admin";
+		}
+		
+		// 로그인한 관리자 정보 넘기기
+		User adminUser = userService.getUserByUid(uId);
+		request.setAttribute("adminUser", adminUser);
 		
 		// 페이징
 		try {
@@ -235,6 +287,6 @@ public class AdminController {
 			throw e;
 		}
 
-		return "admin/admin_question/1";
+		return "admin/find_question";
 	}
 }

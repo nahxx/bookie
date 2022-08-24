@@ -68,6 +68,7 @@ html, body {
 }
 
 .side-menu .menu-box .menu-item {
+	position: relative;
 	font-size: 22px;
     font-weight: 700;
     color: #888;
@@ -87,13 +88,13 @@ html, body {
 	color: #444;
 }
 
-/* 이따 다시 확인 */
 .side-menu .menu-box .menu-item.on:before {
+	content: "";
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 15px;
+	left: -30px;
 	display: inline-block;
-	width: 10px;
+	width: 30px;
 	height: 5px;
 	background: #1C3879;
 }
@@ -106,6 +107,10 @@ html, body {
 .side-menu .menu-box .menu-item a:hover {
 	padding-left: 10px;
 	color: #444;
+}
+
+.side-menu .menu-box .menu-item.on a:hover {
+	padding-left: 0;
 }
 
 .main-box {
@@ -121,13 +126,34 @@ html, body {
 	color: #444;
 	font-size: 32px;
 }
-/*
-.main-box .user-table {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.cate-search {
+	width: 800px;
+    text-align: right;
+    float: right;
+    margin-right: 180px;
+    margin-top: -10px;
 }
-*/
+
+.cate-search select {
+	width: 180px;
+    height: 35px;
+    border: 1px solid #ddd;
+    padding-left: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cate-search button {
+	width: 80px;
+    height: 35px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    cursor: pointer;
+    background: #999;
+    color: white;
+}
+
 .main-box .user-table, .main-box .question-table {
 	display: flex;
     justify-content: center;
