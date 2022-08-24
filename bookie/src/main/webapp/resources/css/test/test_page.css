@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.category-wrap.testcate {
+    height: 300px;
+    flex-wrap: wrap;
+}
+.subjectPattern-wrap {
+    width: 100%;
+}
+
+#mPattern {
+    width: 180px;
+}
+.selec {
+    text-align: center;
+}
