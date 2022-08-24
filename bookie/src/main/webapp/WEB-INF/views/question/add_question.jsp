@@ -268,8 +268,8 @@
     		           		type: 'POST',
     		           		enctype: 'multipart/form-data',
     		           		url: '/bookie/add_comment',
-    		           		data: formData,
-    		           		dataType: "json",
+    		           		data: formData, // 보내는 데이터
+    		           		dataType: "json", // 받는 데이터 타입
     		           		processData: false,
     		           		contentType: false,
     		           		cache: false,

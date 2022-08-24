@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/admin/paging.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/admin/admin.css"/>" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Bookie</title>
 </head>
 <body>
@@ -103,6 +104,10 @@
 			        </ul>
 		        </div>
 		     </div>
+		     
+		     <div class="add-question">
+				<button type="button" onclick="location.href='<c:url value="/question/add_question" />'">문제 등록</button>
+			</div>
 	     </div>
 	</div>
 	
@@ -110,5 +115,16 @@
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
+	
+	<!-- 스크립트 -->
+	<script>
+    $(".pageNo").each(function() {
+      if ($(this).hasClass("${paging.currentPageNo}")) {
+        $(this).addClass("on");
+      } else {
+        $(this).removeClass("on");
+      }
+    });
+  </script>
 </body>
 </html>

@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/admin/paging.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/admin/admin.css"/>" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <title>Bookie</title>
 </head>
 <body>
@@ -119,5 +120,16 @@
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
+	
+	<!-- 스크립트 -->
+	<script>
+		$(".pageNo").each(function() {
+		  if ($(this).hasClass("${paging.currentPageNo}")) {
+			$(this).addClass("on");
+		  } else {
+			$(this).removeClass("on");
+		  }
+		});
+	</script>
 </body>
 </html>

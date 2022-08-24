@@ -39,6 +39,11 @@
 						</a></li>
 					</ul>
 				</div>
+				<c:if test="${adminPage eq 'adminPage'}">
+					<div class="admin">
+						<a href="<c:url value="/admin/admin_service" />">관리자 페이지</a>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

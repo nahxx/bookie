@@ -108,6 +108,7 @@ html, body {
 }
 
 .main-box {
+	overflow: hidden;
 	display: inline-block;
 	width: calc(100vw - 290px);
 	margin-left: 281px;
@@ -194,4 +195,24 @@ html, body {
 .main-box .user-table td, .question-table td {
 	border-bottom: 1px solid #d9d9d9;
 	
+}
+
+.add-question {
+	margin-right: 180px;
+    text-align: right;
+    margin-top: -190px;
+    margin-bottom: 50px;
+    display: inline-block;
+    float: right;
+}
+
+.add-question button {
+	width: 100px;
+    height: 40px;
+    background: none;
+    outline: 0;
+    border: 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
 }

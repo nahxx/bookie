@@ -65,3 +65,30 @@
 	text-align: center;
 	margin: 25px 25px 10px 25px;
 }
+
+.admin {
+	width: 200px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 auto;
+    margin-top: 70px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    text-align: center;
+    transition: .1s;
+}
+
+.admin a {
+	display: inline-block;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+}
+
+.admin:hover {
+	background: #1C3879;
+}
+
+.admin:hover a {
+	color: white;
+}
