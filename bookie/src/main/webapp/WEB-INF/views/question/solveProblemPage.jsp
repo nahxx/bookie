@@ -50,6 +50,7 @@
         </div>
         <div class="question-answer">
             <span class="qcomment">해설</span>
+            <span class="commentAnswer">정답 : ${question.answer}</span>
             <div id="viewer_answer"></div>
             <div class="btn-wrap">
                 <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/question/solveProblem'/>');" class="submit-btn search nextBtn">다음문제</a>

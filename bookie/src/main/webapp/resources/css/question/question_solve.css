@@ -156,6 +156,7 @@
     font-size: 19px;
     font-weight: bold;
     margin: 15px 0;
+    font-family: 'IM_Hyemin-Regular';
 }
 .sp-txt {
     color: #b94a48;
@@ -226,6 +227,7 @@
     /*animation-iteration-count: infinite;*/
     animation-direction: normal;
     animation-timing-function: linear;
+    font-family: 'CookieRun-Regular';
 }
 
 @keyframes onAni {
@@ -269,11 +271,18 @@
     text-align: center;
 }
 .qcomment {
-    display: block;
+    display: inline-block;
     font-size: 26px;
     font-weight: bold;
     color: #b94a48;
     margin-bottom: 20px;
+    font-family: 'IM_Hyemin-Regular';
+}
+.commentAnswer {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 18px;
+    font-family: 'IM_Hyemin-Regular';
 }
 
 .answerChecking {
@@ -306,6 +315,7 @@
 .submit-btn.search.btn2 {
     width: 120px;
     text-align: center;
+    font-family: 'CookieRun-Regular';
 }
 
 /* 닫기 버튼 */
