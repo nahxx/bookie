@@ -130,7 +130,7 @@ public class SolveProblemController {
 		}
 
 		if(request.getParameter("requestionState") != null){
-			System.out.println("문제 더 풀기 했을 때 = " + request.getParameter("requestionState"));
+
 			char cLevel = request.getParameter("cLevel").charAt(0);
 			int grade = Integer.parseInt(request.getParameter("grade"));
 			String subject = request.getParameter("subject");
@@ -146,11 +146,9 @@ public class SolveProblemController {
 
 			// 더이상 풀 문제가 없는 경우 보내는 메세지
 			if(questionList.size() == 0) {
-				String str = "해당 학년의 문제를 다 푸셨습니다!";
-				model.addAttribute("str", str);
-				return "error/solveProblemError";
+				return "redirect:/error/solveProblemError";
 			}
-			System.out.println("파라메터 정보 받아옴");
+
 			return "question/solveProblemPage";
 		}
 
@@ -167,9 +165,7 @@ public class SolveProblemController {
 
 			// 더이상 풀 문제가 없는 경우 보내는 메세지
 			if(questionList.size() == 0) {
-				String str = "해당 학년의 문제를 다 푸셨습니다!";
-				model.addAttribute("str", str);
-				return "error/solveProblemError";
+				return "redirect:/error/solveProblemError";
 			}
 
 			subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
@@ -194,9 +190,7 @@ public class SolveProblemController {
 
 		// 더이상 풀 문제가 없는 경우 보내는 메세지
 		if(questionList.size() == 0) {
-			String str = "해당 학년의 문제를 다 푸셨습니다!";
-			model.addAttribute("str", str);
-			return "error/solveProblemError";
+			return "redirect:/error/solveProblemError";
 		}
 
 
@@ -269,9 +263,7 @@ public class SolveProblemController {
 					if((i+1) >= questionList.size()){
 						questionList = solveProblemService.findQuestionByCategoryId(realCategory.getCateId(), (long)session.getAttribute("uId"));
 						if(questionList.size() == 0) {
-							String str = "해당 학년의 문제를 다 푸셨습니다!";
-							model.addAttribute("str", str);
-							return "error/solveProblemError";
+							return "redirect:/error/solveProblemError";
 						}
 						model.addAttribute("againProblem", "on");
 						return "question/solveProblemPage";
@@ -291,5 +283,25 @@ public class SolveProblemController {
 		String str = "해당 학년의 문제를 다 푸셨습니다!";
 		model.addAttribute("str", str);
 		return "error/solveProblemError";
+	}
+
+	@PostMapping("/question/solveProblemList/end")
+	public String endPage(HttpServletRequest request, Model model){
+
+		HttpSession session = request.getSession(false);
+
+		String questionId = request.getParameter("question");
+		String answer = request.getParameter("answer");
+
+		if (session == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
+		if(session.getAttribute("uId") == null) {
+			model.addAttribute("session", "no");
+			return "question/solveProblemPage";
+		}
+		solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
+		return "redirect:/question/solveProblemList";
 	}
 }

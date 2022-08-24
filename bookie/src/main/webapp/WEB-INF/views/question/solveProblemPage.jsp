@@ -205,30 +205,37 @@ function sendGet(url) {
     document.body.appendChild(form);
     form.submit();
 };
+
 function sendBack(url) {
-    console.log(comment.style.display);
-    // if()
-    //1. 폼생성
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', url);
-    document.charset = "UTF-8";
 
-    // 문제 qId 넘겨주기
-    let qeustion = document.createElement('input');
-    qeustion.setAttribute('type', 'hidden');
-    qeustion.setAttribute('name', 'question');
-    qeustion.setAttribute('value', '${question.QId}');
-    form.appendChild(qeustion);
+    if(comment.style.display == 'block'){
+        //1. 폼생성
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', url+'/end');
+        document.charset = "UTF-8";
 
-    let requestion = document.createElement('input');
-    requestion.setAttribute('type', 'hidden');
-    requestion.setAttribute('name', 'requestionState');
-    requestion.setAttribute('value', 'Y');
-    form.appendChild(requestion);
+        // 문제 qId 넘겨주기
+        let qeustion = document.createElement('input');
+        qeustion.setAttribute('type', 'hidden');
+        qeustion.setAttribute('name', 'question');
+        qeustion.setAttribute('value', '${question.QId}');
+        form.appendChild(qeustion);
 
-    document.body.appendChild(form);
-    form.submit();
+        form.appendChild(checkButton);
+
+        document.body.appendChild(form);
+        form.submit();
+    } else {
+        var form = document.createElement('form');
+        form.setAttribute('method', 'get');
+        form.setAttribute('action', url);
+        document.charset = "UTF-8";
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
 };
 
 // 끝내는 버튼 눌렀을 때
