@@ -1,10 +1,12 @@
 package com.teamecho.bookie.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teamecho.bookie.question.repository.AddQuestionDao;
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.repository.UserDao;
 
@@ -13,6 +15,9 @@ public class UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private AddQuestionDao addQDao;
 	
 	public void addUser(User user) {
 		userDao.addUser(user);
@@ -48,6 +53,11 @@ public class UserService {
 
 	public int checkingUserId(String userId) {
 		return userDao.checkingUserId(userId);
+	}
+	
+	
+	public Map<String, String> questionCount() {
+		return addQDao.questionCount();
 	}
 
 }

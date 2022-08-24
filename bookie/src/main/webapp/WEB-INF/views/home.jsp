@@ -14,6 +14,7 @@
 	href="<c:url value="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>" />
 <script
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'/>"></script>
+<script src="<c:url value="/resources/js/countup.js"/>"></script>
 </head>
 <body>
 	<header>
@@ -47,22 +48,12 @@
 		</div>
 		<!-- 컨텐츠 영역 -->
 		<div class="container counts">
-			<div class="counters">
-				<span class="count">12345</span>
-				<h4>전체 문제</h4>
-			</div>
-			<div class="counters">
-				<span class="count">12345</span>
-				<h4>국어</h4>
-			</div>
-			<div class="counters">
-				<span class="count">12345</span>
-				<h4>영어</h4>
-			</div>
-			<div class="counters">
-				<span class="count">12345</span>
-				<h4>수학</h4>
-			</div>
+			<c:forEach var="qCountList" items="${qCountList}" varStatus="status">
+				<div class="counters">
+					<span class="count">${qCountList}</span>
+					<h4>${queList[status.index] }</h4>
+				</div>
+			</c:forEach>
 		</div>
 		<div class="container content">
 			<div class="user contents">
