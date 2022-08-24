@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="header">
 	<h1 id="logo">
-		<a href="/bookie"><img class="logo" src="<c:url value="/resources/img/logo/bookie.png"/>" alt="bookie"></a>
+		<a href="/bookie">BOOKIE</a>
 	</h1>
 	<div class="login">
 		<ul class="loginbar">
