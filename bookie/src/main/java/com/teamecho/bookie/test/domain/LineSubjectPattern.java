@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LineSubjectPattern {
 
-    private int QuestionCount; // 문제 갯수
+    private int questionCount; // 문제 갯수
     private long spId; // 과목유형 pk
     private long cateId; // 카테고리 pk
 

@@ -35,3 +35,8 @@ SELECT a.* FROM (SELECT q.* FROM Question q WHERE q.cateid = 17 AND NOT EXISTS (
 SELECT bigPattern, midPattern, qid FROM SubjectPattern sp INNER JOIN QuestionPattern qp ON sp.spId = qp.spId WHERE qp.qId = 193;
 
 CALL RANK_USER_PROCEDURE
+
+
+
+SELECT q.*, a.identify FROM Question q LEFT JOIN (SELECT * FROM QuestionHistory qh WHERE qh.uid = 7) a ON q.qid = a.qid INNER JOIN QuestionPattern qp ON q.qId = qp.qId WHERE qp.spId = 537 ORDER BY a.identify, RAND()
+;
