@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import com.teamecho.bookie.common.domain.Paging;
+import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionBoard;
 import com.teamecho.bookie.question.domain.QuestionHistory;
+import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 
 @Controller
@@ -19,6 +21,11 @@ public class QuestionHistoryController {
 	
 	@Autowired
 	QuestionHistoryService questionHistoryService;
+	
+	@Autowired
+	AddQuestionService questionService;
+	
+	MainText m;
 	
 	@GetMapping("/question/questionHistory_list/{pagingNo}")
 	public ModelAndView questionHistoryBoard(@PathVariable int pagingNo, HttpServletRequest request) throws Exception {
@@ -63,9 +70,24 @@ public class QuestionHistoryController {
 	@GetMapping("/question/questionHistory_detail/{pagingNo}/{qhId}")
 	public ModelAndView questionHistoryDetail(@PathVariable int pagingNo, @PathVariable int qhId, HttpServletRequest request, ModelAndView mv) throws Exception {
 		QuestionHistory qh = questionHistoryService.getQuestionHistoryByQhId(qhId);
-		System.out.println(qh.getQuestion().getQId());
 		Question q = questionHistoryService.getQuestionByQId(qh.getQuestion().getQId());
-		
+		if(q.getMainText().getMtId() != 0) {
+			m = questionService.getMainTextByMtId(q.getMainText().getMtId());
+		}
+		mv.addObject("m", m);
+		mv.addObject("q", q);
+		mv.setViewName("/question/questionHistory_detail");
+		return mv;
+	}
+	
+	@GetMapping("/admin/admin_question/{pagingNo}/{qId}")
+	public ModelAndView questionAdmin(@PathVariable int pagingNo, @PathVariable int qId, HttpServletRequest request, ModelAndView mv) throws Exception {
+		Question q = questionHistoryService.getQuestionByQId2(qId);
+		System.out.println(q.getMainText().getMtId());
+		if(q.getMainText().getMtId() != 0) {
+			m = questionService.getMainTextByMtId(q.getMainText().getMtId());
+		}
+		mv.addObject("m", m);
 		mv.addObject("q", q);
 		mv.setViewName("/question/questionHistory_detail");
 		return mv;

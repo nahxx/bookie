@@ -40,6 +40,13 @@ public class QuestionHistoryDao {
 		return jdbcTemplate.queryForObject(sql, new QuestionRowMapper(), qId);
 	}
 	
+	public Question findQuestionByQId2(long qId){
+		String sql = "SELECT * "
+				+ "   FROM Question"
+				+ "   WHERE qid = ?";
+		return jdbcTemplate.queryForObject(sql, new QuestionRowMapper(), qId);
+	}
+	
 	public List<QuestionBoard> getQuestionByUId(long uId, int BoardStartItemNo) {
 		String sql = "SELECT q.*, qh.qhId, qh.regDate"
 				+ "   FROM Question q INNER JOIN QuestionHistory qh ON q.qid = qh.qid"

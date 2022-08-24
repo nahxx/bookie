@@ -51,6 +51,7 @@
 	width: 70%;
 	margin: 0 auto;
 	border-color: #ddd;
+	padding: 20px 0;
 }
 #viewer_a {
 	border : 1px solid;
@@ -58,6 +59,7 @@
 	height: 50%;
 	margin: 0 auto;
 	border-color: #ddd;
+	padding: 10px 0;
 }
 .view_a_wrap:last-child {
 	margin-bottom: 50px;

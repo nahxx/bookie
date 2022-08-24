@@ -62,6 +62,11 @@ public class AddQuestionDao {
 		return jdbcTemplate.queryForObject(sql, new MainTextRowMapper(), mText);
 	}
 	
+	public MainText findMainTextByMtId(long mtId) {
+		String sql = "SELECT * FROM MainText WHERE mtId = ?";
+		return jdbcTemplate.queryForObject(sql, new MainTextRowMapper(), mtId);
+	}
+	
 	public Question findQuestionByText(String qText) {
 		String sql = "SELECT * FROM Question WHERE qText = ?";
 		return jdbcTemplate.queryForObject(sql, new QuestionRowMapper(), qText);

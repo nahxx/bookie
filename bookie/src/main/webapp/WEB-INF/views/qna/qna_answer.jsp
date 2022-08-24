@@ -69,6 +69,21 @@
 	text-align: right;
 }
 */
+#viewer_q {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	padding: 20px 0;
+}
+#viewer_a {
+	border : 1px solid;
+	width: 70%;
+	height: 50%;
+	margin: 0 auto;
+	border-color: #ddd;
+	padding: 10px 0;
+}
 .update-btn{
   	color: #1C3879;
   	float: left;

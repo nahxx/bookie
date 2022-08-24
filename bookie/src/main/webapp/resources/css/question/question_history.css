@@ -11,7 +11,21 @@
 	min-height: calc(100vh - 60px);
 }
 .viewer_q_wrap{
-	padding-top: 100px;
+	display:flex;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+#viewer_mText {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
+}
+#viewer_mText p{
+	text-align: center;
 }
 #viewer_qText {
 	border : 1px solid;
@@ -19,6 +33,8 @@
 	margin: 0 auto;
 	border-color: #ddd;
 	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
 }
 #viewer_qText p{
 	text-align: center;
@@ -29,7 +45,15 @@
 	margin: 0 auto;
 	border-color: #ddd;
 	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
 }
 #viewer_qComment p{
 	text-align: center;
+}
+.back{
+	width: 95%;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	padding-top: 120px;
 }

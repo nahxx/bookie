@@ -79,18 +79,18 @@
               <li><a style="color:#808080; disabled">◀</a></li>
             </c:when>
             <c:otherwise>
-              <li><a href="<c:url value='/questionHistory_list/${paging.currentPageNo - 1}'/>">◀</a></li>
+              <li><a href="<c:url value='/question/questionHistory_list/${paging.currentPageNo - 1}'/>">◀</a></li>
             </c:otherwise>
           </c:choose>
           <c:forEach var="i" begin="${ paging.startPageNo }" end="${ paging.endPageNo }">
-            <li><a class="pageNo ${i}" href="<c:url value="/questionHistory_list/${i}" />">${i}</a></li>
+            <li><a class="pageNo ${i}" href="<c:url value="/question/questionHistory_list/${i}" />">${i}</a></li>
           </c:forEach>
           <c:choose>
             <c:when test="${ paging.currentPageNo == paging.finalPageNo }">
               <li><a style="color:#808080; disabled">▶</a></li>
             </c:when>
             <c:otherwise>
-              <li><a href="<c:url value='/questionHistory_list/${paging.currentPageNo + 1}'/>">▶</a></li>
+              <li><a href="<c:url value='/question/questionHistory_list/${paging.currentPageNo + 1}'/>">▶</a></li>
             </c:otherwise>
           </c:choose>
         </ul>

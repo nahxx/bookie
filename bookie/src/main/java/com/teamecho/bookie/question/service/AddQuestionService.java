@@ -41,6 +41,10 @@ public class AddQuestionService {
 		return addQDao.findMainTextByMText(mText);
 	}
 	
+	public MainText getMainTextByMtId(long mtId) {
+		return addQDao.findMainTextByMtId(mtId);
+	}
+	
 	public Question getQuestionByText(String qText) {
 		return addQDao.findQuestionByText(qText);
 	}

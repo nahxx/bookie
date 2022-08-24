@@ -34,12 +34,36 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/question/question_history.css"/>" />
 </head>
 <style>
+#container{
+	width: 100%;
+	margin: 0 auto;
+	min-height: calc(100vh - 60px);
+}
+.viewer_q_wrap{
+	display:flex;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+#viewer_mText {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
+}
+#viewer_mText p{
+	text-align: center;
+}
 #viewer_qText {
 	border : 1px solid;
 	width: 70%;
 	margin: 0 auto;
 	border-color: #ddd;
 	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
 }
 #viewer_qText p{
 	text-align: center;
@@ -50,9 +74,17 @@
 	margin: 0 auto;
 	border-color: #ddd;
 	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
 }
 #viewer_qComment p{
 	text-align: center;
+}
+.back{
+	width: 95%;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	padding-top: 120px;
 }
 </style>
 <body>
@@ -60,12 +92,23 @@
 		<%@ include file="../incl/header.jsp"%>
 	</header>
 	<div id="container">
+		<div class="back">
+		<a href="<c:url value='/question/questionHistory_list/1'/>"> < 목록으로</a>
+			<a href="<c:url value='/qna_board/1'/>">/ 묻고답하기로</a>
+		</div>
 		<div class="viewer_q_wrap">
+			<c:if test="${not empty m}">
+			<div id="viewer_mText">
+				${m.getMText()}
+			</div>
+			</c:if>
 			<div id="viewer_qText">
 				${q.getQText()}
-				<h3>${q.getAnswer()}</h3>
 			</div>
-			<div id="viewer_qComment">${q.getQComment()}</div>
+			<div id="viewer_qComment">
+				<p>답 : ${q.getAnswer()}</p>
+				${q.getQComment()}
+			</div>
 		</div>
 	</div>
 	<footer id="footer">

@@ -32,6 +32,10 @@ public class QuestionHistoryService {
 		return qhDao.findQuestionByQId(qId);
 	}
 	
+	public Question getQuestionByQId2(long qId) {
+		return qhDao.findQuestionByQId2(qId);
+	}
+	
 	public List<QuestionBoard> getQuestionHistory(long uId, int pagingNo, int listCount){
 		int BoardStartItemNo;
 		pagingNo = pagingNo - 1;
