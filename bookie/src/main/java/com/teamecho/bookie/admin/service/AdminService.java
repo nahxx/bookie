@@ -53,6 +53,19 @@ public class AdminService {
 		List<QuestionAndQuestionPattern> qaqpList = adminDao.findQuestionsAndQuestionPatterns(BoardStartItemNo);
 		
 		return qaqpList;
-	}	
+	}
+	
+	public List<QuestionAndQuestionPattern> getQuestionsAndQuestionPatternsByCateId(int pagingNo, int listCount, long cateId) {
+		int BoardStartItemNo;
+		pagingNo = pagingNo - 1;
+		if(pagingNo == 0) {
+			BoardStartItemNo = 0;
+		} else {
+			BoardStartItemNo = listCount * pagingNo;
+		}
+		List<QuestionAndQuestionPattern> qaqpList = adminDao.findQuestionsAndQuestionPatternsByCateId(cateId, BoardStartItemNo);
+		
+		return qaqpList;
+	}
 }
 

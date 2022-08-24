@@ -64,4 +64,30 @@ public class AdminDao {
 		return qaqpList;
 	}
 	
+	public List<QuestionAndQuestionPattern> findQuestionsAndQuestionPatternsByCateId(long cateId, int BoardStartItemNo) {
+		String sql = "SELECT q.qId, q.regDate, c.cateId, c.cLevel, c.grade, c.subject, qp.qpId, qp.spId"
+					+ " FROM Question q"
+					+ " INNER JOIN Category c"
+					+ " ON q.cateId = c.cateId"
+					+ " INNER JOIN QuestionPattern qp"
+					+ " ON qp.qId = q.qId"
+					+ " WHERE cateId = ?"
+					+ " ORDER BY q.regDate desc LIMIT ?, 10";
+		List<QuestionAndQuestionPattern> qaqpList = jdbcTemplate.query(sql, new QuesCateQPRowMappper(), cateId, BoardStartItemNo);
+		
+		for (QuestionAndQuestionPattern qaqp : qaqpList) {
+			long spId = qaqp.getQuestionPattern().getSubjectPattern().getSpId();
+			SubjectPattern sp = spService.getSubjectPatternBySpId(spId);
+			qaqp.getQuestionPattern().setSubjectPattern(sp);
+			
+			String bP = qaqp.getQuestionPattern().getSubjectPattern().getBigPattern();
+			String mP = qaqp.getQuestionPattern().getSubjectPattern().getMidPattern();
+			long qId = qaqp.getQuestion().getQId();
+			String spTitle = bP + " / " + mP + " -> " + qId + "번 문제";
+			qaqp.setSpTitle(spTitle);
+		}
+		
+		return qaqpList;
+	}
+	
 }

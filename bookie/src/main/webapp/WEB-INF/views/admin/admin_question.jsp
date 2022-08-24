@@ -44,6 +44,23 @@
 		<!-- 문제 관리 메인 화면 -->
 		<div class="main-box">
 			<h3>문제관리</h3>
+			<div class="cate-search">
+				<select name="cLevel">
+					<option value="m">중학생</option>
+					<option value="h">고등학생</option>
+				</select>
+				<select name="grade">
+					<option value="1">1학년</option>
+					<option value="2">2학년</option>
+					<option value="3">3학년</option>
+				</select>
+				<select name="subject">
+					<option value="국어">국어</option>
+					<option value="영어">영어</option>
+					<option value="수학">수학</option>
+				</select>
+				<button type="button" onclick="javascript:categorySelect('<c:url value="/admin/admin_question/find_category/1" />');">검색</button>
+			</div>
 			<!-- 문제 관리 메인 화면 -->
 			<table class="question-table">
 				<c:set var="boardNo" value="${1}" />
@@ -68,7 +85,7 @@
 							${qaqp.question.category.grade}학년 / ${qaqp.question.category.subject}
 						</td>
 						<td>
-							${qaqp.spTitle}
+							<a href="<c:url value="/admin/admin_question/${paging.currentPageNo}/${qaqp.question.getQId()}" />">${qaqp.spTitle}</a>
 						</td>
 						<td>
 							<fmt:formatDate value="${qaqp.question.regDate}"  pattern="yyyy-MM-dd HH:mm:ss" />
@@ -118,13 +135,40 @@
 	
 	<!-- 스크립트 -->
 	<script>
-    $(".pageNo").each(function() {
-      if ($(this).hasClass("${paging.currentPageNo}")) {
-        $(this).addClass("on");
-      } else {
-        $(this).removeClass("on");
-      }
-    });
+	    $(".pageNo").each(function() {
+	      if ($(this).hasClass("${paging.currentPageNo}")) {
+	        $(this).addClass("on");
+	      } else {
+	        $(this).removeClass("on");
+	      }
+	    });
+    
+	    function categorySelect(url) {
+	    	// 폼 생성
+			let form = document.createElement('form');
+			form.setAttribute('method', 'post');
+			form.setAttribute('action', url);
+			document.charset = "UTF-8";
+			
+			// input1 추가 - cLevel
+			let input1 = document.querySelector('input[name="cLevel"]:checked');
+			//input1.setAttribute('type', 'hidden');
+			form.appendChild(input1);
+			
+			// input2 추가 - grade
+			let input2 = document.querySelector('input[name="grade"]:checked');
+			//input2.setAttribute('type', 'hidden');
+			form.appendChild(input2);
+			
+			// input3 추가 - subject
+			let input3 = document.querySelector('input[name="subject"]:checked');
+			//input3.setAttribute('type', 'hidden');
+			form.appendChild(input3);
+			
+			// 폼 적용
+			document.body.appendChild(form);
+			form.submit();
+	    }
   </script>
 </body>
 </html>

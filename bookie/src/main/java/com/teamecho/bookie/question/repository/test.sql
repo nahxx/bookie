@@ -117,4 +117,5 @@ INNER JOIN Category c
 ON c.cateId = q.cateId
 INNER JOIN QuestionPattern qp
 ON qp.qId = q.qId
+WHERE c.cateId = 18
 ORDER BY q.regDate DESC LIMIT 0, 10;
