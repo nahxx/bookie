@@ -13,10 +13,6 @@ button {
 	margin-top: 80px;
 }
 
-.swiper-wrapper.swiper-wrap {
-	height: 450px;
-}
-
 .swiper-slide img {
 	width: 100%;
 	object-fit: cover;
@@ -39,7 +35,7 @@ button {
 	padding: 40px 0;
 }
 
-.count {
+.counters {
 	width: 200px;
 	padding: 15px 0 10px;
 	margin: 20px;
@@ -52,7 +48,7 @@ button {
 	text-transform: uppercase;
 }
 
-.container.counts span.counter {
+.container.counts span.count {
 	font-size: 42px;
 	line-height: 48px;
 }
@@ -71,24 +67,20 @@ button {
 
 .headline {
 	display: block;
-	margin: 10px 0 25px 0;
+	margin: 10px 0 10px 0;
 	border-bottom: 1px solid #e4e9f0;
 }
 
-.inner {
-	padding: 10px;
-	position: relative;
-	background: #f7f7f7;
-	margin-bottom: 10px;
-}
-
 .inner ul {
-	z-index: 10;
-	font-size: 12px;
-	font-weight: 300;
+    z-index: 10;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 10px;
+    margin-top: 10px;
+    background: #f7f7f7;
 }
 
-.inner ul>li>a {
+.inner ul>a>li {
 	height: 10px;
 	display: table;
 	width: 100%;
@@ -96,6 +88,6 @@ button {
 	color: #666;
 }
 
-.inner ul>li>a div {
+.inner ul>a>li div{
 	display: flex;
 }

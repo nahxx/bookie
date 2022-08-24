@@ -26,7 +26,7 @@ public class AddQuestionDao {
 	public AddQuestionDao(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-	
+
 	public void addQuestionText(QuestionText qt) {
 		String sql = "INSERT INTO QuestionText (totalText) VALUES (?)";
 		jdbcTemplate.update(sql, qt.getTotalText());

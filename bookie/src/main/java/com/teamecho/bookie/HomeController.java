@@ -2,6 +2,7 @@ package com.teamecho.bookie;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import com.teamecho.bookie.qna.domain.Answer;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.service.AnswerService;
 import com.teamecho.bookie.qna.service.QnaService;
+import com.teamecho.bookie.question.repository.AddQuestionDao;
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.service.UserService;
 
@@ -32,6 +34,8 @@ public class HomeController {
 	private AnswerService answerService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private AddQuestionDao addQuestionDao;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, Model model) {
@@ -60,10 +64,9 @@ public class HomeController {
 	        	 User u = userService.getUserByUid(uid);
 	        	 Category ca = categoryService.getCategoryByCateId(caId);
 	        	 q.setUser(u);
-	        	 String caName = ca.getSubject();
+	        	 q.setCategory(ca);
 	         }
 
-	  
 	         List<Answer> answerList = answerService.getAllAnswers();
 	         Collections.reverse(answerList);
 	         request.setAttribute("answerList", answerList);
