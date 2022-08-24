@@ -156,10 +156,10 @@
     margin: 0;
     text-align: center;
 }
-#viewer_q .toastui-editor-contents p{
+#viewer_q p{
 	text-align: center;
 }
-#viewer_a  p{
+#viewer_a p{
 	text-align: left;
 	padding: 0px 10px;
 }

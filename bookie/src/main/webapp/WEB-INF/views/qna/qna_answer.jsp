@@ -34,74 +34,6 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/answer.css"/>" />
 </head>
 <style>
-/*
-#container{
-	width: 100%;
-	margin: 0 auto;
-}
-.view_q_user, .view_a_user{
-	position: relative;
-	border : 1px solid;
-	width: 70%;
-	margin: 0 auto;
-	color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
-    padding: 5px 15px;
-}
-.button{
-	display: inline-block;
-	position: absolute;
-	right: 15px;
-    top: 5px;
-}
-.update-btn{
-  	color: blue;
-  	float: left;
-}
-.delete-btn{
-  	color: red;
-  	display: inline-block;
-}
-.btn-wrap{
-	width: 110%;
-	margin: 0 auto;
-	text-align: right;
-}
-*/
-#viewer_q {
-	border : 1px solid;
-	width: 70%;
-	margin: 0 auto;
-	border-color: #ddd;
-	padding: 20px 0;
-}
-#viewer_a {
-	border : 1px solid;
-	width: 70%;
-	height: 50%;
-	margin: 0 auto;
-	border-color: #ddd;
-	padding: 10px 0;
-}
-.update-btn{
-  	color: #1C3879;
-  	float: left;
-}
-.delete-btn{
-  	color: gray;
-  	display: inline-block;
-}
-#viewer_q p{
-	text-align: center;
-}
-#viewer_a p{
-	text-align: left;
-	padding: 0px 10px;
-}
-#viewer_a p img{
-
-}
 </style>
 <body>
 	<header>
@@ -193,12 +125,12 @@
 		<div class="btn">
 			<c:choose>
 				<c:when test="${not empty update_answer_d}">
-					<button onclick="javascript:submit('<c:url value='/answer/update/${qnaId}/${update_answer.getAnId()}/${page}'/>');"
+					<button onclick="javascript:post('<c:url value='/answer/update/${qnaId}/${update_answer.getAnId()}/${page}'/>');"
 					class="submit-btn">등록</button>
 					<a href="<c:url value='/answer/${qnaId}/${page}'/>" class="in-btn">취소</a>
 				</c:when>
 				<c:otherwise>
-					<button onclick="javascript:submit('<c:url value='/answer/insert/${qnaId}/${page}'/>');"
+					<button onclick="javascript:post('<c:url value='/answer/insert/${qnaId}/${page}'/>');"
 					class="submit-btn">작성</button>
 				</c:otherwise>
 			</c:choose>
@@ -391,7 +323,7 @@
 	</footer>
 <script>
 	// 폼 생성
-	function submit(url){
+	function post(url){
 		let documnet = editor.getHTML();
 		
 		var form = document.createElement('form');
@@ -415,16 +347,48 @@
 	    form.submit();
 	}
 	
-	function get(url){
-		let documnet = editor.getHTML();
+	function submit(url){
+		var result = confirm("삭제하시겠습니까?");
 		
-		var form = document.createElement('form');
-	    form.setAttribute('method', 'get');
-	    form.setAttribute('action', url);
-	    document.charset = "UTF-8";
-	    
-	    document.body.appendChild(form);
-	    form.submit();
+		if(result == true){
+			let documnet = editor.getHTML();
+			
+			var form = document.createElement('form');
+		    form.setAttribute('method', 'post');
+		    form.setAttribute('action', url);
+		    document.charset = "UTF-8";
+		    
+		    var hiddenField = document.createElement('input');
+		    hiddenField.setAttribute('type', 'hidden');
+		    hiddenField.setAttribute('name', "documnet");
+		    hiddenField.setAttribute('value', documnet);
+		    form.appendChild(hiddenField);
+		    
+		    var hiddenField2 = document.createElement('input');
+		    hiddenField2.setAttribute('type', 'hidden');
+		    hiddenField2.setAttribute('name', "answerImgArr");
+		    hiddenField2.setAttribute('value', answerImgArr);
+		    form.appendChild(hiddenField2);
+		    
+		    document.body.appendChild(form);   
+		    form.submit();
+		}
+	}
+	
+	function get(url){
+		var result = confirm("수정하시겠습니까?");
+		
+		if(result == true){
+			let documnet = editor.getHTML();
+			
+			var form = document.createElement('form');
+		    form.setAttribute('method', 'get');
+		    form.setAttribute('action', url);
+		    document.charset = "UTF-8";
+		    
+		    document.body.appendChild(form);
+		    form.submit();
+		}	
 	}
 	
 	let answerImgArr = []; // 댓글 이미지 배열
