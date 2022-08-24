@@ -34,7 +34,7 @@ public class QuestionHistoryDao {
 	}
 	
 	public Question findQuestionByQId(long qId){
-		String sql = "SELECT q.*"
+		String sql = "SELECT DISTINCT q.*"
 				+ "   FROM Question q INNER JOIN QuestionHistory qh ON q.qid = qh.qid"
 				+ "   WHERE q.qid = ?";
 		return jdbcTemplate.queryForObject(sql, new QuestionRowMapper(), qId);

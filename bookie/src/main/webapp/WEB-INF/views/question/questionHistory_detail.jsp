@@ -31,10 +31,29 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
-<link rel="stylesheet" href="<c:url value="/resources/css/qna/answer.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/question/question_history.css"/>" />
 </head>
 <style>
-
+#viewer_qText {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+}
+#viewer_qText p{
+	text-align: center;
+}
+#viewer_qComment {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+}
+#viewer_qComment p{
+	text-align: center;
+}
 </style>
 <body>
 	<header>
@@ -42,7 +61,10 @@
 	</header>
 	<div id="container">
 		<div class="viewer_q_wrap">
-			<div id="viewer_qText">${q.getQText()}</div>
+			<div id="viewer_qText">
+				${q.getQText()}
+				<h3>${q.getAnswer()}</h3>
+			</div>
 			<div id="viewer_qComment">${q.getQComment()}</div>
 		</div>
 	</div>

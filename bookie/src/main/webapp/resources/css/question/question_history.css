@@ -1,0 +1,35 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'IM_Hyemin-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Regular.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+#container{
+	width: 100%;
+	margin: 0 auto;
+	min-height: calc(100vh - 60px);
+}
+.viewer_q_wrap{
+	padding-top: 100px;
+}
+#viewer_qText {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+}
+#viewer_qText p{
+	text-align: center;
+}
+#viewer_qComment {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+}
+#viewer_qComment p{
+	text-align: center;
+}
