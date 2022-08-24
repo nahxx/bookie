@@ -13,3 +13,6 @@
 .selec {
     text-align: center;
 }
+.submit-btn.search.s {
+    display: inline-block;
+}

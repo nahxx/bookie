@@ -180,22 +180,7 @@ function sendGet(url) {
     form.setAttribute('action', url);
     document.charset = "UTF-8";
 
-    // 카테고리 넘겨주기
-    let input1 = document.createElement('input');
-    input1.setAttribute('type', 'hidden');
-    input1.setAttribute('name', 'cLevel');
-    input1.setAttribute('value', '${realCategory.getCLevel()}');
-    form.appendChild(input1);
-    let input2 = document.createElement('input');
-    input2.setAttribute('type', 'hidden');
-    input2.setAttribute('name', 'grade');
-    input2.setAttribute('value', '${realCategory.getGrade()}');
-    form.appendChild(input2);
-    let input3 = document.createElement('input');
-    input3.setAttribute('type', 'hidden');
-    input3.setAttribute('name', 'subject');
-    input3.setAttribute('value', '${realCategory.getSubject()}');
-    form.appendChild(input3);
+
 
     let requestion = document.createElement('input');
     requestion.setAttribute('type', 'hidden');

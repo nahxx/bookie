@@ -3,6 +3,7 @@ package com.teamecho.bookie.test.web;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.CategoryCommand;
 import com.teamecho.bookie.common.domain.CategoryProvider;
+import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.common.service.SubjectPatternService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,9 +23,11 @@ import java.util.List;
 public class CreateExamController {
 
     @Autowired
-    CategoryService cateService;
+    private CategoryService cateService;
     @Autowired
-    SubjectPatternService spService;
+    private SubjectPatternService spService;
+    @Autowired
+    private SubjectPatternService subjectPatternService;
 
     @GetMapping("/test/createExam")
     public String createExamPage(Model model, HttpServletRequest request) {
@@ -62,7 +67,7 @@ public class CreateExamController {
     String bigTag;
     @GetMapping("test/createExamSelectPattern")
     public String selectPattern(HttpServletRequest request, Model model, @ModelAttribute("category") CategoryCommand command) {
-        model.addAttribute("category", command);
+        HttpSession session = request.getSession(false);
 
         category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
         // 카테아이디를 통해 대분류를 각각 태그에 담아서 해당 String을 다시 던져주기(이때 각 태그에는 중분류를 찾는 스트립트함수 호출하는 내용 들어가야 함)
@@ -75,13 +80,16 @@ public class CreateExamController {
 
         }
 
+        model.addAttribute("category", command);
         model.addAttribute("bigTag", bigTag);
         return "test/create_exam";
     }
 
+    String midTag;
     @GetMapping("test/createExamSelectPattern_m")
     public String selectPatternM(HttpServletRequest request, Model model){
-        String midTag = "";
+        HttpSession session = request.getSession(false);
+        midTag = "";
         String bigPattern = request.getParameter("bp");
 
         List<String> midPatterns = spService.getMidPatternsByBigPatternAndCateId(bigPattern, category.getCateId());
@@ -95,5 +103,39 @@ public class CreateExamController {
         model.addAttribute("bigPattern", bigPattern);
         model.addAttribute("bigTag", bigTag);
         return "test/create_exam";
+    }
+
+    @PostMapping("test/createExamSelectPattern")
+    public String selectPatternAll(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession(false);
+        long sessionSP;
+
+        if(session.getAttribute("spId") == null) {
+            sessionSP = 0;
+        } else {
+            sessionSP = (long)session.getAttribute("spId");
+        }
+
+        String bigPattern = request.getParameter("bp");
+        String midPattern = request.getParameter("mp");
+
+        SubjectPattern subjectPattern = subjectPatternService.getSubjectPatternByBPatternAndMPatternAndCateId(bigPattern, midPattern, category.getCateId());
+
+        if( sessionSP == 0 || subjectPattern.getSpId() != sessionSP) {
+            System.out.println("subjectPattern의 세션이 다를때 진입 문제담쟈!");
+            System.out.println("category.getCateId() = " + category.getCateId());
+            session.setAttribute("spId", subjectPattern.getSpId());
+        }
+
+        System.out.println("subjectPattern의 세션이 같을때");
+
+
+        model.addAttribute("midTage", midTag);
+        model.addAttribute("category", category);
+        model.addAttribute("bigPattern", bigPattern);
+        model.addAttribute("bigTag", bigTag);
+        model.addAttribute("midTag", midTag);
+        model.addAttribute("midPattern", midPattern);
+        return "/test/create_exam";
     }
 }

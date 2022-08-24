@@ -40,7 +40,8 @@
                     <option value="unknown" class="opt">---중분류---</option>
                     ${midTag}
                 </select>
-                <input type="button" value="선택" class="submit-btn search"/>
+                <input type="text" name="questionCount" class="selec num" placeholder="해당 유형 문제 수"/>
+                <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/createExamSelectPattern'/>');" class="submit-btn search s">선택</a>
             </div>
         </div>
     </div>
@@ -55,6 +56,13 @@
         for(let i = 0; i < bp.length; i++) {
             if(bp.options[i].value === "${bigPattern}") {
                 bp.options[i].selected = true;
+                break;
+            }
+        }
+        let mp = document.querySelector('#mPattern');
+        for(let i = 0; i < mp.length; i++) {
+            if(mp.options[i].value === "${midPattern}") {
+                mp.options[i].selected = true;
                 break;
             }
         }
@@ -84,6 +92,43 @@
         input1.setAttribute('name', 'bp');
         input1.setAttribute('value', bp);
         form.appendChild(input1);
+
+        // 폼 추가
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function sendPost(url) {
+
+        //1. 폼생성
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', url);
+        document.charset = "UTF-8";
+
+        // 대분류
+        let s = document.getElementById("bPattern");
+        let bp = s.options[s.selectedIndex].value;
+
+        // 중분류
+        let sub = document.getElementById("mPattern");
+        let mp = sub.options[sub.selectedIndex].value;
+
+        let input1 = document.createElement('input');
+        input1.setAttribute('type', 'hidden');
+        input1.setAttribute('name', 'bp');
+        input1.setAttribute('value', bp);
+        form.appendChild(input1);
+
+        let input2 = document.createElement('input');
+        input2.setAttribute('type', 'hidden');
+        input2.setAttribute('name', 'mp');
+        input2.setAttribute('value', mp);
+        form.appendChild(input2);
+
+        // 문제 수
+        let questionCount = document.getElementsByClassName("num")[0];
+        form.appendChild(questionCount);
 
         // 폼 추가
         document.body.appendChild(form);

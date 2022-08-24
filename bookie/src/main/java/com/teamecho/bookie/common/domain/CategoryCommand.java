@@ -9,5 +9,5 @@ public class CategoryCommand {
 	private String cLevel;
 	private int grade;
 	private String subject;
-	
+
 }

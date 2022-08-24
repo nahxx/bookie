@@ -1,5 +1,7 @@
 package com.teamecho.bookie.config;
 
+import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.test.domain.QuestionCart;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -37,21 +39,4 @@ public class DataSourceConfig {
 		return ds;
 	}
 
-/*
-	@Bean
-    public CommonsMultipartResolver multipartResolver() {
-       CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-       resolver.setDefaultEncoding("utf-8");
-       return resolver;
-    }
-*/
-	/*
-	@Bean
-	public PlatformTransactionManager transactionManager() {
-		DataSourceTransactionManager txManager = new DataSourceTransactionManager();
-		txManager.setDataSource(dataSource());
-		return txManager;
-	}
-	*/
-	
 }
