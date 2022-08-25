@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
 <head>
@@ -62,15 +63,24 @@
 						<a href="/">유저 랭킹</a>
 					</h2>
 				</div>
-				<div class="user inner">
-					<c:forEach var="ranking" items="${rankig}" begin="0" end="2">
-						<ul>
-							<li><div class="article-subject">유저 이름 :
-									${ranking.uName}</div></li>
-							<li><div class="article-subject">정답률 :
-									${ranking.percent}%&emsp;&emsp;맞춘 개수 : ${ranking.total}</div></li>
-						</ul>
-					</c:forEach>
+				<div class="user table-wrap">
+					<table class="user inner-table">
+						<thead>
+							<tr>
+								<th>이름</th>
+								<th>정답률</th>
+								<th>맞춘 개수</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="ranking" items="${rankig}" begin="0" end="4">
+								<tr>
+									<td>${ranking.uName}</td>
+									<td>${ranking.percent}%</td>
+									<td>${ranking.total}</td>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="qna contents">
@@ -79,17 +89,33 @@
 						<a href="/">새로운 질문</a>
 					</h2>
 				</div>
-				<div class="qna inner">
-					<c:forEach var="qnaList" items="${qnaList}" begin="0" end="2">
-						<ul>
-							<a href="/bookie/qna_board/1">
-								<li><div class="article-subject">질문 제목 :
-										${qnaList.subject}</div></li>
-								<li><div class="article-user">질문한 유저 :
-										${qnaList.getUser().getName()}</div></li>
-							</a>
-						</ul>
-					</c:forEach>
+				<div class="qna table-wrap">
+					<table class="qna inner-table">
+						<thead>
+							<tr>
+								<th>학력/과목</th>
+								<th>질문 제목</th>
+								<th>질문 유저</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="qnaList" items="${qnaList}" begin="0" end="4">
+								<a href="/bookie/qna_board/1">
+									<tr>
+										<td><c:if
+												test="${fn:contains(qnaList.getCategory().getCLevel(), 'm')}">
+                  								중등 /
+                							</c:if> <c:if
+												test="${fn:contains(qnaList.getCategory().getCLevel(), 'h')}">
+                  								고등 /
+                							</c:if> ${qnaList.getCategory().getSubject()}</td>
+										<td>${qnaList.subject}</td>
+										<td>${qnaList.getUser().getName()}</td>
+									</tr>
+								</a>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<div class="answer contents">
@@ -98,17 +124,27 @@
 						<a href="/">새로운 답변</a>
 					</h2>
 				</div>
-				<div class="answer inner">
-					<c:forEach var="answerList" items="${answerList}" begin="0" end="2">
-						<ul>
-							<a href="/bookie/answer/${answerList.qna.qnaId}/1">
-								<li><div class="article-subject">질문 번호 :
-										${answerList.qna.qnaId}</div></li>
-								<li><div class="article-user">답변한 유저 :
-										${answerList.getUser().getName()}</div></li>
-							</a>
-						</ul>
-					</c:forEach>
+				<div class="answer table-wrap">
+					<table class="answer inner-table">
+						<thead>
+							<tr>
+								<th>질문 번호</th>
+								<th>답변 유저</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="answerList" items="${answerList}" begin="0"
+								end="4">
+								<a href="/bookie/answer/${answerList.qna.qnaId}/1">
+									<tr>
+										<td>${answerList.qna.qnaId}</td>
+										<td>${answerList.getUser().getName()}</td>
+									</tr>
+								</a>
+							</c:forEach>
+						</tbody>
+					</table>
+
 				</div>
 			</div>
 		</div>

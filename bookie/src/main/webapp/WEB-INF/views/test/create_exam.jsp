@@ -47,9 +47,10 @@
         <div class="questionPatternSelec-wrap">
             <c:forEach var="lineItem" items="${lineSubjectPatterns}">
                 <div class="selec-subp">
-                    <div class="selec-subp-wrap">
-                        <span class="clevel">${lineItem.category.CLevel}</span>${lineItem.category.subject} > ${lineItem.subjectPattern.bigPattern} > ${lineItem.subjectPattern.midPattern}
-                    </div>
+                    <span class="selec-subp-wrap">
+                        <span class="clevel">${lineItem.category.CLevel}</span><span class="gradE">${lineItem.category.grade}</span><span class="pattern-script">${lineItem.category.subject} > ${lineItem.subjectPattern.bigPattern} > ${lineItem.subjectPattern.midPattern}</span><span class="qNum">${lineItem.questionCount}문제</span>
+                        <span class="cencel-btn-wrap"><a href="/bookie/test/createExam/${lineItem.subjectPattern.bigPattern}_${lineItem.subjectPattern.midPattern}" class="cencel-btn"><span class="cross-right"></span><span class="cross-left"></span></a></span>
+                    </span>
                 </div>
             </c:forEach>
         </div>
@@ -149,9 +150,21 @@
 
         if(item.innerText == 'm') {
 
-            item.innerText = '중학생';
+            item.innerText = '중학교';
         } else if(item.innerText == 'h') {
-            item.innerText = '고등학생';
+            item.innerText = '고등학교';
+        }
+    });
+    let g = document.getElementsByClassName("gradE");
+
+    Array.prototype.forEach.call(g, (item, i) => {
+
+        if(item.innerText == '1') {
+            item.innerText = '1학년';
+        } else if(item.innerText == '2') {
+            item.innerText = '2학년';
+        } else if(item.innerText == '3') {
+            item.innerText = '3학년';
         }
     });
 </script>

@@ -1,6 +1,7 @@
 package com.teamecho.bookie.test.domain;
 
 
+import com.teamecho.bookie.common.domain.SubjectPattern;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -34,5 +35,13 @@ public class QuestionCart {
 
     public void removeLineSubjectPattern() {
         lineSubjectPattern.clear();
+    }
+
+    public void eachRemoveLineSubjectPattern(SubjectPattern sp) {
+        for(int i=0; i<lineSubjectPattern.size(); i++) {
+            if(lineSubjectPattern.get(i).getSubjectPattern().getSpId() == sp.getSpId()){
+                lineSubjectPattern.remove(i);
+            }
+        }
     }
 }

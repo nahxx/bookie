@@ -2,7 +2,6 @@ package com.teamecho.bookie.test.service;
 
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.SubjectPattern;
-import com.teamecho.bookie.common.exception.DuplicateQuestionPattern;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.test.domain.LineSubjectPattern;
 import com.teamecho.bookie.test.domain.QuestionCart;
@@ -22,29 +21,6 @@ public class QuestionCartService {
     
     @Autowired
     private CreateExamDao createExamDao;
-
-	/**
-	 * 작성자 : 서영정
-	 * 같은 유형 담았을때 확인하기
-	 * @param category
-	 * @param subjectPattern
-	 * @param questionNum
-	 */
-	public void addQuestionPattern(Category category, SubjectPattern subjectPattern, int questionNum) throws DuplicateQuestionPattern {
-		boolean flag = true;
-
-		for(LineSubjectPattern sp : questionCart.getLineSubjectPattern()) {
-			if(sp.getSubjectPattern().getSpId() == subjectPattern.getSpId() && category.getCateId() == sp.getCategory().getCateId()) {
-				//같은 이름이 존재할때 처리.
-				flag = false;
-				throw new DuplicateQuestionPattern("이미 선택하신 유형입니다");
-			}
-		}
-
-		if(flag == true) {
-			addQuestionPatternObject(category, subjectPattern, questionNum);
-		}
-	}
 
 	/**
 	 * 작성자: 서영정
@@ -67,6 +43,11 @@ public class QuestionCartService {
 	public void removeList(){
 		questionCart.removeLineSubjectPattern();
 	}
+
+	public List<LineSubjectPattern> eachRemoveList(SubjectPattern sp) {
+		questionCart.eachRemoveLineSubjectPattern(sp);
+		return questionCart.getLineSubjectPattern();
+	}
     
     /**
      * 작성자 : PDG
@@ -87,4 +68,6 @@ public class QuestionCartService {
     	questionCart = new QuestionCart(); //객체 초기화 담긴 리스트를 초기화 한다.
     	return list;
     }
+
+
 }
