@@ -41,7 +41,7 @@
 		
 		<!-- 메인 화면 -->
 		<div class="main">
-			<h3>일주일간 회원가입 현황</h3>
+			<h3>일주일간 회원가입 추이</h3>
 			<div class="user-flex">
 				<div class="user-chart">
 					<div id="linechart-section"></div>
@@ -110,7 +110,7 @@
 			// 일주일간 회원가입자 수
 			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'days');
-			data.addColumn('number', 'userCnt');
+			data.addColumn('number', '가입자수');
 			
 			for(let i = 0; i < userCntList.length; i++) {
 				data.addRow([userCntList[i], userCntList[++i]]);

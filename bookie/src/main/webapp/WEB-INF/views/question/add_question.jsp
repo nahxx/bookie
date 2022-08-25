@@ -34,6 +34,7 @@
 	</header>
 	<!-- wrap 부분 -->
 	<div id="wrap" class="wrap mh">
+		<p class="back"><a href='<c:url value="/admin/admin_question/1"/>'> < 목록으로</a></p>
 		<h3 class="title">문제 등록</h3>
 		<!-- 카테고리/문제유형 선택 폼 -->
 		<form class="select-type" action="select_type" method="post">

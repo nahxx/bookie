@@ -135,3 +135,5 @@ WHERE DATE(regDate) >= DATE_SUB(NOW(), INTERVAL 7 DAY)
 GROUP BY dt;
 
 SELECT COUNT(*) as cnt FROM QuestionHistory WHERE DATE(regDate) = DATE(NOW());
+
+UPDATE User SET uType = 'e' WHERE uId = 15;

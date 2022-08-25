@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.teamecho.bookie.user.service.UserService;
 
 @Controller
@@ -21,8 +23,19 @@ public class MypageController {
 	long uId;
 	
 	@GetMapping
-	public String mypage(HttpServletRequest request) {
+	public String mypage(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		session = request.getSession(false);
+		
+		if (session == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
+		if(session.getAttribute("uId") == null) {
+			redirectAttributes.addFlashAttribute("session", "no");
+			return "redirect:/error/no_session";
+		}
+		
 		uId = (long) session.getAttribute("uId");
 		if(userService.getUserByUid(uId).getManager() == 'Y') {
 			request.setAttribute("adminPage", "adminPage");
