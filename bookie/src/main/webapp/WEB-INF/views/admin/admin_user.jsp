@@ -33,7 +33,7 @@
 			</div>
 			<ul class="menu-box">
 				<li class="menu-item on">
-					<a href="<c:url value="admin_user/1" />">회원 관리</a>
+					<a href="<c:url value="/admin/admin_user/1" />">회원 관리</a>
 				</li>
 				<li class="menu-item">
 					<a href="<c:url value="/admin/admin_question/1" />">문제 관리</a>

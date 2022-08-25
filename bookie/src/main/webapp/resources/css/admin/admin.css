@@ -17,6 +17,7 @@ html, body {
 	background: #f1f1f1;
 	color: #666;
 	font-size: 15px;
+	z-index: 500;
 }
 
 .second-header span {
@@ -294,6 +295,7 @@ html, body {
 	width: 650px;
 	height: 350px;
 	margin-top: 10px;
+	margin-bottom: 120px;
 	border: 1px solid #ddd;
     border-radius: 25px;
 }
@@ -307,7 +309,7 @@ html, body {
 
 .main .question-flex .question-chart #barchart-section {
 	width: 600px;
-	height: 300px;
+	height: 270px;
 	margin-top: 30px;
 	margin-left: 20px;
 }
@@ -317,17 +319,25 @@ html, body {
 	width: 500px;
 	height: 350px;
 	margin-top: 10px;
+	margin-bottom: 120px;
 	border: 1px solid #ddd;
     border-radius: 25px;
 }
 
 .main .question-flex .today-qhistory p {
 	font-size: 40px;
-    margin: 30px 0 0 30px;
+    margin: 50px 0 40px 40px;
     font-weight: 700;
     color: #444;
 }
 
 .main .question-flex .today-qhistory p.count {
 	font-size: 50px;
+	display: inline-block;
+    margin: 0 0 0 250px;
+}
+
+.main .question-flex .today-qhistory p.count span {
+	font-size: 130px;
+    color: #1C3879;
 }

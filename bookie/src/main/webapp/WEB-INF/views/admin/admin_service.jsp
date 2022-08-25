@@ -51,10 +51,10 @@
 			<div class="question-flex">
 				<div class="question-chart">
 					<p>등록된 문제수</p>
-					<div id="barchart-section" style="width: 600px; height: 300px;"></div>
+					<div id="barchart-section"></div>
 				</div>
 				<div class="today-qhistory">
-					<p>오늘의 문제풀이카운트</p>
+					<p>오늘의 문제풀이 카운트</p>
 					<p class="count"><span>${todayQHistory}</span>회</p>
 				</div>
 			</div>
