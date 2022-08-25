@@ -22,7 +22,104 @@
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 <script type="text/javascript" src="https://uicdn.toast.com/tui.pagination/v3.4.0/tui-pagination.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+<style>
+:root {
+	--sig-color : #607EAA;
+	--border-color : #d9d9d9;
+	--font-family : 'Noto Sans KR', sans-serif;
+}
 
+.table-wrap {
+   width: 100%;
+   height: calc( 100% - 100px );
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   margin-top: 90px;
+   font-family : var(--font-family);
+}
+
+.inner-table {
+   width: 80%;
+   height: 80%;
+   border: 0 solid var(--border-color );
+   border-collapse: collapse;
+   margin: 0 auto;
+   text-align: center;
+   font-family : var(--font-family);
+}
+
+.inner-table thead {
+	background-color: var(--sig-color);
+	color: white;
+}
+
+.inner-table th, .inner-table td {
+	border-top: 1px solid var(--border-color );
+	border-bottom: 1px solid var(--border-color );
+	border-left: 0 solid var(--border-color );
+	border-right: 0 solid var(--border-color );
+	padding: 10px 0;
+}
+
+.inner-table th:first-child,
+.inner-table td:first-child {
+	border-left: 0;
+}
+
+.inner-table th:last-child,
+.inner-table td:last-child {
+	border-right: 0;
+}
+
+.inner-table th:nth-child(1), .inner-table tbody tr td:nth-child(1) {
+	width: 5%;
+	font-weight: 400;
+}
+
+.inner-table th:nth-child(2), .inner-table tbody tr td:nth-child(2) {
+	width: 20%;
+	font-weight: 400;
+}
+
+.inner-table th:nth-child(3), .inner-table tbody tr td:nth-child(3) {
+	width: 45%;
+	font-weight: 400;
+}
+
+.inner-table tbody tr td:nth-child(3) {
+	text-align: left;
+}
+
+.inner-table th:nth-child(4), .inner-table tbody tr td:nth-child(4) {
+	width: 15%;
+	font-weight: 400;
+}
+.inner-table th:nth-child(5), .inner-table tbody tr td:nth-child(5) {
+	width: 10%;
+	font-weight: 400;
+}
+.inner-table th:nth-child(6), .inner-table tbody tr td:nth-child(6) {
+	width: 5%;
+	font-weight: 400;
+}
+.write-btn {
+   width: 80%;
+   height: auto;
+}
+.in-btn{
+   float: right;
+   width: 80px;
+   height: auto;
+   font-weight: bold;
+   text-align : center;
+   border : 2px solid #607EAA;
+   color: #607EAA;
+   border-radius : 5px;
+   font-family : var(--font-family);
+}
+</style>
 <body>
 
   <header>

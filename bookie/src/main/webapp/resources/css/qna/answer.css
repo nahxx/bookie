@@ -5,6 +5,11 @@
     font-weight: normal;
     font-style: normal;
 }
+
+:root {
+	--font-family : 'Noto Sans KR', sans-serif;
+}
+
 #container{
 	width: 100%;
 	margin: 0 auto;
@@ -26,6 +31,7 @@
     background-color: #1C3879;
     border-color: #ddd;
     padding: 5px 15px;
+    font-family : var(--font-family);
 }
 .answer-title{
 	width: 70%;
@@ -35,7 +41,6 @@
 	margin-top: 30px;
 }
 #editor{
-	/* border : 1px solid; */
 	width: 70%;
 	margin: 0 auto;
 	margin-top: 20px;
@@ -84,6 +89,7 @@
     background-color: #f5f5f5;
     border-color: #ddd;
     padding: 5px 15px;
+    font-family : var(--font-family);
 }
 .button{
 	display: inline-block;
@@ -99,10 +105,12 @@
 .update-btn{
   	color: #1C3879;
   	float: left;
+  	font-family : var(--font-family);
 }
 .delete-btn{
   	color: gray;
   	display: inline-block;
+  	font-family : var(--font-family);
 }
 .submit-btn {
   	width: 6%;
@@ -115,7 +123,7 @@
   	border-radius: 10px;
  	color: white;
   	font-size: 15px;
-  	font-family: 'IM_Hyemin-Regular';
+  	font-family : var(--font-family);
   	cursor: pointer;
 }
 .qna-btn{
@@ -129,7 +137,7 @@
   	border-radius: 10px;
   	color: white;
   	font-size: 15px;
-  	font-family: 'IM_Hyemin-Regular';
+  	font-family : var(--font-family);
   	cursor: pointer;
 }
 .qna-update-btn{
@@ -143,7 +151,7 @@
   	border-radius: 10px;
   	color: white;
   	font-size: 15px;
-  	font-family: 'IM_Hyemin-Regular';
+  	font-family : var(--font-family);
   	cursor: pointer;
 }
 .toastui-editor-contents {
@@ -158,11 +166,16 @@
 }
 #viewer_q p{
 	text-align: center;
+	font-family : var(--font-family);
 }
 #viewer_a p{
 	text-align: left;
 	padding: 0px 10px;
+	font-family : var(--font-family);
 }
 #viewer_a p > img{
 	margin-left: 500px;
+}
+.delete-btn{
+	font-family : var(--font-family);
 }
