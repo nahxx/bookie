@@ -6,17 +6,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.teamecho.bookie.admin.domain.AdminUserInfo;
 import com.teamecho.bookie.admin.repository.AdminDao;
 import com.teamecho.bookie.common.domain.QuestionCountForGrade;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
+import com.teamecho.bookie.question.domain.QuestionHistory;
+import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.user.domain.User;
+import com.teamecho.bookie.user.service.UserService;
 
 @Service("admin.service.adminService")
 public class AdminService {
 	
 	@Autowired
 	AdminDao adminDao;
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	QuestionHistoryService questionHistoryService;
 	
 	public List<User> getUserList(int pagingNo, int listCount) {
 		int BoardStartItemNo;
@@ -85,6 +95,32 @@ public class AdminService {
 			cntList.add(cnt);
 		}
 		return cntList;
+	}
+	
+	public AdminUserInfo getAdminUserInfoByUId(long uId) {
+		int count = 0;
+		double rate = 0;
+		double correct = 0;
+		User user = null;
+		user = userService.getUserByUid(uId);
+		List<QuestionHistory> qhl = questionHistoryService.getAllQuestionHistoryByUid(uId);
+		
+		count = qhl.size();
+		
+		for (QuestionHistory questionHistory : qhl) {
+			if(questionHistory.getIdentify() == 'Y') {
+				correct += 1;
+			}
+		}
+		
+		if (count != 0 ) {
+			rate = Math.round(correct / count * 100) ;
+		} else{
+			rate = 0;
+		}
+		
+		AdminUserInfo aui = new AdminUserInfo(user, count, rate);
+		return aui;
 	}
 }
 

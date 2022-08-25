@@ -10,9 +10,14 @@
 <title>bookie</title>
 <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/user/user_update.css"/>" />
 <script type="text/javascript" src="../resources/js/phoneform.js"></script>
+<script type="text/javascript" >
+	var msg = '${msg}';
+	if(msg === '불일치') {
+		alert("새 비밀번호가 일치하지 않습니다.")
+	}
+</script>
 </head>
 <body>
 	<header>
@@ -33,9 +38,12 @@
 						<tr>
 						<td><input type=text name=userId value="${user.getUserId()}" readonly/></td>
 						</tr>
-						<label>비밀번호</label>
+						<label>새 비밀번호</label>
 						<tr>		
-						<td><input type=text name=new_passwd value= ""/></td>
+						<td><input type=password name=new_passwd value= ""/></td>
+						<label>새 비밀번호 확인</label>
+						<tr>		
+						<td><input type=password name=passwd_check value= ""/></td>
 						</tr>
 						<label>이름</label>
 						<tr>

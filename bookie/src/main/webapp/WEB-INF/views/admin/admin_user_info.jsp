@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/default.css"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css/admin/admin.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/admin/adminInfo.css"/>" />
 <title>Bookie</title>
 </head>
 <body>
@@ -40,45 +40,56 @@
 		<div class="main-box">
 			<h3>회원정보</h3>
 			<!-- 회원정보 확인 메인 화면 -->
-			<table class="user-table">
-				<c:set var="boardNo" value="${1}" />
-				<tr>
-					<th>회원번호</th>
-					<th>회원아이디</th>
-					<th>회원명</th>
-					<th>학년</th>
-					<th>회원타입</th>
-					<th>푼 문제 개수</th>
-					<th>정답률</th>					
-				</tr>
-				<c:forEach var="qh" items="${qh}">
+				<form:form method="get" modelAttribute="aui">
+				<table class="user-table" >
 					<tr>
-						<td>${qh.user.getUId()}</td>
-						<td>${qh.user.getUserId()}</td>
-						<td>${qh.user.getName()}</td>
+						<th>회원번호</th>
+						<td>${aui.user.getUId()}</td>
+						<th>회원아이디</th>
+						<td>${aui.user.getUserId()}</td>
+					</tr>
+					<tr>
+						<th>회원명</th>
+						<td>${aui.user.getName()}</td>
+						<th>학년</th>
 						<td>
-							<c:if test="${fn:contains(qh.user.getUType(), 'e')}">
+							<c:if test="${fn:contains(aui.user.getUType(), 'e')}">
 								기타
 							</c:if>
-							<c:if test="${fn:contains(qh.user.getUType(), 'h')}">
+							<c:if test="${fn:contains(aui.user.getUType(), 'h')}">
 								고등학생
 							</c:if>
-							<c:if test="${fn:contains(qh.user.getUType(), 'm')}">
+							<c:if test="${fn:contains(aui.user.getUType(), 'm')}">
 								중학생
 							</c:if>
 						</td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td>${aui.user.getPhone()}</td>
+						<th>주소</th>
+						<td>${aui.user.getAddr()}</td>
+					</tr>
+					<tr>
+						<th>회원타입</th>
 						<td>
-							<c:if test="${fn:contains(user.getManager(), 'Y')}">
+							<c:if test="${fn:contains(aui.user.getManager(), 'Y')}">
 								관리자
 							</c:if>
-							<c:if test="${fn:contains(user.getManager(), 'N')}">
+							<c:if test="${fn:contains(aui.user.getManager(), 'N')}">
 								일반회원
 							</c:if>
 						</td>
-						<td></td>						
+						<th>가입 날짜</th>
+						<td>${aui.user.getRegDate()}</td>
 					</tr>
-				</c:forEach>
-			</table>
+					<tr>
+						<th>푼 문제 개수</th>
+						<td>${aui.getCount()}</td>
+						<th>정답률</th>
+						<td>${aui.getRate()}%</td>
+				</table>					
+			</form:form>
 	     </div>
 	</div>
 	

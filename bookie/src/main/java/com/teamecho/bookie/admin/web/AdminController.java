@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.teamecho.bookie.admin.domain.AdminUserInfo;
 import com.teamecho.bookie.admin.service.AdminService;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.CategoryCommand;
@@ -220,38 +221,37 @@ public class AdminController {
 		User adminUser = userService.getUserByUid(uId);
 		request.setAttribute("adminUser", adminUser);
 		
-        List<QuestionHistory> qh = qhService.getAllQuestionHistoryByUid(checkUId);
-        request.setAttribute("qh",qh);
-        
+        AdminUserInfo aui = adminService.getAdminUserInfoByUId(checkUId);
+        request.setAttribute("aui", aui);
+
 		return "admin/admin_user_info";
 	}
 	
-	Category cate = null;
-	@PostMapping("/admin/find_question/{pagingNo}")
-	public String findQuestionByCategory(@PathVariable int pagingNo, CategoryCommand command, HttpServletRequest request) {
-		cate = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
-		request.setAttribute("cate", cate);
-		// 페이징
-		try {
-			Paging paging = new Paging();
-			paging.setViewPageNo(5); 	// 초기값1 : 화면에 5개의 번호를 보여주고 싶다.
-	        paging.setFirstPageNo(1); 	// 초기값2 :  화면에 시작번호 이다.
-	        paging.setPageSize(10);		// 초기값3 : 한 페이지에 보여줄 게시글 갯수
-	        paging.setTotalCount(addQService.getAllQuestions().size());	// 초기값4 : 총 회원 수 이다.
-	        paging.calcPagingNo();	//초기값5 : 페이지 갯수 계산 함.
-	        
-	        paging.makePaging(pagingNo); //페이지에 맞게
-	        List<QuestionAndQuestionPattern> qaqpList = adminService.getQuestionsAndQuestionPatternsByCateId(pagingNo, paging.getPageSize(), cate.getCateId());
-	        request.setAttribute("paging", paging);
-	        request.setAttribute("qaqpList", qaqpList);
-	        
-		} catch(Exception e) {
-			throw e;
-		}
+	   Category cate = null;
+	   @PostMapping("/admin/find_question/{pagingNo}")
+	   public String findQuestionByCategory(@PathVariable int pagingNo, CategoryCommand command, HttpServletRequest request) {
+	      cate = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
+	      request.setAttribute("cate", cate);
+	      // 페이징
+	      try {
+	         Paging paging = new Paging();
+	         paging.setViewPageNo(5);    // 초기값1 : 화면에 5개의 번호를 보여주고 싶다.
+	           paging.setFirstPageNo(1);    // 초기값2 :  화면에 시작번호 이다.
+	           paging.setPageSize(10);      // 초기값3 : 한 페이지에 보여줄 게시글 갯수
+	           paging.setTotalCount(addQService.getAllQuestions().size());   // 초기값4 : 총 회원 수 이다.
+	           paging.calcPagingNo();   //초기값5 : 페이지 갯수 계산 함.
+	           
+	           paging.makePaging(pagingNo); //페이지에 맞게
+	           List<QuestionAndQuestionPattern> qaqpList = adminService.getQuestionsAndQuestionPatternsByCateId(pagingNo, paging.getPageSize(), cate.getCateId());
+	           request.setAttribute("paging", paging);
+	           request.setAttribute("qaqpList", qaqpList);
+	           
+	      } catch(Exception e) {
+	         throw e;
+	      }
 
-		return "admin/find_question";
-	}
-	
+	      return "admin/find_question";
+	   }
 	/**
 	 * find_question 페이지 접속
 	 * @return
@@ -301,5 +301,5 @@ public class AdminController {
 		}
 
 		return "admin/find_question";
-	}
+	}	
 }

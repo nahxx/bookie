@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.service.UserService;
@@ -45,14 +46,18 @@ public class UserUpdateController {
 	}
 	
 	@PostMapping
-	public String userUpdateForm(Model model, HttpServletRequest request) {
+	public String userUpdateForm(Model model, HttpServletRequest request, RedirectAttributes ra) {
 		String passwd = null;
 		if (request.getParameter("new_passwd") == "") {
 			passwd = request.getParameter("old_passwd");
 		}else if (request.getParameter("new_passwd") != "") {
-			passwd = request.getParameter("new_passwd");
+			if(request.getParameter("new_passwd").equals(request.getParameter("passwd_check")) == false) {
+				ra.addFlashAttribute("msg", "불일치");
+				return "redirect:/user/user_update";
+			}else {
+				passwd = request.getParameter("new_passwd");				
+			}
 		}
-		
 		long uId = Integer.parseInt(request.getParameter("uId"));
 		String userId = request.getParameter("userId");
 		String name = request.getParameter("name");
