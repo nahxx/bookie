@@ -4,8 +4,11 @@ import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.CategoryCommand;
 import com.teamecho.bookie.common.domain.CategoryProvider;
 import com.teamecho.bookie.common.domain.SubjectPattern;
+import com.teamecho.bookie.common.exception.DuplicateQuestionPattern;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.common.service.SubjectPatternService;
+import com.teamecho.bookie.test.domain.LineSubjectPattern;
+import com.teamecho.bookie.test.service.QuestionCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +34,19 @@ public class CreateExamController {
     private SubjectPatternService spService;
     @Autowired
     private SubjectPatternService subjectPatternService;
+    @Autowired
+    private QuestionCartService questionCartService;
 
     @GetMapping("/test/createExam")
     public String createExamPage(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
+
+        if(session.getAttribute("lineSubjectPatterns") != null) {
+            System.out.println("session초기화");
+            questionCartService.removeList();
+            session.removeAttribute("lineSubjectPatterns");
+        }
 
         model.addAttribute("category", new CategoryCommand());
         return "/test/create_exam";
@@ -106,7 +120,7 @@ public class CreateExamController {
     }
 
     @PostMapping("test/createExamSelectPattern")
-    public String selectPatternAll(HttpServletRequest request, Model model){
+    public String selectPatternAll(HttpServletRequest request, HttpServletResponse response, Model model){
         HttpSession session = request.getSession(false);
         long sessionSP;
 
@@ -118,17 +132,35 @@ public class CreateExamController {
 
         String bigPattern = request.getParameter("bp");
         String midPattern = request.getParameter("mp");
+        int questionCount = Integer.parseInt(request.getParameter("questionCount"));
 
         SubjectPattern subjectPattern = subjectPatternService.getSubjectPatternByBPatternAndMPatternAndCateId(bigPattern, midPattern, category.getCateId());
+        List<LineSubjectPattern> lineSubjectPatterns = (List<LineSubjectPattern>) session.getAttribute("lineSubjectPatterns");
 
         if( sessionSP == 0 || subjectPattern.getSpId() != sessionSP) {
             System.out.println("subjectPattern의 세션이 다를때 진입 문제담쟈!");
-            System.out.println("category.getCateId() = " + category.getCateId());
+//            System.out.println("category.getCateId() = " + category.getCateId());
+//            System.out.println("subjectPattern.getSpId() = " + subjectPattern.getSpId());
+//            System.out.println("questionCount = " + questionCount);
+
+            lineSubjectPatterns = questionCartService.addQuestionPatternObject(category, subjectPattern, questionCount);
+
+            model.addAttribute("midTage", midTag);
+            model.addAttribute("category", category);
+            model.addAttribute("bigPattern", bigPattern);
+            model.addAttribute("bigTag", bigTag);
+            model.addAttribute("midTag", midTag);
+            model.addAttribute("midPattern", midPattern);
+            session.setAttribute("lineSubjectPatterns", lineSubjectPatterns);
             session.setAttribute("spId", subjectPattern.getSpId());
+            return "/test/create_exam";
         }
 
         System.out.println("subjectPattern의 세션이 같을때");
-
+        for(LineSubjectPattern lp : lineSubjectPatterns){
+            System.out.println("lp.getSubjectPattern().getBigPattern() = " + lp.getSubjectPattern().getBigPattern());
+            System.out.println("lp.getSubjectPattern().getMidPattern() = " + lp.getSubjectPattern().getMidPattern());
+        }
 
         model.addAttribute("midTage", midTag);
         model.addAttribute("category", category);
@@ -136,6 +168,7 @@ public class CreateExamController {
         model.addAttribute("bigTag", bigTag);
         model.addAttribute("midTag", midTag);
         model.addAttribute("midPattern", midPattern);
+        session.setAttribute("lineSubjectPatterns", lineSubjectPatterns);
         return "/test/create_exam";
     }
 }

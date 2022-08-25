@@ -35,6 +35,6 @@ public class CreateExamDao {
 		String sql = "SELECT q.*, a.identify FROM Question q "
 				+ "LEFT JOIN ( SELECT * FROM QuestionHistory qh WHERE qh.uid = ? ) a ON q.qid = a.qid "
 				+ "INNER JOIN QuestionPattern qp ON q.qId = qp.qId WHERE qp.spId = ? ORDER BY a.identify, RAND() LIMIT ?";
-		return jdbcTemplate.query(sql, new QuestionRowMapper(), uid, lineSubjectPattern.getSpId(), lineSubjectPattern.getQuestionCount());
+		return jdbcTemplate.query(sql, new QuestionRowMapper(), uid, lineSubjectPattern.getSubjectPattern().getSpId(), lineSubjectPattern.getQuestionCount());
 	}
 }

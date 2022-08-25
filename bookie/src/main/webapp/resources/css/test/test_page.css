@@ -16,3 +16,10 @@
 .submit-btn.search.s {
     display: inline-block;
 }
+.container.counts.solve.sub-pag {
+    flex-wrap: wrap;
+    padding-top: 200px;
+}
+.questionPatternSelec-wrap {
+    width: 100%;
+}

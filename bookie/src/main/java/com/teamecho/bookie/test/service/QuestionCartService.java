@@ -1,6 +1,10 @@
 package com.teamecho.bookie.test.service;
 
+import com.teamecho.bookie.common.domain.Category;
+import com.teamecho.bookie.common.domain.SubjectPattern;
+import com.teamecho.bookie.common.exception.DuplicateQuestionPattern;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.test.domain.LineSubjectPattern;
 import com.teamecho.bookie.test.domain.QuestionCart;
 import com.teamecho.bookie.test.repository.CreateExamDao;
 
@@ -18,6 +22,51 @@ public class QuestionCartService {
     
     @Autowired
     private CreateExamDao createExamDao;
+
+	/**
+	 * 작성자 : 서영정
+	 * 같은 유형 담았을때 확인하기
+	 * @param category
+	 * @param subjectPattern
+	 * @param questionNum
+	 */
+	public void addQuestionPattern(Category category, SubjectPattern subjectPattern, int questionNum) throws DuplicateQuestionPattern {
+		boolean flag = true;
+
+		for(LineSubjectPattern sp : questionCart.getLineSubjectPattern()) {
+			if(sp.getSubjectPattern().getSpId() == subjectPattern.getSpId() && category.getCateId() == sp.getCategory().getCateId()) {
+				//같은 이름이 존재할때 처리.
+				flag = false;
+				throw new DuplicateQuestionPattern("이미 선택하신 유형입니다");
+			}
+		}
+
+		if(flag == true) {
+			addQuestionPatternObject(category, subjectPattern, questionNum);
+		}
+	}
+
+	/**
+	 * 작성자: 서영정
+	 * 같은 유형이 아닐때 cart에 담김
+	 * 근데 유형이 담길때 calcTotalQuestionCount() 이것도 실행시켜야하나요 ..???
+	 * @param category
+	 * @param subjectPattern
+	 * @param questionNum
+	 */
+	public List<LineSubjectPattern> addQuestionPatternObject(Category category, SubjectPattern subjectPattern, int questionNum) {
+		LineSubjectPattern cartItem = new LineSubjectPattern();
+		cartItem.setQuestionCount(questionNum);
+		cartItem.setCategory(category);
+		cartItem.setSubjectPattern(subjectPattern);
+
+		questionCart.getLineSubjectPattern().add(cartItem);
+		return questionCart.getLineSubjectPattern();
+	}
+
+	public void removeList(){
+		questionCart.removeLineSubjectPattern();
+	}
     
     /**
      * 작성자 : PDG

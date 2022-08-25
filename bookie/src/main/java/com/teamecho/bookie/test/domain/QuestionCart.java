@@ -31,4 +31,8 @@ public class QuestionCart {
     		this.totalQuestionCount += lineSubjectPattern.get(i).getQuestionCount();
     	}
     }
+
+    public void removeLineSubjectPattern() {
+        lineSubjectPattern.clear();
+    }
 }

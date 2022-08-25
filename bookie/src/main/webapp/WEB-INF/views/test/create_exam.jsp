@@ -17,7 +17,7 @@
     <header>
         <%@ include file="../incl/header.jsp"%>
     </header>
-    <div class="container counts solve">
+    <div class="container counts solve sub-pag">
         <div class="category-wrap testcate">
             <form:form method="get" modelAttribute="category" action="/bookie/test/createExamSelectPattern">
                 <form:select path="cLevel" class="selec">
@@ -43,6 +43,11 @@
                 <input type="text" name="questionCount" class="selec num" placeholder="해당 유형 문제 수"/>
                 <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/createExamSelectPattern'/>');" class="submit-btn search s">선택</a>
             </div>
+        </div>
+        <div class="questionPatternSelec-wrap">
+            <c:forEach var="lineItem" items="${lineSubjectPatterns}">
+                <div><span class="clevel">${lineItem.category.CLevel}</span>${lineItem.category.subject} > ${lineItem.subjectPattern.bigPattern} > ${lineItem.subjectPattern.midPattern}</div>
+            </c:forEach>
         </div>
     </div>
 </div>
@@ -134,6 +139,15 @@
         document.body.appendChild(form);
         form.submit();
     }
+    let c = document.getElementsByClassName("clevel");
+    console.log(c);
+    Array.prototype.forEach.call(c, (item, i) => {
+        if(item == 'm') {
+            item.innerText = '중학생';
+        } else if(item == 'h') {
+            item.innerText = '고등학생';
+        }
+    });
 </script>
 </body>
 </html>
