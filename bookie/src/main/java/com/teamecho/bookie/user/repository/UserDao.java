@@ -110,5 +110,5 @@ public class UserDao {
 		String sql = "CALL RANK_USER_PROCEDURE()";
 		return jdbcTemplate.query(sql, new RankingUserRowMapper());
 	}
-
+	
 }

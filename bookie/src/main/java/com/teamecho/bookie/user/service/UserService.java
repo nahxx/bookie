@@ -1,5 +1,6 @@
 package com.teamecho.bookie.user.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,5 +64,20 @@ public class UserService {
 	public List<Map<String, String>> findrankingUser(){
 		return userDao.rankingUser();
 	}
-
+	
+	public Map<String, String> getRankingUserByUId(long uId) {
+		List<Map<String, String>> rankingList = findrankingUser();
+		Map<String, String> u = new HashMap<String, String>();
+		
+		for(Map<String, String> user : rankingList) {
+			long checkUId = Long.valueOf(user.get("uid"));
+			if(uId == checkUId) {
+				u.put("uid", user.get("uid"));
+				u.put("total", user.get("total"));
+				u.put("percent", user.get("percent"));
+			}
+			break;
+		}
+		return u;
+	}
 }
