@@ -1,6 +1,7 @@
 package com.teamecho.bookie.admin.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.teamecho.bookie.admin.domain.AdminUserInfo;
 import com.teamecho.bookie.admin.service.AdminService;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.CategoryCommand;
@@ -229,8 +229,11 @@ public class AdminController {
 		User adminUser = userService.getUserByUid(uId);
 		request.setAttribute("adminUser", adminUser);
 		
-        AdminUserInfo aui = adminService.getAdminUserInfoByUId(checkUId);
-        request.setAttribute("aui", aui);
+        User ranker = userService.getUserByUid(checkUId);
+        Map<String, String> rank = userService.getRankingUserByUId(checkUId);
+        System.out.println(userService.getRankingUserByUId(checkUId));
+        request.setAttribute("rank", rank);
+        request.setAttribute("ranker", ranker);
 
 		return "admin/admin_user_info";
 	}

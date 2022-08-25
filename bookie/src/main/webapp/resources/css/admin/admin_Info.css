@@ -67,6 +67,7 @@ html, body {
 }
 
 .side-menu .menu-box .menu-item {
+	position: relative;
 	font-size: 22px;
     font-weight: 700;
     color: #888;
@@ -86,13 +87,13 @@ html, body {
 	color: #444;
 }
 
-/* 이따 다시 확인 */
 .side-menu .menu-box .menu-item.on:before {
+	content: "";
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 15px;
+	left: -30px;
 	display: inline-block;
-	width: 10px;
+	width: 30px;
 	height: 5px;
 	background: #1C3879;
 }
@@ -106,6 +107,11 @@ html, body {
 	padding-left: 10px;
 	color: #444;
 }
+
+.side-menu .menu-box .menu-item.on a:hover {
+	padding-left: 0;
+}
+
 
 .main-box {
 	overflow: hidden;

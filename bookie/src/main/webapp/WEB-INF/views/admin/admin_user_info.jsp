@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/default.css"/>"/>
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css/admin/adminInfo.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/admin/admin_Info.css"/>" />
 <title>Bookie</title>
 </head>
 <body>
@@ -40,52 +40,52 @@
 		<div class="main-box">
 			<h3>회원정보</h3>
 			<!-- 회원정보 확인 메인 화면 -->
-				<form:form method="get" modelAttribute="aui">
+				<form:form method="get">
 				<table class="user-table" >
 					<tr>
 						<th>회원번호</th>
-						<td>${aui.user.getUId()}</td>
+						<td>${ranker.getUId()}</td>
 						<th>회원아이디</th>
-						<td>${aui.user.getUserId()}</td>
+						<td>${ranker.getUserId()}</td>
 					</tr>
 					<tr>
 						<th>회원명</th>
-						<td>${aui.user.getName()}</td>
+						<td>${ranker.getName()}</td>
 						<th>학년</th>
 						<td>
-							<c:if test="${fn:contains(aui.user.getUType(), 'e')}">
+							<c:if test="${fn:contains(ranker.getUType(), 'e')}">
 								기타
 							</c:if>
-							<c:if test="${fn:contains(aui.user.getUType(), 'h')}">
+							<c:if test="${fn:contains(ranker.getUType(), 'h')}">
 								고등학생
 							</c:if>
-							<c:if test="${fn:contains(aui.user.getUType(), 'm')}">
+							<c:if test="${fn:contains(ranker.getUType(), 'm')}">
 								중학생
 							</c:if>
 						</td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td>${aui.user.getPhone()}</td>
+						<td>${ranker.getPhone()}</td>
 						<th>주소</th>
-						<td>${aui.user.getAddr()}</td>
+						<td>${ranker.getAddr()}</td>
 					</tr>
 					<tr>
 						<th>회원타입</th>
 						<td>
-							<c:if test="${fn:contains(aui.user.getManager(), 'Y')}">
+							<c:if test="${fn:contains(ranker.getManager(), 'Y')}">
 								관리자
 							</c:if>
-							<c:if test="${fn:contains(aui.user.getManager(), 'N')}">
+							<c:if test="${fn:contains(ranker.getManager(), 'N')}">
 								일반회원
 							</c:if>
 						</td>
 						<th>가입 날짜</th>
-						<td>${aui.user.getRegDate()}</td>
+						<td>${ranker.getRegDate()}</td>
 					</tr>
 					<tr>
 						<th>푼 문제 개수</th>
-						<td>${aui.getCount()}</td>
+						<td>${rank.total}</td>
 						<th>정답률</th>
 						<td>${aui.getRate()}%</td>
 				</table>					

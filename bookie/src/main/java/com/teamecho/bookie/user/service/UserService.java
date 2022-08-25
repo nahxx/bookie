@@ -71,10 +71,12 @@ public class UserService {
 		
 		for(Map<String, String> user : rankingList) {
 			long checkUId = Long.valueOf(user.get("uid"));
+			System.out.println("리스트uid값 : " + user.get("uid"));
 			if(uId == checkUId) {
 				u.put("uid", user.get("uid"));
 				u.put("total", user.get("total"));
 				u.put("percent", user.get("percent"));
+				System.out.println("맵uid값 : " + u.get("uid"));
 			}
 			break;
 		}
