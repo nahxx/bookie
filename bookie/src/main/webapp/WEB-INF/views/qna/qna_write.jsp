@@ -24,29 +24,30 @@
   <header>
     <%@ include file="../incl/header.jsp"%>
   </header>
-  <div class="mh">
+  <div class="mh wrap">
     <div class="table-wrap">
       <div class="title-wrap">
         <h3 class="title">QNA작성</h3>
       </div>
       <div class="cate-wrap">
+      	<span class="cate">카테고리 선택</span>
         <div class="cate-inner">
-          <span class="stitle">레벨 : </span>
-          <input type="radio" id="middle" name="level" value="m"><label for="middle">중등</label>
-          <input type="radio" id="high" name="level" value="h"><label for="high">고등</label>
+          <span class="stitle">학력</span>
+          <input class="category" type="radio" id="middle" name="level" value="m"><label class="c-level" for="middle">중등</label>
+          <input class="category" type="radio" id="high" name="level" value="h"><label class="c-level" for="high">고등</label>
         </div>
         <div class="cate-inner">
-          <span class="stitle">학년 : </span>
-          <input type="radio" id="one" name="grade" value="1"><label for="one">1학년</label>
-          <input type="radio" id="two" name="grade" value="2"><label for="two">2학년</label>
-          <input type="radio" id="three" name="grade" value="3"><label for="three">3학년</label>
+          <span class="stitle">학년</span>
+          <input class="category" type="radio" id="one" name="grade" value="1"><label class="grade" for="one">1학년</label>
+          <input class="category" type="radio" id="two" name="grade" value="2"><label class="grade" for="two">2학년</label>
+          <input class="category" type="radio" id="three" name="grade" value="3"><label class="grade" for="three">3학년</label>
         </div>
         <div class="cate-inner">
-          <span class="stitle">과목 : </span>
-          <input type="radio" id="korean" name="subject" value="국어"><label for="korean">국어</label>
-          <input type="radio" id="english" name="subject" value="영어"><label for="english">영어</label>
-          <input type="radio" id="math" name="subject" value="수학"><label for="math">수학</label>
-          <input type="radio" id="etc" name="subject" value="기타"><label for="etc">기타</label>
+          <span class="stitle">과목</span>
+          <input class="category" type="radio" id="korean" name="subject" value="국어"><label class="subject" for="korean">국어</label>
+          <input class="category" type="radio" id="english" name="subject" value="영어"><label class="subject" for="english">영어</label>
+          <input class="category" type="radio" id="math" name="subject" value="수학"><label class="subject" for="math">수학</label>
+          <input class="category" type="radio" id="etc" name="subject" value="기타"><label class="subject" for="etc">기타</label>
         </div>
       </div>
     </div>
@@ -104,6 +105,29 @@
         }
       }
     });
+    
+ 	// 라디오버튼 없애기
+	$(function() {
+		$('.category').css("display", "none");
+		$('.c-level').click(function() {
+			$('input[name=level]').removeAttr("checked");
+			$(this).prev.attr("checked", "checked");
+			$('.c-level').removeClass("on");
+    		$(this).addClass("on");
+		});
+		$('.grade').click(function() {
+			$('input[name=grade]').removeAttr("checked");
+			$(this).prev.attr("checked", "checked");
+			$('.grade').removeClass("on");
+    		$(this).addClass("on");
+		});
+		$('.subject').click(function() {
+			$('input[name=subject]').removeAttr("checked");
+			$(this).prev.attr("checked", "checked");
+			$('.subject').removeClass("on");
+    		$(this).addClass("on");
+		});
+	});
 
     function sendPost(url) {
       //1. 폼생성
