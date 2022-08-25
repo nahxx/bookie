@@ -132,7 +132,6 @@
 			
 		</div>
 		<button class="submit-btn sBtn" onclick="javascript:sendCommonQuestion('<c:url value="/question/add_question"/>');" >등록</button>
-		
 	</div>
 	
 	<!-- 푸터 부분 -->

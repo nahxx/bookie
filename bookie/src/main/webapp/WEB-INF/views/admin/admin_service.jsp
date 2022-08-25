@@ -60,7 +60,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<!-- 푸터 부분 -->
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>
