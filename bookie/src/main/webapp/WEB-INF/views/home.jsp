@@ -129,6 +129,7 @@
 						<thead>
 							<tr>
 								<th>질문 번호</th>
+								<th>질문 내용</th>
 								<th>답변 유저</th>
 							</tr>
 						</thead>
@@ -138,13 +139,13 @@
 								<a href="/bookie/answer/${answerList.qna.qnaId}/1">
 									<tr>
 										<td>${answerList.qna.qnaId}</td>
+										<td>${answerList.document}</td>
 										<td>${answerList.getUser().getName()}</td>
 									</tr>
 								</a>
 							</c:forEach>
 						</tbody>
 					</table>
-
 				</div>
 			</div>
 		</div>
