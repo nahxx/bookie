@@ -55,6 +55,7 @@
             </c:forEach>
         </div>
         <div class="nextBtn-wrap">
+            <div class="totalCount">${totalQuestionCount}</div>
             <a class="submit-btn search solve nextBtn">시험시작</a>
         </div>
     </div>

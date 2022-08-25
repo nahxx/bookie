@@ -179,7 +179,6 @@ public class SolveProblemController {
 		/**
 		 * session에 리스트가 담겼을 경우
 		 */
-		System.out.println("questionList가 있는 경우 : 진입");
 
 		subjectPattern = solveProblemService.getQuestionPattern(questionList.get(0).getQId());
 
@@ -225,7 +224,6 @@ public class SolveProblemController {
 
 		// 세션에 담긴 questionId와 리턴받은 questionId값이 다를경우 정답 확인 후 DB넣기
 		if ( sessionQid == 0 || Long.parseLong(questionId) != sessionQid ) {
-			System.out.println("questionId의 세션이 다를때 진입");
 			solveProblemService.answerChecking(Long.parseLong(questionId), (long)session.getAttribute("uId"), Integer.parseInt(answer));
 
 			question = solveProblemService.findQuestionByQuestionId(Long.parseLong(questionId));

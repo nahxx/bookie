@@ -41,6 +41,7 @@ public class QuestionCart {
         for(int i=0; i<lineSubjectPattern.size(); i++) {
             if(lineSubjectPattern.get(i).getSubjectPattern().getSpId() == sp.getSpId()){
                 lineSubjectPattern.remove(i);
+                this.totalQuestionCount -= lineSubjectPattern.get(i).getQuestionCount();
             }
         }
     }

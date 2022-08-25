@@ -88,5 +88,12 @@ public class QuestionCartService {
     	return list;
     }
 
+	public void calcTotalQuestionCount() {
+		questionCart.calcTotalQuestionCount();
+	}
+
+	public String getTotalQuestionCount() {
+		return String.valueOf(questionCart.getTotalQuestionCount());
+	}
 
 }

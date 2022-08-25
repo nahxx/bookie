@@ -40,18 +40,31 @@ public class CreateExamController {
 
     private List<LineSubjectPattern> lineSubjectPatterns;
 
+    String totalStr;
     @GetMapping("/test/createExam")
     public String createExamPage(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
 
+        // 유형라인리스트 초기화해주기
         if(session.getAttribute("lineSubjectPatterns") != null) {
-            System.out.println("session초기화");
             questionCartService.removeList();
             session.removeAttribute("lineSubjectPatterns");
         }
 
+        // 모의고사 풀려면 로그인 해야합니다 :)
+        if (session == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
+        if(session.getAttribute("uId") == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+        totalStr = "총 <span class='num-txt'>" + questionCartService.getTotalQuestionCount() + "</span>문제";
         model.addAttribute("category", new CategoryCommand());
+        model.addAttribute("totalQuestionCount", totalStr);
         return "/test/create_exam";
     }
 
@@ -86,6 +99,16 @@ public class CreateExamController {
     public String selectPattern(HttpServletRequest request, Model model, @ModelAttribute("category") CategoryCommand command) {
         HttpSession session = request.getSession(false);
 
+        if (session == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
+        if(session.getAttribute("uId") == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
         category = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
         // 카테아이디를 통해 대분류를 각각 태그에 담아서 해당 String을 다시 던져주기(이때 각 태그에는 중분류를 찾는 스트립트함수 호출하는 내용 들어가야 함)
         List<String> bigPatterns = spService.getBigPatternsPatternsByCateId(category.getCateId());
@@ -99,6 +122,7 @@ public class CreateExamController {
 
         model.addAttribute("category", command);
         model.addAttribute("bigTag", bigTag);
+        model.addAttribute("totalQuestionCount", totalStr);
         return "test/create_exam";
     }
 
@@ -106,6 +130,18 @@ public class CreateExamController {
     @GetMapping("test/createExamSelectPattern_m")
     public String selectPatternM(HttpServletRequest request, Model model){
         HttpSession session = request.getSession(false);
+
+        if (session == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
+        if(session.getAttribute("uId") == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
+
         midTag = "";
         String bigPattern = request.getParameter("bp");
 
@@ -119,12 +155,25 @@ public class CreateExamController {
         model.addAttribute("category", category);
         model.addAttribute("bigPattern", bigPattern);
         model.addAttribute("bigTag", bigTag);
+        model.addAttribute("totalQuestionCount", totalStr);
         return "test/create_exam";
     }
+
 
     @PostMapping("test/createExamSelectPattern")
     public String selectPatternAll(HttpServletRequest request, HttpServletResponse response, Model model){
         HttpSession session = request.getSession(false);
+
+        if (session == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
+        if(session.getAttribute("uId") == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
         long sessionSP;
 
         if(session.getAttribute("spId") == null) {
@@ -141,10 +190,12 @@ public class CreateExamController {
         lineSubjectPatterns = (List<LineSubjectPattern>) session.getAttribute("lineSubjectPatterns");
 
         if( sessionSP == 0 || subjectPattern.getSpId() != sessionSP) {
-            System.out.println("subjectPattern의 세션이 다를때 진입 문제담쟈!");
 
+            // subjectPattern이 달라지면 문제 담기
             try {
                 lineSubjectPatterns = questionCartService.addQuestionPattern(category, subjectPattern, questionCount);
+                questionCartService.calcTotalQuestionCount();
+                totalStr = "총 <span class='num-txt'>" + questionCartService.getTotalQuestionCount() + "</span>문제";
             } catch (DuplicateQuestionPattern e) {
                 model.addAttribute("questionDuplicate", "y");
                 model.addAttribute("questionDuplicateException", e.getMessage());
@@ -156,8 +207,10 @@ public class CreateExamController {
             model.addAttribute("bigTag", bigTag);
             model.addAttribute("midTag", midTag);
             model.addAttribute("midPattern", midPattern);
+            model.addAttribute("totalQuestionCount", totalStr);
             session.setAttribute("lineSubjectPatterns", lineSubjectPatterns);
             session.setAttribute("spId", subjectPattern.getSpId());
+
             return "/test/create_exam";
         }
 
@@ -169,6 +222,7 @@ public class CreateExamController {
         model.addAttribute("bigTag", bigTag);
         model.addAttribute("midTag", midTag);
         model.addAttribute("midPattern", midPattern);
+        model.addAttribute("totalQuestionCount", totalStr);
         session.setAttribute("lineSubjectPatterns", lineSubjectPatterns);
         return "/test/create_exam";
     }
@@ -177,6 +231,16 @@ public class CreateExamController {
     public String deleteLineItem(@PathVariable String subjectPattern, Model model, HttpServletRequest request){
         HttpSession session = request.getSession(false);
 
+        if (session == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
+        if(session.getAttribute("uId") == null) {
+            model.addAttribute("session", "no");
+            return "error/no_session";
+        }
+
         String[] str = subjectPattern.split("_");
         String bigPattern = str[0];
         String midPattern = str[1];
@@ -184,6 +248,7 @@ public class CreateExamController {
         SubjectPattern sp = subjectPatternService.getSubjectPatternByBPatternAndMPatternAndCateId(bigPattern, midPattern, category.getCateId());
 
         lineSubjectPatterns = questionCartService.eachRemoveList(sp);
+        totalStr = "총 <span class='num-txt'>" + questionCartService.getTotalQuestionCount() + "</span>문제";
 
         model.addAttribute("midTage", midTag);
         model.addAttribute("category", category);
@@ -191,6 +256,7 @@ public class CreateExamController {
         model.addAttribute("bigTag", bigTag);
         model.addAttribute("midTag", midTag);
         model.addAttribute("midPattern", midPattern);
+        model.addAttribute("totalQuestionCount", totalStr);
         session.setAttribute("lineSubjectPatterns", lineSubjectPatterns);
         return "/test/create_exam";
     }
