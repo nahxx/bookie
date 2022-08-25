@@ -55,7 +55,7 @@
 				</div>
 				<div class="today-qhistory">
 					<p>오늘의 문제풀이카운트</p>
-					<span>${todayQHistory}</span>회
+					<p class="count"><span>${todayQHistory}</span>회</p>
 				</div>
 			</div>
 		</div>
