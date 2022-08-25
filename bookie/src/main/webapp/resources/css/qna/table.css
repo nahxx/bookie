@@ -100,7 +100,10 @@
    font-weight: bold;
    text-align : center;
    border : 2px solid #607EAA;
-   color: #607EAA;
+   background: #607EAA;
+   color: white;
+   font-weight: 300;
+   padding: 5px 5px;
    border-radius : 5px;
    font-family : var(--font-family);
 }

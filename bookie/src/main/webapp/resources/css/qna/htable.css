@@ -79,11 +79,7 @@
 	font-weight: 400;
 }
 .inner-table th:nth-child(5), .inner-table tbody tr td:nth-child(5) {
-	width: 10%;
-	font-weight: 400;
-}
-.inner-table th:nth-child(6), .inner-table tbody tr td:nth-child(6) {
-	width: 5%;
+	width: 15%;
 	font-weight: 400;
 }
 .write-btn {
