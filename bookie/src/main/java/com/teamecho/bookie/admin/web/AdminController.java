@@ -75,8 +75,8 @@ public class AdminController {
 		}
 		
 		// 로그인 회원 던지기
-		User user = userService.getUserByUid(uId);
-		request.setAttribute("user", user);
+		User adminUser = userService.getUserByUid(uId);
+		request.setAttribute("adminUser", adminUser);
 		
 		// 학년/과목별 등록문제수 차트 자료 던지기
 		String[] gradeArr = {"중등 1학년", "중등 2학년", "중등 3학년", "고등 1학년", "고등 2학년", "고등 3학년"};
