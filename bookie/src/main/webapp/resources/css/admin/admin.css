@@ -229,7 +229,7 @@ html, body {
     text-align: right;
     margin-top: -190px;
     margin-bottom: 50px;
-    display: inline-block;
+    display: block;
     float: right;
 }
 
@@ -242,4 +242,87 @@ html, body {
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.main {
+	overflow: hidden;
+	width: calc(100vw - 290px);
+    display: inline-block;
+    margin-left: 280px;
+}
+
+.main h3 {
+	margin-top: 100px;
+	margin-left: 160px;
+	color: #444;
+	font-size: 20px;
+}
+
+.main .user-flex {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.main .user-flex .user-chart {
+	display: inline-block;
+    width: calc(100vw - 600px);
+    height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+}
+
+#linechart-section, #barchart-section {
+	overflow: hidden;
+}
+
+.main .user-flex .user-chart #linechart-section {
+	margin-top: 25px;
+	width: calc(100vw - 650px);
+	height: 240px;
+}
+
+.main .question-flex {
+	display: flex;
+	justify-content: space-evenly;
+    align-items: center;
+}
+
+.main .question-flex .question-chart {
+	display: inline-block;
+	width: 650px;
+	height: 350px;
+	margin-top: 10px;
+	border: 1px solid #ddd;
+    border-radius: 25px;
+}
+
+.main .question-flex .question-chart p {
+	font-weight: 700;
+    font-size: 18px;
+    color: #1C3879;
+    padding: 12px 0 0 20px;
+}
+
+.main .question-flex .question-chart #barchart-section {
+	width: 600px;
+	height: 300px;
+	margin-top: 30px;
+	margin-left: 20px;
+}
+
+.main .question-flex .today-qhistory {
+	display: inline-block;
+	width: 500px;
+	height: 350px;
+	margin-top: 10px;
+	border: 1px solid #ddd;
+    border-radius: 25px;
+}
+
+.main .question-flex .today-qhistory p {
+	font-size: 40px;
+	margin: 30px 0 0 30px;
+    font-weight: 700;
 }

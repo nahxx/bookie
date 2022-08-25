@@ -40,8 +40,24 @@
 		</div>
 		
 		<!-- 메인 화면 -->
-		<div class="question-chart">
-			<div id="barchart-section" style="width: 800px; height: 500px;"></div>
+		<div class="main">
+			<h3>일주일간 회원가입 현황</h3>
+			<div class="user-flex">
+				<div class="user-chart">
+					<div id="linechart-section"></div>
+				</div>
+			</div>
+			<h3>학년/과목별 문제등록 현황</h3>
+			<div class="question-flex">
+				<div class="question-chart">
+					<p>등록된 문제수</p>
+					<div id="barchart-section" style="width: 600px; height: 300px;"></div>
+				</div>
+				<div class="today-qhistory">
+					<p>오늘의 문제풀이카운트</p>
+					<span>${todayQHistory}</span>회
+				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -61,6 +77,12 @@
 			cntList.push(${cnt.kor});
 			cntList.push(${cnt.eng});
 			cntList.push(${cnt.math});
+		</c:forEach>
+		
+		let userCntList = new Array();
+		<c:forEach var="cnt" items="${userCntList}">
+			userCntList.push("${cnt.day}");
+			userCntList.push(${cnt.userCnt});
 		</c:forEach>
 		
 		function drawChart() {
@@ -85,6 +107,22 @@
 			
 			var chart = new google.charts.Bar(document.getElementById('barchart-section'));
 			chart.draw(data, google.charts.Bar.convertOptions(options));
+			
+			// 일주일간 회원가입자 수
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'days');
+			data.addColumn('number', 'userCnt');
+			
+			for(let i = 0; i < userCntList.length; i++) {
+				data.addRow([userCntList[i], userCntList[++i]]);
+			}
+			
+			var options = {
+				colors: ['#0096FF']
+			};
+			
+			var chart = new google.visualization.LineChart(document.getElementById('linechart-section'));
+	        chart.draw(data, options);
 		}
 	</script>
 </body>

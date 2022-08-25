@@ -1,6 +1,5 @@
 package com.teamecho.bookie.admin.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +24,7 @@ import com.teamecho.bookie.question.domain.QuestionHistory;
 import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.user.domain.User;
+import com.teamecho.bookie.user.domain.UserCount;
 import com.teamecho.bookie.user.service.UserService;
 
 @Controller("admin.web.adminController")
@@ -78,7 +78,7 @@ public class AdminController {
 		User user = userService.getUserByUid(uId);
 		request.setAttribute("user", user);
 		
-		// 학년/과목별 등록문제수 그래프 자료 던지기
+		// 학년/과목별 등록문제수 차트 자료 던지기
 		String[] gradeArr = {"중등 1학년", "중등 2학년", "중등 3학년", "고등 1학년", "고등 2학년", "고등 3학년"};
 		long cateCnt = cateService.findCategoryCountNotEtc();
 		List<QuestionCountForGrade> cntList = adminService.getQuestionCountGrades(cateCnt); // 학년/과목 별 등록문제수 객체 담은 리스트
@@ -86,6 +86,14 @@ public class AdminController {
 			cntList.get(i).setGrade(gradeArr[i]);
 		}
 		request.setAttribute("cntList", cntList);
+		
+		// 날짜별 가입자수 차트 자료 던지기
+		List<UserCount> userCntList = adminService.getUserCountForAWeek(7);
+		request.setAttribute("userCntList", userCntList);
+		
+		// 오늘의 문제풀이 횟수 자료 던지기
+		long todayQHistory = adminService.getTodayQuestionHistory();
+		request.setAttribute("todayQHistory", todayQHistory);
 		
 		return "admin/admin_service";
 	}
@@ -227,31 +235,32 @@ public class AdminController {
 		return "admin/admin_user_info";
 	}
 	
-	   Category cate = null;
-	   @PostMapping("/admin/find_question/{pagingNo}")
-	   public String findQuestionByCategory(@PathVariable int pagingNo, CategoryCommand command, HttpServletRequest request) {
-	      cate = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
-	      request.setAttribute("cate", cate);
-	      // 페이징
-	      try {
-	         Paging paging = new Paging();
-	         paging.setViewPageNo(5);    // 초기값1 : 화면에 5개의 번호를 보여주고 싶다.
-	           paging.setFirstPageNo(1);    // 초기값2 :  화면에 시작번호 이다.
-	           paging.setPageSize(10);      // 초기값3 : 한 페이지에 보여줄 게시글 갯수
-	           paging.setTotalCount(addQService.getAllQuestions().size());   // 초기값4 : 총 회원 수 이다.
-	           paging.calcPagingNo();   //초기값5 : 페이지 갯수 계산 함.
-	           
-	           paging.makePaging(pagingNo); //페이지에 맞게
-	           List<QuestionAndQuestionPattern> qaqpList = adminService.getQuestionsAndQuestionPatternsByCateId(pagingNo, paging.getPageSize(), cate.getCateId());
-	           request.setAttribute("paging", paging);
-	           request.setAttribute("qaqpList", qaqpList);
-	           
-	      } catch(Exception e) {
-	         throw e;
-	      }
+	Category cate = null;
+	@PostMapping("/admin/find_question/{pagingNo}")
+	public String findQuestionByCategory(@PathVariable int pagingNo, CategoryCommand command, HttpServletRequest request) {
+		cate = cateService.getCategory(command.getCLevel(), command.getGrade(), command.getSubject());
+		request.setAttribute("cate", cate);
+		// 페이징
+		try {
+			Paging paging = new Paging();
+			paging.setViewPageNo(5); 	// 초기값1 : 화면에 5개의 번호를 보여주고 싶다.
+	        paging.setFirstPageNo(1); 	// 초기값2 :  화면에 시작번호 이다.
+	        paging.setPageSize(10);		// 초기값3 : 한 페이지에 보여줄 게시글 갯수
+	        paging.setTotalCount(addQService.getAllQuestions().size());	// 초기값4 : 총 회원 수 이다.
+	        paging.calcPagingNo();	//초기값5 : 페이지 갯수 계산 함.
+	        
+	        paging.makePaging(pagingNo); //페이지에 맞게
+	        List<QuestionAndQuestionPattern> qaqpList = adminService.getQuestionsAndQuestionPatternsByCateId(pagingNo, paging.getPageSize(), cate.getCateId());
+	        request.setAttribute("paging", paging);
+	        request.setAttribute("qaqpList", qaqpList);
+	        
+		} catch(Exception e) {
+			throw e;
+		}
 
-	      return "admin/find_question";
-	   }
+		return "admin/find_question";
+	}
+	
 	/**
 	 * find_question 페이지 접속
 	 * @return
@@ -301,5 +310,5 @@ public class AdminController {
 		}
 
 		return "admin/find_question";
-	}	
+	}
 }

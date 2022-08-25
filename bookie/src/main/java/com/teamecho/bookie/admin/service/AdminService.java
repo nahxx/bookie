@@ -14,6 +14,7 @@ import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
 import com.teamecho.bookie.question.domain.QuestionHistory;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.user.domain.User;
+import com.teamecho.bookie.user.domain.UserCount;
 import com.teamecho.bookie.user.service.UserService;
 
 @Service("admin.service.adminService")
@@ -95,6 +96,14 @@ public class AdminService {
 			cntList.add(cnt);
 		}
 		return cntList;
+	}
+	
+	public List<UserCount> getUserCountForAWeek(long days) {
+		return adminDao.findUserCountForAFewDays(days);
+	}
+	
+	public Long getTodayQuestionHistory() {
+		return adminDao.findTodayQuestionHistory();
 	}
 	
 	public AdminUserInfo getAdminUserInfoByUId(long uId) {

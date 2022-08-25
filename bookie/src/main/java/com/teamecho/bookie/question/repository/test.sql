@@ -123,3 +123,15 @@ ORDER BY q.regDate DESC LIMIT 0, 10;
 SELECT COUNT(*) FROM Category WHERE subject != '기타'
 
 SELECT Count(*) as cnt FROM Question WHERE cateId = 18;
+
+-- SELECT Count(*) as cnt FROM User WHERE DATE(regDate) >= DATE_SUB(NOW(), INTERVAL 7 DAY);
+-- SELECT DATE_FORMAT(regDate, "%Y-%m-%d") as dt, COUNT(*) as cnt FROM User GROUP BY dt;
+SELECT COUNT(*) as cnt FROM User
+UNION ALL SELECT DATE_FORMAT(DATE_SUB(now(), INTERVAL 2 DAY), "%Y-%m-%d");
+
+SELECT DATE_FORMAT(regDate, "%Y-%m-%d") as dt, COUNT(*) as cnt 
+FROM User
+WHERE DATE(regDate) >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+GROUP BY dt;
+
+SELECT COUNT(*) as cnt FROM QuestionHistory WHERE DATE(regDate) = DATE(NOW());

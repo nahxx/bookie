@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -18,6 +17,7 @@ import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
 import com.teamecho.bookie.question.repository.QuestionRowMapper;
 import com.teamecho.bookie.user.domain.User;
+import com.teamecho.bookie.user.domain.UserCount;
 import com.teamecho.bookie.user.repository.UserRowMapper;
 
 @Repository
@@ -104,5 +104,35 @@ public class AdminDao {
 			}
 			
 		}, cateId);
+	}
+	
+	public List<UserCount> findUserCountForAFewDays(long days) {
+		String sql = "SELECT DATE_FORMAT(regDate, \"%Y-%m-%d\") as dt, COUNT(*) as cnt"
+					+ " FROM User"
+					+ " WHERE DATE(regDate) >= DATE_SUB(NOW(), INTERVAL ? DAY)"
+					+ " GROUP BY dt";
+		return jdbcTemplate.query(sql, new RowMapper<UserCount>() {
+
+			@Override
+			public UserCount mapRow(ResultSet rs, int rowNum) throws SQLException {
+				UserCount uc = new UserCount();
+				uc.setDay(rs.getString("dt"));
+				uc.setUserCnt(rs.getLong("cnt"));
+				return uc;
+			}
+			
+		}, days);
+	}
+	
+	public Long findTodayQuestionHistory() {
+		String sql = "SELECT COUNT(*) as cnt FROM QuestionHistory WHERE DATE(regDate) = DATE(NOW())";
+		return jdbcTemplate.queryForObject(sql, new RowMapper<Long>() {
+
+			@Override
+			public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getLong("cnt");
+			}
+			
+		});
 	}
 }
