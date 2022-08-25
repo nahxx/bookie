@@ -12,7 +12,6 @@ import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.repository.CategoryDao;
 import com.teamecho.bookie.question.repository.SolveProblemRepository;
 
-import javax.security.auth.Subject;
 import java.util.*;
 
 @Service("question.service.solveProblemService")

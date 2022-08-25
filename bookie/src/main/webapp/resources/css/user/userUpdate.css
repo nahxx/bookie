@@ -20,7 +20,7 @@ section {
 .container .title-wrap {
 	width: 100%;
 	line-height: 60px;
-	padding-top: 100px;
+	padding-top: 50px;
 	text-align: center;
 }
 
@@ -36,7 +36,7 @@ section {
 	height: 100%;
 	align-items: flex-start;
 	width: 100%;
-	padding: 20px 80px;
+	padding: 20px 80px 50px;
 }
 
 .content {

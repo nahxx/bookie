@@ -12,7 +12,7 @@ import lombok.Setter;
 public class AdminUserInfo {
 	private User user;
 	private int count; 	//푼 문제 개수
-	private double rate;	// 정답률
+	private double rate; // 정답률
 	
 	public AdminUserInfo() {
 		

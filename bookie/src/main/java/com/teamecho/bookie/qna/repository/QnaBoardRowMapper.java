@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.teamecho.bookie.common.domain.Category;
-import com.teamecho.bookie.qna.domain.Answer;
 import com.teamecho.bookie.qna.domain.Board;
-import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.user.domain.User;
 
 

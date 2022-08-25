@@ -5,8 +5,6 @@ import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
-
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.common.service.SubjectPatternService;

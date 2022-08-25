@@ -4,7 +4,6 @@ import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.CategoryCommand;
 import com.teamecho.bookie.common.domain.CategoryProvider;
 import com.teamecho.bookie.common.domain.SubjectPattern;
-import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.service.SolveProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller("question.web.solveProblemController")

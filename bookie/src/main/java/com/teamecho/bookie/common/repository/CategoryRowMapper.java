@@ -3,14 +3,9 @@ package com.teamecho.bookie.common.repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.teamecho.bookie.common.domain.Category;
-import com.teamecho.bookie.common.service.CategoryService;
-import com.teamecho.bookie.qna.domain.Qna;
-import com.teamecho.bookie.user.service.UserService;
-
 
 public class CategoryRowMapper implements RowMapper<Category>{
 

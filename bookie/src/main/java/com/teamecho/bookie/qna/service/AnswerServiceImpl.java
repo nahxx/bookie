@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamecho.bookie.qna.domain.Answer;
-import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.repository.AnswerDao;
 import com.teamecho.bookie.user.service.UserService;
 
