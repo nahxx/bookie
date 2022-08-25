@@ -143,7 +143,12 @@ public class CreateExamController {
         if( sessionSP == 0 || subjectPattern.getSpId() != sessionSP) {
             System.out.println("subjectPattern의 세션이 다를때 진입 문제담쟈!");
 
-            lineSubjectPatterns = questionCartService.addQuestionPatternObject(category, subjectPattern, questionCount);
+            try {
+                lineSubjectPatterns = questionCartService.addQuestionPattern(category, subjectPattern, questionCount);
+            } catch (DuplicateQuestionPattern e) {
+                model.addAttribute("questionDuplicate", "y");
+                model.addAttribute("questionDuplicateException", e.getMessage());
+            }
 
             model.addAttribute("midTage", midTag);
             model.addAttribute("category", category);

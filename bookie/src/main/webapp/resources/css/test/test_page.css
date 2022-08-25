@@ -22,7 +22,7 @@
 }
 .questionPatternSelec-wrap {
     width: 100%;
-    padding-bottom: 200px;
+    padding: 50px 0;
 }
 .selec-subp {
     font-family: 'IM_Hyemin-Regular';
@@ -81,4 +81,11 @@
     margin-left: 5px;
     font-weight: bold;
     color: #1C3879;
+}
+
+.nextBtn-wrap {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 20px;
 }

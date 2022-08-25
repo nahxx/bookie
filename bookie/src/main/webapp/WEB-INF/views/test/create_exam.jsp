@@ -54,6 +54,9 @@
                 </div>
             </c:forEach>
         </div>
+        <div class="nextBtn-wrap">
+            <a class="submit-btn search solve nextBtn">시험시작</a>
+        </div>
     </div>
 </div>
 <footer id="footer">
@@ -167,6 +170,9 @@
             item.innerText = '3학년';
         }
     });
+    <c:if test="${questionDuplicate eq 'y'}">
+        window.alert("${questionDuplicateException}");
+    </c:if>
 </script>
 </body>
 </html>
