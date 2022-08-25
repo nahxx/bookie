@@ -77,6 +77,9 @@
               		<c:when test="${fn:contains(manager, 'Y')}">
                     ${board.user.name}
                   </c:when>
+                  <c:when test="${fn:contains(board.user.getManager(), 'Y')}">
+                    ${board.user.name}
+                  </c:when>
                   <c:otherwise>
                     <c:forEach var="i" begin="1" end="${fn:length(board.user.name)}">
                       <c:choose>
