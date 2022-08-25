@@ -66,5 +66,6 @@
   height: auto;
   font-weight: bold;
   text-align : center;
-
+border : 2px solid #ddd;
+  border-radius : 5px;
 }

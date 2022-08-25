@@ -41,65 +41,64 @@ public class HomeController {
 
 		if (session == null) {
 			model.addAttribute("session", "no");
-			return "home";
 		} else {
 			if (session.getAttribute("uId") == null) {
 				model.addAttribute("session", "no");
-				return "home";
 			}
 			long uId = (long) session.getAttribute("uId");
 
 			model.addAttribute("session", "yes");
 
-			List<Map<String, String>> rankig = userService.findrankingUser();
-			Collections.reverse(rankig);
-			request.setAttribute("rankig", rankig);
-
-			for(Map<String, String> myMap : rankig){
-			     String val = myMap.get("uid");
-			     long ud = Long.valueOf(val);
-			     User u = userService.getUserByUid(ud);
-			     String uName = u.getName();
-			     myMap.put("uName", uName);
-			}
-		     
-			List<Qna> qnaList = qnaService.getAllQna();
-			Collections.reverse(qnaList);
-			request.setAttribute("qnaList", qnaList);
-
-			for (Qna q : qnaList) {
-				long uid = q.getUser().getUId();
-				long caId = q.getCategory().getCateId();
-				User u = userService.getUserByUid(uid);
-				Category ca = categoryService.getCategoryByCateId(caId);
-				q.setUser(u);
-				q.setCategory(ca);
-			}
-
-			List<Answer> answerList = answerService.getAllAnswers();
-			Collections.reverse(answerList);
-			request.setAttribute("answerList", answerList);
-
-			for (Answer a : answerList) {
-				long uid = a.getUser().getUId();
-				User u = userService.getUserByUid(uid);
-				a.setUser(u);
-			}
-
-			Map<String, String> qCount = userService.questionCount();
-			List<String> qCountList = new ArrayList<String>(qCount.values());
-
-			List<String> queList = new ArrayList<>();
-			queList.add("수학");
-			queList.add("국어");
-			queList.add("영어");
-			queList.add("전체 문제");
-
-			request.setAttribute("queList", queList);
-			request.setAttribute("qCountList", qCountList);
-
-			return "home";
 		}
+		
+		List<Map<String, String>> rankig = userService.findrankingUser();
+		Collections.reverse(rankig);
+		request.setAttribute("rankig", rankig);
+
+		for(Map<String, String> myMap : rankig){
+		     String val = myMap.get("uid");
+		     long ud = Long.valueOf(val);
+		     User u = userService.getUserByUid(ud);
+		     String uName = u.getName();
+		     myMap.put("uName", uName);
+		}
+	     
+		List<Qna> qnaList = qnaService.getAllQna();
+		Collections.reverse(qnaList);
+		request.setAttribute("qnaList", qnaList);
+
+		for (Qna q : qnaList) {
+			long uid = q.getUser().getUId();
+			long caId = q.getCategory().getCateId();
+			User u = userService.getUserByUid(uid);
+			Category ca = categoryService.getCategoryByCateId(caId);
+			q.setUser(u);
+			q.setCategory(ca);
+		}
+
+		List<Answer> answerList = answerService.getAllAnswers();
+		Collections.reverse(answerList);
+		request.setAttribute("answerList", answerList);
+
+		for (Answer a : answerList) {
+			long uid = a.getUser().getUId();
+			User u = userService.getUserByUid(uid);
+			a.setUser(u);
+		}
+
+		Map<String, String> qCount = userService.questionCount();
+		List<String> qCountList = new ArrayList<String>(qCount.values());
+
+		List<String> queList = new ArrayList<>();
+		queList.add("수학");
+		queList.add("국어");
+		queList.add("영어");
+		queList.add("전체 문제");
+
+		request.setAttribute("queList", queList);
+		request.setAttribute("qCountList", qCountList);
+		
+		return "home";
 	}
 
 }
