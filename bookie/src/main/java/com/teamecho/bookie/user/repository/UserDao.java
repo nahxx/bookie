@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.teamecho.bookie.qna.domain.Board;
 import com.teamecho.bookie.qna.repository.QnaBoardRowMapper;
-import com.teamecho.bookie.user.domain.RankingUser;
 import com.teamecho.bookie.user.domain.User;
 
 @Component("userDao")

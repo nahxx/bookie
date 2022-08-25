@@ -7,9 +7,6 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.teamecho.bookie.user.domain.RankingUser;
-import com.teamecho.bookie.user.domain.User;
-
 public class RankingUserRowMapper implements RowMapper<Map<String, String>>{
 
 	@Override
