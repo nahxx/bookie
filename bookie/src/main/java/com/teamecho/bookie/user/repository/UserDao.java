@@ -12,8 +12,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.teamecho.bookie.qna.domain.Board;
-import com.teamecho.bookie.qna.repository.QnaBoardRowMapper;
 import com.teamecho.bookie.user.domain.User;
 
 @Component("userDao")

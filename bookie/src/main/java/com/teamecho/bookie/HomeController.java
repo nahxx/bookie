@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.parser.Entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,13 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.qna.domain.Answer;
-import com.teamecho.bookie.qna.domain.Board;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.qna.service.AnswerService;
 import com.teamecho.bookie.qna.service.QnaService;
-import com.teamecho.bookie.question.domain.Question;
-import com.teamecho.bookie.question.repository.AddQuestionDao;
-import com.teamecho.bookie.user.domain.RankingUser;
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.service.UserService;
 
@@ -58,8 +50,6 @@ public class HomeController {
 			long uId = (long) session.getAttribute("uId");
 
 			model.addAttribute("session", "yes");
-
-			
 
 			List<Map<String, String>> rankig = userService.findrankingUser();
 			Collections.reverse(rankig);

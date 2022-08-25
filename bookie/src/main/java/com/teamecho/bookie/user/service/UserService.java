@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teamecho.bookie.question.repository.AddQuestionDao;
-import com.teamecho.bookie.user.domain.RankingUser;
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.repository.UserDao;
 

@@ -38,8 +38,12 @@ select[name=email2] {
 	width: 45%;
 }
 
-input[name=phone2], input[name=phone3], select[name=phone1] {
-	width: 31.2%;
+select[name=phone1] {
+	width: 29%;
+}
+
+input[name=phone2], input[name=phone3] {
+	width: 32%;
 }
 
 input, select {
