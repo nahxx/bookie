@@ -20,7 +20,6 @@ import com.teamecho.bookie.common.domain.Paging;
 import com.teamecho.bookie.common.domain.QuestionCountForGrade;
 import com.teamecho.bookie.common.service.CategoryService;
 import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
-import com.teamecho.bookie.question.domain.QuestionHistory;
 import com.teamecho.bookie.question.service.AddQuestionService;
 import com.teamecho.bookie.question.service.QuestionHistoryService;
 import com.teamecho.bookie.user.domain.User;

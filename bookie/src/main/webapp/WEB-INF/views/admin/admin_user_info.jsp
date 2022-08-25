@@ -85,9 +85,15 @@
 					</tr>
 					<tr>
 						<th>푼 문제 개수</th>
-						<td>${rank.total}</td>
+						<td>
+						<c:if test="${rank.total eq null}">0개</c:if>
+						<c:if test="${rank.total ne null}">${rank.total}개</c:if>
+						</td>
 						<th>정답률</th>
-						<td>${aui.getRate()}%</td>
+						<td>
+						<c:if test="${rank.percent eq null}">0%</c:if>
+						<c:if test="${rank.percent ne null}">${rank.percent}%</c:if>
+						</td>
 				</table>					
 			</form:form>
 	     </div>
