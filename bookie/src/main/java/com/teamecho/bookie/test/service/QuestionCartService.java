@@ -59,6 +59,7 @@ public class QuestionCartService {
      * @return
      */
     public List<Question> createExam(long uid){
+    	
     	List<Question> list = new ArrayList<Question>();
     	for(int i = 0; i<questionCart.getLineSubjectPattern().size(); i++) {
     		for(Question q : createExamDao.createExam(uid, questionCart.getLineSubjectPattern().get(i))) {

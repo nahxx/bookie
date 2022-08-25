@@ -42,6 +42,11 @@ public class DeveloperController {
 	System.out.println(category.getCLevel());
 		return "/developer";
 	}
+	@GetMapping("/test")
+	public String test() {
+		return "/test/exam_solve";
+	}
+	
 	
 	@GetMapping("/devel/addQna")
 	public String addQna() {

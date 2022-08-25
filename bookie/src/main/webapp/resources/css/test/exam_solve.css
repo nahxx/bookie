@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.wrap {
+	width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-wrap {
+  width: 80%;
+  height: 100%;
+  background: beige;
+}
+.exam-wrap{
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: scroll;
+}
+.side-wrap{
+  width: 20%;
+  height: 100%;
+  background: yellow;
+}
+.qline {
+  width: 100%;
+  height: 2px;
+  border-bottom: 1px solid red;
+}
