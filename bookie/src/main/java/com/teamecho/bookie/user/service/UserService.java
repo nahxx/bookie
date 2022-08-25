@@ -68,19 +68,14 @@ public class UserService {
 	public Map<String, String> getRankingUserByUId(long uId) {
 		List<Map<String, String>> rankingList = findrankingUser();
 		Map<String, String> u = new HashMap<String, String>();
-		System.out.println(uId);
 		for(Map<String, String> user : rankingList) {
 			long checkUId = Long.valueOf(user.get("uid"));
-			System.out.println("checkUId : " + checkUId);
-			System.out.println("리스트uid값 : " + user.get("uid"));
 			if(uId == checkUId) {
-				System.out.println("진입");
 				u.put("uid", user.get("uid"));
 				u.put("total", user.get("total"));
 				u.put("percent", user.get("percent"));
-				System.out.println("맵uid값 : " + u.get("uid"));
+				break;
 			}
-			break;
 		}
 		return u;
 	}
