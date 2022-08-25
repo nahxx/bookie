@@ -46,7 +46,11 @@
         </div>
         <div class="questionPatternSelec-wrap">
             <c:forEach var="lineItem" items="${lineSubjectPatterns}">
-                <div><span class="clevel">${lineItem.category.CLevel}</span>${lineItem.category.subject} > ${lineItem.subjectPattern.bigPattern} > ${lineItem.subjectPattern.midPattern}</div>
+                <div class="selec-subp">
+                    <div class="selec-subp-wrap">
+                        <span class="clevel">${lineItem.category.CLevel}</span>${lineItem.category.subject} > ${lineItem.subjectPattern.bigPattern} > ${lineItem.subjectPattern.midPattern}
+                    </div>
+                </div>
             </c:forEach>
         </div>
     </div>
@@ -140,11 +144,13 @@
         form.submit();
     }
     let c = document.getElementsByClassName("clevel");
-    console.log(c);
+
     Array.prototype.forEach.call(c, (item, i) => {
-        if(item == 'm') {
+
+        if(item.innerText == 'm') {
+
             item.innerText = '중학생';
-        } else if(item == 'h') {
+        } else if(item.innerText == 'h') {
             item.innerText = '고등학생';
         }
     });
