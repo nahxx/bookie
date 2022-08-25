@@ -10,7 +10,8 @@
 <title>bookie</title>
 <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css/user/user_update.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/user/userUpdate.css"/>" />
 <script type="text/javascript" src="../resources/js/phoneform.js"></script>
 <script type="text/javascript" >
 	var msg = '${msg}';
@@ -28,7 +29,6 @@
 			<div class="title-wrap">
 				<h3 class="title">회원정보 수정</h3>
 			</div>
-			
 			<div id="content-wrapper">
 				<div class="content">
 					<form:form method="post" modelAttribute="user">
@@ -89,5 +89,8 @@
 			</div>
 		</div>
 	</section>
+	<footer id="footer">
+		<%@ include file="../incl/footer.jsp"%>
+	</footer>
 </body>
 </html>

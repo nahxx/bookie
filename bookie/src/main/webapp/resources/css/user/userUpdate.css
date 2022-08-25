@@ -1,8 +1,10 @@
 @charset "UTF-8";
 
 section {
-	height: 100%;
-	overflow: hidden;
+	min-height: calc(100vh - 61px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
@@ -12,6 +14,7 @@ section {
 	width: 700px;
 	margin: 0 auto;
 	align-items: center;
+	margin-top: 5%;
 }
 
 .container .title-wrap {
