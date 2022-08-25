@@ -231,7 +231,7 @@ public class AdminController {
 		
         User ranker = userService.getUserByUid(checkUId);
         Map<String, String> rank = userService.getRankingUserByUId(checkUId);
-        System.out.println(userService.getRankingUserByUId(checkUId));
+        System.out.println(rank.get("uid"));
         request.setAttribute("rank", rank);
         request.setAttribute("ranker", ranker);
 
