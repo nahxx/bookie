@@ -45,7 +45,7 @@ public class HomeController {
 			if (session.getAttribute("uId") == null) {
 				model.addAttribute("session", "no");
 			}
-			long uId = (long) session.getAttribute("uId");
+//			long uId = (long) session.getAttribute("uId");
 
 			model.addAttribute("session", "yes");
 

@@ -36,10 +36,12 @@ button {
 }
 
 .counters {
-	width: 200px;
-	padding: 15px 0 10px;
-	margin: 20px;
-	border: solid 1px #555;
+    width: 200px;
+    padding: 15px 0 10px;
+    margin: 20px;
+    FONT-VARIANT: JIS04;
+    border: solid 4px #1C3879;
+    border-radius: 25px;
 }
 
 .container.counts h4 {
@@ -71,28 +73,43 @@ button {
 	border-bottom: 1px solid #e4e9f0;
 }
 
-.inner ul {
-	z-index: 10;
-	font-size: 12px;
-	font-weight: 300;
-	padding: 10px;
-	margin-top: 10px;
-	background: #f7f7f7;
-}
-
-.inner ul>a>li {
-	height: 10px;
-	display: table;
+.table-wrap {
 	width: 100%;
-	table-layout: fixed;
-	color: #666;
+	height: calc(100% - 100px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 30px;
+	font-family : 'Noto Sans KR', sans-serif;
 }
 
-.user.inner ul>li div {
-	display: flex;
-	color: #666;
+.inner-table {
+	width: 95%;
+	height: 80%;
+	border: 1px solid rgb(28, 56, 121);
+	border-collapse: collapse;
+	margin: 0 auto;
+	text-align: center;
+	font-family : 'Noto Sans KR', sans-serif;
 }
 
-.inner ul>a>li div {
-	display: flex;
+.inner-table thead {
+	background-color: rgb(28, 56, 121, .6);
+}
+
+.inner-table th, .inner-table td {
+	border: 1px solid #d9d9d9;
+}
+
+.inner-table th:nth-child(1), .inner-table tbody tr td:nth-child(1) {
+	width: 25%;
+}
+
+.inner-table th:nth-child(2), .inner-table tbody tr td:nth-child(2) {
+    width: 50%;
+}
+
+.inner-table th:nth-child(3), .inner-table tbody tr td:nth-child(3) {
+	width: 65%;
 }

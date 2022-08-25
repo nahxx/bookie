@@ -28,7 +28,7 @@
 					<label><h4>${name }</h4></label>
 				</div>
 				<div class="content">
-					<label><h4>${userId }</h4></label>
+					<label><h5>${userId }</h5></label>
 				</div>
 
 				<div class="content list">
