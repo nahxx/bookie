@@ -76,8 +76,13 @@ public class UserUpdateController {
 		
 		model.addAttribute("user", user);
 		
+		if(userService.getUserByUid(uId).getManager() == 'Y') {
+			request.setAttribute("adminPage", "adminPage");
+			return "/user/mypage";
+		}
+		
 		userService.updateUser(user);
 		
-		return "user/mypage";
+		return "/user/mypage";
 	}
 }
