@@ -133,6 +133,14 @@ submitBtn.addEventListener('click', function(){
     this.setAttribute('disabled', 'true');
 });
 
+submitBtn.addEventListener('click', function(){
+
+    Array.prototype.forEach.call(checkedBtn, (item, i) => {
+        item.setAttribute('onclick', 'return(false)');
+    });
+
+});
+
 function sendPost(url) {
 
     //1. 폼생성
