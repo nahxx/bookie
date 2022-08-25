@@ -34,6 +34,9 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/answer.css"/>" />
 </head>
 <style>
+#viewer_a p > img{
+	margin-left: 500px;
+}
 </style>
 <body>
 	<header>
@@ -53,21 +56,26 @@
 					<div class="view_q_user">${name}</div>
 				</c:when>
 				<c:otherwise>
-					<div class="view_q_user">
-						<c:forEach var="i" begin="1" end="${fn:length(name)}">
-							<c:choose>
-							  <c:when test="${ i == '1' }">
-				            		${fn:substring(name,0,1)}
-				        		</c:when>
-				        		<c:when test="${ i == fn:length(name)}">
-				            		${fn:substring(name,fn:length(name) - 1,fn:length(name))}
-				        		</c:when>
-				        		 <c:otherwise>
-		                  			*
-		              			</c:otherwise>
-				        	</c:choose>
-						</c:forEach>
-					</div>
+					<c:if test="${fn:contains(manager_q, 'Y')}">
+						<div class="view_q_user">${name}</div>
+					</c:if>
+					<c:if test="${fn:contains(manager_q, 'N')}">
+						<div class="view_q_user">
+							<c:forEach var="i" begin="1" end="${fn:length(name)}">
+								<c:choose>
+								  <c:when test="${ i == '1' }">
+					            		${fn:substring(name,0,1)}
+					        		</c:when>
+					        		<c:when test="${ i == fn:length(name)}">
+					            		${fn:substring(name,fn:length(name) - 1,fn:length(name))}
+					        		</c:when>
+					        		 <c:otherwise>
+			                  			*
+			              			</c:otherwise>
+					        	</c:choose>
+							</c:forEach>
+						</div>
+					</c:if>
 				</c:otherwise>
 			</c:choose>				
 			<div id="viewer_q">${document_q}</div>
@@ -186,21 +194,26 @@
 					</c:when>
 					<c:otherwise>
 						<div class="view_a_user">
-							<div class="user_name">
-								<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
-									<c:choose>
-									    <c:when test="${ i == '1' }">
-						            		${fn:substring(answer.getUser().getName(),0,1)}
-						        		</c:when>
-						        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
-						            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
-						        		</c:when>
-						        		 <c:otherwise>
-			                   				*
-			               				</c:otherwise>
-						        	</c:choose>
-								</c:forEach>
-							</div>
+							<c:if test="${fn:contains(answer.getUser().getManager(), 'Y')}">
+								<div class="user_name">${answer.getUser().getName()}</div>
+							</c:if>
+							<c:if test="${fn:contains(answer.getUser().getManager(), 'N')}">
+								<div class="user_name">
+									<c:forEach var="i" begin="1" end="${fn:length(answer.getUser().getName())}">
+										<c:choose>
+										    <c:when test="${ i == '1' }">
+							            		${fn:substring(answer.getUser().getName(),0,1)}
+							        		</c:when>
+							        		<c:when test="${ i == fn:length(answer.getUser().getName())}">
+							            		${fn:substring(answer.getUser().getName(),fn:length(answer.getUser().getName()) - 1,fn:length(answer.getUser().getName()))}
+							        		</c:when>
+							        		 <c:otherwise>
+				                   				*
+				               				</c:otherwise>
+							        	</c:choose>
+									</c:forEach>
+								</div>
+							</c:if>
 							<div class="button">
 								<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
 									<div class="btn-wrap">
@@ -225,6 +238,7 @@
 				<div id="viewer_a">${answer.getDocument()}</div>
 			</div>
 		</c:forEach>
+		<!-- 
 		<c:choose>
 		    <c:when test="${not empty answer}">
 				<div class="view_a_wrap">
@@ -317,6 +331,7 @@
 				</div>
 		    </c:when>
 		</c:choose>
+		 -->
 	</div>
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>

@@ -34,6 +34,17 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/question/question_history.css"/>" />
 </head>
 <style>
+span{
+	color: blue;
+}
+.back{
+	width: 95%;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	padding-top: 120px;
+	display: flex;
+  	justify-content: space-between;
+}
 </style>
 <body>
 	<header>
@@ -41,8 +52,8 @@
 	</header>
 	<div id="container">
 		<div class="back">
-		<a href="<c:url value='/question/questionHistory_list/${page}'/>"> < 목록으로</a>
-			<a href="<c:url value='/qna_board/1'/>">/ 묻고답하기로</a>
+			<a href="<c:url value='/question/questionHistory_list/${page}'/>"> < 목록으로</a>
+			<a class="question" href="<c:url value='/qna_write/1'/>"><span>질문</span>이 있으신가요?</a>
 		</div>
 		<div class="viewer_q_wrap">
 			<c:if test="${not empty m}">
@@ -54,7 +65,17 @@
 				${q.getQText()}
 			</div>
 			<div id="viewer_qComment">
-				<p>답 : ${q.getAnswer()}</p>
+				<p>정답
+				<span>
+				<c:choose>
+					<c:when test="${q.getAnswer() eq '1'}">①</c:when>
+					<c:when test="${q.getAnswer() eq '2'}">②</c:when>
+					<c:when test="${q.getAnswer() eq '3'}">③</c:when>
+					<c:when test="${q.getAnswer() eq '4'}">④</c:when>
+					<c:when test="${q.getAnswer() eq '5'}">⑤</c:when>					
+				</c:choose>
+				</span>
+				</p>
 				${q.getQComment()}
 			</div>
 		</div>

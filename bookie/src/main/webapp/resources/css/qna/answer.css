@@ -163,3 +163,6 @@
 	text-align: left;
 	padding: 0px 10px;
 }
+#viewer_a p > img{
+	margin-left: 500px;
+}
