@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +37,8 @@ public class CreateExamController {
     private SubjectPatternService subjectPatternService;
     @Autowired
     private QuestionCartService questionCartService;
+
+    private List<LineSubjectPattern> lineSubjectPatterns;
 
     @GetMapping("/test/createExam")
     public String createExamPage(Model model, HttpServletRequest request) {
@@ -135,13 +138,10 @@ public class CreateExamController {
         int questionCount = Integer.parseInt(request.getParameter("questionCount"));
 
         SubjectPattern subjectPattern = subjectPatternService.getSubjectPatternByBPatternAndMPatternAndCateId(bigPattern, midPattern, category.getCateId());
-        List<LineSubjectPattern> lineSubjectPatterns = (List<LineSubjectPattern>) session.getAttribute("lineSubjectPatterns");
+        lineSubjectPatterns = (List<LineSubjectPattern>) session.getAttribute("lineSubjectPatterns");
 
         if( sessionSP == 0 || subjectPattern.getSpId() != sessionSP) {
             System.out.println("subjectPattern의 세션이 다를때 진입 문제담쟈!");
-//            System.out.println("category.getCateId() = " + category.getCateId());
-//            System.out.println("subjectPattern.getSpId() = " + subjectPattern.getSpId());
-//            System.out.println("questionCount = " + questionCount);
 
             lineSubjectPatterns = questionCartService.addQuestionPatternObject(category, subjectPattern, questionCount);
 
@@ -157,10 +157,28 @@ public class CreateExamController {
         }
 
         System.out.println("subjectPattern의 세션이 같을때");
-        for(LineSubjectPattern lp : lineSubjectPatterns){
-            System.out.println("lp.getSubjectPattern().getBigPattern() = " + lp.getSubjectPattern().getBigPattern());
-            System.out.println("lp.getSubjectPattern().getMidPattern() = " + lp.getSubjectPattern().getMidPattern());
-        }
+
+        model.addAttribute("midTage", midTag);
+        model.addAttribute("category", category);
+        model.addAttribute("bigPattern", bigPattern);
+        model.addAttribute("bigTag", bigTag);
+        model.addAttribute("midTag", midTag);
+        model.addAttribute("midPattern", midPattern);
+        session.setAttribute("lineSubjectPatterns", lineSubjectPatterns);
+        return "/test/create_exam";
+    }
+
+    @GetMapping("test/createExam/{subjectPattern}")
+    public String deleteLineItem(@PathVariable String subjectPattern, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+
+        String[] str = subjectPattern.split("_");
+        String bigPattern = str[0];
+        String midPattern = str[1];
+
+        SubjectPattern sp = subjectPatternService.getSubjectPatternByBPatternAndMPatternAndCateId(bigPattern, midPattern, category.getCateId());
+
+        lineSubjectPatterns = questionCartService.eachRemoveList(sp);
 
         model.addAttribute("midTage", midTag);
         model.addAttribute("category", category);
