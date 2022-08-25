@@ -65,9 +65,10 @@
 				<div class="user inner">
 					<c:forEach var="ranking" items="${rankig}" begin="0" end="2">
 						<ul>
-							<li><div class="article-subject">유저 이름 : ${ranking.uName}</div></li>
-							<li><div class="article-subject">정답률 : ${ranking.percent}%&emsp;&emsp;맞춘 개수 : ${ranking.total}</div></li>
-<%-- 							<div class="article-subject">맞춘 개수 : ${ranking.total}</div></li> --%>
+							<li><div class="article-subject">유저 이름 :
+									${ranking.uName}</div></li>
+							<li><div class="article-subject">정답률 :
+									${ranking.percent}%&emsp;&emsp;맞춘 개수 : ${ranking.total}</div></li>
 						</ul>
 					</c:forEach>
 				</div>
