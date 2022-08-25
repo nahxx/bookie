@@ -43,6 +43,7 @@ BEGIN
    		
   SELECT uid, total, (solvedQ / total) * 100
   FROM rank_user
-  ORDER BY (solvedQ / total) * 100, total ASC;
-
+  ORDER BY (solvedQ / total) * 100, total DESC;
+  
+CALL RANK_USER_PROCEDURE();
 END

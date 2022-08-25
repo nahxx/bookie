@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.parser.Entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import com.teamecho.bookie.qna.service.AnswerService;
 import com.teamecho.bookie.qna.service.QnaService;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.repository.AddQuestionDao;
+import com.teamecho.bookie.user.domain.RankingUser;
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.service.UserService;
 
@@ -56,6 +59,20 @@ public class HomeController {
 
 			model.addAttribute("session", "yes");
 
+			
+
+			List<Map<String, String>> rankig = userService.findrankingUser();
+			Collections.reverse(rankig);
+			request.setAttribute("rankig", rankig);
+
+			for(Map<String, String> myMap : rankig){
+			     String val = myMap.get("uid");
+			     long ud = Long.valueOf(val);
+			     User u = userService.getUserByUid(ud);
+			     String uName = u.getName();
+			     myMap.put("uName", uName);
+			}
+		     
 			List<Qna> qnaList = qnaService.getAllQna();
 			Collections.reverse(qnaList);
 			request.setAttribute("qnaList", qnaList);
@@ -81,7 +98,7 @@ public class HomeController {
 
 			Map<String, String> qCount = userService.questionCount();
 			List<String> qCountList = new ArrayList<String>(qCount.values());
-			
+
 			List<String> queList = new ArrayList<>();
 			queList.add("수학");
 			queList.add("국어");

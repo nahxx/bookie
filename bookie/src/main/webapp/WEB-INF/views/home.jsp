@@ -63,15 +63,13 @@
 					</h2>
 				</div>
 				<div class="user inner">
-					<ul>
-						<a href="/">
-							<li>
-								<div class="article-username">username</div>
-								<div class="article-subject">subject</div>
-								<div class="article-text">text</div>
-						</li>
-						</a>
-					</ul>
+					<c:forEach var="ranking" items="${rankig}" begin="0" end="2">
+						<ul>
+							<li><div class="article-subject">유저 이름 : ${ranking.uName}</div></li>
+							<li><div class="article-subject">정답률 : ${ranking.percent}%</div></li>
+							<li><div class="article-subject">맞춘 개수 : ${ranking.total}</div></li>
+						</ul>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="qna contents">

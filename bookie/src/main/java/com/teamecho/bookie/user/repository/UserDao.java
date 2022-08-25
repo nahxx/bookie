@@ -3,6 +3,7 @@ package com.teamecho.bookie.user.repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.teamecho.bookie.qna.domain.Board;
+import com.teamecho.bookie.qna.repository.QnaBoardRowMapper;
+import com.teamecho.bookie.user.domain.RankingUser;
 import com.teamecho.bookie.user.domain.User;
 
 @Component("userDao")
@@ -105,5 +109,9 @@ public class UserDao {
 		}
 	}
 	
+	public List<Map<String, String>> rankingUser(){
+		String sql = "CALL RANK_USER_PROCEDURE()";
+		return jdbcTemplate.query(sql, new RankingUserRowMapper());
+	}
 
 }

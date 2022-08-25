@@ -72,12 +72,12 @@ button {
 }
 
 .inner ul {
-    z-index: 10;
-    font-size: 12px;
-    font-weight: 300;
-    padding: 10px;
-    margin-top: 10px;
-    background: #f7f7f7;
+	z-index: 10;
+	font-size: 12px;
+	font-weight: 300;
+	padding: 10px;
+	margin-top: 10px;
+	background: #f7f7f7;
 }
 
 .inner ul>a>li {
@@ -88,6 +88,11 @@ button {
 	color: #666;
 }
 
-.inner ul>a>li div{
+.user.inner ul>li div {
+	display: flex;
+	color: #666;
+}
+
+.inner ul>a>li div {
 	display: flex;
 }
