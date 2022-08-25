@@ -36,12 +36,12 @@ button {
 }
 
 .counters {
-    width: 200px;
-    padding: 15px 0 10px;
-    margin: 20px;
-    FONT-VARIANT: JIS04;
-    border: solid 4px #1C3879;
-    border-radius: 25px;
+	width: 200px;
+	padding: 15px 0 10px;
+	margin: 20px;
+	FONT-VARIANT: JIS04;
+	border: solid 4px #1C3879;
+	border-radius: 25px;
 }
 
 .container.counts h4 {
@@ -81,7 +81,7 @@ button {
 	align-items: center;
 	flex-direction: column;
 	margin-top: 30px;
-	font-family : 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 .inner-table {
@@ -91,7 +91,19 @@ button {
 	border-collapse: collapse;
 	margin: 0 auto;
 	text-align: center;
-	font-family : 'Noto Sans KR', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
+		table-layout: fixed;
+}
+
+.inner-table tbody tr td p{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.inner-table thead tr {
+	color: white;
+	height: 33px;
 }
 
 .inner-table thead {
@@ -102,7 +114,31 @@ button {
 	border: 1px solid #d9d9d9;
 }
 
-.inner-table th:nth-child(1), .inner-table tbody tr td:nth-child(1) {
+.user.inner-table th:nth-child(1) {
+	width: 40%;
+}
+
+.user.inner-table th:nth-child(2), .user.inner-table th:nth-child(3) {
+	width: 45%;
+}
+
+.qna.inner-table th:nth-child(1) {
+	width: 25%;
+}
+
+.qna.inner-table th:nth-child(2) {
+	width: 55%;
+}
+
+.answer.inner-table th:nth-child(1) {
+	width: 20%;
+}
+
+.answer.inner-table th:nth-child(2) {
+	width: 50%;
+}
+
+/* .inner-table th:nth-child(1), .inner-table tbody tr td:nth-child(1) {
 	width: 25%;
 }
 
@@ -112,4 +148,4 @@ button {
 
 .inner-table th:nth-child(3), .inner-table tbody tr td:nth-child(3) {
 	width: 65%;
-}
+} */

@@ -34,6 +34,57 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/question/question_history.css"/>" />
 </head>
 <style>
+:root {
+	--font-family : 'Noto Sans KR', sans-serif;
+}
+
+#container{
+	width: 100%;
+	margin: 0 auto;
+	min-height: calc(100vh - 60px);
+}
+.viewer_q_wrap{
+	display:flex;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+#viewer_mText {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
+}
+#viewer_mText p{
+	text-align: center;
+}
+#viewer_qText {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
+}
+#viewer_qText p{
+	text-align: center;
+}
+#viewer_qComment {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	margin-bottom: 20px;
+	float:left;
+	padding: 20px 0;
+	font-family : var(--font-family);
+}
+#viewer_qComment p{
+	text-align: center;
+}
 span{
 	color: blue;
 }
@@ -45,6 +96,14 @@ span{
 	display: flex;
   	justify-content: space-between;
 }
+/*
+.list{
+	font-family : var(--font-family);
+}
+.question{
+	font-family : var(--font-family);
+}
+*/
 </style>
 <body>
 	<header>
@@ -52,7 +111,7 @@ span{
 	</header>
 	<div id="container">
 		<div class="back">
-			<a href="<c:url value='/question/questionHistory_list/${page}'/>"> < 목록으로</a>
+			<a class="list" href="<c:url value='/question/questionHistory_list/${page}'/>"> < 목록으로</a>
 			<a class="question" href="<c:url value='/qna_write/1'/>"><span>질문</span>이 있으신가요?</a>
 		</div>
 		<div class="viewer_q_wrap">

@@ -34,8 +34,178 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/answer.css"/>" />
 </head>
 <style>
+:root {
+	--font-family : 'Noto Sans KR', sans-serif;
+}
+
+#container{
+	width: 100%;
+	margin: 0 auto;
+	min-height: calc(100vh - 60px);
+}
+.viewer_q_wrap{
+	padding-top: 100px;
+}
+.back{
+	width: 70%;
+	margin: 0 auto;
+	margin-bottom: 5px;
+}
+.qna-title{	
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	color: white;
+    background-color: #1C3879;
+    border-color: #ddd;
+    padding: 5px 15px;
+    font-family : var(--font-family);
+}
+.answer-title{
+	width: 70%;
+	margin: 0 auto;
+	text-align: left;
+	margin-bottom: 10px;
+	margin-top: 30px;
+}
+#editor{
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+#contents {
+	width: 50%;
+	height: 100px;
+	margin: 30px auto;
+	border: 1px solid;
+}
+#viewer_q {
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	border-color: #ddd;
+	padding: 20px 0;
+}
+#viewer_a {
+	border : 1px solid;
+	width: 70%;
+	height: 50%;
+	margin: 0 auto;
+	border-color: #ddd;
+	padding: 10px 0;
+}
+.view_a_wrap:last-child {
+	margin-bottom: 50px;
+}
+.btn{
+	width: 70%;
+	margin: 0 auto;
+	text-align: right;
+}
+.toastui-editor-contents img {
+    box-sizing: border-box;
+    margin: 4px 0 10px;
+    max-width: 100%;
+    vertical-align: top;
+}
+.view_q_user, .view_a_user{
+	position: relative;
+	border : 1px solid;
+	width: 70%;
+	margin: 0 auto;
+	color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    padding: 5px 15px;
+    font-family : var(--font-family);
+}
+.button{
+	display: inline-block;
+	position: absolute;
+	right: 15px;
+    top: 5px;
+}
+.btn-wrap{
+	width: 110%;
+	margin: 0 auto;
+	text-align: right;
+}
+.update-btn{
+  	color: #1C3879;
+  	float: left;
+  	font-family : var(--font-family);
+}
+.delete-btn{
+  	color: gray;
+  	display: inline-block;
+  	font-family : var(--font-family);
+}
+.submit-btn {
+  	width: 6%;
+  	margin: 10px 0;
+  	outline: none;
+  	border: none;
+  	background: #607EAA;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+ 	color: white;
+  	font-size: 15px;
+  	font-family : var(--font-family);
+  	cursor: pointer;
+}
+.qna-btn{
+  	width: 6%;
+  	margin: 10px 0;
+ 	outline: none;
+  	border: none;
+  	background: #607EAA;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+  	color: white;
+  	font-size: 15px;
+  	font-family : var(--font-family);
+  	cursor: pointer;
+}
+.qna-update-btn{
+  	width: 6%;
+  	margin: 10px 0;
+  	outline: none;
+  	border: none;
+  	background: #607EAA;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+  	color: white;
+  	font-size: 15px;
+  	font-family : var(--font-family);
+  	cursor: pointer;
+}
+.toastui-editor-contents {
+    font-family: 'IM_Hyemin-Regular';
+    font-size: 15px;
+    margin: 0;
+}
+.toastui-editor-contents p {	
+    color: #222;
+    margin: 0;
+    text-align: center;
+}
+#viewer_q p{
+	text-align: center;
+	font-family : var(--font-family);
+}
+#viewer_a p{
+	text-align: left;
+	padding: 0px 10px;
+	font-family : var(--font-family);
+}
 #viewer_a p > img{
 	margin-left: 500px;
+}
+.delete-btn{
+	font-family : var(--font-family);
 }
 </style>
 <body>
@@ -135,7 +305,7 @@
 				<c:when test="${not empty update_answer_d}">
 					<button onclick="javascript:post('<c:url value='/answer/update/${qnaId}/${update_answer.getAnId()}/${page}'/>');"
 					class="submit-btn">등록</button>
-					<a href="<c:url value='/answer/${qnaId}/${page}'/>" class="in-btn">취소</a>
+					<a href="<c:url value='/answer/${qnaId}/${page}'/>" class="delete-btn">취소</a>
 				</c:when>
 				<c:otherwise>
 					<button onclick="javascript:post('<c:url value='/answer/insert/${qnaId}/${page}'/>');"

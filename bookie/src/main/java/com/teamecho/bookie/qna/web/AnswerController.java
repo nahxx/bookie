@@ -60,13 +60,17 @@ public class AnswerController {
 	public ModelAndView qnaForm(HttpServletRequest request, ModelAndView mv, @PathVariable int qnaId, @PathVariable int page) throws Exception{
 		HttpSession session = request.getSession(false);
 		uId = (long) session.getAttribute("uId");
-		mv.addObject("page", page);
+		// session uId로 user 찾기
 		user = userService.getUserByUid(uId);
-		mv.addObject("manager", user.getManager());
+		// 조회수
 		qnaService.boardCounting(qnaId);
 		qna = qnaService.getQnaByQnaId(qnaId);
+		answers = answerService.getAnswersByQnaId(qnaId);
+		
 		// 유저 세션
 		mv.addObject("uId_session", uId);
+		mv.addObject("manager", user.getManager());
+		mv.addObject("page", page);
 		// 질문 쓴 유저
 		mv.addObject("uId", qna.getUser().getUId());
 		// 질문 제목
@@ -77,8 +81,7 @@ public class AnswerController {
 		mv.addObject("name", qna.getUser().getName());
 		// 질문 작성자 타입
 		mv.addObject("manager_q", qna.getUser().getManager());
-		// 댓글 목록
-		answers = answerService.getAnswersByQnaId(qnaId);
+		// 댓글 목록		
 		mv.addObject("qnaId", qnaId);
 		mv.addObject("answers", answers);
 		mv.setViewName("qna/qna_answer");
