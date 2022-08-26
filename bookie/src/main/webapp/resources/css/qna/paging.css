@@ -12,6 +12,7 @@
 .paging {
   width: 200px;
   height: 40px;
+  margin-top: 30px;
 }
 .inner-paging-wrap {
   display: flex;

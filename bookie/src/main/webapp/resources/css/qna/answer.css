@@ -80,7 +80,7 @@
     max-width: 100%;
     vertical-align: top;
 }
-.view_q_user, .view_a_user{
+.view_a_user{
 	position: relative;
 	border : 1px solid;
 	width: 70%;

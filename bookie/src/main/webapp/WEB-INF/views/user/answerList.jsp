@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
-<link rel="stylesheet" href="<c:url value="/resources/css//user/qnaList.css"/>" />
+<link rel="stylesheet" href="<c:url value="/resources/css/user/qnaList.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/qna/paging.css"/>" />
 
 </head>

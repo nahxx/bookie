@@ -57,8 +57,9 @@
 #viewer_qComment p{
 	text-align: center;
 }
-span{
+.answer{
 	color: blue;
+	font-weight: 700;
 }
 .back{
 	width: 95%;
