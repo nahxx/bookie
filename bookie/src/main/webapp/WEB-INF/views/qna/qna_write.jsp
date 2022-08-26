@@ -33,21 +33,21 @@
       	<span class="cate">카테고리 선택</span>
         <div class="cate-inner">
           <span class="stitle">학력</span>
-          <input class="category" type="radio" id="middle" name="level" value="m"><label class="c-level" for="middle">중등</label>
-          <input class="category" type="radio" id="high" name="level" value="h"><label class="c-level" for="high">고등</label>
+          <label class="c-level" for="middle"><input class="category" type="radio" id="middle" name="level" value="m">중등</label>
+          <label class="c-level" for="high"><input class="category" type="radio" id="high" name="level" value="h">고등</label>
         </div>
         <div class="cate-inner">
           <span class="stitle">학년</span>
-          <input class="category" type="radio" id="one" name="grade" value="1"><label class="grade" for="one">1학년</label>
-          <input class="category" type="radio" id="two" name="grade" value="2"><label class="grade" for="two">2학년</label>
-          <input class="category" type="radio" id="three" name="grade" value="3"><label class="grade" for="three">3학년</label>
+          <label class="grade" for="one"><input class="category" type="radio" id="one" name="grade" value="1">1학년</label>
+          <label class="grade" for="two"><input class="category" type="radio" id="two" name="grade" value="2">2학년</label>
+          <label class="grade" for="three"><input class="category" type="radio" id="three" name="grade" value="3">3학년</label>
         </div>
         <div class="cate-inner">
           <span class="stitle">과목</span>
-          <input class="category" type="radio" id="korean" name="subject" value="국어"><label class="subject" for="korean">국어</label>
-          <input class="category" type="radio" id="english" name="subject" value="영어"><label class="subject" for="english">영어</label>
-          <input class="category" type="radio" id="math" name="subject" value="수학"><label class="subject" for="math">수학</label>
-          <input class="category" type="radio" id="etc" name="subject" value="기타"><label class="subject" for="etc">기타</label>
+          <label class="subject" for="korean"><input class="category" type="radio" id="korean" name="subject" value="국어">국어</label>
+          <label class="subject" for="english"><input class="category" type="radio" id="english" name="subject" value="영어">영어</label>
+          <label class="subject" for="math"><input class="category" type="radio" id="math" name="subject" value="수학">수학</label>
+          <label class="subject" for="etc"><input class="category" type="radio" id="etc" name="subject" value="기타">기타</label>
         </div>
       </div>
     </div>
@@ -111,19 +111,19 @@
 		$('.category').css("display", "none");
 		$('.c-level').click(function() {
 			$('input[name=level]').removeAttr("checked");
-			$(this).prev.attr("checked", "checked");
+			$(this).find('input[type=radio]').attr("checked", "checked");
 			$('.c-level').removeClass("on");
     		$(this).addClass("on");
 		});
 		$('.grade').click(function() {
 			$('input[name=grade]').removeAttr("checked");
-			$(this).prev.attr("checked", "checked");
+			$(this).find('input[type=radio]').attr("checked", "checked");
 			$('.grade').removeClass("on");
     		$(this).addClass("on");
 		});
 		$('.subject').click(function() {
 			$('input[name=subject]').removeAttr("checked");
-			$(this).prev.attr("checked", "checked");
+			$(this).find('input[type=radio]').attr("checked", "checked");
 			$('.subject').removeClass("on");
     		$(this).addClass("on");
 		});
