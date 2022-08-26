@@ -33,7 +33,8 @@ public class SolveProblemController {
 
 		HttpSession session = request.getSession(false);
 
-		if(session.getAttribute("questionList") != null) {
+
+		if(questionList != null) {
 			session.removeAttribute("questionList");
 		}
 
