@@ -1,4 +1,4 @@
-package com.teamecho.bookie.question;
+package com.teamecho.bookie.question.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.common.service.SubjectPatternService;
-import com.teamecho.bookie.question.QuesCateQPRowMappper;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionAndQuestionPattern;
+import com.teamecho.bookie.question.repository.QuesCateQPRowMappper;
 import com.teamecho.bookie.question.repository.QuestionRowMapper;
 import com.teamecho.bookie.user.domain.User;
 import com.teamecho.bookie.user.domain.UserCount;
