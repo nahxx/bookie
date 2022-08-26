@@ -9,8 +9,6 @@ import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.qna.domain.Qna;
 import com.teamecho.bookie.user.domain.User;
 
-
-
 public class QnaRowMapper implements RowMapper<Qna>{
 	
 	@Override
