@@ -64,7 +64,7 @@
 						<td>${boardNo}</td>
 						<td>${user.getUId()}</td>
 						<td><a href="<c:url value='/admin/admin_user_info/${user.getUId()}'/>">${user.userId}</a></td>
-						<td>${user.name}</td>
+						<td><a href="<c:url value='/admin/admin_user_info/${user.getUId()}'/>">${user.name}</a></td>
 						<td>
 							<c:if test="${fn:contains(user.getUType(), 'e')}">
 								기타

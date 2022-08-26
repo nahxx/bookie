@@ -3,6 +3,7 @@
 <%@ page import="java.net.URLEncoder" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,10 @@
 			</ul>
 		</div>
 		<div class="main-box">
-			<h3>회원정보</h3>
+			<h3>
+				<a href="javascript: window.history.back()"> &lt; 목록으로</a><br>
+			회원정보
+			</h3>
 			<!-- 회원정보 확인 메인 화면 -->
 				<form:form method="get">
 				<table class="user-table" >
@@ -81,7 +85,7 @@
 							</c:if>
 						</td>
 						<th>가입 날짜</th>
-						<td>${ranker.getRegDate()}</td>
+						 <td><fmt:formatDate value="${ranker.getRegDate()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 					</tr>
 					<tr>
 						<th>푼 문제 개수</th>

@@ -126,6 +126,10 @@ html, body {
 	color: #444;
 	font-size: 32px;
 }
+
+.main-box h3 a {
+	font-size: 13px;
+}
 /*
 .main-box .user-table {
     display: flex;
@@ -133,7 +137,7 @@ html, body {
     align-items: center;
 }
 */
-.main-box .user-table, .main-box .question-table {
+.main-box .user-table {
 	display: flex;
     justify-content: center;
     align-items: center;
@@ -145,23 +149,26 @@ html, body {
 	font-size: 20px;
 }
 
-.main-box .user-table tbody, .main-box .question-table tbody {
+.main-box .user-table tbody {
 	text-align: center;
 }
 
-.main-box .user-table th, .main-box .user-table td, .main-box .question-table th, .main-box .question-table td {
+.main-box .user-table th, .main-box .user-table td{
 	height: 40px;
 }
 
-.main-box .user-table th, .main-box .question-table th {
+.main-box .user-table th, main-box .user-table th{
+	width: 300px;
+	height: 80px;
 	border-top: 1px solid #d9d9d9;
 	border-bottom: 1px solid #d9d9d9;
-	width: 10%;
 	background: #f1f1f1;
 }
 
-.main-box .user-table th, .main-box .user-table td {
+.main-box .user-table td, main-box .user-table td {
 	width: 300px;
 	height: 80px;
-	
+	border-top: 1px solid #d9d9d9;
+	border-bottom: 1px solid #d9d9d9;
+	border-left: 1px solid #d9d9d9;
 }
