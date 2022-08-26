@@ -59,9 +59,7 @@
 		<div class="container content">
 			<div class="user contents">
 				<div class="headline">
-					<h2>
-						<a href="/">유저 랭킹</a>
-					</h2>
+					<h2>유저 랭킹</h2>
 				</div>
 				<div class="user table-wrap">
 					<table class="user inner-table">
@@ -75,7 +73,32 @@
 						<tbody>
 							<c:forEach var="ranking" items="${rankig}" begin="0" end="4">
 								<tr>
-									<td>${ranking.uName}</td>
+									<td>
+										<c:choose>
+										  <c:when test="${uId eq checkUId}">
+                    						${ranking.uName}
+                  							</c:when>
+						              	  <c:when test="${fn:contains(manager, 'Y')}">
+						                    ${ranking.uName}
+						                  </c:when>
+										  <c:when test="${fn:contains(ranking.uManager, 'Y')}">
+							                 ${ranking.uName}
+							              </c:when>
+											<c:otherwise>
+												<c:forEach var="i" begin="1" end="${fn:length(ranking.uName)}">
+													<c:choose>
+														<c:when test="${ i == '1' }">
+                          								${fn:substring(ranking.uName,0,1)}
+                        								</c:when>
+														<c:when test="${ i == fn:length(ranking.uName)}">
+                         								${fn:substring(ranking.uName,fn:length(ranking.uName) - 1,fn:length(ranking.uName))}
+                        								</c:when>
+											<c:otherwise>*</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>${ranking.percent}%</td>
 									<td>${ranking.total}</td>
 							</c:forEach>
@@ -85,9 +108,7 @@
 			</div>
 			<div class="qna contents">
 				<div class="headline">
-					<h2>
-						<a href="/">새로운 질문</a>
-					</h2>
+					<h2>새로운 질문</h2>
 				</div>
 				<div class="qna table-wrap">
 					<table class="qna inner-table">
@@ -100,19 +121,45 @@
 						</thead>
 						<tbody>
 							<c:forEach var="qnaList" items="${qnaList}" begin="0" end="4">
-								<a href="/bookie/qna_board/1">
-									<tr>
-										<td><c:if
-												test="${fn:contains(qnaList.getCategory().getCLevel(), 'm')}">
+								<tr
+									onClick="location.href='/bookie/answer/${qnaList.qnaId}/${paging.currentPageNo + 1}'"
+									style="cursor: pointer;">
+									<td><c:if
+											test="${fn:contains(qnaList.getCategory().getCLevel(), 'm')}">
                   								중등 /
                 							</c:if> <c:if
-												test="${fn:contains(qnaList.getCategory().getCLevel(), 'h')}">
+											test="${fn:contains(qnaList.getCategory().getCLevel(), 'h')}">
                   								고등 /
                 							</c:if> ${qnaList.getCategory().getSubject()}</td>
-										<td>${qnaList.subject}</td>
-										<td>${qnaList.getUser().getName()}</td>
-									</tr>
-								</a>
+									<td>${qnaList.subject}</td>
+										<td>
+										<c:choose>
+										  <c:when test="${uId eq qnaList.getUser().getUId()}">
+						                    ${qnaList.getUser().getName()}
+						                  </c:when>
+						              	  <c:when test="${fn:contains(manager, 'Y')}">
+						                    ${qnaList.getUser().getName()}
+						                  </c:when>
+										  <c:when test="${fn:contains(qnaList.getUser().getManager(), 'Y')}">
+							                 ${qnaList.getUser().getName()}
+							              </c:when>
+											<c:otherwise>
+												<c:forEach var="i" begin="1" end="${fn:length(qnaList.getUser().getName())}">
+													<c:choose>
+														<c:when test="${ i == '1' }">
+                          								${fn:substring(qnaList.getUser().getName(),0,1)}
+                        								</c:when>
+														<c:when test="${ i == fn:length(qnaList.getUser().getName())}">
+                         								${fn:substring(qnaList.getUser().getName(),fn:length(qnaList.getUser().getName()) - 1,fn:length(qnaList.getUser().getName()))}
+                        								</c:when>
+											<c:otherwise>*</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+
 							</c:forEach>
 						</tbody>
 					</table>
@@ -120,9 +167,7 @@
 			</div>
 			<div class="answer contents">
 				<div class="headline">
-					<h2>
-						<a href="/">새로운 답변</a>
-					</h2>
+					<h2>새로운 답변</h2>
 				</div>
 				<div class="answer table-wrap">
 					<table class="answer inner-table">
@@ -134,15 +179,37 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="answerList" items="${answerList}" begin="0"
-								end="4">
-								<a href="/bookie/answer/${answerList.qna.qnaId}/1">
-									<tr>
-										<td>${answerList.qna.qnaId}</td>
-										<td>${answerList.document}</td>
-										<td>${answerList.getUser().getName()}</td>
-									</tr>
-								</a>
+							<c:forEach var="answerList" items="${answerList}" begin="0" end="4">
+								<tr onClick="location.href='/bookie/answer/${answerList.qna.qnaId}/${paging.currentPageNo + 1}'" style="cursor: pointer;">
+									<td>${answerList.qna.qnaId}</td>
+									<td>${answerList.document}</td>
+									<td>
+										<c:choose>
+										<c:when test="${uId eq answerList.getUser().getUId()}">
+						                    ${answerList.getUser().getName()}
+						                  </c:when>
+											<c:when test="${fn:contains(manager, 'Y')}">
+						                    	${answerList.getUser().getName()}
+						                  	</c:when>
+											<c:when test="${fn:contains(answerList.getUser().getManager(), 'Y')}">
+							                    ${answerList.getUser().getName()}
+							                </c:when>
+											<c:otherwise>
+												<c:forEach var="i" begin="1" end="${fn:length(answerList.getUser().getName())}">
+													<c:choose>
+														<c:when test="${ i == '1' }">
+                          								${fn:substring(answerList.getUser().getName(),0,1)}
+                        								</c:when>
+														<c:when test="${ i == fn:length(answerList.getUser().getName())}">
+                         								${fn:substring(answerList.getUser().getName(),fn:length(answerList.getUser().getName()) - 1,fn:length(answerList.getUser().getName()))}
+                        								</c:when>
+											<c:otherwise>*</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
 							</c:forEach>
 						</tbody>
 					</table>

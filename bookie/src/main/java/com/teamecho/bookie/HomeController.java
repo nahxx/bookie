@@ -2,6 +2,7 @@ package com.teamecho.bookie;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -34,34 +35,45 @@ public class HomeController {
 	@Autowired
 	private CategoryService categoryService;
 
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, Model model) {
 
 		HttpSession session = request.getSession(false);
 
-		if (session == null) {
-			model.addAttribute("session", "no");
-		} else {
-			if (session.getAttribute("uId") == null) {
-				model.addAttribute("session", "no");
+		if (session == null || session.getAttribute("uId") == null) {
+			request.setAttribute("session", "no");
+		}else {
+			if(session.getAttribute("uId") != null) {
+					model.addAttribute("session", "yes");
+					request.setAttribute("uId", (long) session.getAttribute("uId"));
+					request.setAttribute("manager", (char) session.getAttribute("manager"));
+
 			}
-//			long uId = (long) session.getAttribute("uId");
-
-			model.addAttribute("session", "yes");
-
 		}
-		
+					
 		List<Map<String, String>> rankig = userService.findrankingUser();
 		Collections.reverse(rankig);
 		request.setAttribute("rankig", rankig);
+		Map<String, String> rankingUser = new HashMap<String, String>();
+		long checkUId;
+		for(Map<String, String> user : rankig) {
+			checkUId = Long.valueOf(user.get("uid"));
+			request.setAttribute("checkUId", checkUId);
+		}
+		request.setAttribute("rankingUser", rankingUser);
 
+		
 		for(Map<String, String> myMap : rankig){
 		     String val = myMap.get("uid");
 		     long ud = Long.valueOf(val);
 		     User u = userService.getUserByUid(ud);
 		     String uName = u.getName();
+		     String uManager = Character.toString(u.getManager());
 		     myMap.put("uName", uName);
+		     myMap.put("uManager", uManager);
 		}
+
 	     
 		List<Qna> qnaList = qnaService.getAllQna();
 		Collections.reverse(qnaList);
