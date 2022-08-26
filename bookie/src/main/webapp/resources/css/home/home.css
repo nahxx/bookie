@@ -16,6 +16,7 @@ button {
 .swiper-slide img {
 	width: 100%;
 	object-fit: cover;
+	height: 450px;
 }
 
 .swiper-button-next:after, .swiper-rtl .swiper-button-prev:after,
@@ -138,7 +139,7 @@ table td:last-child {
 }
 
 .qna.inner-table th:nth-child(2) {
-	width: 50%;
+	width: 46%;
 }
 
 .answer.inner-table th:nth-child(1) {
