@@ -40,8 +40,10 @@
                     <option value="unknown" class="opt">---중분류---</option>
                     ${midTag}
                 </select>
-                <input type="text" name="questionCount" class="selec num" placeholder="해당 유형 문제 수"/>
+<%--                <input type="text" name="questionCount" class="selec num" placeholder="해당 유형 문제 수"/>--%>
+                <input type="text" name="questionCount" class="selec num" oninput='handleOnInput(this, 20)' onkeydown="inNumber();" placeholder="해당 유형 문제 수" pattern="^[0-9]+$"/>
                 <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/createExamSelectPattern'/>');" class="submit-btn search s">선택</a>
+                <span class="red-txt">* 최대 문항수는 20문제 입니다</span>
             </div>
         </div>
         <div class="questionPatternSelec-wrap">
@@ -174,6 +176,31 @@
     <c:if test="${questionDuplicate eq 'y'}">
         window.alert("${questionDuplicateException}");
     </c:if>
+
+    // 문제 수 제한 두기
+    function handleOnInput(el, maxnum) {
+        // const regex = /^[a-z|A-Z]+$/;
+        //
+        // let questionCount = document.getElementsByClassName("num")[0].value;
+        // console.log(questionCount);
+        // if( regex.test(questionCount) == true ) {
+        //     console.log("진입");
+        //     questionCount = 1;
+        //     console.log(questionCount);
+        // }
+
+        let redTxt = document.getElementsByClassName("red-txt")[0];
+
+        if(el.value > maxnum) {
+            el.value = maxnum;
+            redTxt.style.display = 'block';
+        }
+    }
+    function inNumber(){
+        if(!(event.keyCode<48 && event.keyCode>57)){
+            event.returnValue=false;
+        }
+    }
 </script>
 </body>
 </html>

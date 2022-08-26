@@ -212,7 +212,7 @@ public class CreateExamController {
             return "/test/create_exam";
         }
 
-        System.out.println("subjectPattern의 세션이 같을때");
+        // subjectPattern 같을 때 수행하는 코드
         try {
             lineSubjectPatterns = questionCartService.addQuestionPattern(category, subjectPattern, questionCount);
             questionCartService.calcTotalQuestionCount();

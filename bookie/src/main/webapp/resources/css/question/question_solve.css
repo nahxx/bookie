@@ -138,13 +138,14 @@
     width: 120px;
 }
 .red-txt {
-	display: block;
 	color: red;
 	font-size: 15px;
 	font-weight: bold;
 	width: 100%;
 	text-align: center;
 	margin-top: 15px;
+    font-family: 'IM_Hyemin-Regular';
+    display: none;
 }
 
 .container.counts.select-wrap {
