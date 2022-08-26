@@ -88,10 +88,17 @@ public class QuestionCartService {
     	return list;
     }
 
+	/**
+	 * 문제 총 갯수 구하는 메소드 불러오기
+	 */
 	public void calcTotalQuestionCount() {
 		questionCart.calcTotalQuestionCount();
 	}
 
+	/**
+	 * 문제 총 갯수 받아오기 (왜한지는 모르는데 암튼 했다요)
+	 * @return
+	 */
 	public String getTotalQuestionCount() {
 		return String.valueOf(questionCart.getTotalQuestionCount());
 	}

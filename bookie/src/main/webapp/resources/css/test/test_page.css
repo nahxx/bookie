@@ -1,4 +1,7 @@
 @charset "UTF-8";
+.wrap.sub {
+    overflow: scroll;
+}
 .category-wrap.testcate {
     height: 300px;
     flex-wrap: wrap;

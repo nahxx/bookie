@@ -247,6 +247,7 @@ public class CreateExamController {
 
         SubjectPattern sp = subjectPatternService.getSubjectPatternByBPatternAndMPatternAndCateId(bigPattern, midPattern, category.getCateId());
 
+        // linsubjectPattern 지우기
         lineSubjectPatterns = questionCartService.eachRemoveList(sp);
         totalStr = "총 <span class='num-txt'>" + questionCartService.getTotalQuestionCount() + "</span>문제";
 
