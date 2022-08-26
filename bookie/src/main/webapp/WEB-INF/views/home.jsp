@@ -67,7 +67,7 @@
 							<tr>
 								<th>이름</th>
 								<th>정답률</th>
-								<th>맞춘 개수</th>
+								<th>정답 수</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -115,8 +115,8 @@
 						<thead>
 							<tr>
 								<th>학력/과목</th>
-								<th>질문 제목</th>
-								<th>질문 유저</th>
+								<th>제목</th>
+								<th>작성자</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -173,9 +173,9 @@
 					<table class="answer inner-table">
 						<thead>
 							<tr>
-								<th>질문 번호</th>
-								<th>질문 내용</th>
-								<th>답변 유저</th>
+								<th>번호</th>
+								<th>내용</th>
+								<th>작성자</th>
 							</tr>
 						</thead>
 						<tbody>

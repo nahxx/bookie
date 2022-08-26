@@ -59,7 +59,7 @@ button {
 	display: flex;
 	text-align: center;
 	justify-content: center;
-	padding: 40px 0;
+	padding: 40px 0 80px;
 }
 
 .contents {
@@ -87,12 +87,20 @@ button {
 .inner-table {
 	width: 95%;
 	height: 80%;
-	border: 1px solid rgb(28, 56, 121);
 	border-collapse: collapse;
 	margin: 0 auto;
 	text-align: center;
 	font-family: 'Noto Sans KR', sans-serif;
 		table-layout: fixed;
+}
+
+table th:first-child,
+table td:first-child {
+	border-left: none;
+}
+table th:last-child,
+table td:last-child {
+	border-right: none;
 }
 
 .inner-table tbody tr td p{
@@ -101,6 +109,9 @@ button {
 	white-space: nowrap;
 }
 
+.inner-table tbody tr td p:not(:first-child) {
+	display: none;
+}
 .inner-table thead tr {
 	color: white;
 	height: 33px;
@@ -137,15 +148,3 @@ button {
 .answer.inner-table th:nth-child(2) {
 	width: 50%;
 }
-
-/* .inner-table th:nth-child(1), .inner-table tbody tr td:nth-child(1) {
-	width: 25%;
-}
-
-.inner-table th:nth-child(2), .inner-table tbody tr td:nth-child(2) {
-    width: 50%;
-}
-
-.inner-table th:nth-child(3), .inner-table tbody tr td:nth-child(3) {
-	width: 65%;
-} */

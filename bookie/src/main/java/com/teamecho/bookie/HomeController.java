@@ -97,7 +97,7 @@ public class HomeController {
 			User u = userService.getUserByUid(uid);
 			a.setUser(u);
 		}
-
+		
 		Map<String, String> qCount = userService.questionCount();
 		List<String> qCountList = new ArrayList<String>(qCount.values());
 
