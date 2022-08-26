@@ -49,6 +49,8 @@ public class CreateExamController {
         // 유형라인리스트 초기화해주기
         if(session.getAttribute("lineSubjectPatterns") != null) {
             questionCartService.removeList();
+            questionCartService.calcTotalQuestionCount();
+            totalStr = "총 <span class='num-txt'>" + questionCartService.getTotalQuestionCount() + "</span>문제";
             session.removeAttribute("lineSubjectPatterns");
         }
 
@@ -215,6 +217,14 @@ public class CreateExamController {
         }
 
         System.out.println("subjectPattern의 세션이 같을때");
+        try {
+            lineSubjectPatterns = questionCartService.addQuestionPattern(category, subjectPattern, questionCount);
+            questionCartService.calcTotalQuestionCount();
+            totalStr = "총 <span class='num-txt'>" + questionCartService.getTotalQuestionCount() + "</span>문제";
+        } catch (DuplicateQuestionPattern e) {
+            model.addAttribute("questionDuplicate", "y");
+            model.addAttribute("questionDuplicateException", e.getMessage());
+        }
 
         model.addAttribute("midTage", midTag);
         model.addAttribute("category", category);
