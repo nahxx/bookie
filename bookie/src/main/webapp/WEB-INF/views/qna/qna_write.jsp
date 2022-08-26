@@ -94,7 +94,7 @@
             cache: false,
             timeout: 600000,
             success: function(data) {
-              url = Object.values(data)[0] + Object.values(data)[1];
+              url = Object.values(data)[0] + Object.values(data)[1]
               qnaImgArr.push(Object.values(data)[1]);
               callback(url, '이미지');
             },

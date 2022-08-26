@@ -24,8 +24,6 @@ VALUES('문법', '주장하는 글', 1);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '담화', 1);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
-VALUES('문법', '현대소설', 1);
-INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '품사의 종류와 특성', 1);
 INSERT INTO SubjectPattern (bigPattern, midPattern, cateId)
 VALUES('문법', '어휘의 체계와 양상', 1);

@@ -26,17 +26,33 @@
   <div class="wrap">
     <div class="inner-wrap">
       <div class="exam-wrap">
-       <c:forEach var="list" items="${qList}">
-       	 <c:if test="${not empty list.getMainText()}">
-			<div id="viewer_mText" class="comment">
-				${list.getMainText()}
-			</div>
+      <c:set var="checkNo" value='0' />
+      <c:forEach var="list" items="${mainList}"> 
+       <c:if test="${list.getMainText().getMtId() ne 0}">
+       	 	<c:forEach var="mtidList" items="${resultList}">
+       	 	 <c:choose>
+    	 	 	<c:when test='${list.getMainText().getMtId() eq mtidList}'>
+                  <c:set var="checkNo" value="${checkNo + 1}" />
+                </c:when>
+                 <c:otherwise>
+                      <c:set var="checkNo" value="0" />
+                 </c:otherwise>
+       	 	  </c:choose>
+			</c:forEach>
+			
+       	 	<c:if test="${checkNo <= 1}">
+				<div id="viewer_mText" class="comment">
+					${list.getMainText().getMText()}
+				</div>
+			</c:if>
 		</c:if>
 			<div id="viewer_qText" class="question">
 				${list.getQText()}
-			<p class="qline"></p>
+				<c:if test="${checkNo eq 0}">
+				<p class="qline"></p>
+				</c:if>
 			</div>
-		</c:forEach>
+	  </c:forEach>
       </div>
 
     </div>
@@ -44,7 +60,7 @@
         <div class="side-title">
             <sapn class="title-txt">답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;란</sapn>
         </div>
-    <c:forEach var="i" begin="1" end="${fn:length(qList)}">
+    <c:forEach var="i" begin="1" end="${fn:length(mainList)}">
         <div class="question-answer-form">
             <span class="question-number">${i}.</span>
             <label class="answerLa"><input type="radio" value="1" name="answer" class="sub" checked/>1</label>

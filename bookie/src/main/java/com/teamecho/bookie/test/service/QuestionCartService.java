@@ -4,12 +4,16 @@ import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.common.domain.SubjectPattern;
 import com.teamecho.bookie.common.exception.DuplicateQuestionPattern;
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.repository.SolveProblemRepository;
 import com.teamecho.bookie.test.domain.LineSubjectPattern;
 import com.teamecho.bookie.test.domain.QuestionCart;
 import com.teamecho.bookie.test.repository.CreateExamDao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +26,10 @@ public class QuestionCartService {
     
     @Autowired
     private CreateExamDao createExamDao;
-
+    
+    @Autowired
+	private SolveProblemRepository solveProblemRepository;
+    
 	public List<LineSubjectPattern> addQuestionPattern(Category category, SubjectPattern subjectPattern, int questionNum) throws DuplicateQuestionPattern {
 		boolean flag = true;
 
@@ -79,11 +86,19 @@ public class QuestionCartService {
     public List<Question> createExam(long uid){
     	
     	List<Question> list = new ArrayList<Question>();
+    
+    	//랜덤으로 문제를 가지고 온다.
     	for(int i = 0; i<questionCart.getLineSubjectPattern().size(); i++) {
     		for(Question q : createExamDao.createExam(uid, questionCart.getLineSubjectPattern().get(i))) {
         		list.add(q);
         	}
     	}
+    	
+    	//가져온 문제에서 지문 객체를 담아준다.
+    	for(Question q : list) {
+    		q.setMainText(solveProblemRepository.getMainTest(q.getMainText().getMtId()));
+    	}
+    	
     	questionCart = new QuestionCart(); //객체 초기화 담긴 리스트를 초기화 한다.
     	return list;
     }

@@ -38,7 +38,7 @@ public class ImageSaveController {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/images/qna");
+			String uploadPath = servletContext.getRealPath("/resources/images/qna"); 
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
@@ -48,6 +48,7 @@ public class ImageSaveController {
 			mv.addObject("url", "http://localhost:8080/bookie/images/qna/");
 			mv.addObject("filename", originFilename);
 			mv.setViewName("/common/image_json");
+			
 		} catch (Exception e) {
 			System.out.println("[Error] " + e.getMessage());
 		}
