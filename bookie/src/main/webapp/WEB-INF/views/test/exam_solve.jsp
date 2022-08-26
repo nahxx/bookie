@@ -28,11 +28,11 @@
       <div class="exam-wrap">
        <c:forEach var="list" items="${qList}">
        	 <c:if test="${not empty list.getMainText()}">
-			<div id="viewer_mText">
+			<div id="viewer_mText" class="comment">
 				${list.getMainText()}
 			</div>
 		</c:if>
-			<div id="viewer_qText">
+			<div id="viewer_qText" class="question">
 				${list.getQText()}
 			<p class="qline"></p>
 			</div>
@@ -41,13 +41,17 @@
 
     </div>
     <div class="side-wrap">
+        <div class="side-title">
+            <sapn class="title-txt">답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;란</sapn>
+        </div>
     <c:forEach var="i" begin="1" end="${fn:length(qList)}">
-      <div class="question-answer-form">
-          <label class="answerLa"><input type="radio" value="1" name="answer" class="sub" checked/>1</label>
-          <label class="answerLa"><input type="radio" value="2" name="answer" class="sub" />2</label>
-          <label class="answerLa"><input type="radio" value="3" name="answer" class="sub" />3</label>
-          <label class="answerLa"><input type="radio" value="4" name="answer" class="sub" />4</label>
-          <label class="answerLa"><input type="radio" value="5" name="answer" class="sub" />5</label>
+        <div class="question-answer-form">
+            <span class="question-number">${i}.</span>
+            <label class="answerLa"><input type="radio" value="1" name="answer" class="sub" checked/>1</label>
+            <label class="answerLa"><input type="radio" value="2" name="answer" class="sub" />2</label>
+            <label class="answerLa"><input type="radio" value="3" name="answer" class="sub" />3</label>
+            <label class="answerLa"><input type="radio" value="4" name="answer" class="sub" />4</label>
+            <label class="answerLa"><input type="radio" value="5" name="answer" class="sub" />5</label>
         </div>
     </c:forEach>
     </div>
