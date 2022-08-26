@@ -1,7 +1,5 @@
 package com.teamecho.bookie.user.domain;
 
-import org.springframework.stereotype.Component;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.repository.QuestionRowMapper;
 import com.teamecho.bookie.test.domain.LineSubjectPattern;
-import com.teamecho.bookie.test.domain.QuestionCart;
 
 @Repository
 public class CreateExamDao {
