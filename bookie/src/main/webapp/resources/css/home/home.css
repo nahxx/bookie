@@ -194,7 +194,7 @@ table td:last-child {
 .main_gallery_headline {
     height: 50px;
     overflow: hidden;
-    font-size: 16px;
+    font-size: 13px;
     word-break: break-all;
     word-wrap: break-word;
 }
