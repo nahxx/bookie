@@ -29,29 +29,25 @@
       <c:set var="checkNo" value='0' />
       <c:forEach var="list" items="${mainList}"> 
        <c:if test="${list.getMainText().getMtId() ne 0}">
-       	 	<c:forEach var="mtidList" items="${resultList}">
-       	 	 <c:choose>
-    	 	 	<c:when test='${list.getMainText().getMtId() eq mtidList}'>
-                  <c:set var="checkNo" value="${checkNo + 1}" />
-                </c:when>
-                 <c:otherwise>
-                      <c:set var="checkNo" value="0" />
-                 </c:otherwise>
-       	 	  </c:choose>
-			</c:forEach>
-			
-       	 	<c:if test="${checkNo <= 1}">
-				<div id="viewer_mText" class="comment">
+       <c:choose>
+   	 	 	<c:when test='${list.getMainText().getMtId() ne checkNo}'>
+   	 	 	<p class="qline"></p>
+                 <div id="viewer_mText" class="comment">
 					${list.getMainText().getMText()}
 				</div>
-			</c:if>
+				<div id="viewer_qText" class="question">
+					${list.getQText()}
+				</div>
+				<c:set var="checkNo" value="${list.getMainText().getMtId()}" />
+            </c:when>
+            <c:otherwise>
+	            <div id="viewer_qText" class="question">
+					${list.getQText()}
+				</div>
+            </c:otherwise>
+        </c:choose>
 		</c:if>
-			<div id="viewer_qText" class="question">
-				${list.getQText()}
-				<c:if test="${checkNo eq 0}">
-				<p class="qline"></p>
-				</c:if>
-			</div>
+			
 	  </c:forEach>
       </div>
 
