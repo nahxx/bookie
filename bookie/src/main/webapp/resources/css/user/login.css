@@ -55,7 +55,7 @@ input, select {
 	border-radius: 30px;
 	height: 50px;
 	cursor: pointer;
-	font-family: 'IM_Hyemin-Regular';
+    font-family: 'CookieRun-Regular';
 }
 
 input[type=submit] {

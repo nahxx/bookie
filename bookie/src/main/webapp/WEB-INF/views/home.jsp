@@ -121,9 +121,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="qnaList" items="${qnaList}" begin="0" end="4">
-								<tr
-									onClick="location.href='/bookie/answer/${qnaList.qnaId}/${paging.currentPageNo + 1}'"
-									style="cursor: pointer;">
+								<tr onClick="location.href='/bookie/answer/${qnaList.qnaId}/${paging.currentPageNo + 1}'" style="cursor: pointer;">
 									<td><c:if
 											test="${fn:contains(qnaList.getCategory().getCLevel(), 'm')}">
                   								중등 /
@@ -159,7 +157,6 @@
 										</c:choose>
 									</td>
 								</tr>
-
 							</c:forEach>
 						</tbody>
 					</table>
@@ -239,5 +236,6 @@
 			},
 		});
 	</script>
+
 </body>
 </html>

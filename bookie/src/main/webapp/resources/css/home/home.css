@@ -92,7 +92,7 @@ button {
 	margin: 0 auto;
 	text-align: center;
 	font-family: 'Noto Sans KR', sans-serif;
-		table-layout: fixed;
+	table-layout: fixed;
 }
 
 table th:first-child,
