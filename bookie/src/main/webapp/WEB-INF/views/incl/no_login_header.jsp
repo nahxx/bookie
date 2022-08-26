@@ -14,7 +14,7 @@
 		<ul class="gnb">
 			<li class="lnb"><a href="/bookie/question/solveProblemList">문제풀기</a>
 			<li class="lnb"><a href="/bookie/test/createExam">모의고사</a></li>
-			<li class="lnb"><a href="/bookie/qna_board/1">게시판</a></li>
+			<li class="lnb"><a href="/bookie/qna_board/1">묻고답하기</a></li>
 		</ul>
 	</nav>
 </div>

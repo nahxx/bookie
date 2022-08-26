@@ -34,14 +34,14 @@
 				<div class="content list">
 					<ul class="info-list">
 						<li><a href="/bookie/user/user_update" class="mypage_list"><img
-								src="<c:url value="/resources/img/update.png"/>">정보 수정하기</a></li>
+								src="<c:url value="/resources/img/mypage/update.png"/>">정보 수정하기</a></li>
 						<li><a href="/bookie/question/questionHistory_list/1"
 							class="mypage_list"><img
-								src="<c:url value="/resources/img/history.png"/>">푼 문제 확인</a></li>
+								src="<c:url value="/resources/img/mypage/history.png"/>">푼 문제 확인</a></li>
 						<li><a href="/bookie/user/answerList/1" class="mypage_list"><img
-								src="<c:url value="/resources/img/que.png"/>">답변 목록</a></li>
+								src="<c:url value="/resources/img/mypage/que.png"/>">답변 목록</a></li>
 						<li><a href="/bookie/user/qnaList/1" class="mypage_list">
-								<img src="<c:url value="/resources/img/answer.png"/>">질문
+								<img src="<c:url value="/resources/img/mypage/answer.png"/>">질문
 								목록
 						</a></li>
 					</ul>
