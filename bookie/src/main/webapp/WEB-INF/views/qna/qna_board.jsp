@@ -97,7 +97,7 @@
                 </c:choose>
               </td>
               <td>
-                <fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+                <fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd" />
               </td>
               <td>${board.qcCount}</td>
               <c:set var="boardNo" value="${boardNo - 1}" />

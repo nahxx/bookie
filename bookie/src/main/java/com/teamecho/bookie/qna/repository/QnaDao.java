@@ -64,10 +64,9 @@ public class QnaDao {
 	}
 	
 	public List<Board> findQnaBoardList(int BoardStartItemNo){
-//		String sql = "SELECT q.qnaId, q.subject, q.cateid, q.uid, q.regDate, qc.qcCount "
-//				    + "FROM Qna q INNER JOIN QnaCount qc ON q.qnaId = qc.qnaId"
-//		     		+" ORDER BY q.regDate desc LIMIT ?, 10";
-		String sql = "CALL BOARD_PROCEDURE(?)";
+		String sql = "SELECT bqc.qnaId, bqc.subject, bqc.cateid, bqc.uid, "
+				+ "(SELECT IFNULL(count(*), 0) FROM Answer a WHERE a.qnaId = bqc.qnaId) as answerCount, bqc.regDate, bqc.qcCount"
+				+ " FROM BoardQcCount bqc LIMIT ?, 10";
 		return jdbcTemplate.query(sql, new QnaBoardRowMapper(), BoardStartItemNo);
 	}
 	
