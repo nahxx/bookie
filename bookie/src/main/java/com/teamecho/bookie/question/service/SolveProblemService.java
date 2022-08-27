@@ -71,4 +71,16 @@ public class SolveProblemService {
 	public SubjectPattern getQuestionPattern(long qId) {
 		return subjectPatternDao.getQuestionPattern(qId);
 	}
+	
+	public boolean answerCheckingReturnBoolean(long qId, long uId, int answer) {
+		Question question = solveProblemRepository.findQuestionByQuestionId(qId);
+
+		if(question.getAnswer() == answer) {
+			solveProblemRepository.addQuestionHistory(uId, qId, 'Y');
+			return true;
+		} else {
+			solveProblemRepository.addQuestionHistory(uId, qId, 'N');
+			return false;
+		}
+	}
 }

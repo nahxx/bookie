@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.teamecho.bookie.question.domain.Question;
+import com.teamecho.bookie.question.service.SolveProblemService;
 import com.teamecho.bookie.test.service.QuestionCartService;
 
 @Controller
@@ -22,6 +23,9 @@ public class ExamSolveController {
 	
 	@Autowired
 	QuestionCartService questionCartService;
+	
+	@Autowired
+	SolveProblemService solveProblemService;
 	
 	List<Question> mainList;
 	
@@ -50,25 +54,41 @@ public class ExamSolveController {
     			}
     		}
     	}
-    	
+    	/*
     	for(Question q : mainList) {
     		System.out.println("문제 키값 : " + q.getQId() + " // "+ "지문 키값 : " + q.getMainText().getMtId());    		
     	}
+    	*/
     	/*
     	for(long a : resultList) {
 			System.out.println("문제 값 : " + a);
 		}
     	*/
+ 
     	model.addAttribute("mainList", mainList);
 		return "/test/exam_solve";
 	}
 	
 	@PostMapping("/test/examSolve")
-	public String examConfirm(@RequestParam(value="answer") List<String> answer, Model model) {
-		//문제 맞는지 체크하기.
+	public String examConfirm(HttpServletRequest request, @RequestParam(value="answer") List<String> answer, Model model) {
+		HttpSession session = request.getSession(false);
+		long uId = (long) session.getAttribute("uId");
+		List<Boolean> answerConfirmList = new ArrayList<Boolean>(); 
+		
 		for(int i=0; i<answer.size(); i++) {
-			System.out.println("문제키값 : " + mainList.get(i).getQId() +"// 답안 : " + answer.get(i));
+			boolean answerConfirm = solveProblemService.answerCheckingReturnBoolean(mainList.get(i).getQId(), uId, Integer.valueOf(answer.get(i)));
+			answerConfirmList.add(answerConfirm);
 		}
-		return null;
+		
+		//System.out.println(answerConfirmList);
+		model.addAttribute("answerConfirmList", answerConfirmList);
+		model.addAttribute("mainList", mainList);
+		return "/test/exam_solve";
+	}
+	
+	@GetMapping("/test/examComment")
+	public String examCommentPage(Model model) {
+		model.addAttribute("mainList", mainList);
+		return "/test/exam_comment";
 	}
 }

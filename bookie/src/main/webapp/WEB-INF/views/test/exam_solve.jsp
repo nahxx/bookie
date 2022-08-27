@@ -27,19 +27,29 @@
 		<div class="inner-wrap">
 			<div class="exam-wrap">
 				<c:set var="checkNo" value='0' />
+				<c:set var="questionNo" value='1' />
 				<c:forEach var="list" items="${mainList}">
 					<c:if test="${list.getMainText().getMtId() ne 0}">
 						<c:choose>
 							<c:when test='${list.getMainText().getMtId() ne checkNo}'>
 								<p class="qline"></p>
-								<div id="viewer_mText" class="comment">${list.getMainText().getMText()}</div>
-								<div id="viewer_qText" class="question">${list.getQText()}</div>
+								<div id="viewer_mText" class="comment">
+								${list.getMainText().getMText()}
+								</div>
+								<div id="viewer_qText" class="question">
+								<span class="questionNo"> ${questionNo} </span>
+								${list.getQText()}
+								</div>
 								<c:set var="checkNo" value="${list.getMainText().getMtId()}" />
 							</c:when>
 							<c:otherwise>
-								<div id="viewer_qText" class="question">${list.getQText()}</div>
+								<div id="viewer_qText" class="question">
+								<span class="questionNo"> ${questionNo} </span>
+								${list.getQText()}
+								</div>
 							</c:otherwise>
 						</c:choose>
+						<c:set var="questionNo" value="${questionNo + 1}" />
 					</c:if>
 
 				</c:forEach>
@@ -50,7 +60,7 @@
 			<div class="side-title">
 				<sapn class="title-txt">답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;란</sapn>
 			</div>
-			<form class="answerForm" action="/test/examSolve" method="post">
+			<div class="answerForm">
 				<c:set var="answerNo" value='1' />
 				<c:forEach var="list" items="${mainList}">
 					<div class="question-answer-form">
@@ -63,11 +73,20 @@
 					</div>
 						<c:set var="answerNo" value='${answerNo + 1}' />
 				</c:forEach>
-				  <div class="write-btn">
-			          <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/examSolve'/>');" class="in-btn">제출</a>
-			          <a href="<c:url value='경로작성하기'/>" class="in-btn">취소</a>
-			      </div>
-			</form>
+				<c:choose>
+					<c:when test='${empty answerConfirmList}'>
+						 <div class="write-btn">
+					          <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/examSolve'/>');" class="in-btn">제출</a>
+					          <a href="<c:url value='경로작성하기'/>" class="in-btn">취소</a>
+					      </div>
+					</c:when>
+					<c:otherwise>
+						 <div class="write-btn">
+					          <a href="<c:url value='/test/examComment'/>" class="in-btn">해설보기</a>
+					      </div>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</div>
 	<footer id="footer">

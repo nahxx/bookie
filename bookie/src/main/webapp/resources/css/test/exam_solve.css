@@ -1,5 +1,10 @@
 @charset "UTF-8";
-
+@font-face {
+    font-family: 'IM_Hyemin-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Regular.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 .wrap {
 	width: 100%;
   height: calc(100vh - 60px);
@@ -26,8 +31,19 @@
 .comment {
 
 }
+.comment:first-child {
+	margin-top: 20px;
+}
 .question {
+	position: relative;
   padding: 10px 0;
+}
+.questionNo{
+	position: absolute;
+	font-size: 19px;
+	font-weight: 700;
+	top: 1px;
+	left: 1px;
 }
 .side-wrap{
   width: 20%;
@@ -66,13 +82,44 @@
 .qline {
   width: 90%;
   height: 2px;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid #f1f1f1;
   margin: 0 auto;
 	margin-bottom: 20px;
 }
-
+.qline:first-child{
+	display: none;
+}
 .answerForm {
 	width: 100%;
+	height: calc(100vh - 110px);
+	position: relative;
+}
+.write-btn{
+	position: absolute;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 90%;
+	height: 30px;
+	font-size: 20px;
+	font-weight : 700;
+	font-family: 'IM_Hyemin-Regular';
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+.write-btn a{
+	width: 100%;
 	height: 100%;
-	background-color: beige;
+	text-align: center;
+	margin-right: 10px;
+	padding: 5px 5px;
+	border-radius: 5px;
+	background: #607EAA;
+	color: white;
+	font-weight: 300;
+}
+.write-btn a:nth-child(2){
+	margin-right: 0;
 }
