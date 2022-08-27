@@ -18,7 +18,7 @@ public class AnswerRowMapper implements RowMapper<Answer>{
 		a.setDocument(rs.getString("document"));
 		a.setQna(new Qna(rs.getLong("qnaId")));
 		a.setUser(new User(rs.getLong("uId")));
-		a.setRegDate(rs.getTimestamp("regDate"));
+		a.setRegDate(rs.getDate("regDate"));
 		return a;
 	}
 	

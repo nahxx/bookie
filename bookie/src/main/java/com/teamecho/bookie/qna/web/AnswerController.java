@@ -1,5 +1,7 @@
 package com.teamecho.bookie.qna.web;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,6 +90,14 @@ public class AnswerController {
 		mv.addObject("name", qna.getUser().getName());
 		// 질문 작성자 타입
 		mv.addObject("manager_q", qna.getUser().getManager());
+		// 질문 작성 시간	 
+//		DateFormat dateFomatter = new SimpleDateFormat("yyyy.MM.dd");
+//		String dateTime = ""; 
+//		if (qna.getRegDate() != null)
+//		{
+//		    dateTime = dateFomatter.format(qna.getRegDate());
+//		}
+		mv.addObject("date", qna.getRegDate());
 		// 댓글 목록		
 		mv.addObject("qnaId", qnaId);
 		mv.addObject("answers", answers);
@@ -117,6 +127,8 @@ public class AnswerController {
 		mv.addObject("document_q", qna.getDocument());
 		// 질문 작성자 아이디
 		mv.addObject("name", qna.getUser().getName());
+		// 질문 작성 시간	 
+		mv.addObject("date", qna.getRegDate());
 		// 댓글 목록
 		answers = answerService.getAnswersByQnaId(qnaId);
 		mv.addObject("qnaId", qnaId);
@@ -147,6 +159,8 @@ public class AnswerController {
 		mv.addObject("document_q", qna.getDocument());
 		// 질문 작성자 아이디
 		mv.addObject("name", qna.getUser().getName());
+		// 질문 작성 시간	 
+		mv.addObject("date", qna.getRegDate());
 		// 댓글 목록
 		answers = answerService.getAnswersByQnaId(qnaId);
 		mv.addObject("qnaId", qnaId);

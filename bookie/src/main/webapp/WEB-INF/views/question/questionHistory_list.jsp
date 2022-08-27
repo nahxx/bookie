@@ -62,7 +62,7 @@
               </td>
               <td><a href="<c:url value='/question/questionHistory_detail/${paging.currentPageNo}/${board.getQuestionHistory().getQhId()}'/>">${board.subject}</a></td>
               <td>
-                <fmt:formatDate value="${board.getRegDate()}" pattern="yyyy-MM-dd HH:mm:ss" />
+                <fmt:formatDate value="${board.getRegDate()}" pattern="yyyy-MM-dd" />
               </td>
               <td>${board.questionHistory.getIdentify()}</td>
               <c:set var="boardNo" value="${boardNo - 1}" />

@@ -19,7 +19,7 @@ public class QnaRowMapper implements RowMapper<Qna>{
 		q.setDocument(rs.getString("document"));
 		q.setCategory(new Category(rs.getLong("cateId")));
 		q.setUser(new User(rs.getLong("uId")));
-		q.setRegDate(rs.getTimestamp("regDate"));
+		q.setRegDate(rs.getDate("regDate"));
 		return q;
 	}
 }

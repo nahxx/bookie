@@ -52,28 +52,26 @@
 	margin-bottom: 5px;
 }
 .qna-title{	
-	border : 1px solid;
+	border: 0;
+	background: none;
 	width: 70%;
 	margin: 0 auto;
-	color: white;
-    background-color: #1C3879;
-    border-color: #ddd;
+	color: #251c3b;
     padding: 5px 15px;
     font-family : var(--font-family);
-    display: flex;
-  	justify-content: space-between;
+    display: flow-root;
+  	margin-top: 5px;
 }
 .answer-title{
 	width: 70%;
 	margin: 0 auto;
 	text-align: left;
-	margin-bottom: 10px;
 	margin-top: 30px;
 }
 #editor{
 	width: 70%;
 	margin: 0 auto;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 #contents {
 	width: 50%;
@@ -82,14 +80,16 @@
 	border: 1px solid;
 }
 #viewer_q {
-	border : 1px solid;
+	border : 0;
+	border-top: 8px solid #f5f5f5;
+	border-bottom: 8px solid #f5f5f5;
 	width: 70%;
 	margin: 0 auto;
 	border-color: #ddd;
 	padding: 20px 0;
 }
 #viewer_a {
-	border : 1px solid;
+	border : 0;
 	width: 70%;
 	height: 50%;
 	margin: 0 auto;
@@ -112,18 +112,28 @@
 }
 .view_a_user{
 	position: relative;
-	border : 1px solid;
+	border : 0;
+	border-top : 1px solid #ddd;
+	background: none;
 	width: 70%;
 	margin: 0 auto;
 	color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
-    padding: 5px 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 5px;
     font-family : var(--font-family);
+}
+.user_name{
+	font-weight: 700;
+	font-size: 15px;
+	display: inline-block;
 }
 .view_q_user{
 	font-size: 13px;
 	padding: 5px 10px;
+	display: inline-block;
+	float: right;
 }
 .button{
 	display: inline-block;
@@ -135,16 +145,27 @@
 	width: 110%;
 	margin: 0 auto;
 	text-align: right;
+	padding-top: 5px;
 }
 .update-btn{
-  	color: #1C3879;
   	float: left;
-  	font-family : var(--font-family);
+  	font-family : var(--font-family); 	
+  	padding: 2px 10px 3px;
+    font-size: 13px;
+    color: #fff;
+    background: #607EAA;
+    border: 1px solid #607EAA;
+    border-radius: 20px;
 }
 .delete-btn{
-  	color: gray;
   	display: inline-block;
   	font-family : var(--font-family);
+  	padding: 2px 10px 3px;
+    font-size: 13px;
+    color: #fff;
+  	background: #565c69;
+    border: 1px solid #565c69;
+    border-radius: 20px;
 }
 .submit-btn {
   	width: 6%;
@@ -160,12 +181,43 @@
   	font-family : var(--font-family);
   	cursor: pointer;
 }
+.delete{
+	width: 6%;
+  	margin: 10px 0;
+  	outline: none;
+  	border: none;
+  	background: #565c69;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+ 	color: white;
+  	font-size: 15px;
+  	font-family : var(--font-family);
+  	cursor: pointer;
+}
+.delete-a{
+	color: white;
+}
 .qna-btn{
   	width: 6%;
   	margin: 10px 0;
  	outline: none;
   	border: none;
   	background: #607EAA;
+  	height: 30px;
+  	line-height: 30px;
+  	border-radius: 10px;
+  	color: white;
+  	font-size: 15px;
+  	font-family : var(--font-family);
+  	cursor: pointer;
+}
+.qna-btn-delete{
+	width: 6%;
+  	margin: 10px 0;
+ 	outline: none;
+  	border: none;
+  	background: #565c69;
   	height: 30px;
   	line-height: 30px;
   	border-radius: 10px;
@@ -213,6 +265,21 @@
 .delete-btn{
 	font-family : var(--font-family);
 }
+.subject{
+	display: inline-block;
+	float: left;
+}
+.date{
+	font-size: 13px;
+	padding: 5px 10px;
+	display: inline-block;
+	float: right;
+}
+.date_a{
+	font-size: 13px;
+	display: inline-block;
+  	margin: 5px;
+}
 </style>
 <body>
 	<header>
@@ -224,7 +291,8 @@
 				<h5><a href="<c:url value='/qna_board/${page}'/>"> < 목록으로 </a></h5>
 			</div>
 			<div class="qna-title">
-				${subject}		
+			<div class="subject">${subject}</div>
+			<div class="date">${date}</div>		
 			<c:choose>
 				<c:when  test="${uId_session eq uId}">
 					<div class="view_q_user">${name}</div>
@@ -266,15 +334,15 @@
 				<c:choose>
 					<c:when test="${form eq 'ma'}">
 						<button onclick="javascript:submit('<c:url value='/qna/delete/ma${qnaId}/${page}'/>');"
-						class="qna-btn">삭제</button>
+						class="qna-btn-delete">삭제</button>
 					</c:when>
 					<c:when test="${form eq 'mq'}">
 						<button onclick="javascript:submit('<c:url value='/qna/delete/mq${qnaId}/${page}'/>');"
-						class="qna-btn">삭제</button>
+						class="qna-btn-delete">삭제</button>
 					</c:when>
 					<c:otherwise>
 						<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
-						class="qna-btn">삭제</button>
+						class="qna-btn-delete">삭제</button>
 					</c:otherwise>
 				</c:choose>
 				</div>
@@ -286,21 +354,21 @@
 				<c:choose>
 					<c:when test="${form eq 'ma'}">
 						<button onclick="javascript:submit('<c:url value='/qna/delete/ma${qnaId}/${page}'/>');"
-						class="qna-btn">삭제</button>
+						class="qna-btn-delete">삭제</button>
 					</c:when>
 					<c:when test="${form eq 'mq'}">
 						<button onclick="javascript:submit('<c:url value='/qna/delete/mq${qnaId}/${page}'/>');"
-						class="qna-btn">삭제</button>
+						class="qna-btn-delete">삭제</button>
 					</c:when>
 					<c:otherwise>
 						<button onclick="javascript:submit('<c:url value='/qna/delete/${qnaId}/${page}'/>');"
-						class="qna-btn">삭제</button>
+						class="qna-btn-delete">삭제</button>
 					</c:otherwise>
 				</c:choose>
 				</div>
 			</c:when>
 		</c:choose>
-		<h3 class="answer-title">댓글</h3>
+		<h4 class="answer-title">댓글</h4>
 		<div id="editor">
 			<c:choose>
 				<c:when test="${not empty update_answer_d}">
@@ -313,7 +381,7 @@
 				<c:when test="${not empty update_answer_d}">
 					<button onclick="javascript:post('<c:url value='/answer/update/${qnaId}/${update_answer.getAnId()}/${page}'/>');"
 					class="submit-btn">등록</button>
-					<a href="<c:url value='/answer/${qnaId}/${page}'/>" class="delete-btn">취소</a>
+					<button class="delete"><a href="<c:url value='/answer/${qnaId}/${page}'/>" class="delete-a">취소</a></button>
 				</c:when>
 				<c:otherwise>
 					<button onclick="javascript:post('<c:url value='/answer/insert/${qnaId}/${page}'/>');"
@@ -327,6 +395,7 @@
 					<c:when  test="${uId_session eq answer.getUser().getUId()}">
 						<div class="view_a_user">
 							<div class="user_name">${answer.getUser().getName()}</div>
+							<div class="date_a">${answer.getRegDate()}</div>	
 							<div class="button">
 								<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
 									<div class="btn-wrap">
@@ -350,6 +419,7 @@
 					<c:when test="${fn:contains(manager, 'Y')}">
 						<div class="view_a_user">
 							<div class="user_name">${answer.getUser().getName()}</div>
+							<div class="date_a">${answer.getRegDate()}</div>	
 							<div class="button">
 								<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
 									<div class="btn-wrap">
@@ -374,6 +444,7 @@
 						<div class="view_a_user">
 							<c:if test="${fn:contains(answer.getUser().getManager(), 'Y')}">
 								<div class="user_name">${answer.getUser().getName()}</div>
+								<div class="date_a">${answer.getRegDate()}</div>	
 							</c:if>
 							<c:if test="${fn:contains(answer.getUser().getManager(), 'N')}">
 								<div class="user_name">
@@ -391,6 +462,7 @@
 							        	</c:choose>
 									</c:forEach>
 								</div>
+								<div class="date_a">${answer.getRegDate()}</div>	
 							</c:if>
 							<div class="button">
 								<c:if test="${uId_session eq answer.getUser().getUId() && fn:contains(manager, 'N')}">
@@ -632,9 +704,6 @@
 	    	}
 	    }
 	});
-	
-	//let text = '${update_answer_d}';
-    //editor.insertText(text);
 	
 	const viewer = Editor.factory({
 		  el: document.querySelector('#viewer_q'),
