@@ -25,12 +25,6 @@
    </properties>
    
    <dependencies>
-      <!-- uap-java -->
-      <dependency>
-		 <groupId>com.github.ua-parser</groupId>
-		 <artifactId>uap-java</artifactId>
-		 <version>1.5.3</version>
-	  </dependency>
    	
       <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
       <dependency>

@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.teamecho.bookie.common.service.ClientUtil;
-
 /**
  * -. base64이미지를 짧은 주소로 치환시켜주는 함수.
  * -. 자신의 톰캣서버 안에있는 server.xml에서 <Host></Host> 태그사이에 아래의 태그를 추가한다.
@@ -45,9 +43,7 @@ public class ImageSaveController {
 		session = request.getSession(false);
 		
 		try {
-			// String uploadPath = servletContext.getRealPath("/resources/images/qna");
 			String uploadPath = "";
-			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/qna";
 			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
@@ -80,9 +76,7 @@ public class ImageSaveController {
 		session = request.getSession(false);
 		
 		try {
-			//String uploadPath = servletContext.getRealPath("/resources/images/question");
 			String uploadPath = "";
-			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/question";
 			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
@@ -115,9 +109,7 @@ public class ImageSaveController {
 		session = request.getSession(false);
 		
 		try {
-			//String uploadPath = servletContext.getRealPath("/resources/images/comment");
 			String uploadPath = "";
-			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/comment";
 			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
@@ -150,9 +142,7 @@ public class ImageSaveController {
 		session = request.getSession(false);
 		
 		try {
-			//String uploadPath = servletContext.getRealPath("/resources/images/answer");
 			String uploadPath = "";
-			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/answer";
 			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
