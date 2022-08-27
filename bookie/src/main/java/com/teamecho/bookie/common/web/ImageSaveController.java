@@ -49,9 +49,9 @@ public class ImageSaveController {
 			String uploadPath = "";
 			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
-				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images";
+				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/qna";
 			} else if((long)session.getAttribute("uId") == 6) {
-				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images";
+				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/qna";
 			} else {
 				uploadPath = "C:/NCS/teamecho/bookie/images/qna";
 			}
@@ -77,8 +77,20 @@ public class ImageSaveController {
 			HttpServletResponse response) {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
+		session = request.getSession(false);
+		
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/images/question");
+			//String uploadPath = servletContext.getRealPath("/resources/images/question");
+			String uploadPath = "";
+			System.out.println(ClientUtil.getOs(request));
+			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
+				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/question";
+			} else if((long)session.getAttribute("uId") == 6) {
+				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/question";
+			} else {
+				uploadPath = "C:/NCS/teamecho/bookie/images/question";
+			}
+			
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
@@ -100,8 +112,20 @@ public class ImageSaveController {
 			HttpServletResponse response) {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
+		session = request.getSession(false);
+		
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/images/comment");
+			//String uploadPath = servletContext.getRealPath("/resources/images/comment");
+			String uploadPath = "";
+			System.out.println(ClientUtil.getOs(request));
+			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
+				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/comment";
+			} else if((long)session.getAttribute("uId") == 6) {
+				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/comment";
+			} else {
+				uploadPath = "C:/NCS/teamecho/bookie/images/comment";
+			}
+			
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
@@ -123,8 +147,19 @@ public class ImageSaveController {
 			HttpServletResponse response) {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
+		session = request.getSession(false);
+		
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/images/answer");
+			//String uploadPath = servletContext.getRealPath("/resources/images/answer");
+			String uploadPath = "";
+			System.out.println(ClientUtil.getOs(request));
+			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
+				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/answer";
+			} else if((long)session.getAttribute("uId") == 6) {
+				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/answer";
+			} else {
+				uploadPath = "C:/NCS/teamecho/bookie/images/answer";
+			}
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
