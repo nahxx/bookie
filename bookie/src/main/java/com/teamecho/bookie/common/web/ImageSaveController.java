@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,18 +34,28 @@ public class ImageSaveController {
 	@Autowired
 	ServletContext servletContext;
 	
+	HttpSession session;
+	
 	@ResponseBody
 	@RequestMapping(value = "/qna_write", method = RequestMethod.POST)
 	public ModelAndView qnaImageSave(@RequestParam("image") MultipartFile multi, HttpServletRequest request,
 			HttpServletResponse response) {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
+		session = request.getSession(false);
+		
 		try {
 			// String uploadPath = servletContext.getRealPath("/resources/images/qna");
-			
+			String uploadPath = "";
 			System.out.println(ClientUtil.getOs(request));
-			
-			String uploadPath = "C:/NCS/teamecho/bookie/images/qna";
+			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
+				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images";
+			} else if((long)session.getAttribute("uId") == 6) {
+				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images";
+			} else {
+				uploadPath = "C:/NCS/teamecho/bookie/images/qna";
+			}
+
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
