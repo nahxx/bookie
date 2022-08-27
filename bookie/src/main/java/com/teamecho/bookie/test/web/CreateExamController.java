@@ -41,9 +41,9 @@ public class CreateExamController {
     public String createExamPage(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
-
+        List<LineSubjectPattern> lsp = (List<LineSubjectPattern>) session.getAttribute("lineSubjectPatterns");
         // 유형라인리스트 초기화해주기
-        if(session.getAttribute("lineSubjectPatterns") != null) {
+        if(lsp != null) {
             questionCartService.removeList();
             questionCartService.calcTotalQuestionCount();
             totalStr = "총 <span class='num-txt'>" + questionCartService.getTotalQuestionCount() + "</span>문제";
