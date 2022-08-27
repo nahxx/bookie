@@ -63,15 +63,38 @@
 					</div>
 						<c:set var="answerNo" value='${answerNo + 1}' />
 				</c:forEach>
-				<div class="write-btn">
-					<input type="submit" class="in-btn" value="제출">
-					<input type="reset" class="in-btn" value="취소">
-				</div>
+				  <div class="write-btn">
+			          <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/examSolve'/>');" class="in-btn">제출</a>
+			          <a href="<c:url value='경로작성하기'/>" class="in-btn">취소</a>
+			      </div>
 			</form>
 		</div>
 	</div>
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
+  <script>
+	 function sendPost(url) {
+      //1. 폼생성
+      var form = document.createElement('form');
+      form.setAttribute('method', 'post');
+      form.setAttribute('action', url);
+      document.charset = "UTF-8";
+
+      let answer = [];
+      <c:forEach var="list" items="${mainList}">
+      	answer.push(document.querySelector('input[name="${list.getQId()}"]:checked').value);
+      </c:forEach>
+
+      var hf_1 = document.createElement('input');
+      hf_1.setAttribute('type', 'hidden');
+      hf_1.setAttribute('name', "answer");
+      hf_1.setAttribute('value', answer);
+      form.appendChild(hf_1);
+
+      document.body.appendChild(form);
+      form.submit();
+    };
+  </script>
 </body>
 </html>

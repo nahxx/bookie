@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.test.service.QuestionCartService;
@@ -22,13 +23,15 @@ public class ExamSolveController {
 	@Autowired
 	QuestionCartService questionCartService;
 	
+	List<Question> mainList;
+	
 	@GetMapping("/test/examSolve")
 	public String examPage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(false);
 		long uId = (long) session.getAttribute("uId");
 		int cnt = 0;
 		List<Question> qList = questionCartService.createExam(uId);
-		List<Question> mainList = new ArrayList<Question>();
+		mainList = new ArrayList<Question>();
 
     	for(int i= 0; i<qList.size(); i++) {
     		if(i == 0) {
@@ -61,9 +64,11 @@ public class ExamSolveController {
 	}
 	
 	@PostMapping("/test/examSolve")
-	public String examConfirm(HttpServletRequest request, Model model) {
+	public String examConfirm(@RequestParam(value="answer") List<String> answer, Model model) {
 		//문제 맞는지 체크하기.
-		System.out.println("진입");
+		for(int i=0; i<answer.size(); i++) {
+			System.out.println("문제키값 : " + mainList.get(i).getQId() +"// 답안 : " + answer.get(i));
+		}
 		return null;
 	}
 }
