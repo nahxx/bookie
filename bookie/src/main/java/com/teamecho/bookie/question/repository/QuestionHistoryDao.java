@@ -9,9 +9,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.teamecho.bookie.common.domain.Category;
+import com.teamecho.bookie.question.domain.MainText;
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionBoard;
 import com.teamecho.bookie.question.domain.QuestionHistory;
+import com.teamecho.bookie.question.domain.QuestionText;
 
 @Repository
 public class QuestionHistoryDao {
@@ -48,7 +51,7 @@ public class QuestionHistoryDao {
 	}
 	
 	public List<QuestionBoard> getQuestionByUId(long uId, int BoardStartItemNo) {
-		String sql = "SELECT q.*, qh.qhId, qh.regDate"
+		String sql = "SELECT q.qid, q.qText, q.answer, q.qComment, q.qtId, q.cateId, q.mtId, qh.qhId, qh.regDate"
 				+ "   FROM Question q INNER JOIN QuestionHistory qh ON q.qid = qh.qid"
 				+ "   WHERE qh.uid = ? ORDER BY qh.regDate desc"
 				+ "	  LIMIT ? , 10";

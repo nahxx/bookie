@@ -45,7 +45,7 @@ public class QuestionHistoryService {
 			BoardStartItemNo = listCount * pagingNo;
 		}
 		List<QuestionBoard> qbList = qhDao.getQuestionByUId(uId, BoardStartItemNo);
-		
+
 		for(QuestionBoard qb : qbList) {
 			qb.setCategory(categoryService.getCategoryByCateId(qb.getCategory().getCateId()));
 			qb.setQuestionHistory(qhDao.findQuestionHistoryByQhId(qb.getQuestionHistory().getQhId()));

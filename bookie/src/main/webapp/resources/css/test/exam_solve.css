@@ -66,9 +66,13 @@
 .qline {
   width: 90%;
   height: 2px;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid red;
   margin: 0 auto;
+	margin-bottom: 20px;
 }
-.question:last-child .qline {
-  border: none;
+
+.answerForm {
+	width: 100%;
+	height: 100%;
+	background-color: beige;
 }

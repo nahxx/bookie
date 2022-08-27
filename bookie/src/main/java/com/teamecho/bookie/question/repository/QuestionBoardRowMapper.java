@@ -2,7 +2,6 @@ package com.teamecho.bookie.question.repository;
 
 import com.teamecho.bookie.common.domain.Category;
 import com.teamecho.bookie.question.domain.MainText;
-import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.question.domain.QuestionBoard;
 import com.teamecho.bookie.question.domain.QuestionHistory;
 import com.teamecho.bookie.question.domain.QuestionText;

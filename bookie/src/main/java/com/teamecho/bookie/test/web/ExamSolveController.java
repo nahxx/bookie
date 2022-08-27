@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.teamecho.bookie.question.domain.Question;
 import com.teamecho.bookie.test.service.QuestionCartService;
@@ -57,5 +58,12 @@ public class ExamSolveController {
     	*/
     	model.addAttribute("mainList", mainList);
 		return "/test/exam_solve";
+	}
+	
+	@PostMapping("/test/examSolve")
+	public String examConfirm(HttpServletRequest request, Model model) {
+		//문제 맞는지 체크하기.
+		System.out.println("진입");
+		return null;
 	}
 }
