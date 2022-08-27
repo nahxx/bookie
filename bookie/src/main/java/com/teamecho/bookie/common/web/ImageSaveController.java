@@ -50,7 +50,7 @@ public class ImageSaveController {
 			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/qna";
-			} else if((long)session.getAttribute("uId") == 6) {
+			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
 				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/qna";
 			} else {
 				uploadPath = "C:/NCS/teamecho/bookie/images/qna";
@@ -85,7 +85,7 @@ public class ImageSaveController {
 			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/question";
-			} else if((long)session.getAttribute("uId") == 6) {
+			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
 				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/question";
 			} else {
 				uploadPath = "C:/NCS/teamecho/bookie/images/question";
@@ -120,7 +120,7 @@ public class ImageSaveController {
 			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/comment";
-			} else if((long)session.getAttribute("uId") == 6) {
+			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
 				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/comment";
 			} else {
 				uploadPath = "C:/NCS/teamecho/bookie/images/comment";
@@ -155,7 +155,7 @@ public class ImageSaveController {
 			System.out.println(ClientUtil.getOs(request));
 			if((long)session.getAttribute("uId") == 4) { // 관리자(수진) 접근시
 				uploadPath = "/Users/mignon/Desktop/teamecho/bookie/images/answer";
-			} else if((long)session.getAttribute("uId") == 6) {
+			} else if((long)session.getAttribute("uId") == 6) { // 관리자(영정) 접근시
 				uploadPath = "/Users/zeroj/yeongjeong/Study/bookie/bookie/images/answer";
 			} else {
 				uploadPath = "C:/NCS/teamecho/bookie/images/answer";
