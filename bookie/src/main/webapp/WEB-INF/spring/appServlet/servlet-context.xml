@@ -24,6 +24,6 @@
 	<context:component-scan base-package="com.teamecho.bookie" />
 
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/images/**" location="/Users/zeroj/yeongjeong/Study/bookie/bookie/target/bookie-1.0.0-BUILD-SNAPSHOT/resources/images" />
+	<resources mapping="/images/**" location="/Users/zeroj/yeongjeong/Study/bookie/bookie/images" />
 	
 </beans:beans>
