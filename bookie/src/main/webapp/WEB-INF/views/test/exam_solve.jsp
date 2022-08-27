@@ -26,6 +26,7 @@
 	<div class="wrap">
 		<div class="inner-wrap">
 			<div class="exam-wrap">
+				
 				<c:set var="checkNo" value='0' />
 				<c:set var="questionNo" value='1' />
 				<c:forEach var="list" items="${mainList}">
@@ -93,6 +94,13 @@
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
   <script>
+	  // 지문의 마지막 문제의 border-bottom 없애기
+	  $(function() {
+	  	if($(".question").next().hasClass("qline")) {
+	  		$(this).addClass("off");
+	  	}
+	  });
+  
 	 function sendPost(url) {
       //1. 폼생성
       var form = document.createElement('form');
