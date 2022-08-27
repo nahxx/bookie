@@ -9,9 +9,15 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import ua_parser.Client;
+import ua_parser.Parser;
 
 @Service("common.service.commonService")
 public class CommonService {

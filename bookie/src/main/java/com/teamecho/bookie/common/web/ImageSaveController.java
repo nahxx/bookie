@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teamecho.bookie.common.service.ClientUtil;
+
 /**
  * -. base64이미지를 짧은 주소로 치환시켜주는 함수.
  * -. 자신의 톰캣서버 안에있는 server.xml에서 <Host></Host> 태그사이에 아래의 태그를 추가한다.
@@ -38,7 +40,11 @@ public class ImageSaveController {
 		String url = null;
 		ModelAndView mv = new ModelAndView();
 		try {
-			String uploadPath = servletContext.getRealPath("/resources/images/qna");
+			// String uploadPath = servletContext.getRealPath("/resources/images/qna");
+			
+			System.out.println(ClientUtil.getOs(request));
+			
+			String uploadPath = "C:/NCS/teamecho/bookie/images/qna";
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
 			File folder = new File(uploadPath);
 			if (!folder.exists()) folder.mkdirs();
