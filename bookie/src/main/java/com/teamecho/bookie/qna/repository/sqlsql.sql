@@ -1,3 +1,8 @@
+   SELECT qp.spId, sp.bigPattern, sp.midPattern, count(*) FROM QuestionPattern qp INNER JOIN SubjectPattern sp ON qp.spId = sp.spId
+   GROUP BY qp.spId, sp.bigPattern, sp.midPattern
+   ;
+   
+
 SELECT qt.* 
 FROM Question qt 
 WHERE qt.cateId = 18 
