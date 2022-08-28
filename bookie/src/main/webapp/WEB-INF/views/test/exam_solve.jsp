@@ -67,7 +67,7 @@
 		</div>
 		<div class="side-wrap">
 			<div class="side-title">
-				<sapn class="title-txt">답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;란</sapn>
+				<span class="title-txt">답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;란</span>
 			</div>
 			<div class="answerForm">
 				<c:set var="answerNo" value='1' />
@@ -109,6 +109,13 @@
 				  $(this).addClass("off");   
 			  }
 		  });
+	  });
+	  
+	  // 이미지 너비 체크
+	  $('img').each(function() {
+		 if($(this).width() > 900) {
+			 $(this).css("width", "70%");
+		 }
 	  });
   
 	 function sendPost(url) {

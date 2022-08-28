@@ -22,7 +22,7 @@
 }
 
 .exam-wrap{
-  width: 56%;
+  width: 70%;
   height: 100%;
   margin: 0 auto;
   overflow: scroll;
@@ -32,10 +32,6 @@
 
 .exam-wrap::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera*/
-}
-
-.comment {
-
 }
 
 .comment:first-child {
@@ -49,10 +45,12 @@
 
 .questionNo{
 	position: absolute;
-	font-size: 19px;
-	font-weight: 700;
-	top: 1px;
-	left: 1px;
+    font-size: 40px;
+    font-weight: 700;
+    top: 1px;
+    left: 30px;
+    color: #666;
+    font-style: italic;
 }
 
 .side-wrap{
@@ -166,15 +164,6 @@
 
 .question.off {
 	border-bottom: 0px;
-}
-
-.questionNo {
-	position: absolute;
-    font-size: 19px;
-    font-weight: 700;
-    top: 1px;
-    left: 10px;
-    color: #222;
 }
 
 .question:last-child {
