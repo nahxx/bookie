@@ -10,7 +10,6 @@ import com.teamecho.bookie.test.domain.QuestionCart;
 import com.teamecho.bookie.test.repository.CreateExamDao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -96,7 +95,9 @@ public class QuestionCartService {
     	
     	//가져온 문제에서 지문 객체를 담아준다.
     	for(Question q : list) {
-    		q.setMainText(solveProblemRepository.getMainTest(q.getMainText().getMtId()));
+    		if (q.getMainText().getMtId() != 0) {
+    			q.setMainText(solveProblemRepository.getMainTest(q.getMainText().getMtId()));
+    		}
     	}
     	
     	questionCart = new QuestionCart(); //객체 초기화 담긴 리스트를 초기화 한다.

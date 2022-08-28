@@ -36,13 +36,20 @@ SELECT bigPattern, midPattern, qid FROM SubjectPattern sp INNER JOIN QuestionPat
 
 CALL RANK_USER_PROCEDURE
 
-
+SELECT * FROM Question WHERE cateID = 18;
 
 SELECT q.*, a.identify FROM Question q LEFT JOIN (SELECT * FROM QuestionHistory qh WHERE qh.uid = 7) a ON q.qid = a.qid INNER JOIN QuestionPattern qp ON q.qId = qp.qId WHERE qp.spId = 537 ORDER BY a.identify, RAND()
 
+SELECT * FROM QuestionPattern qp WHERE qp.spId = 544
 
+SELECT * FROM SubjectPattern WHERE spId =544 
 
 SELECT q.qid, q.qText, q.answer, q.qComment, q.qtId, q.cateId, q.mtId, qh.qhId, qh.regDate
 				   FROM Question q INNER JOIN QuestionHistory qh ON q.qid = qh.qid
 				   WHERE qh.uid = 2 ORDER BY qh.regDate desc
 				  LIMIT 0 , 10;
+				  
+				  
+				  SELECT q.*, a.identify FROM Question q
+				LEFT JOIN ( SELECT * FROM QuestionHistory qh WHERE qh.uid = 2 ) a ON q.qid = a.qid
+				INNER JOIN QuestionPattern qp ON q.qId = qp.qId WHERE qp.spId = 544 ORDER BY a.identify, RAND() LIMIT 5

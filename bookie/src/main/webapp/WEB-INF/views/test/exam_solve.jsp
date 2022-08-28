@@ -30,7 +30,8 @@
 				<c:set var="checkNo" value='0' />
 				<c:set var="questionNo" value='1' />
 				<c:forEach var="list" items="${mainList}">
-					<c:if test="${list.getMainText().getMtId() ne 0}">
+				<c:choose>
+					<c:when test="${list.getMainText().getMtId() ne 0}">
 						<c:choose>
 							<c:when test='${list.getMainText().getMtId() ne checkNo}'>
 								<p class="qline"></p>
@@ -38,21 +39,28 @@
 								${list.getMainText().getMText()}
 								</div>
 								<div id="viewer_qText" class="question">
-								<span class="questionNo"> ${questionNo}. </span>
+								<span class="questionNo"> ${questionNo} </span>
 								${list.getQText()}
 								</div>
 								<c:set var="checkNo" value="${list.getMainText().getMtId()}" />
 							</c:when>
 							<c:otherwise>
 								<div id="viewer_qText" class="question">
-								<span class="questionNo"> ${questionNo}. </span>
+								<span class="questionNo"> ${questionNo} </span>
 								${list.getQText()}
-								</div>
+								</div> <!-- 2 -->
 							</c:otherwise>
 						</c:choose>
 						<c:set var="questionNo" value="${questionNo + 1}" />
-					</c:if>
-
+					</c:when>
+					<c:otherwise>
+						<div id="viewer_qText" class="question">
+						<span class="questionNo"> ${questionNo} </span>
+						${list.getQText()}
+						</div>
+						<c:set var="questionNo" value="${questionNo + 1}" />
+					</c:otherwise>
+				</c:choose>
 				</c:forEach>
 			</div>
 

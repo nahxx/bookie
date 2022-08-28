@@ -34,20 +34,23 @@ public class ExamSolveController {
 		HttpSession session = request.getSession(false);
 		long uId = (long) session.getAttribute("uId");
 		int cnt = 0;
+
 		List<Question> qList = questionCartService.createExam(uId);
 		mainList = new ArrayList<Question>();
-
+		
     	for(int i= 0; i<qList.size(); i++) {
     		if(i == 0) {
     			mainList.add(qList.get(i));
     		}else {
     			cnt = 0;
-    			for(int j=0; j<mainList.size(); j++) {
-    				if(qList.get(i).getMainText().getMtId() == mainList.get(j).getMainText().getMtId()) {  
-    					mainList.add(j, qList.get(i));
-    					cnt++;
-    					break;
-    				}
+    			if(qList.get(i).getMainText().getMtId() != 0) {
+	    			for(int j=0; j<mainList.size(); j++) {
+	    				if(mainList.get(j).getMainText().getMtId() != 0 && ( qList.get(i).getMainText().getMtId() == mainList.get(j).getMainText().getMtId() )) {  
+	    					mainList.add(j, qList.get(i));
+	    					cnt++;
+	    					break;
+	    				}
+	    			}
     			}
     			if(cnt == 0) {
     				mainList.add(qList.get(i));
@@ -59,12 +62,6 @@ public class ExamSolveController {
     		System.out.println("문제 키값 : " + q.getQId() + " // "+ "지문 키값 : " + q.getMainText().getMtId());    		
     	}
     	*/
-    	/*
-    	for(long a : resultList) {
-			System.out.println("문제 값 : " + a);
-		}
-    	*/
- 
     	model.addAttribute("mainList", mainList);
 		return "/test/exam_solve";
 	}
