@@ -84,6 +84,7 @@
 				</c:forEach>
 				<c:choose>
 					<c:when test='${empty answerConfirmList}'>
+						 <div id="time-check"></div>
 						 <div class="write-btn">
 					          <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/examSolve'/>');" class="in-btn">제출</a>
 					          <a href="<c:url value='/test/createExam'/>" class="in-btn">취소</a>
@@ -117,6 +118,29 @@
 			 $(this).css("width", "70%");
 		 }
 	  });
+	  
+	  // 타이머
+	  let count = 0; // 초단위 카운트 담는 변수
+	  let m = 0; // 분단위 카운트 담는 변수
+	  let t = null; // setTimeout을 담는 변수
+	  
+	  function timeCount() { //setTimeout 실행 함수
+		  // 1초마다 한번씩 count 증가시키는 함수
+		  if (m > 0) {
+		    document.getElementById('time-check').innerHTML = `${m}분 ${count}초`;
+		  } else {
+		    document.getElementById('time-check').innerHTML = `${m}분 ${count}초`;
+		  }
+		  count += 1;
+		  if (count == 60) {
+		    m += 1;
+		    count = 0;
+		  }
+		  t = setTimeout(timeCount, 1000);
+	  }
+	  window.onload = function() {
+		  timeCount();
+	  };
   
 	 function sendPost(url) {
       //1. 폼생성
