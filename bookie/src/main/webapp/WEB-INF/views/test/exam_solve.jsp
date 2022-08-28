@@ -48,7 +48,7 @@
 								<div id="viewer_qText" class="question">
 								<span class="questionNo"> ${questionNo} </span>
 								${list.getQText()}
-								</div> <!-- 2 -->
+								</div>
 							</c:otherwise>
 						</c:choose>
 						<c:set var="questionNo" value="${questionNo + 1}" />
@@ -86,7 +86,7 @@
 					<c:when test='${empty answerConfirmList}'>
 						 <div class="write-btn">
 					          <a href="javascript:void(0);" onclick="javascript:sendPost('<c:url value='/test/examSolve'/>');" class="in-btn">제출</a>
-					          <a href="<c:url value='경로작성하기'/>" class="in-btn">취소</a>
+					          <a href="<c:url value='/test/createExam'/>" class="in-btn">취소</a>
 					      </div>
 					</c:when>
 					<c:otherwise>
