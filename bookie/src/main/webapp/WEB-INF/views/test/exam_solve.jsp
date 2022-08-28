@@ -96,9 +96,11 @@
   <script>
 	  // 지문의 마지막 문제의 border-bottom 없애기
 	  $(function() {
-	  	if($(".question").next().hasClass("qline")) {
-	  		$(this).addClass("off");
-	  	}
+		  $(".question").each(function() {
+			  if($(this).next().hasClass("qline")) {
+				  $(this).addClass("off");   
+			  }
+		  });
 	  });
   
 	 function sendPost(url) {
