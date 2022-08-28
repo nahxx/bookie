@@ -38,14 +38,14 @@
 								${list.getMainText().getMText()}
 								</div>
 								<div id="viewer_qText" class="question">
-								<span class="questionNo"> ${questionNo} </span>
+								<span class="questionNo"> ${questionNo}. </span>
 								${list.getQText()}
 								</div>
 								<c:set var="checkNo" value="${list.getMainText().getMtId()}" />
 							</c:when>
 							<c:otherwise>
 								<div id="viewer_qText" class="question">
-								<span class="questionNo"> ${questionNo} </span>
+								<span class="questionNo"> ${questionNo}. </span>
 								${list.getQText()}
 								</div>
 							</c:otherwise>
