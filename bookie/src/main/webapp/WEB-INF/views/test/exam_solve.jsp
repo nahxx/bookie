@@ -91,6 +91,7 @@
 					      </div>
 					</c:when>
 					<c:otherwise>
+						<div id="time-check">${timer}</div>
 						 <div class="write-btn">
 					          <a href="<c:url value='/test/examComment'/>" class="in-btn">해설보기</a>
 					      </div>
@@ -120,16 +121,17 @@
 	  });
 	  
 	  // 타이머
+	  let onOffCheck = '';
 	  let count = 0; // 초단위 카운트 담는 변수
 	  let m = 0; // 분단위 카운트 담는 변수
 	  let t = null; // setTimeout을 담는 변수
-	  
+	  onOffCheck = "${timer}"
 	  function timeCount() { //setTimeout 실행 함수
 		  // 1초마다 한번씩 count 증가시키는 함수
 		  if (m > 0) {
-		    document.getElementById('time-check').innerHTML = `${m}분 ${count}초`;
+		    document.getElementById('time-check').innerHTML = m+"분" + count+"초";
 		  } else {
-		    document.getElementById('time-check').innerHTML = `${m}분 ${count}초`;
+		    document.getElementById('time-check').innerHTML = m+"분" + count+"초";
 		  }
 		  count += 1;
 		  if (count == 60) {
@@ -138,9 +140,14 @@
 		  }
 		  t = setTimeout(timeCount, 1000);
 	  }
-	  window.onload = function() {
-		  timeCount();
-	  };
+	  
+	  if(onOffCheck == ''){
+		  window.onload = function() {
+			  timeCount();
+		  };
+	  }else{
+		  clearTimeout(t);
+	  }
   
 	 function sendPost(url) {
       //1. 폼생성
@@ -159,7 +166,13 @@
       hf_1.setAttribute('name', "answer");
       hf_1.setAttribute('value', answer);
       form.appendChild(hf_1);
-
+	  
+      var hf_2 = document.createElement('input');
+      hf_2.setAttribute('type', 'hidden');
+      hf_2.setAttribute('name', "timer");
+      hf_2.setAttribute('value', m+"분" + count+"초");
+      form.appendChild(hf_2);
+      
       document.body.appendChild(form);
       form.submit();
     };

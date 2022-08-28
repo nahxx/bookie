@@ -67,7 +67,7 @@ public class ExamSolveController {
 	}
 	
 	@PostMapping("/test/examSolve")
-	public String examConfirm(HttpServletRequest request, @RequestParam(value="answer") List<String> answer, Model model) {
+	public String examConfirm(HttpServletRequest request, @RequestParam(value="answer") List<String> answer, @RequestParam String timer,  Model model) {
 		HttpSession session = request.getSession(false);
 		long uId = (long) session.getAttribute("uId");
 		List<Boolean> answerConfirmList = new ArrayList<Boolean>(); 
@@ -80,6 +80,7 @@ public class ExamSolveController {
 		//System.out.println(answerConfirmList);
 		model.addAttribute("answerConfirmList", answerConfirmList);
 		model.addAttribute("mainList", mainList);
+		model.addAttribute("timer", timer);
 		return "/test/exam_solve";
 	}
 	
