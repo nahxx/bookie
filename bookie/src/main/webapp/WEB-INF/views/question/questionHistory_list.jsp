@@ -8,7 +8,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Insert title here</title>
+  <title>Bookie</title>
 </head>
 <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />

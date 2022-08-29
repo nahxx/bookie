@@ -10,7 +10,7 @@
 <head>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<title>bookie</title>
+<title>Bookie</title>
 <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />

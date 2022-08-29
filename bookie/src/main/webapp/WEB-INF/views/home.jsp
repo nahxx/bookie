@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>bookie</title>
+<title>Bookie</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />

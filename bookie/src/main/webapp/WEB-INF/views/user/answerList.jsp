@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>bookie</title>
+<title>Bookie</title>
 <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/header.css"/>" />
 <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />

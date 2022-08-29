@@ -5,7 +5,7 @@
 
 <head>
   <meta charset='utf-8'>
-  <title>QNA - 쓰기</title>
+  <title>Bookie</title>
   <!-- 디자인 수정용 CSS 추가 -->
   <link rel="stylesheet" href="<c:url value="/resources/css/default.css"/>" />
   <link rel="stylesheet" href="<c:url value="/resources/css/footer.css"/>" />
