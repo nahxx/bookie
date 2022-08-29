@@ -51,7 +51,7 @@ public class ImageSaveController {
 			} else if((long)session.getAttribute("uId") == 3) { // 관리자(도훈) 접근시
 				uploadPath = "C:/JAVA/teamecho/bookie/bookie/images/qna";
 			} else {
-				uploadPath = "C:/NCS/teamecho/bookie/bookie/images/qna";
+				uploadPath = "C:/NCS/teamecho/bookie/images/qna";
 			}
 
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
@@ -86,7 +86,7 @@ public class ImageSaveController {
 			} else if((long)session.getAttribute("uId") == 3) { // 관리자(도훈) 접근시
 				uploadPath = "C:/JAVA/teamecho/bookie/bookie/images/question";
 			} else {
-				uploadPath = "C:/NCS/teamecho/bookie/bookie/images/question";
+				uploadPath = "C:/NCS/teamecho/bookie/images/question";
 			}
 			
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
@@ -121,7 +121,7 @@ public class ImageSaveController {
 			} else if((long)session.getAttribute("uId") == 3) { // 관리자(도훈) 접근시
 				uploadPath = "C:/JAVA/teamecho/bookie/bookie/images/comment";
 			} else {
-				uploadPath = "C:/NCS/teamecho/bookie/bookie/images/comment";
+				uploadPath = "C:/NCS/teamecho/bookie/images/comment";
 			}
 			
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
@@ -156,7 +156,7 @@ public class ImageSaveController {
 			} else if((long)session.getAttribute("uId") == 3) { // 관리자(도훈) 접근시
 				uploadPath = "C:/JAVA/teamecho/bookie/bookie/images/answer";
 			} else {
-				uploadPath = "C:/NCS/teamecho/bookie/bookie/images/answer";
+				uploadPath = "C:/NCS/teamecho/bookie/images/answer";
 			}
 			
 			String originFilename = UUID.randomUUID().toString() + "_" + multi.getOriginalFilename();
