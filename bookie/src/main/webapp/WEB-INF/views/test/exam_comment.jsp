@@ -29,7 +29,7 @@
 		<div class="inner-wrap">
 			<div class="exam-wrap">
 				<div class="back">
-					<h5><a class="list" href="<c:url value='/test/createExam'/>">< 돌아가기</a></h5>
+					<h5><a class="list" href="<c:url value='/test/createExam'/>">< 새 문제 풀기</a></h5>
 				</div>
 				<c:set var="questionNo" value='1' />
 				<c:forEach var="list" items="${mainList}">

@@ -82,13 +82,16 @@
 }
 
 .question-number {
+  margin-left: 10px;
+  margin-right: 40px;
   font-size: 16px;
   font-family: 'IM_Hyemin-Regular';
   font-weight: bold;
 }
 
 .answerLa {
-  width: calc(100%/5);
+  width: calc(100%/12);
+  margin-right: 10px;
   text-align: center;
   font-size: 16px;
   font-family: 'IM_Hyemin-Regular';
@@ -212,3 +215,12 @@
   font-family: 'IM_Hyemin-Regular';
   font-weight: 700;
 }
+
+h5 a.list {
+  margin: 30px 0 40px;
+  margin-left: -120px;
+  display: inline-block;
+  font-size: 20px;
+  color: #444;
+}
+
