@@ -92,15 +92,13 @@ public class QuestionCartService {
         		list.add(q);
         	}
     	}
-    	
     	//가져온 문제에서 지문 객체를 담아준다.
     	for(Question q : list) {
     		if (q.getMainText().getMtId() != 0) {
     			q.setMainText(solveProblemRepository.getMainTest(q.getMainText().getMtId()));
     		}
     	}
-    	
-    	questionCart = new QuestionCart(); //객체 초기화 담긴 리스트를 초기화 한다.
+    	removeList();
     	return list;
     }
 

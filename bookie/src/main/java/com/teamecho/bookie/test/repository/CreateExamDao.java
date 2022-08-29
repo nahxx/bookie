@@ -31,9 +31,13 @@ public class CreateExamDao {
 	 * @return
 	 */
 	public List<Question> createExam(long uid, LineSubjectPattern lineSubjectPattern ) {
-		String sql = "SELECT q.*, a.identify FROM Question q "
-				+ "LEFT JOIN ( SELECT * FROM QuestionHistory qh WHERE qh.uid = ? ) a ON q.qid = a.qid "
-				+ "INNER JOIN QuestionPattern qp ON q.qId = qp.qId WHERE qp.spId = ? ORDER BY a.identify, RAND() LIMIT ?";
+//		String sql = "SELECT q.*, a.identify FROM Question q "
+//				+ "LEFT JOIN ( SELECT * FROM QuestionHistory qh WHERE qh.uid = ? ) a ON q.qid = a.qid "
+//				+ "INNER JOIN QuestionPattern qp ON q.qId = qp.qId WHERE qp.spId = ? ORDER BY a.identify, RAND() LIMIT ?";
+		String sql = "SELECT a.*"
+				+ " FROM (SELECT  q.qid, q.qText, q.answer, q.qComment, q.qtId, q.mtId, q.cateId, q.regDate, a.identify  FROM Question q "
+				+ " LEFT JOIN ( SELECT * FROM QuestionHistory qh WHERE qh.uid = ? ) a ON q.qid = a.qid GROUP BY q.qid ) a "
+				+ " INNER JOIN QuestionPattern qp ON a.qId = qp.qId WHERE qp.spId = ? ORDER BY a.identify, RAND() LIMIT ?";
 		return jdbcTemplate.query(sql, new QuestionRowMapper(), uid, lineSubjectPattern.getSubjectPattern().getSpId(), lineSubjectPattern.getQuestionCount());
 	}
 }

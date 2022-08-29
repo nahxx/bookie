@@ -26,7 +26,7 @@
 	<div class="wrap">
 		<div class="inner-wrap">
 			<div class="exam-wrap">
-				
+
 				<c:set var="checkNo" value='0' />
 				<c:set var="questionNo" value='1' />
 				<c:forEach var="list" items="${mainList}">
@@ -73,12 +73,13 @@
 				<c:set var="answerNo" value='1' />
 				<c:forEach var="list" items="${mainList}">
 					<div class="question-answer-form">
+						<div class="answerConfirm" id=${answerNo}></div>
 						<span class="question-number">${answerNo}</span>
-						 <label class="answerLa"><input type="radio" value="1" name="${list.getQId()}" class="sub" checked />1</label>
-						 <label class="answerLa"><input type="radio" value="2" name="${list.getQId()}" class="sub" />2</label>
-						 <label class="answerLa"><input type="radio" value="3" name="${list.getQId()}" class="sub" />3</label>
-						 <label class="answerLa"><input type="radio" value="4" name="${list.getQId()}" class="sub" />4</label>
-						 <label class="answerLa"><input type="radio" value="5" name="${list.getQId()}" class="sub" />5</label>
+						 <input type="radio" value="1" name="${list.getQId()}" class="sub" checked><label class="answerLa">1</label>
+						 <input type="radio" value="2" name="${list.getQId()}" class="sub" ><label class="answerLa">2</label>
+						 <input type="radio" value="3" name="${list.getQId()}" class="sub" ><label class="answerLa">3</label>
+						 <input type="radio" value="4" name="${list.getQId()}" class="sub" ><label class="answerLa">4</label>
+						 <input type="radio" value="5" name="${list.getQId()}" class="sub" ><label class="answerLa">5</label>
 					</div>
 						<c:set var="answerNo" value='${answerNo + 1}' />
 				</c:forEach>
@@ -94,6 +95,7 @@
 						<div id="time-check">${timer}</div>
 						 <div class="write-btn">
 					          <a href="<c:url value='/test/examComment'/>" class="in-btn">해설보기</a>
+					          <a href="<c:url value='/test/createExam'/>" class="in-btn">끝내기</a>
 					      </div>
 					</c:otherwise>
 				</c:choose>
@@ -108,18 +110,18 @@
 	  $(function() {
 		  $(".question").each(function() {
 			  if($(this).next().hasClass("qline")) {
-				  $(this).addClass("off");   
+				  $(this).addClass("off");
 			  }
 		  });
 	  });
-	  
+
 	  // 이미지 너비 체크
-	  $('img').each(function(i) {
+	  $('img').each(function() {
 		 if($(this).width() > 900) {
 			 $(this).css("width", "70%");
 		 }
 	  });
-	  
+
 	  // 타이머
 	  let onOffCheck = '';
 	  let count = 0; // 초단위 카운트 담는 변수
@@ -129,9 +131,9 @@
 	  function timeCount() { //setTimeout 실행 함수
 		  // 1초마다 한번씩 count 증가시키는 함수
 		  if (m > 0) {
-		    document.getElementById('time-check').innerHTML = m+"분" + count+"초";
+		    document.getElementById('time-check').innerHTML = m+" 분 " + count+" 초 ";
 		  } else {
-		    document.getElementById('time-check').innerHTML = m+"분" + count+"초";
+		    document.getElementById('time-check').innerHTML = m+" 분 " + count+" 초 ";
 		  }
 		  count += 1;
 		  if (count == 60) {
@@ -140,7 +142,7 @@
 		  }
 		  t = setTimeout(timeCount, 1000);
 	  }
-	  
+
 	  if(onOffCheck == ''){
 		  window.onload = function() {
 			  timeCount();
@@ -148,7 +150,7 @@
 	  }else{
 		  clearTimeout(t);
 	  }
-  
+
 	 function sendPost(url) {
       //1. 폼생성
       var form = document.createElement('form');
@@ -166,16 +168,48 @@
       hf_1.setAttribute('name', "answer");
       hf_1.setAttribute('value', answer);
       form.appendChild(hf_1);
-	  
+
       var hf_2 = document.createElement('input');
       hf_2.setAttribute('type', 'hidden');
       hf_2.setAttribute('name', "timer");
       hf_2.setAttribute('value', m+"분" + count+"초");
       form.appendChild(hf_2);
-      
+
       document.body.appendChild(form);
       form.submit();
     };
+
+    /*
+    	정답제출 후 돌아온 페이지에서 정답을 다시 체크 해준다.
+    */
+	let returnAnswer = '';
+	returnAnswer = "${answer}";
+    let answerForm = document.querySelectorAll('.question-answer-form');
+    returnAnswer = returnAnswer.split(",");
+    for(var i=0; i<returnAnswer.length; i++){
+    	returnAnswer[i] = returnAnswer[i].substr(1,1);
+    }
+
+    for (var i = 0; i < answerForm.length; i++) {
+    	let childForm = answerForm[i].childNodes;
+    	for (var j = 0; j < childForm.length; j++) {
+			if(returnAnswer != '' && childForm[j].nodeName =="INPUT"){
+				let inputFrom = childForm[j];
+				if(returnAnswer[i] == inputFrom.value){
+					inputFrom.checked = true;
+				}
+			}
+    	}
+      };
+
+      var ranswer = [];
+  	<c:forEach var="list" items="${answerConfirmList}">
+  		ranswer.push(${list});
+	</c:forEach>
+
+	 for(var i=0; i<${fn:length(answerConfirmList)}; i++) {
+	    document.getElementById((i+1)).classList.add(ranswer[i]);
+	 }
 
   </script>
 </body>
