@@ -46,10 +46,10 @@ span{
 	<div id="container">
 		<div class="back">
 			<c:if test="${check eq 'history'}">
-				<h5><a class="list" href="<c:url value='/question/questionHistory_list/${page}'/>"> < 목록으로</a></h5>
+				<h5><a class="list" href="<c:url value='/question/questionHistory_list/${page_h}'/>"> < 목록으로</a></h5>
 			</c:if>
 			<c:if test="${check eq 'admin'}">
-				<h5><a class="list" href="<c:url value="/admin/admin_question/1"/>"> < 목록으로</a></h5>
+				<h5><a class="list" href="<c:url value="/admin/admin_question/${page_a}"/>"> < 목록으로</a></h5>
 			</c:if>
 			<c:if test="${check eq 'history'}">
 				<h5><a class="question" href="<c:url value='/qna_write/1'/>"><span>질문</span>이 있으신가요?</a></h5>

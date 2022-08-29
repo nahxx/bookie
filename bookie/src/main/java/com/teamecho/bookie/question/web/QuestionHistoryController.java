@@ -75,7 +75,7 @@ public class QuestionHistoryController {
 			m = questionService.getMainTextByMtId(q.getMainText().getMtId());
 			mv.addObject("m", m);
 		}
-		mv.addObject("page", pagingNo);	
+		mv.addObject("page_h", pagingNo);	
 		mv.addObject("q", q);
 		mv.addObject("check", "history");
 		mv.setViewName("/question/questionHistory_detail");
@@ -90,7 +90,7 @@ public class QuestionHistoryController {
 			m = questionService.getMainTextByMtId(q.getMainText().getMtId());
 			mv.addObject("m", m);
 		}
-		mv.addObject("page", pagingNo);	
+		mv.addObject("page_a", pagingNo);	
 		mv.addObject("q", q);
 		mv.addObject("check", "admin");
 		mv.setViewName("/question/questionHistory_detail");
