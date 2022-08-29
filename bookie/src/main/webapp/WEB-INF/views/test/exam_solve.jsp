@@ -114,7 +114,7 @@
 	  });
 	  
 	  // 이미지 너비 체크
-	  $('img').each(function() {
+	  $('img').each(function(i) {
 		 if($(this).width() > 900) {
 			 $(this).css("width", "70%");
 		 }
@@ -176,9 +176,7 @@
       document.body.appendChild(form);
       form.submit();
     };
-    
-    let answerForm = document.querySelector('question-answer-form');
-    cLevel.checked = true;
+
   </script>
 </body>
 </html>
