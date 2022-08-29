@@ -73,8 +73,11 @@ span{
 	color: blue;
 	font-weight: 700;
 }
+#viewer_mText p img{
+	max-width: 600px;
+}
 #viewer_qText p img{
-	max-width: 800px;
+	max-width: 600px;
 }
 #viewer_qComment p img{
 	max-width: 500px;
