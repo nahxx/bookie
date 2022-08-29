@@ -69,6 +69,16 @@
 	display: flex;
   	justify-content: space-between;
 }
+span{
+	color: blue;
+	font-weight: 700;
+}
+#viewer_qText p img{
+	max-width: 800px;
+}
+#viewer_qComment p img{
+	max-width: 500px;
+}
 /*
 .list{
 	font-family : var(--font-family);

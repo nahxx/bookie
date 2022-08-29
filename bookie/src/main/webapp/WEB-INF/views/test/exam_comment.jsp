@@ -22,10 +22,15 @@
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
 </head>
+<style>
+</style>
 <body>
 	<div class="wrap">
 		<div class="inner-wrap">
 			<div class="exam-wrap">
+				<div class="back">
+					<h5><a class="list" href="<c:url value='/test/createExam'/>">< 돌아가기</a></h5>
+				</div>
 				<c:set var="questionNo" value='1' />
 				<c:forEach var="list" items="${mainList}">
 					<div id="viewer_qText" class="question">
@@ -36,12 +41,10 @@
 					<c:set var="questionNo" value='${questionNo + 1}' />
 				</c:forEach>
 			</div>
-
 		</div>
 	</div>
 	<footer id="footer">
 		<%@ include file="../incl/footer.jsp"%>
 	</footer>
-
 </body>
 </html>

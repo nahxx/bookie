@@ -33,12 +33,6 @@
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/question/question_history.css"/>" />
 </head>
-<style>
-span{
-	color: blue;
-	font-weight: 700;
-}
-</style>
 <body>
 	<header>
 		<%@ include file="../incl/header.jsp"%>
