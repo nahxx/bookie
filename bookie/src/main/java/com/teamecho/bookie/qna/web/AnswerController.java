@@ -55,18 +55,18 @@ public class AnswerController {
 		HttpSession session = request.getSession(false);
 		
 		if (session == null) {
-			  mv.addObject("session", "no");
-			  mv.setViewName("/error/no_session");
-			  return mv;
-	      } 
-		else {
+		  mv.addObject("session", "no");
+		  mv.setViewName("/error/no_session");
+		  return mv;
+	    } 
+		else{
 	         if(session.getAttribute("uId") == null) {
 	        	 mv.addObject("session", "no");
 	        	 mv.setViewName("/error/no_session");
 				 return mv;
 	         }
 	         mv.addObject("session", "yes");
-	      }
+	    }
 		
 		uId = (long) session.getAttribute("uId");
 		// session uId로 user 찾기

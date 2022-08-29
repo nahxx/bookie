@@ -77,6 +77,7 @@ public class QuestionHistoryController {
 		}
 		mv.addObject("page", pagingNo);	
 		mv.addObject("q", q);
+		mv.addObject("check", "history");
 		mv.setViewName("/question/questionHistory_detail");
 		return mv;
 	}
@@ -91,6 +92,7 @@ public class QuestionHistoryController {
 		}
 		mv.addObject("page", pagingNo);	
 		mv.addObject("q", q);
+		mv.addObject("check", "admin");
 		mv.setViewName("/question/questionHistory_detail");
 		return mv;
 	}
