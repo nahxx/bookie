@@ -81,6 +81,7 @@ public class ExamSolveController {
 		model.addAttribute("answerConfirmList", answerConfirmList);
 		model.addAttribute("mainList", mainList);
 		model.addAttribute("timer", timer);
+		model.addAttribute("answer", answer);
 		return "/test/exam_solve";
 	}
 	

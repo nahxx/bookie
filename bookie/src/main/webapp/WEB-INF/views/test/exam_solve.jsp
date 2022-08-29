@@ -176,6 +176,9 @@
       document.body.appendChild(form);
       form.submit();
     };
+    
+    let answerForm = document.querySelector('question-answer-form');
+    cLevel.checked = true;
   </script>
 </body>
 </html>
