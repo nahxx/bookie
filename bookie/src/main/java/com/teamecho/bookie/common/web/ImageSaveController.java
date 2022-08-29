@@ -58,7 +58,7 @@ public class ImageSaveController {
 			url = folder.getPath() + File.separator;
 			File destination = new File(url + originFilename);
 			multi.transferTo(destination);
-			mv.addObject("url", "http://localhost:8080/bookie/images/qna/");
+			mv.addObject("url", "/bookie/images/qna/");
 			mv.addObject("filename", originFilename);
 			mv.setViewName("/common/image_json");
 		} catch (Exception e) {
@@ -91,7 +91,7 @@ public class ImageSaveController {
 			url = folder.getPath() + File.separator;
 			File destination = new File(url + originFilename);
 			multi.transferTo(destination);
-			mv.addObject("url", "http://localhost:8080/bookie/images/question/");
+			mv.addObject("url", "/bookie/images/question/");
 			mv.addObject("filename", originFilename);
 			mv.setViewName("/common/image_json");
 		} catch (Exception e) {
@@ -124,7 +124,7 @@ public class ImageSaveController {
 			url = folder.getPath() + File.separator;
 			File destination = new File(url + originFilename);
 			multi.transferTo(destination);
-			mv.addObject("url", "http://localhost:8080/bookie/images/comment/");
+			mv.addObject("url", "/bookie/images/comment/");
 			mv.addObject("filename", originFilename);
 			mv.setViewName("/common/image_json");
 		} catch (Exception e) {
@@ -156,7 +156,7 @@ public class ImageSaveController {
 			url = folder.getPath() + File.separator;
 			File destination = new File(url + originFilename);
 			multi.transferTo(destination);
-			mv.addObject("url", "http://localhost:8080/bookie/images/answer/");
+			mv.addObject("url", "/bookie/images/answer/");
 			mv.addObject("filename", originFilename);
 			mv.setViewName("/common/image_json");
 		} catch (Exception e) {
