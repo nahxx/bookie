@@ -1,18 +1,22 @@
 @charset "UTF-8";
+
 @font-face {
-    font-family: 'CookieRun-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'IM_Hyemin-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Regular.woff2') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'CookieRun-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
-#header {
+@font-face {
+	font-family: 'IM_Hyemin-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Regular.woff2') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#header_pc {
 	position: fixed;
 	height: 80px;
 	width: 100%;
@@ -33,14 +37,14 @@
 
 #logo {
 	position: absolute;
-    display: inline-block;
-    height: 80px;
-    line-height: 60px;
-    width: 80px;
-    left: 0;
-    padding: 10px 0;
-    margin-left: 50px;
-    letter-spacing: 7px;
+	display: inline-block;
+	height: 80px;
+	line-height: 60px;
+	width: 80px;
+	left: 0;
+	padding: 10px 0;
+	margin-left: 50px;
+	letter-spacing: 7px;
 }
 
 #logo>a {
@@ -77,6 +81,7 @@
 .loginbar li {
 	position: relative;
 }
+
 .loginbar li:before {
 	position: absolute;
 	content: '';
@@ -86,6 +91,7 @@
 	top: 30.5px;
 	right: -16px;
 }
+
 .loginbar li:last-child:before {
 	display: none;
 }
@@ -109,40 +115,4 @@ nav {
 
 .gnb li>a {
 	color: white;
-}color picker
-
-.gnb li:first-child {
-	margin-left: 0;
 }
-
-/*
-.nav-box {
-	width: 800px;
-	margin: 0 auto;
-    position: fixed;
-    top: 0;
-    z-index: 100;
-}
-
-nav {
-	display: inline-block;
-    font-size: 20px;
-}
-
-.gnb {
-	overflow: hidden;
-	line-height: 80px;
-}
-
-.gnb li {
-	float: left;
-}
-
-.gnb li + li {
-	margin-left: 50px;
-}
-
-.gnb li a {
-	color: white;
-}
-*/

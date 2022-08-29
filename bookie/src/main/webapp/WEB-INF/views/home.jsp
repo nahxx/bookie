@@ -4,6 +4,7 @@
 
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>bookie</title>
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/default.css"/>" />
@@ -47,13 +48,22 @@
 			<div class="swiper-button-prev"></div>
 			<div class="swiper-pagination"></div>
 		</div>
+		<div class="container counts">
+			<c:forEach var="qCountList" items="${qCountList}" varStatus="status">
+				<div class="counters">
+					<span class="count">${qCountList}</span>
+					<h4>${queList[status.index]}</h4>
+				</div>
+			</c:forEach>
+		</div>
 		<!-- 컨텐츠 영역 -->
 		<div class="container main_gallery">
 			<div class="main_schedule" id="proMainMonthArea">
 				<h2 class="main_section_title">이달의 교재·강좌·입시설명회</h2>
 				<div class="main_gallery_list slider">
 					<div class="main_gallery_item">
-						<a href="https://promotion.ebsi.co.kr/goPromotion.do?promotion_cd=hsp.main.g3-month.1.1">
+						<a
+							href="https://promotion.ebsi.co.kr/goPromotion.do?promotion_cd=hsp.main.g3-month.1.1">
 							<div class="main_gallery_thumb img_fit">
 								<img src="<c:url value="/resources/img/gallery/1.jpeg"/>">
 							</div>
@@ -80,7 +90,8 @@
 						</a>
 					</div>
 					<div class="main_gallery_item">
-						<a ref="https://promotion.ebsi.co.kr/goPromotion.do?promotion_cd=hsp.main.g3-month.1.3">
+						<a
+							ref="https://promotion.ebsi.co.kr/goPromotion.do?promotion_cd=hsp.main.g3-month.1.3">
 							<div class="main_gallery_thumb img_fit">
 								<img src="<c:url value="/resources/img/gallery/3.jpeg"/>">
 							</div>
@@ -93,7 +104,8 @@
 						</a>
 					</div>
 					<div class="main_gallery_item">
-						<a href="https://promotion.ebsi.co.kr/goPromotion.do?promotion_cd=hsp.main.g3-month.1.4">
+						<a
+							href="https://promotion.ebsi.co.kr/goPromotion.do?promotion_cd=hsp.main.g3-month.1.4">
 							<div class="main_gallery_thumb img_fit">
 								<img src="<c:url value="/resources/img/gallery/4.jpeg"/>">
 							</div>
@@ -122,18 +134,6 @@
 
 				</div>
 			</div>
-
-
-		</div>
-
-
-		<div class="container counts">
-			<c:forEach var="qCountList" items="${qCountList}" varStatus="status">
-				<div class="counters">
-					<span class="count">${qCountList}</span>
-					<h4>${queList[status.index]}</h4>
-				</div>
-			</c:forEach>
 		</div>
 		<div class="container content">
 			<div class="user contents">
@@ -322,6 +322,5 @@
 			},
 		});
 	</script>
-
 </body>
 </html>
